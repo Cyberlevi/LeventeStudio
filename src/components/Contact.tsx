@@ -1,37 +1,66 @@
-import { Phone, MessageCircle } from 'lucide-react';
+import { Phone, MessageCircle, Mail, Calendar } from 'lucide-react';
 
 export default function Contact() {
   return (
     <section className="px-6 py-24 bg-taupe-900 text-cream-50">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-light mb-8">
-          Kapcsolat
+          Indítsuk el
         </h2>
 
         <p className="text-xl md:text-2xl font-light mb-12 text-cream-100 max-w-2xl mx-auto text-balance">
-          Ha értelmes problémád van, hívj fel.<br />
-          Ha nincs, az is rendben van.
+          Ha komoly problémát látsz a weboldaladon, és adatokkal akarod megoldani – beszéljünk.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
           <a
             href="tel:+36202826843"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 text-lg"
+            data-plausible-event="contact-phone"
+            className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >
-            <Phone size={20} />
-            +36 20 282 6843
+            <Phone size={32} />
+            <span className="text-lg font-light">Azonnali hívás</span>
+            <span className="text-sm opacity-80">+36 20 282 6843</span>
           </a>
 
           <a
-            href="https://wa.me/36202826843"
+            href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 border-2 border-cream-50 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg"
+            data-plausible-event="contact-whatsapp"
+            className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
           >
-            <MessageCircle size={20} />
-            WhatsApp
+            <MessageCircle size={32} />
+            <span className="text-lg font-light">WhatsApp</span>
+            <span className="text-sm opacity-80">Gyors válasz</span>
+          </a>
+
+          <a
+            href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s"
+            data-plausible-event="contact-email"
+            className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
+          >
+            <Mail size={32} />
+            <span className="text-lg font-light">Email</span>
+            <span className="text-sm opacity-80">hello@leventestudio.app</span>
+          </a>
+
+          <a
+            href="https://cal.com/leventestudio/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-plausible-event="contact-calendar"
+            className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
+          >
+            <Calendar size={32} />
+            <span className="text-lg font-light">15 perc</span>
+            <span className="text-sm opacity-80">Ingyenes konzultáció</span>
           </a>
         </div>
+
+        <p className="text-sm text-cream-200 font-light">
+          Nem válaszolok mindenre azonnal, de 24 órán belül mindenképp jelzek.
+        </p>
       </div>
     </section>
   );

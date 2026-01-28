@@ -1,8 +1,11 @@
 import Header from './components/Header';
 import Hero from './components/Hero';
+import ProblemAwareness from './components/ProblemAwareness';
+import AuditDeliverables from './components/AuditDeliverables';
+import AuditCTA from './components/AuditCTA';
+import AboutExpert from './components/AboutExpert';
 import HowIWork from './components/HowIWork';
-import WhatIHelp from './components/WhatIHelp';
-import CaseStudy from './components/CaseStudy';
+import CaseStudies from './components/CaseStudies';
 import ForWhom from './components/ForWhom';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
@@ -16,9 +19,20 @@ function App() {
       <div className="min-h-screen bg-white">
         <Header />
         <Hero />
+        <ProblemAwareness />
+        <div id="deliverables">
+          <AuditDeliverables />
+        </div>
+        <div id="audit-cta">
+          <AuditCTA
+            variant="primary"
+            title="Kérj weboldal auditot most"
+            subtitle="Válaszd ki, ahogy neked kényelmes. Minden út ugyanoda vezet: tiszta kép arról, mi nem működik."
+          />
+        </div>
+        <AboutExpert />
         <HowIWork />
-        <WhatIHelp />
-        <CaseStudy />
+        <CaseStudies />
         <ForWhom />
         <FAQ />
         <Contact />
