@@ -3,13 +3,11 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Levente Stúdió",
+    "url": "https://leventestudio.app",
     "description": "Weboldalak, SEO és technikai rendszerek szakértői rendbetétele. Nem sablonokkal – gondolkodással.",
     "telephone": "+36202826843",
     "priceRange": "$$",
-    "areaServed": {
-      "@type": "Country",
-      "name": "Hungary"
-    },
+    "areaServed": "HU",
     "serviceType": [
       "Weboldal audit",
       "SEO optimalizálás",
