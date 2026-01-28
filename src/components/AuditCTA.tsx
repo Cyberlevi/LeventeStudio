@@ -1,4 +1,5 @@
 import { Phone, MessageCircle, Calendar, Mail } from 'lucide-react';
+import { trackConversion } from '../utils/gtm';
 
 interface AuditCTAProps {
   variant?: 'primary' | 'secondary';
@@ -29,7 +30,7 @@ export default function AuditCTA({
         <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
           <a
             href="tel:+36202826843"
-            data-plausible-event="cta-phone"
+            onClick={() => trackConversion('click_phone', undefined, 'cta_main')}
             className={`flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 ${
               isPrimary
                 ? 'bg-cream-50 text-taupe-900 hover:bg-cream-100'
@@ -45,7 +46,7 @@ export default function AuditCTA({
             href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
             target="_blank"
             rel="noopener noreferrer"
-            data-plausible-event="cta-whatsapp"
+            onClick={() => trackConversion('click_whatsapp', undefined, 'cta_main')}
             className={`flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 ${
               isPrimary
                 ? 'bg-taupe-800 text-cream-50 hover:bg-taupe-700'
@@ -59,7 +60,7 @@ export default function AuditCTA({
 
           <a
             href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s&body=Szia%2C%0A%0AWeboldal%20audit%C3%A1t%20szeretn%C3%A9m%20k%C3%A9rni.%0A%0AWeboldal%20URL%3A%20%0ATelefonsz%C3%A1m%3A%20%0A%0AProbléma%20r%C3%B6viden%3A%20"
-            data-plausible-event="cta-email"
+            onClick={() => trackConversion('click_email', undefined, 'cta_main')}
             className={`flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 ${
               isPrimary
                 ? 'bg-taupe-800 text-cream-50 hover:bg-taupe-700'
@@ -75,7 +76,7 @@ export default function AuditCTA({
             href="https://cal.com/leventestudio/15min"
             target="_blank"
             rel="noopener noreferrer"
-            data-plausible-event="cta-calendar"
+            onClick={() => trackConversion('click_calendar', undefined, 'cta_main')}
             className={`flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 ${
               isPrimary
                 ? 'bg-cream-50 text-taupe-900 hover:bg-cream-100'

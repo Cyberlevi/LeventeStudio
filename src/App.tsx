@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProblemAwareness from './components/ProblemAwareness';
@@ -11,11 +12,23 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StructuredData from './components/StructuredData';
+import CookieBanner from './components/CookieBanner';
+import { useScrollTracking } from './hooks/useScrollTracking';
+import { useTimeTracking } from './hooks/useTimeTracking';
+import { trackPageView } from './utils/gtm';
 
 function App() {
+  useScrollTracking();
+  useTimeTracking();
+
+  useEffect(() => {
+    trackPageView(window.location.pathname);
+  }, []);
+
   return (
     <>
       <StructuredData />
+      <CookieBanner />
       <div className="min-h-screen bg-white">
         <Header />
         <Hero />

@@ -1,6 +1,30 @@
+import { useEffect, useRef } from 'react';
+import { trackInteraction } from '../utils/gtm';
+
 export default function CaseStudy() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const tracked = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !tracked.current) {
+          tracked.current = true;
+          trackInteraction('case_study_view', 'bundavarazs', 'viewed');
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="px-6 py-24 bg-white">
+    <section ref={sectionRef} className="px-6 py-24 bg-white">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-16 text-center">
           Esettanulmány – Bundavarázs Kutyakozmetika

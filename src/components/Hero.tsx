@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { trackEvent } from '../utils/gtm';
 
 export default function Hero() {
   return (
@@ -26,7 +27,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#audit-cta"
-            data-plausible-event="hero-cta-audit"
+            onClick={() => trackEvent('cta_click', 'engagement', 'hero_audit')}
             className="inline-flex items-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg"
           >
             Audit kérése
@@ -35,7 +36,7 @@ export default function Hero() {
 
           <a
             href="#deliverables"
-            data-plausible-event="hero-cta-learn"
+            onClick={() => trackEvent('cta_click', 'engagement', 'hero_learn')}
             className="inline-flex items-center gap-3 px-8 py-4 border-2 border-taupe-700 text-taupe-700 rounded-sm hover:bg-taupe-50 transition-colors duration-200 text-lg"
           >
             Mit kapsz az auditban

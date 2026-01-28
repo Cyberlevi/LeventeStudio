@@ -9,12 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="canonical" href="https://leventestudio.app/" />
 
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="canonical" href="https://leventestudio.app/" />
-
     <meta property="og:url" content="https://leventestudio.app/" />
     <meta property="og:image" content="https://leventestudio.app/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -39,11 +33,45 @@
     <meta name="twitter:description" content="Weboldal audit, SEO és teljesítmény optimalizálás Budapesten. Adat-alapú elemzés, mérhető eredmények. Hívj most!" />
     <meta name="twitter:image" content="https://leventestudio.app/og-image.jpg" />
 
-    <!-- Plausible Analytics - Privacy-first, no cookie banner needed -->
-    <!-- Replace "leventestudio.app" with your actual domain when ready -->
+    <!-- Google Consent Mode v2 - MUST be loaded BEFORE GTM -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+
+      // Default consent state (denied until user accepts)
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+
+      // Enable GTM immediately (consent mode will control what fires)
+      gtag('js', new Date());
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Plausible Analytics - Privacy-first, runs regardless of consent -->
     <script defer data-domain="leventestudio.app" src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

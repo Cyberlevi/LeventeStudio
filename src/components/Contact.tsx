@@ -1,4 +1,5 @@
 import { Phone, MessageCircle, Mail, Calendar } from 'lucide-react';
+import { trackConversion } from '../utils/gtm';
 
 export default function Contact() {
   return (
@@ -15,7 +16,7 @@ export default function Contact() {
         <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
           <a
             href="tel:+36202826843"
-            data-plausible-event="contact-phone"
+            onClick={() => trackConversion('click_phone', undefined, 'contact')}
             className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >
             <Phone size={32} />
@@ -27,7 +28,7 @@ export default function Contact() {
             href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
             target="_blank"
             rel="noopener noreferrer"
-            data-plausible-event="contact-whatsapp"
+            onClick={() => trackConversion('click_whatsapp', undefined, 'contact')}
             className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
           >
             <MessageCircle size={32} />
@@ -37,7 +38,7 @@ export default function Contact() {
 
           <a
             href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s"
-            data-plausible-event="contact-email"
+            onClick={() => trackConversion('click_email', undefined, 'contact')}
             className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
           >
             <Mail size={32} />
@@ -49,7 +50,7 @@ export default function Contact() {
             href="https://cal.com/leventestudio/15min"
             target="_blank"
             rel="noopener noreferrer"
-            data-plausible-event="contact-calendar"
+            onClick={() => trackConversion('click_calendar', undefined, 'contact')}
             className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >
             <Calendar size={32} />

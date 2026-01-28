@@ -1,3 +1,5 @@
+import FAQItem from './FAQItem';
+
 export default function FAQ() {
   const faqs = [
     {
@@ -35,14 +37,7 @@ export default function FAQ() {
 
         <div className="space-y-8">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-taupe-200 pb-8 last:border-0">
-              <h3 className="text-xl md:text-2xl font-normal text-taupe-900 mb-4">
-                {faq.question}
-              </h3>
-              <p className="text-taupe-700 font-light leading-relaxed">
-                {faq.answer}
-              </p>
-            </div>
+            <FAQItem key={index} question={faq.question} answer={faq.answer} index={index} />
           ))}
         </div>
       </div>
