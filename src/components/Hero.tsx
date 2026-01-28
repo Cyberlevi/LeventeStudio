@@ -5,15 +5,15 @@ export default function Hero() {
     <section className="min-h-screen flex items-center justify-center px-6 py-20 pt-32 bg-cream-50">
       <div className="max-w-4xl w-full text-center">
         <h1 className="text-5xl md:text-7xl font-light text-taupe-900 mb-8 leading-tight text-balance">
-          Digitális problémák.<br />Tiszta megoldások.
+          Weboldal audit és SEO szakértő – Technikai optimalizálás Budapest
         </h1>
 
         <div className="text-lg md:text-xl text-taupe-700 mb-12 font-light max-w-3xl mx-auto space-y-4 text-balance">
           <p>
-            Weboldalak, SEO és technikai rendszerek szakértői rendbetétele. Nem sablonokkal – gondolkodással.
+            Levente Stúdió – független weboldal audit és SEO szakértő Budapesten. Weboldal teljesítmény optimalizálás, technikai SEO audit, UX és konverziós tölcsér javítás. Nem ügynökség, hanem egyéni szakértői műhely adat-alapú megközelítéssel.
           </p>
           <p>
-            Ha a weboldal nem konvertál, a Google nem talál, vagy a technikai problémák miatt elvész a forgalom – megnézem, mi nem működik, és rendbe teszem. Elemzés, diagnózis, javítás. Nem ügynökség, hanem szakértői műhely.
+            Ha a weboldal nem konvertál, a Google nem talál, vagy a technikai problémák miatt elvész a forgalom – megnézem, mi nem működik, és rendbe teszem. Elemzés, diagnózis, javítás. Mérnöki munka, nem találgatás.
           </p>
         </div>
 

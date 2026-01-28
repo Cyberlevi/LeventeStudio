@@ -36,7 +36,7 @@ export default function WhatIHelp() {
     <section className="px-6 py-24 bg-cream-50">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-16 text-center">
-          Miben segítek
+          Weboldal audit és SEO szolgáltatások
         </h2>
 
         <div className="space-y-12">

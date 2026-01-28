@@ -4,6 +4,7 @@ import HowIWork from './components/HowIWork';
 import WhatIHelp from './components/WhatIHelp';
 import CaseStudy from './components/CaseStudy';
 import ForWhom from './components/ForWhom';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StructuredData from './components/StructuredData';
@@ -19,6 +20,7 @@ function App() {
         <WhatIHelp />
         <CaseStudy />
         <ForWhom />
+        <FAQ />
         <Contact />
         <Footer />
       </div>

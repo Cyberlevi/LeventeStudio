@@ -11,7 +11,7 @@ export default function HowIWork() {
     <section className="px-6 py-24 bg-white">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-16 text-center">
-          Hogyan dolgozom
+          Weboldal audit módszertan – adat-alapú diagnózis
         </h2>
 
         <div className="grid md:grid-cols-5 gap-8 mb-16">
@@ -27,13 +27,13 @@ export default function HowIWork() {
 
         <div className="max-w-2xl mx-auto space-y-6 text-taupe-700 font-light leading-relaxed">
           <p>
-            Nem kezdem azzal, hogy "mit szeretnél". Először megnézem az adatokat: mit mutat a Google Analytics, a Search Console, a heatmap. Aztán a kódot: hogyan van megírva, mit lassít, mi törik el. Aztán azt, amit a felhasználó lát: mobilon, desktopon, különböző böngészőkben.
+            A weboldal audit nem kérdőívvel kezdődik, hanem adatelemzéssel. Először megnézem, mit mutat a Google Analytics, a Search Console, a heatmap. SEO szempontból ellenőrzöm a technikai elemeket: meta tagek, strukturált adatok, betöltési sebesség. Aztán a kódot: hogyan van megírva, mit lassít, mi törik el. Végül azt, amit a felhasználó lát: mobilon, desktopon, különböző böngészőkben.
           </p>
           <p>
             Csak utána nyúlok hozzá. Nem találgatásból, hanem mert látom, mi a probléma. Minden beavatkozás mögött van adat, van ok, van cél. Javítok, amit javítani kell. Egyszerűsítem, amit túlbonyolítottak. Automatizálom, amit felesleges kézzel csinálni.
           </p>
           <p className="font-normal text-taupe-900">
-            Ez nem kreatív ötletelés. Ez mérnöki munka.
+            Ez nem kreatív ötletelés. Ez mérnöki munka – SEO szakértő szemmel.
           </p>
         </div>
       </div>

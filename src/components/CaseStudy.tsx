@@ -43,7 +43,7 @@ export default function CaseStudy() {
 
           <div className="mt-8 text-center">
             <p className="text-taupe-700 font-light text-lg">
-              Ha hasonló problémád van, hívj fel.
+              Ha Budapesten vagy környékén keresel megbízható weboldal audit szakértőt hasonló problémákra, hívj fel bizalommal.
             </p>
           </div>
         </div>
