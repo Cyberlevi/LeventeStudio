@@ -3,7 +3,7 @@ import { trackConversion } from '../utils/gtm';
 
 export default function Contact() {
   return (
-    <section className="px-6 py-24 bg-taupe-900 text-cream-50">
+    <section className="px-6 py-24 pb-32 md:pb-24 bg-taupe-900 text-cream-50">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-light mb-8">
           Indítsuk el

@@ -13,6 +13,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StructuredData from './components/StructuredData';
 import CookieBanner from './components/CookieBanner';
+import MobileStickyBar from './components/MobileStickyBar';
 import { useScrollTracking } from './hooks/useScrollTracking';
 import { useTimeTracking } from './hooks/useTimeTracking';
 import { trackPageView } from './utils/gtm';
@@ -29,6 +30,7 @@ function App() {
     <>
       <StructuredData />
       <CookieBanner />
+      <MobileStickyBar />
       <div className="min-h-screen bg-white">
         <Header />
         <Hero />

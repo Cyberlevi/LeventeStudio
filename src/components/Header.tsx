@@ -1,4 +1,4 @@
-import { Phone } from 'lucide-react';
+import { Calendar, Phone } from 'lucide-react';
 import Logo from './Logo';
 import { trackConversion } from '../utils/gtm';
 
@@ -9,12 +9,23 @@ export default function Header() {
         <Logo variant="primary" theme="light" className="h-8" />
 
         <a
+          href="https://cal.com/leventestudio/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackConversion('click_calendar', undefined, 'header')}
+          className="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-taupe-700 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light"
+        >
+          <Calendar size={18} />
+          15 perc ingyenes konzultáció
+        </a>
+
+        <a
           href="tel:+36202826843"
           onClick={() => trackConversion('click_phone', undefined, 'header')}
-          className="inline-flex items-center gap-2 px-6 py-2 bg-taupe-700 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm"
+          className="md:hidden inline-flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors duration-200 text-sm font-light"
         >
           <Phone size={16} />
-          Hívás
+          +36 20 282 6843
         </a>
       </div>
     </header>
