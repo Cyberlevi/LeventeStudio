@@ -1,4 +1,4 @@
-import { CheckCircle2, FileText, BarChart3, Zap, Target, Shield } from 'lucide-react';
+import { CheckCircle2, FileText, BarChart3, Zap, Target, Shield, Lock } from 'lucide-react';
 
 export default function AuditDeliverables() {
   const deliverables = [
@@ -26,6 +26,11 @@ export default function AuditDeliverables() {
       icon: CheckCircle2,
       title: 'Javítási ütemterv',
       description: 'Mit kell javítani először, mit később. Prioritás, hatás, bonyolultság. Lépésről lépésre.'
+    },
+    {
+      icon: Lock,
+      title: 'Biztonsági sebezhetőségek',
+      description: 'SQL injection, XSS, CSRF, elavult szoftverek, gyenge konfiguráció. Minden biztonsági rés súlyossági szinttel.'
     },
     {
       icon: Shield,

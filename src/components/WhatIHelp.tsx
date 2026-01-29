@@ -29,6 +29,12 @@ export default function WhatIHelp() {
       problem: 'Túlbonyolított stack: 10 különböző eszköz, 5 plugin, 3 integráció. Senki nem érti, hogy mi miért van. Ha valami elromlik, senki nem tudja megjavítani.',
       consequence: 'Drága fenntartás, lassú fejlesztés, állandó függőség külső segítségtől. Bármi változtatás hetekig tart, mert senki nem mer hozzányúlni.',
       solution: 'Leegyszerűsítem a rendszert. Kiveszem, ami felesleges. Amit marad, azt dokumentálom, hogy érthető és karbantartható legyen. A cél: kevesebb eszköz, tisztább logika, gyorsabb munka.'
+    },
+    {
+      title: 'Kiberbiztonsági audit',
+      problem: 'A weboldal vagy rendszer biztonsági résekkel tele. Elavult szoftverek, gyenge jelszavak, nem védett adminfelület. SQL injection, XSS, CSRF – kifejezések, amiket nem értesz, de a hackerek igen.',
+      consequence: 'Adatszivárgás, feltört admin, ügyfél adatok az interneten. GDPR bírság milliós tételben. Bizalomvesztés, hírhedelem, üzleti kár. Egy sikeres támadás és vége.',
+      solution: 'Átfogó biztonsági audit: sebezhetőség-elemzés, penetrációs teszt, konfiguráció ellenőrzés. SSL, HTTPS, szerverbeállítások, kód-szintű vizsgálat. Megmutatom, hol törhet be valaki – és mit kell megerősíteni, hogy ne tudjon.'
     }
   ];
 
