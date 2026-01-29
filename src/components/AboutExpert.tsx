@@ -27,10 +27,10 @@ export default function AboutExpert() {
 
         <div className="flex flex-col md:flex-row gap-12 mb-16">
           <div className="md:w-1/3 flex-shrink-0">
-            <div className="relative aspect-square overflow-hidden rounded-sm">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
               <img
-                src="/levente_studio_avatar_1024.webp"
-                srcSet="/levente_studio_avatar_1024.webp 1024w"
+                src="/levente_studio_portrait_final.webp"
+                srcSet="/levente_studio_portrait_final.webp 1024w"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-full object-cover object-center"
                 alt="Levente – Weboldal Audit Szakértő"
