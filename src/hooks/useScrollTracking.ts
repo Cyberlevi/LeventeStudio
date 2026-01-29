@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { trackScroll } from '../utils/gtm';
+import { throttle } from '../utils/throttle';
 
 export function useScrollTracking() {
   const tracked50 = useRef(false);
@@ -23,7 +24,12 @@ export function useScrollTracking() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const throttledScroll = throttle(handleScroll, 250);
+
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+    return () => {
+      throttledScroll.cancel();
+      window.removeEventListener('scroll', throttledScroll);
+    };
   }, []);
 }

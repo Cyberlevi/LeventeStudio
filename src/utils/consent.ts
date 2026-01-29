@@ -12,10 +12,21 @@ export function getConsentState(): ConsentState | null {
 
   try {
     const stored = localStorage.getItem(CONSENT_KEY);
-    if (!stored) return null;
+    if (!stored) {
+      const sessionStored = sessionStorage.getItem(CONSENT_KEY);
+      if (!sessionStored) return null;
+      return JSON.parse(sessionStored);
+    }
     return JSON.parse(stored);
-  } catch {
-    return null;
+  } catch (error) {
+    console.warn('Failed to retrieve consent state:', error);
+    try {
+      const sessionStored = sessionStorage.getItem(CONSENT_KEY);
+      if (!sessionStored) return null;
+      return JSON.parse(sessionStored);
+    } catch {
+      return null;
+    }
   }
 }
 
@@ -27,10 +38,27 @@ export function setConsentState(state: Omit<ConsentState, 'timestamp'>): void {
     timestamp: Date.now(),
   };
 
+  const serialized = JSON.stringify(consentState);
+
   try {
-    localStorage.setItem(CONSENT_KEY, JSON.stringify(consentState));
-  } catch {
-    // Silently fail if localStorage is not available
+    localStorage.setItem(CONSENT_KEY, serialized);
+  } catch (localStorageError) {
+    console.warn('localStorage failed, trying sessionStorage:', localStorageError);
+
+    try {
+      sessionStorage.setItem(CONSENT_KEY, serialized);
+      console.info('Consent state saved to sessionStorage (will expire on browser close)');
+    } catch (sessionStorageError) {
+      console.error('Both localStorage and sessionStorage failed:', sessionStorageError);
+
+      if (confirm(
+        'A böngésző nem engedélyezi a sütik tárolását. Kérjük engedélyezd a sütiket a beállításokban, ' +
+        'különben minden oldal újratöltésnél újra el kell fogadnod a sütiket.\n\n' +
+        'Tovább folytatod süti tárolás nélkül?'
+      )) {
+        console.info('User acknowledged storage limitation');
+      }
+    }
   }
 }
 
