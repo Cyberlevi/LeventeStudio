@@ -40,15 +40,15 @@ export default function AuditCTA({
             </a>
 
             <a
-              href="https://cal.com/leventestudio/15min"
+              href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackConversion('click_calendar', undefined, 'cta_main')}
+              onClick={() => trackConversion('click_whatsapp', undefined, 'cta_main')}
               className="flex flex-col items-center gap-3 p-8 rounded-sm transition-colors duration-200 bg-taupe-900 text-cream-50 hover:bg-taupe-800"
             >
-              <Calendar size={32} />
-              <span className="text-lg font-light">15 perces konzultáció</span>
-              <span className="text-sm opacity-80">Ingyenes, kötelezettség nélkül</span>
+              <MessageCircle size={32} />
+              <span className="text-lg font-light">WhatsApp üzenet</span>
+              <span className="text-sm opacity-80">Gyors válasz 24 órán belül</span>
             </a>
           </div>
 

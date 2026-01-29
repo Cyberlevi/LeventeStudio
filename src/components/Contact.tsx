@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, Mail, Calendar } from 'lucide-react';
+import { Phone, MessageCircle, Mail } from 'lucide-react';
 import { trackConversion } from '../utils/gtm';
 
 export default function Contact() {
@@ -39,23 +39,11 @@ export default function Contact() {
           <a
             href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s"
             onClick={() => trackConversion('click_email', undefined, 'contact')}
-            className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
+            className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >
             <Mail size={32} />
             <span className="text-lg font-light">Email</span>
             <span className="text-sm opacity-80">hello@leventestudio.app</span>
-          </a>
-
-          <a
-            href="https://cal.com/leventestudio/15min"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackConversion('click_calendar', undefined, 'contact')}
-            className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
-          >
-            <Calendar size={32} />
-            <span className="text-lg font-light">15 perc</span>
-            <span className="text-sm opacity-80">Ingyenes konzultáció</span>
           </a>
         </div>
 

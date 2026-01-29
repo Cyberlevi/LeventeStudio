@@ -1,4 +1,4 @@
-import { Phone, Calendar } from 'lucide-react';
+import { Phone, MessageCircle } from 'lucide-react';
 import { trackConversion } from '../utils/gtm';
 
 export default function MobileStickyBar() {
@@ -15,14 +15,14 @@ export default function MobileStickyBar() {
         </a>
 
         <a
-          href="https://cal.com/leventestudio/15min"
+          href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackConversion('click_calendar', undefined, 'sticky_bar')}
+          onClick={() => trackConversion('click_whatsapp', undefined, 'sticky_bar')}
           className="flex items-center justify-center gap-2 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-950"
         >
-          <Calendar size={20} />
-          <span className="font-light">Időpont</span>
+          <MessageCircle size={20} />
+          <span className="font-light">WhatsApp</span>
         </a>
       </div>
     </div>
