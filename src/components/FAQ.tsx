@@ -25,14 +25,6 @@ export default function FAQ() {
     {
       question: 'Dolgozol WordPress / Shopify / custom oldalakkal?',
       answer: 'Igen, mindhárommal. A platform nem számít, az audit módszer ugyanaz: teljesítmény, SEO, UX, konverzió. WordPress, Shopify, Webflow, custom fejlesztés – mindegy. Az audit arról szól, hogy mi nem működik, nem arról, hogy milyen rendszeren van.'
-    },
-    {
-      question: 'Mit tartalmaz a kiberbiztonsági audit?',
-      answer: 'Sebezhetőség-elemzés: elavult szoftverek, pluginek, gyenge konfigurációk. Penetrációs teszt: SQL injection, XSS, CSRF, brute force próbák. SSL/HTTPS ellenőrzés, szerverbeállítások, admin védelem, GDPR megfelelés. Kód-szintű audit, ha custom fejlesztés. A végén részletes jelentés: mit találtam, milyen súlyos, hogyan kell javítani.'
-    },
-    {
-      question: 'Mennyibe kerül a kiberbiztonsági audit?',
-      answer: '250.000–500.000 Ft a rendszer méretétől és komplexitásától függően. Kisebb weboldalak (WordPress, kevés funkció) 250.000 Ft körül. Nagyobb rendszerek (e-commerce, felhasználói adatok, fizetés) 400.000–500.000 Ft. Az első konzultáció ingyenes, ott látom a rendszert és megmondom a pontos árat.'
     }
   ];
 
