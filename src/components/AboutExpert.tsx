@@ -26,12 +26,18 @@ export default function AboutExpert() {
         </h2>
 
         <div className="flex flex-col md:flex-row gap-12 mb-16">
-          <div className="md:w-1/3">
-            <img
-              src="/levente.jpg"
-              className="w-full rounded-sm grayscale"
-              alt="Levente – Weboldal Audit Szakértő"
-            />
+          <div className="md:w-1/3 flex-shrink-0">
+            <div className="relative aspect-square overflow-hidden rounded-sm">
+              <img
+                src="/levente_studio_avatar_1024.webp"
+                srcSet="/levente_studio_avatar_1024.webp 1024w"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="w-full h-full object-cover object-center"
+                alt="Levente – Weboldal Audit Szakértő"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
 
           <div className="md:w-2/3 space-y-6 text-taupe-700 font-light leading-relaxed">
