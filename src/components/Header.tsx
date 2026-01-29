@@ -13,10 +13,10 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackConversion('click_calendar', undefined, 'header')}
-          className="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-taupe-700 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light"
+          className="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light"
         >
           <Calendar size={18} />
-          15 perc ingyenes konzultáció
+          Ingyenes konzultáció
         </a>
 
         <a

@@ -23,7 +23,15 @@ export default {
           700: '#5d534c',
           800: '#4d4641',
           900: '#423c38',
+          950: '#38322f',
         },
+        accent: {
+          600: '#b8865f',
+          700: '#9d7050',
+        },
+      },
+      fontFamily: {
+        'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
       },
     },
   },

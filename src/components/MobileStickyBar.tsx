@@ -8,7 +8,7 @@ export default function MobileStickyBar() {
         <a
           href="tel:+36202826843"
           onClick={() => trackConversion('click_phone', undefined, 'sticky_bar')}
-          className="flex items-center justify-center gap-2 py-4 bg-taupe-700 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-900"
+          className="flex items-center justify-center gap-2 py-4 bg-taupe-600 text-cream-50 hover:bg-taupe-700 transition-colors duration-200 active:bg-taupe-800"
         >
           <Phone size={20} />
           <span className="font-light">Hívás</span>
@@ -19,7 +19,7 @@ export default function MobileStickyBar() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackConversion('click_calendar', undefined, 'sticky_bar')}
-          className="flex items-center justify-center gap-2 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-700"
+          className="flex items-center justify-center gap-2 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-950"
         >
           <Calendar size={20} />
           <span className="font-light">Időpont</span>

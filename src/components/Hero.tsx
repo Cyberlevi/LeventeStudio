@@ -9,7 +9,7 @@ export default function Hero() {
           Weboldal Audit Szakértő
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-light text-taupe-900 mb-8 leading-tight text-balance">
+        <h1 className="font-serif text-5xl md:text-7xl font-light text-taupe-900 mb-8 leading-tight text-balance">
           Mérnöki precizitás,<br />
           nem marketing bullshit
         </h1>
@@ -37,25 +37,25 @@ export default function Hero() {
           <a
             href="#deliverables"
             onClick={() => trackEvent('cta_click', 'engagement', 'hero_learn')}
-            className="inline-flex items-center gap-3 px-8 py-4 border-2 border-taupe-700 text-taupe-700 rounded-sm hover:bg-taupe-50 transition-colors duration-200 text-lg"
+            className="inline-flex items-center gap-3 px-8 py-4 border border-taupe-300 text-taupe-700 rounded-sm hover:bg-taupe-50 hover:border-taupe-500 transition-colors duration-200 text-lg"
           >
             Mit kapsz az auditban
           </a>
         </div>
 
-        <div className="mt-12 flex items-center justify-center gap-8 text-taupe-600 text-sm font-light">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-taupe-600 text-sm font-light">
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-light text-taupe-900 mb-1">5-7 nap</span>
+            <span className="text-3xl sm:text-2xl font-normal text-taupe-900 mb-1">5-7 nap</span>
             <span>Átfutási idő</span>
           </div>
-          <div className="h-12 w-px bg-taupe-200"></div>
+          <div className="hidden sm:block h-12 w-px bg-taupe-200"></div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-light text-taupe-900 mb-1">30+</span>
+            <span className="text-3xl sm:text-2xl font-normal text-taupe-900 mb-1">30+</span>
             <span>Sikeres projekt</span>
           </div>
-          <div className="h-12 w-px bg-taupe-200"></div>
+          <div className="hidden sm:block h-12 w-px bg-taupe-200"></div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-light text-taupe-900 mb-1">100%</span>
+            <span className="text-3xl sm:text-2xl font-normal text-taupe-900 mb-1">100%</span>
             <span>Adat-alapú</span>
           </div>
         </div>
