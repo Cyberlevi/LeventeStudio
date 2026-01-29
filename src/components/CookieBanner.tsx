@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Shield } from 'lucide-react';
 import { getConsentState, setConsentState, updateGoogleConsent, hasConsent } from '../utils/consent';
+import { loadPlausible } from '../utils/plausible';
 
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -18,6 +19,9 @@ export default function CookieBanner() {
       const existingConsent = getConsentState();
       if (existingConsent) {
         updateGoogleConsent(existingConsent);
+        if (existingConsent.analytics) {
+          loadPlausible();
+        }
       }
     }
   }, []);
@@ -30,6 +34,7 @@ export default function CookieBanner() {
     };
     setConsentState(state);
     updateGoogleConsent({ ...state, timestamp: Date.now() });
+    loadPlausible();
     setIsVisible(false);
   };
 
@@ -47,6 +52,9 @@ export default function CookieBanner() {
   const savePreferences = () => {
     setConsentState(preferences);
     updateGoogleConsent({ ...preferences, timestamp: Date.now() });
+    if (preferences.analytics) {
+      loadPlausible();
+    }
     setIsVisible(false);
   };
 
@@ -72,9 +80,20 @@ export default function CookieBanner() {
 
           {!showDetails ? (
             <>
-              <p className="text-taupe-700 font-light leading-relaxed mb-6">
+              <p className="text-taupe-700 font-light leading-relaxed mb-4">
                 Ez az oldal sütiket használ a működéshez és az adatok méréséhez. Az analitikai és
                 marketing sütik opcionálisak.
+              </p>
+
+              <p className="text-taupe-600 text-sm font-light mb-6">
+                További információ:{' '}
+                <a href="/privacy-policy" className="text-taupe-900 underline hover:text-taupe-700">
+                  Adatvédelmi Tájékoztató
+                </a>
+                {' • '}
+                <a href="/cookie-policy" className="text-taupe-900 underline hover:text-taupe-700">
+                  Süti Szabályzat
+                </a>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
