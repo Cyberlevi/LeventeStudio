@@ -1,3 +1,8 @@
 <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <text x="30" y="40" font-size="32" font-weight="300" text-anchor="middle" fill="#faf8f5" font-family="Cormorant Garamond, Georgia, serif">LS</text>
+  <!-- Left bracket -->
+  <path d="M 18 22 L 15 22 L 15 38 L 18 38" stroke="#faf8f5" stroke-width="1" fill="none" stroke-linecap="square"/>
+  <!-- Right bracket -->
+  <path d="M 42 22 L 45 22 L 45 38 L 42 38" stroke="#faf8f5" stroke-width="1" fill="none" stroke-linecap="square"/>
+  <!-- LS text -->
+  <text x="30" y="38" font-size="26" font-weight="300" text-anchor="middle" fill="#faf8f5" font-family="Cormorant Garamond, Georgia, serif">LS</text>
 </svg>
