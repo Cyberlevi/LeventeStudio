@@ -1,5 +1,6 @@
 import { ArrowLeft, Scale } from 'lucide-react';
 import Logo from '../components/Logo';
+import { navigate } from '../utils/navigation';
 
 export default function Legal() {
   return (
@@ -7,13 +8,13 @@ export default function Legal() {
       <header className="sticky top-0 z-50 bg-white border-b border-taupe-200 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Logo variant="primary" theme="light" className="h-8" />
-          <a
-            href="/"
-            className="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light"
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light cursor-pointer"
           >
             <ArrowLeft size={16} />
             Vissza a főoldalra
-          </a>
+          </button>
         </div>
       </header>
 
@@ -156,9 +157,9 @@ export default function Legal() {
           <section>
             <h2 className="text-2xl font-normal text-taupe-900 mb-4">7. Kapcsolódó dokumentumok</h2>
             <div className="grid gap-4 mt-6">
-              <a
-                href="/privacy-policy"
-                className="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group"
+              <button
+                onClick={() => navigate('/privacy-policy')}
+                className="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group cursor-pointer text-left w-full"
               >
                 <h3 className="font-normal text-taupe-900 mb-2 group-hover:text-taupe-700 transition-colors">
                   Adatvédelmi Tájékoztató
@@ -166,11 +167,11 @@ export default function Legal() {
                 <p className="text-sm text-taupe-600">
                   Részletes információk az adatkezelésről, az Ön jogairól és a GDPR megfelelésről.
                 </p>
-              </a>
+              </button>
 
-              <a
-                href="/cookie-policy"
-                className="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group"
+              <button
+                onClick={() => navigate('/cookie-policy')}
+                className="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group cursor-pointer text-left w-full"
               >
                 <h3 className="font-normal text-taupe-900 mb-2 group-hover:text-taupe-700 transition-colors">
                   Süti Szabályzat
@@ -178,7 +179,7 @@ export default function Legal() {
                 <p className="text-sm text-taupe-600">
                   Információk a weboldalon használt sütikről és azok kezeléséről.
                 </p>
-              </a>
+              </button>
             </div>
           </section>
 

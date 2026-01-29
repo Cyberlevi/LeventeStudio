@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X, Shield } from 'lucide-react';
 import { getConsentState, setConsentState, updateGoogleConsent, hasConsent } from '../utils/consent';
 import { loadPlausible } from '../utils/plausible';
+import { navigate } from '../utils/navigation';
 
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -87,13 +88,19 @@ export default function CookieBanner() {
 
               <p className="text-taupe-600 text-sm font-light mb-6">
                 További információ:{' '}
-                <a href="/privacy-policy" className="text-taupe-900 underline hover:text-taupe-700">
+                <button
+                  onClick={() => navigate('/privacy-policy')}
+                  className="text-taupe-900 underline hover:text-taupe-700 cursor-pointer"
+                >
                   Adatvédelmi Tájékoztató
-                </a>
+                </button>
                 {' • '}
-                <a href="/cookie-policy" className="text-taupe-900 underline hover:text-taupe-700">
+                <button
+                  onClick={() => navigate('/cookie-policy')}
+                  className="text-taupe-900 underline hover:text-taupe-700 cursor-pointer"
+                >
                   Süti Szabályzat
-                </a>
+                </button>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">

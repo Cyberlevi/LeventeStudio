@@ -1,5 +1,6 @@
 import { ArrowLeft, Cookie } from 'lucide-react';
 import Logo from '../components/Logo';
+import { navigate } from '../utils/navigation';
 
 export default function CookiePolicy() {
   return (
@@ -7,13 +8,13 @@ export default function CookiePolicy() {
       <header className="sticky top-0 z-50 bg-white border-b border-taupe-200 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Logo variant="primary" theme="light" className="h-8" />
-          <a
-            href="/"
-            className="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light"
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light cursor-pointer"
           >
             <ArrowLeft size={16} />
             Vissza a főoldalra
-          </a>
+          </button>
         </div>
       </header>
 
@@ -305,9 +306,12 @@ export default function CookiePolicy() {
             <h2 className="text-2xl font-normal text-taupe-900 mb-4">6. További információk</h2>
             <p>
               A sütikezeléssel kapcsolatos további információkért olvassa el az{' '}
-              <a href="/privacy-policy" className="text-taupe-900 underline hover:text-taupe-700">
+              <button
+                onClick={() => navigate('/privacy-policy')}
+                className="text-taupe-900 underline hover:text-taupe-700 cursor-pointer"
+              >
                 Adatvédelmi Tájékoztatónkat
-              </a>.
+              </button>.
             </p>
             <p className="mt-4">
               Ha kérdése van a sütikkel kapcsolatban, forduljon hozzánk bizalommal:
