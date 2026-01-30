@@ -1,0 +1,78 @@
+========================================
+   CRAWL AUDIT REPORT
+   Site: https://leventestudio.app
+   Date: Fri Jan 30 20:32:03 UTC 2026
+========================================
+
+1. FETCHING HOMEPAGE HTML (as Googlebot)
+----------------------------------------
+   HTTP Status: 200
+   HTML Size: 48809 bytes
+
+2. HTML STRUCTURE
+----------------------------------------
+   H1 tags found: 1
+   ✓ H1 count is correct (1)
+   H1 text: Mérnöki precizitás,
+   H2 tags found: 9
+   ✓ H2 tags present
+   First 3 H2 headings:
+     - Miért nem működik a weboldalak többsége
+     - Mit kapsz a Weboldal Auditban
+     - Kérj weboldal auditot most
+
+3. MAIN CONTENT IN RAW HTML
+----------------------------------------
+   ✓ Main keyword 'weboldal audit' found in HTML
+   Content words in HTML: 1198
+   ✓ Sufficient content in HTML (1198 words)
+
+4. SEO META TAGS
+----------------------------------------
+   ✓ Title: Weboldal Audit és SEO Szakértő Budapest | Levente Stúdió
+   ✓ Meta description: Weboldal audit, SEO és teljesítmény optimalizálás Budapesten. Adat-alapú e...
+
+5. CANONICAL URL
+----------------------------------------
+   ✓ Canonical found: https://leventestudio.app/
+   ✓ Canonical matches current URL
+
+6. ROBOTS META TAG
+----------------------------------------
+   ✓ No robots meta (defaults to index,follow)
+
+7. ROBOTS.TXT
+----------------------------------------
+   ✓ robots.txt accessible (status: 200)
+     User-agent: *
+     Allow: /
+     Sitemap: https://leventestudio.app/sitemap.xml
+
+8. SITEMAP.XML
+----------------------------------------
+   ✓ sitemap.xml accessible (status: 200)
+   URLs in sitemap: 10
+
+   Testing sitemap URLs:
+     ❌ https://leventestudio.app/ (502)
+     ❌ https://leventestudio.app/rolam (504)
+     ❌ https://leventestudio.app/esettanulmanyok (502)
+     ❌ https://leventestudio.app/kapcsolat (301)
+     ❌ https://leventestudio.app/szolgaltatas/weboldal-audit (301)
+     ❌ https://leventestudio.app/szolgaltatas/seo-audit (502)
+     ❌ https://leventestudio.app/szolgaltatas/weboldal-gyorsitas (502)
+     ✓ https://leventestudio.app/privacy-policy (200)
+     ❌ https://leventestudio.app/cookie-policy (502)
+     ✓ https://leventestudio.app/legal (200)
+
+9. CLIENT-SIDE RENDERING INDICATORS
+----------------------------------------
+   Total <script> tags: 1
+
+========================================
+   SUMMARY
+========================================
+
+✓ Basic SEO elements in place
+
+Report saved to: crawl-audit-report.txt

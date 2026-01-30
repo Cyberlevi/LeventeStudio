@@ -1,0 +1,116 @@
+=== Googlebot 502 Test - Fri Jan 30 20:33:37 UTC 2026 ===
+
+[1/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:37 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89RZEP620WM41TPWW4R5Q1"]
+}[0m (0.216454
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:37 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89RZEP620WM41TPWW4R5Q1"]
+}s)
+[2/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:38 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S06MVBY98WV655N66TVC"]
+}[0m (0.187624
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:38 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S06MVBY98WV655N66TVC"]
+}s)
+[3/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:38 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S0XV4JDCPX15R7RV5GE4"]
+}[0m (0.192335
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:38 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S0XV4JDCPX15R7RV5GE4"]
+}s)
+[4/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:39 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S1N9Y310Z0TR3QMTGTC3"]
+}[0m (0.173748
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:39 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S1N9Y310Z0TR3QMTGTC3"]
+}s)
+[5/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:40 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S2C5CF1HB4P0AZVJK945"]
+}[0m (0.170260
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:40 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S2C5CF1HB4P0AZVJK945"]
+}s)
+[6/50] Testing with Googlebot-Desktop... [0;33m200
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:41 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S32XH67MM60EGX3J0CWG"]
+}[0m (0.191030
+"cache-status":["\"Netlify Edge\"; fwd=miss"],
+"content-type":["text/html;charset=UTF-8"],
+"date":["Fri, 30 Jan 2026 20:33:41 GMT"],
+"etag":["W/\"bea9-jxQD5V28J4L0nhfOtZV49eHykfU\""],
+"server":["Netlify"],
+"strict-transport-security":["max-age=31536000"],
+"vary":["Accept-Encoding"],
+"x-nf-request-id":["01KG89S32XH67MM60EGX3J0CWG"]
+}s)
