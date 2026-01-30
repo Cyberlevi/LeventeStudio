@@ -1,0 +1,537 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
+import FAQItem from '../../components/FAQItem';
+import { Phone, MessageCircle, Mail, CheckCircle } from 'lucide-react';
+
+const pageTitle = 'Weboldal Audit – Adat-alapú Diagnózis | LeventeStudio';
+const pageDescription = 'Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI, Analytics elemzés. Konkrét hibalista, prioritizált javítási terv, mérhető eredmény.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://leventestudio.app/szolgaltatas/weboldal-audit#service',
+      'name': 'Weboldal Audit Szolgáltatás',
+      'description': 'Átfogó weboldal audit: technikai SEO, teljesítmény, felhasználói élmény és Analytics elemzés. Konkrét hibalista és prioritizált javítási terv.',
+      'provider': {
+        '@type': 'Person',
+        'name': 'Levente Csurka',
+        'jobTitle': 'Weboldal Audit Szakértő',
+        'url': 'https://leventestudio.app'
+      },
+      'areaServed': 'HU',
+      'serviceType': 'Weboldal Audit',
+      'offers': {
+        '@type': 'Offer',
+        'price': '150000',
+        'priceCurrency': 'HUF',
+        'availability': 'https://schema.org/InStock'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://leventestudio.app/szolgaltatas/weboldal-audit#faq',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'Mennyi idő alatt kapom meg az audit jelentést?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': '5-7 munkanap. Ha sürgős, van express opció 48 órás átfutással (+ 50% felár).'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Milyen hozzáférésekre van szükség?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Google Analytics (read-only), Google Search Console (read-only), ha van GTM (read-only). Ha nincs hozzáférés, publikus adatokkal is tudok dolgozni, de az elemzés kevésbé részletes.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mi van, ha nem értek az audit jelentéshez?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Minden audit után 30 perces online meeting, ahol végigmegyünk a jelentésen. Megmagyarázom, mi mit jelent, mi a prioritás, mit csinálj először.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Megjavítod a hibákat, vagy csak leírod?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Az alap audit csak diagnózis + akcióterv. Ha szeretnéd, hogy megjavítsam a hibákat, az külön megbízás (implementation). De ha van fejlesztőd, neki is érthető lesz a javítási terv.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Működik WordPress / Wix / Shopify / custom oldalon is?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Igen. Minden platformon működik, mert nem a platform a lényeg, hanem a webes alapok: sebesség, SEO, UX, Analytics. Mindenhol ugyanazokat nézem meg.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mit nem nézek meg az auditban?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem nézem meg a hirdetési kampányokat (Google Ads, Meta Ads) – azokra külön audit van. Nem nézem meg a backend kódot, nem csinálok penetration testet. Nem tervezek új dizájnt, csak hibákat jelzek. Nem írok tartalmat, csak jelzem, ha SEO szempontból probléma van vele.'
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const faqs = [
+  {
+    question: 'Mennyi idő alatt kapom meg az audit jelentést?',
+    answer: '5-7 munkanap. Ha sürgős, van express opció 48 órás átfutással (+ 50% felár).'
+  },
+  {
+    question: 'Milyen hozzáférésekre van szükség?',
+    answer: 'Google Analytics (read-only), Google Search Console (read-only), ha van GTM (read-only). Ha nincs hozzáférés, publikus adatokkal is tudok dolgozni, de az elemzés kevésbé részletes.'
+  },
+  {
+    question: 'Mi van, ha nem értek az audit jelentéshez?',
+    answer: 'Minden audit után 30 perces online meeting, ahol végigmegyünk a jelentésen. Megmagyarázom, mi mit jelent, mi a prioritás, mit csinálj először.'
+  },
+  {
+    question: 'Megjavítod a hibákat, vagy csak leírod?',
+    answer: 'Az alap audit csak diagnózis + akcióterv. Ha szeretnéd, hogy megjavítsam a hibákat, az külön megbízás (implementation). De ha van fejlesztőd, neki is érthető lesz a javítási terv.'
+  },
+  {
+    question: 'Működik WordPress / Wix / Shopify / custom oldalon is?',
+    answer: 'Igen. Minden platformon működik, mert nem a platform a lényeg, hanem a webes alapok: sebesség, SEO, UX, Analytics. Mindenhol ugyanazokat nézem meg.'
+  },
+  {
+    question: 'Mit nem nézek meg az auditban?',
+    answer: 'Nem nézem meg a hirdetési kampányokat (Google Ads, Meta Ads) – azokra külön audit van. Nem nézem meg a backend kódot, nem csinálok penetration testet. Nem tervezek új dizájnt, csak hibákat jelzek. Nem írok tartalmat, csak jelzem, ha SEO szempontból probléma van vele.'
+  },
+  {
+    question: 'Mennyibe kerül a weboldal audit?',
+    answer: 'Alap audit: 150.000 Ft. Tartalmaz minden alább leírt elemzést, priorizált akciótervet, 30 perces call-t. Express (48 óra): 225.000 Ft. Nagy weboldal (100+ oldal vagy komplex e-commerce): egyedi árajánlat.'
+  },
+  {
+    question: 'Hogyan fizetek?',
+    answer: 'Átutalás, számla utólag. 50% előleg induláskor, 50% a jelentés átadásakor.'
+  },
+  {
+    question: 'Van garancia?',
+    answer: 'Ha a jelentésben nincs konkrét, actionable hiba vagy javítási terv, amit nem tudsz használni, visszaadom a pénzed. Eddig ez nem fordult elő, mert mindig találok javítani valót.'
+  },
+  {
+    question: 'Kell-e utána folyamatos karbantartás?',
+    answer: 'Az audit egyszeri diagnózis. Ha megjavítod a hibákat, nincs szükség rám. Ha szeretnél folyamatos optimalizálást, monitoring-ot, az külön retainer megállapodás lehet, de nem kötelező.'
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/szolgaltatas/weboldal-audit"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+
+  <main class="min-h-screen bg-white">
+    <section class="px-6 pt-32 pb-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-light text-taupe-900 mb-6 leading-tight">
+          Weboldal Audit – Lásd, mi nem működik
+        </h1>
+        <p class="text-xl md:text-2xl text-taupe-700 font-light leading-relaxed mb-8">
+          Technikai SEO, teljesítmény, UX/UI, Analytics. Konkrét hibalista, prioritizált javítási terv. Nem találgatás, hanem adat-alapú diagnózis.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 font-light"
+          >
+            Kérek auditot
+          </a>
+          <a
+            href="#ar"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-50 text-taupe-900 rounded-sm hover:bg-taupe-100 transition-colors duration-200 font-light border border-taupe-200"
+          >
+            Árak és keret
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Miért kell audit?
+        </h2>
+        <div class="space-y-6 text-taupe-700 font-light leading-relaxed text-lg">
+          <p>
+            Mert nem látod, mi a probléma. Csak azt, hogy nem működik. A weboldal lassan tölt be, az emberek nem konvertálnak, a Google nem index fel rendesen, az Analytics adatai furcsák. Tudod, hogy valami nincs rendben. De nem tudod, hogy mi.
+          </p>
+          <p>
+            A weboldal audit pontosan ezt tárja fel. Megnézem a technikai SEO-t: indexelés, sitemap, robots.txt, strukturált adatok, meta tagek, canonical URL-ek, mobilbarát verzió. Megnézem a teljesítményt: betöltési idő, Core Web Vitals, képoptimalizálás, JavaScript, CSS, szerver válaszidő. Megnézem a felhasználói élményt: navigáció, CTA gombok, űrlapok, mobil nézet, hibás linkek. Megnézem az Analytics setupot: konverziós célok, eseménykövetés, adatok helyessége, kampánykövetés.
+          </p>
+          <p>
+            Végül kapsz egy konkrét hibalistát. Minden hiba mellé ott van, hogy milyen hatása van (kritikus / fontos / minor), és mit kell csinálni. Priorizálva, hogy mi hozza a legnagyobb eredményt, mit javíts elsőnek.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mi a tünet? Mikor kell audit?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Lassan tölt be az oldal</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              5-10 másodperc betöltési idő, mobilon még rosszabb. Az emberek kilépnek, mielőtt betöltene. A Google rankingje emiatt csökken.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Konverzió alacsony vagy nulla</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Sok látogató, de senki nem hív, nem ír, nem vásárol. Az űrlap nem küldi el az adatokat, a CTA gombok nem világosak, a checkout folyamat bonyolult.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Google nem indexel</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Search Console tele hibákkal, sok oldal nincs indexelve, ranking folyamatosan csökken. Nem tudod, miért.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Analytics adatok furcsák</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Bounce rate 90%, látogatások 5 másodpercesek, konverziók nem követhetők. Nem bízol az adatokban, mert tudod, hogy valami nincs rendben.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Mobilon használhatatlan</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Gombok kicsik, szöveg olvashatatlan, navigáció nem működik. Mobilos forgalom 60-70%, de a konverzió nulla.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Fizetett hirdetés nem konvertál</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              A hirdetések hoznak forgalmat, de a landing page nem tartja meg őket. Nem tudod, hogy a hirdetés a rossz, vagy a weboldal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light mb-8">
+          Mit nézek meg az auditban?
+        </h2>
+        <div class="space-y-6 text-cream-100 font-light leading-relaxed">
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">1. Technikai SEO</h3>
+            <p class="mb-3">
+              Sitemap, robots.txt, indexelhetőség, canonical URL-ek, strukturált adatok, meta tagek, heading struktúra, internal linking, 404 hibák, redirect chain-ek, mobilbarát verzió, HTTPS, hreflang (ha többnyelvű).
+            </p>
+            <p>
+              Google Search Console adatok: indexelési hibák, crawl statisztikák, Core Web Vitals, mobilhasználhatóság. Minden technikai akadály, ami miatt a Google nem fogja fel az oldaladat.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">2. Teljesítmény és sebesség</h3>
+            <p class="mb-3">
+              Betöltési idő (desktop és mobil), Core Web Vitals (LCP, FID, CLS), szerver válaszidő, képoptimalizálás, lazy loading, JavaScript és CSS méret, fölösleges script-ek, cache beállítások, CDN használat.
+            </p>
+            <p>
+              Lighthouse és PageSpeed Insights adatok, konkrét ajánlások, hogy mit kell javítani. Ha lassú az oldal, pontosan megmondom, miért.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">3. Felhasználói élmény (UX/UI)</h3>
+            <p class="mb-3">
+              Navigáció érthetősége, CTA gombok láthatósága és működése, űrlapok működése, hibakezelés, mobilnézet használhatósága, kattintható területek mérete, olvashatóság, színkontrasztok, törött linkek, hiányzó képek.
+            </p>
+            <p>
+              Heatmap és session recording adatok (ha van telepítve), vagy manuális tesztelés. Végigmegyek a felhasználói úton, és jelzem, hol van súrlódás.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">4. Analytics és tracking</h3>
+            <p class="mb-3">
+              Google Analytics telepítése és konfigurálása, konverziós célok beállítása, eseménykövetés, e-commerce tracking (ha webshop), kampánykövetés (UTM paraméterek), adatok helyessége, bounce rate és engagement adatok.
+            </p>
+            <p>
+              Megnézem, hogy meg tudod-e mondani, honnan jönnek az ügyfeleid, melyik kampány működik, melyik landing page konvertál. Ha nem, megjavítom az Analytics setupot.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">5. Tartalom és üzenetek</h3>
+            <p class="mb-3">
+              Nem írok új tartalmat, de jelzem, ha SEO szempontból probléma van: duplikált tartalom, vékony tartalom, kulcsszavak hiánya, heading struktúra zavara, meta leírások hiánya vagy duplikálása.
+            </p>
+            <p>
+              Ha az üzenet nem világos (nem érthető, kinek szól, mit old meg), azt is jelzem. De nem copywriting szolgáltatás, csak strukturális jelzés.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mit kapsz az audit után?
+        </h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Részletes audit jelentés (PDF vagy Google Doc)</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Minden hibát felsorolok, kategóriákra bontva (technikai SEO, teljesítmény, UX, Analytics). Minden hiba mellett ott van a hatás (kritikus / fontos / minor) és a konkrét javítási leírás.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Priorizált akcióterv</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Nem kell kitalálnod, mit csinálj elsőnek. Az akcióterv tartalmazza a prioritást: gyors win-ek (1-2 nap alatt), fontos javítások (1-2 hét), és hosszú távú optimalizálások. Impact vs. effort táblázat.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Screenshotok és példák</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Minden hiba mellett screenshot vagy konkrét példa, hogy lásd, miről beszélek. Nem elvont jelzések, hanem képekkel illusztrálva.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">30 perces online meeting</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Végigmegyünk a jelentésen. Megmagyarázom, mi mit jelent, mit csinálj először, hova fókuszálj. Kérdezhetsz, tisztázhatjuk, mit nem értesz.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">14 napos email support</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Az audit átadása után 14 napig kérdezhetsz, ha valami nem világos, vagy elakadtál a megvalósítással. Nem full implementációs support, de jelzésre válaszolok.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Kinek való, kinek nem?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">✅ Kinek való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Látod, hogy valami nem működik, de nem tudod, mi.</li>
+              <li>Szeretnéd tudni, hogy technikai hibák vannak-e az oldalon.</li>
+              <li>A konverzió alacsony, és nem érted, miért.</li>
+              <li>Lassú az oldal, és nem tudod, mit javíts.</li>
+              <li>Google Search Console tele hibákkal, nem tudod, hol kezdj.</li>
+              <li>Van fejlesztőd, de nem tudja, mire fókuszáljon.</li>
+              <li>Komolyan veszed az adatokat, és szeretnél adatok alapján dönteni.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">❌ Kinek nem való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Csak valami szép dizájnt akarsz, de nem érdekel az eredmény.</li>
+              <li>Nem vagy hajlandó időt vagy pénzt fektetni a javításokba.</li>
+              <li>Nem érdekel, hogy miért nem működik, csak csináljam meg.</li>
+              <li>Azonnal nagy eredményt vársz, holnaptól.</li>
+              <li>Nem bízol az adatokban, csak érzésből döntesz.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ar" class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          Árak és keret
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">Alap audit</h3>
+            <div class="text-4xl font-normal text-taupe-900 mb-4">150.000 Ft</div>
+            <ul class="space-y-2 text-taupe-700 font-light leading-relaxed mb-6">
+              <li>✓ Technikai SEO elemzés</li>
+              <li>✓ Teljesítmény audit</li>
+              <li>✓ UX/UI áttekintés</li>
+              <li>✓ Analytics setup ellenőrzés</li>
+              <li>✓ Részletes hibalista</li>
+              <li>✓ Priorizált akcióterv</li>
+              <li>✓ 30 perces call</li>
+              <li>✓ 14 napos email support</li>
+              <li>✓ 5-7 munkanap átfutás</li>
+            </ul>
+          </div>
+
+          <div class="bg-taupe-900 text-cream-50 p-8 rounded-sm">
+            <h3 class="text-2xl font-light mb-4">Express audit</h3>
+            <div class="text-4xl font-normal mb-4">225.000 Ft</div>
+            <ul class="space-y-2 text-cream-100 font-light leading-relaxed mb-6">
+              <li>✓ Minden, ami az alap auditban</li>
+              <li>✓ 48 órás átfutás</li>
+              <li>✓ Prioritás support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200 mb-8">
+          <h3 class="text-2xl font-light text-taupe-900 mb-4">Nagy weboldal / komplex e-commerce</h3>
+          <p class="text-taupe-700 font-light leading-relaxed mb-4">
+            100+ oldal, komplex funkcionalitás, több nyelv, egyedi rendszerek – egyedi árajánlat. Küldj egy rövid leírást az oldalról, és 24 órán belül küldök egy konkrét árat.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <p class="text-taupe-700 font-light mb-4">Fizetés: átutalás, számla utólag. 50% előleg induláskor, 50% a jelentés átadásakor.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-12">
+          Gyakori kérdések
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <FAQItem client:visible question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-light mb-6">
+          Kérj weboldal auditot most
+        </h2>
+        <p class="text-xl font-light text-cream-100 mb-8 max-w-2xl mx-auto">
+          Ha látod, hogy valami nem működik, és szeretnéd tudni, hogy pontosan mi – beszéljünk.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a
+            href="tel:+36202826843"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 font-light"
+          >
+            <Phone size={20} />
+            +36 20 282 6843
+          </a>
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <MessageCircle size={20} />
+            WhatsApp
+          </a>
+          <a
+            href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <Mail size={20} />
+            Email
+          </a>
+        </div>
+        <p class="text-sm text-cream-200 font-light">
+          15-20 perces diagnosztikai beszélgetés, utána konkrét ajánlat.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          További szolgáltatások
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a
+            href="/szolgaltatas/seo-audit"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">SEO Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Mélyebb SEO elemzés: kulcsszókutatás, konkurencia, backlink profil, tartalom optimalizálás, ranking javítási terv.
+            </p>
+          </a>
+          <a
+            href="/szolgaltatas/weboldal-gyorsitas"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">Weboldal Gyorsítás</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Konkrét sebesség optimalizálás: képoptimalizálás, lazy loading, cache, CDN, script-ek, Core Web Vitals javítás.
+            </p>
+          </a>
+        </div>
+        <div class="mt-8 text-center">
+          <a href="/esettanulmanyok" class="text-taupe-900 font-light underline hover:no-underline">
+            Nézd meg az esettanulmányokat
+          </a>
+          {' · '}
+          <a href="/rolam" class="text-taupe-900 font-light underline hover:no-underline">
+            Rólam
+          </a>
+          {' · '}
+          <a href="/kapcsolat" class="text-taupe-900 font-light underline hover:no-underline">
+            Kapcsolat
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>

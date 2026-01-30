@@ -1,0 +1,583 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
+import FAQItem from '../../components/FAQItem';
+import { Phone, MessageCircle, Mail, CheckCircle } from 'lucide-react';
+
+const pageTitle = 'SEO Audit – Organikus Forgalom Növelés | LeventeStudio';
+const pageDescription = 'Professzionális SEO audit szolgáltatás. Kulcsszókutatás, konkurencia elemzés, on-page és technical SEO, backlink profil, tartalom optimalizálás. Konkrét ranking javítási terv.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://leventestudio.app/szolgaltatas/seo-audit#service',
+      'name': 'SEO Audit Szolgáltatás',
+      'description': 'Részletes SEO audit: kulcsszókutatás, konkurencia elemzés, on-page és technical SEO, backlink profil elemzés. Ranking javítási terv organikus forgalom növeléshez.',
+      'provider': {
+        '@type': 'Person',
+        'name': 'Levente Csurka',
+        'jobTitle': 'SEO Szakértő',
+        'url': 'https://leventestudio.app'
+      },
+      'areaServed': 'HU',
+      'serviceType': 'SEO Audit',
+      'offers': {
+        '@type': 'Offer',
+        'price': '200000',
+        'priceCurrency': 'HUF',
+        'availability': 'https://schema.org/InStock'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://leventestudio.app/szolgaltatas/seo-audit#faq',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'Mennyi idő kell, hogy eredmény legyen?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': '3-6 hónap. SEO nem gyors, de hosszú távon megéri. Az első javítások után 1-2 hónappal már látszanak a pozitív változások, de komoly ranking növekedés 3-6 hónapot vesz igénybe.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mi a különbség a weboldal audit és az SEO audit között?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'A weboldal audit általános technikai és UX hibalista. Az SEO audit mélyebb: kulcsszókutatás, konkurencia elemzés, backlink profil, tartalom stratégia, ranking javítási terv. Ha ranking növelés a cél, SEO audit kell.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Garantálod az első helyezést?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem. Senki nem tudja garantálni, mert a Google algoritmusa változik, a konkurencia is dolgozik. De konkrét javítási tervet adok, és ha követed, javul a ranking. Eddig minden ügyfelemnél javult a pozíció.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Helyi SEO is benne van?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Igen. Local SEO külön szekció: Google My Business profil optimalizálás, helyi kulcsszavak, NAP konzisztencia, strukturált adatok, helyi backlink stratégia.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Linkbuilding is része az auditnak?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Backlink profil elemzés igen: megnézem, milyen backlink-jeid vannak, melyek értékesek, melyek károsak. Linkbuilding stratégiát is adok, de magát a linkgyűjtést nem csinálom meg – ahhoz külön megbízás kell.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Tartalom írás is része az auditnak?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem. Az SEO audit megmondja, milyen tartalom kell, milyen kulcsszavakra, milyen struktúrában. De a tényleges írást nem csinálom meg – ahhoz külön copywriter kell, vagy megcsinálod magad a terv alapján.'
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const faqs = [
+  {
+    question: 'Mennyi idő kell, hogy eredmény legyen?',
+    answer: '3-6 hónap. SEO nem gyors, de hosszú távon megéri. Az első javítások után 1-2 hónappal már látszanak a pozitív változások, de komoly ranking növekedés 3-6 hónapot vesz igénybe.'
+  },
+  {
+    question: 'Mi a különbség a weboldal audit és az SEO audit között?',
+    answer: 'A weboldal audit általános technikai és UX hibalista. Az SEO audit mélyebb: kulcsszókutatás, konkurencia elemzés, backlink profil, tartalom stratégia, ranking javítási terv. Ha ranking növelés a cél, SEO audit kell.'
+  },
+  {
+    question: 'Garantálod az első helyezést?',
+    answer: 'Nem. Senki nem tudja garantálni, mert a Google algoritmusa változik, a konkurencia is dolgozik. De konkrét javítási tervet adok, és ha követed, javul a ranking. Eddig minden ügyfelemnél javult a pozíció.'
+  },
+  {
+    question: 'Helyi SEO is benne van?',
+    answer: 'Igen. Local SEO külön szekció: Google My Business profil optimalizálás, helyi kulcsszavak, NAP konzisztencia, strukturált adatok, helyi backlink stratégia.'
+  },
+  {
+    question: 'Linkbuilding is része az auditnak?',
+    answer: 'Backlink profil elemzés igen: megnézem, milyen backlink-jeid vannak, melyek értékesek, melyek károsak. Linkbuilding stratégiát is adok, de magát a linkgyűjtést nem csinálom meg – ahhoz külön megbízás kell.'
+  },
+  {
+    question: 'Tartalom írás is része az auditnak?',
+    answer: 'Nem. Az SEO audit megmondja, milyen tartalom kell, milyen kulcsszavakra, milyen struktúrában. De a tényleges írást nem csinálom meg – ahhoz külön copywriter kell, vagy megcsinálod magad a terv alapján.'
+  },
+  {
+    question: 'Mennyibe kerül az SEO audit?',
+    answer: 'Alap SEO audit: 200.000 Ft. Tartalmaz kulcsszókutatást, konkurencia elemzést, technical SEO áttekintést, backlink profil elemzést, tartalom stratégiát, ranking javítási tervet, 45 perces call-t.'
+  },
+  {
+    question: 'Mi van, ha már dolgoztam SEO-val, de nem jött be?',
+    answer: 'Gyakori probléma. Általában rossz kulcsszavakat céloztak, vagy technikai hibák miatt a Google nem tudta indexelni az oldalt. Megnézem, mi volt a korábbi stratégia, mi nem működött, és adok egy új, működő tervet.'
+  },
+  {
+    question: 'Működik e-commerce / blogon / SaaS oldalon is?',
+    answer: 'Igen, mindegyiken. A módszer ugyanaz, csak más a fókusz. E-commerce-nél termékoldal SEO, blog-nál tartalom optimalizálás, SaaS-nál funkció+probléma kulcsszavak.'
+  },
+  {
+    question: 'Mennyi idő alatt kapom meg az audit jelentést?',
+    answer: '7-10 munkanap. Ha sürgős, van express opció 3 munkanap alatt (+ 50% felár).'
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/szolgaltatas/seo-audit"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+
+  <main class="min-h-screen bg-white">
+    <section class="px-6 pt-32 pb-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-light text-taupe-900 mb-6 leading-tight">
+          SEO Audit – Növeld az organikus forgalmat
+        </h1>
+        <p class="text-xl md:text-2xl text-taupe-700 font-light leading-relaxed mb-8">
+          Kulcsszókutatás, konkurencia elemzés, on-page és technical SEO, backlink profil. Konkrét ranking javítási terv, nem találgatás.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20SEO%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 font-light"
+          >
+            Kérek SEO auditot
+          </a>
+          <a
+            href="#ar"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-50 text-taupe-900 rounded-sm hover:bg-taupe-100 transition-colors duration-200 font-light border border-taupe-200"
+          >
+            Árak és keret
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Miért kell SEO audit?
+        </h2>
+        <div class="space-y-6 text-taupe-700 font-light leading-relaxed text-lg">
+          <p>
+            Mert az organikus forgalom a legjobb forgalom. Nem fizetsz érte hirdetésekben, nem múlik el, amikor lekapcsolod a kampányokat. Ha jól csinálod, hónapokig, évekig hoz látogatókat. De ehhez tudnod kell, hogy mire optimalizálj, milyen kulcsszavakra célozz, mit csinál a konkurencia, mi hiányzik a weboldaladról.
+          </p>
+          <p>
+            A legtöbben nem tudják. Optimalizálnak olyan kulcsszavakra, amit senki nem keres. Vagy túl versenyző kulcsszavakat céloznak, amihez nincs esélyük. Vagy technikai hibák miatt a Google nem tudja indexelni az oldalt, és hiába van tartalom, nem jelenik meg a keresésekben.
+          </p>
+          <p>
+            Az SEO audit pontosan ezért van. Megnézem, milyen kulcsszavakra keresel, milyen kulcsszavakra kellett volna keresned, mit csinál a konkurencia, milyen technikai hibák gátolják az indexelést, hol van a legnagyobb potenciál. Végül kapsz egy konkrét tervet: melyik oldalon milyen kulcsszóra optimalizálj, milyen tartalmat írj, milyen technikai hibát javíts, milyen linkbuilding stratégiát kövess.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mi a tünet? Mikor kell SEO audit?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Alacsony organikus forgalom</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Google Analytics mutatja, hogy havi 100-200 organikus látogató, miközben fizetsz hirdetésekre. Az organikus csatorna nem hoz ügyfeleket.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Rossz rankingek kulcsszavakon</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Google keresésben a 2-3. oldalon vagy. Senki nem kattint, mert senki nem görget odáig. A konkurencia mindig előrébb van.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Nem tudod, mire optimalizálj</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Van tartalmad, de nem tudod, milyen kulcsszavakat célozz. Vagy rossz kulcsszavakat célzol, amiket senki nem keres.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Konkurencia előrébb van</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Ugyanazt kínálod, de ők mindig az első oldalon vannak, te nem. Nem tudod, hogy mit csinálnak másképp.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Technikai SEO hibák</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Search Console tele indexelési hibákkal, sok oldal nem indexelődik, a Google nem találja az oldalaidat.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Helyi kereséseknél nem jelennek meg</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Helyi szolgáltatás vagy, de a "szolgáltatás + városnév" keresésekre nem jössz fel. A konkurencia ott van, te nem.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light mb-8">
+          Mit nézek meg az SEO auditban?
+        </h2>
+        <div class="space-y-6 text-cream-100 font-light leading-relaxed">
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">1. Kulcsszókutatás és analízis</h3>
+            <p class="mb-3">
+              Megnézem, milyen kulcsszavakra keresel jelenleg (Search Console adatok). Elemzem, hogy ezek jók-e, van-e rajtuk keresési volumen, mennyire versenyző. Keresek új, releváns kulcsszavakat, amikre érdemes optimalizálni: főkulcsszavak, long-tail kulcsszavak, helyi kulcsszavak.
+            </p>
+            <p>
+              Kulcsszó szándék elemzés: informational, navigational, transactional. Melyik kulcsszó hozza az ügyfeleket, melyik csak látogatókat.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">2. Konkurencia elemzés</h3>
+            <p class="mb-3">
+              Megnézem a 3-5 fő konkurens SEO stratégiáját: milyen kulcsszavakra rankelnek, milyen tartalmuk van, hogyan strukturálják az oldalukat, milyen backlink-jük van, milyen technikai SEO-t alkalmaznak.
+            </p>
+            <p>
+              Gap analysis: mely kulcsszavakon van a konkurencia, te nem. Hol van lehetőség előzni őket. Hol van a legnagyobb potenciál.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">3. On-page SEO audit</h3>
+            <p class="mb-3">
+              Minden fontos oldal elemzése: title tag, meta description, heading struktúra (H1, H2, H3), kulcsszó elhelyezés, tartalom minősége, belső linkek, képek alt szövegei, URL struktúra, tartalom hossza.
+            </p>
+            <p>
+              Duplikált tartalom detektálás, vékony tartalom (thin content) jelzés, kulcsszó kannibalizáció (több oldal ugyanarra a kulcsszóra).
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">4. Technical SEO audit</h3>
+            <p class="mb-3">
+              Crawlability és indexelhetőség: robots.txt, sitemap, noindex tagek, canonical URL-ek, redirect chain-ek, 404 hibák, structured data, HTTPS, mobile-friendly verzió, Core Web Vitals.
+            </p>
+            <p>
+              Search Console adatok: indexelési hibák, crawl statisztikák, mobilhasználhatóság, strukturált adatok hibák.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">5. Backlink profil elemzés</h3>
+            <p class="mb-3">
+              Milyen backlink-jeid vannak, melyek értékesek, melyek spamek vagy károsak (toxikus linkek). Domain authority, link quality, anchor text eloszlás, link velocity.
+            </p>
+            <p>
+              Konkurencia backlink profil elemzés: honnan kapnak ők linkeket, hol vannak lehetőségek neked is. Linkbuilding stratégia javaslat.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">6. Tartalom stratégia és content gap</h3>
+            <p class="mb-3">
+              Milyen tartalom hiányzik az oldaladról, amit a konkurencia vagy a felhasználók keresnek. Milyen új oldalakat kell létrehoznod, milyen meglévő oldalakat kell átírnod vagy bővítened.
+            </p>
+            <p>
+              Tartalom optimalizálási terv: melyik oldalon milyen kulcsszóra, milyen heading struktúrában, milyen hosszúságban.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">7. Local SEO (ha releváns)</h3>
+            <p class="mb-3">
+              Google My Business profil elemzés és optimalizálás, helyi kulcsszavak, NAP (name, address, phone) konzisztencia, helyi strukturált adatok, helyi backlink lehetőségek, helyi directory-k.
+            </p>
+            <p>
+              Lokális ranking tényezők: reviews, GMB posts, helyi citations, proximity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mit kapsz az SEO audit után?
+        </h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Részletes SEO audit jelentés (PDF vagy Google Doc)</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Kulcsszókutatás eredménye, konkurencia elemzés, on-page SEO áttekintés, technical SEO hibalista, backlink profil elemzés, tartalom stratégia, local SEO ajánlások.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Kulcsszó stratégia táblázat</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Mely kulcsszavakra optimalizálj, melyik oldalon, milyen prioritással. Keresési volumen, konkurencia szint, kulcsszó szándék (intent), jelenlegi ranking pozíció.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Ranking javítási akcióterv</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Priorizált terv: gyors win-ek (1 hónap), közép távú optimalizálások (2-3 hónap), hosszú távú stratégia (6 hónap). Minden lépés mellett konkrét leírás, hogy mit csinálj.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Tartalom stratégia és content gap lista</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Milyen új tartalmat írj, milyen meglévő tartalmat optimalizálj. Javasolt cím, kulcsszavak, heading struktúra, minimális szóhossz.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Konkurencia benchmarking táblázat</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Konkurencia kulcsszavai, backlink profiljuk, tartalom stratégiájuk, technikai SEO szintjük. Hol vannak előnyben, hol tudsz te előzni.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">45 perces online meeting</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Végigmegyünk a jelentésen. Megbeszéljük a stratégiát, a prioritásokat, azt, hogy mit csinálj elsőnek. Kérdezhetsz, tisztázhatjuk a részleteket.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">30 napos email support</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Az audit átadása után 30 napig kérdezhetsz, ha valami nem világos, vagy elakadtál. Segítek pontosítani, ha valami nem egyértelmű.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Kinek való, kinek nem?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">✅ Kinek való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Alacsony organikus forgalom, szeretnéd növelni.</li>
+              <li>Nem tudod, milyen kulcsszavakra optimalizálj.</li>
+              <li>A konkurencia mindig előrébb van, nem tudod miért.</li>
+              <li>Van tartalmad, de nincs rankingje.</li>
+              <li>Helyi szolgáltatás vagy, de helyi keresésekre nem jelennek meg.</li>
+              <li>Szeretnél hosszú távú, fenntartható forgalmat, nem csak hirdetésekből.</li>
+              <li>Hajlandó vagy időt és munkát fektetni a SEO-ba (vagy van, aki megcsinálja).</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">❌ Kinek nem való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Azonnali eredményt vársz (1-2 hét).</li>
+              <li>Nem vagy hajlandó tartalmat írni vagy írtatni.</li>
+              <li>Nem érdekel az adatok, csak "csináld meg".</li>
+              <li>Nem vagy hajlandó technikai hibákat javítani.</li>
+              <li>Azt várod, hogy első helyre teszlek holnapra.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ar" class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          Árak és keret
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">Alap SEO audit</h3>
+            <div class="text-4xl font-normal text-taupe-900 mb-4">200.000 Ft</div>
+            <ul class="space-y-2 text-taupe-700 font-light leading-relaxed mb-6">
+              <li>✓ Kulcsszókutatás és analízis</li>
+              <li>✓ Konkurencia elemzés</li>
+              <li>✓ On-page SEO audit</li>
+              <li>✓ Technical SEO audit</li>
+              <li>✓ Backlink profil elemzés</li>
+              <li>✓ Tartalom stratégia</li>
+              <li>✓ Local SEO (ha releváns)</li>
+              <li>✓ Ranking javítási terv</li>
+              <li>✓ 45 perces call</li>
+              <li>✓ 30 napos email support</li>
+              <li>✓ 7-10 munkanap átfutás</li>
+            </ul>
+          </div>
+
+          <div class="bg-taupe-900 text-cream-50 p-8 rounded-sm">
+            <h3 class="text-2xl font-light mb-4">Express SEO audit</h3>
+            <div class="text-4xl font-normal mb-4">300.000 Ft</div>
+            <ul class="space-y-2 text-cream-100 font-light leading-relaxed mb-6">
+              <li>✓ Minden, ami az alap SEO auditban</li>
+              <li>✓ 3 munkanap átfutás</li>
+              <li>✓ Prioritás support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200 mb-8">
+          <h3 class="text-2xl font-light text-taupe-900 mb-4">Folyamatos SEO optimalizálás (retainer)</h3>
+          <p class="text-taupe-700 font-light leading-relaxed mb-4">
+            Ha nem csak a diagnózist, hanem a folyamatos javítást, monitoring-ot, havi riportálást is szeretnéd – van retainer opció. Havi 250.000 Ft-tól, tartalmazza a folyamatos optimalizálást, tartalom ajánlásokat, ranking követést, technikai javításokat.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <p class="text-taupe-700 font-light mb-4">Fizetés: átutalás, számla utólag. 50% előleg induláskor, 50% a jelentés átadásakor.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-12">
+          Gyakori kérdések
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <FAQItem client:visible question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-light mb-6">
+          Kérj SEO auditot most
+        </h2>
+        <p class="text-xl font-light text-cream-100 mb-8 max-w-2xl mx-auto">
+          Ha szeretnéd növelni az organikus forgalmat, és látni, hogy mire optimalizálj – beszéljünk.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a
+            href="tel:+36202826843"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 font-light"
+          >
+            <Phone size={20} />
+            +36 20 282 6843
+          </a>
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20SEO%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <MessageCircle size={20} />
+            WhatsApp
+          </a>
+          <a
+            href="mailto:hello@leventestudio.app?subject=SEO%20audit%20k%C3%A9r%C3%A9s"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <Mail size={20} />
+            Email
+          </a>
+        </div>
+        <p class="text-sm text-cream-200 font-light">
+          15-20 perces diagnosztikai beszélgetés, utána konkrét ajánlat.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          További szolgáltatások
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a
+            href="/szolgaltatas/weboldal-audit"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">Weboldal Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Átfogó weboldal diagnózis: technikai SEO, teljesítmény, UX/UI, Analytics. Konkrét hibalista, javítási terv.
+            </p>
+          </a>
+          <a
+            href="/szolgaltatas/weboldal-gyorsitas"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">Weboldal Gyorsítás</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Konkrét sebesség optimalizálás: képoptimalizálás, lazy loading, cache, CDN, Core Web Vitals javítás.
+            </p>
+          </a>
+        </div>
+        <div class="mt-8 text-center">
+          <a href="/esettanulmanyok" class="text-taupe-900 font-light underline hover:no-underline">
+            Nézd meg az esettanulmányokat
+          </a>
+          {' · '}
+          <a href="/rolam" class="text-taupe-900 font-light underline hover:no-underline">
+            Rólam
+          </a>
+          {' · '}
+          <a href="/kapcsolat" class="text-taupe-900 font-light underline hover:no-underline">
+            Kapcsolat
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>

@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Hero from '../components/Hero';
+import ProblemAwareness from '../components/ProblemAwareness';
+import AuditDeliverables from '../components/AuditDeliverables';
+import AuditCTA from '../components/AuditCTA';
+import AboutExpert from '../components/AboutExpert';
+import HowIWork from '../components/HowIWork';
+import CaseStudies from '../components/CaseStudies';
+import ForWhom from '../components/ForWhom';
+import FAQ from '../components/FAQ';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  'name': 'LeventeStudio - Weboldal Audit Szakértő',
+  'description': 'Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI, Analytics elemzés. Adat-alapú megközelítés.',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'jobTitle': 'Weboldal Audit Szakértő',
+    'telephone': '+36202826843',
+    'email': 'hello@leventestudio.app',
+    'url': 'https://leventestudio.app'
+  },
+  'areaServed': 'HU',
+  'serviceType': ['Weboldal Audit', 'SEO Audit', 'Weboldal Gyorsítás'],
+  'address': {
+    '@type': 'PostalAddress',
+    'addressCountry': 'HU'
+  }
+};
+---
+
+<BaseLayout
+  title="Weboldal Audit Szakértő – Adat-alapú Weboldal Elemzés | LeventeStudio"
+  description="Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI, Analytics elemzés. Konkrét hibalista, priorizált javítási terv. Mérnöki háttér, adat-alapú gondolkodás."
+  canonical="/"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+
+  <div class="min-h-screen bg-white">
+    <HeaderAstro />
+    <Hero client:load />
+    <ProblemAwareness client:load />
+    <div id="deliverables">
+      <AuditDeliverables client:load />
+    </div>
+    <div id="audit-cta">
+      <AuditCTA
+        client:load
+        variant="primary"
+        title="Kérj weboldal auditot most"
+        subtitle="Válaszd ki, ahogy neked kényelmes. Minden út ugyanoda vezet: tiszta kép arról, mi nem működik."
+      />
+    </div>
+    <AboutExpert client:load />
+    <HowIWork client:load />
+    <CaseStudies client:load />
+    <ForWhom client:load />
+    <FAQ client:load />
+    <Contact client:load />
+    <Footer client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,109 @@
+---
+import { MessageCircle, Phone, Menu, X } from 'lucide-react';
+
+const { pathname } = Astro.url;
+
+const isActive = (path: string) => pathname === path || pathname === path + '/';
+
+const navLinks = [
+  { path: '/', label: 'Főoldal' },
+  { path: '/rolam', label: 'Rólam' },
+  { path: '/esettanulmanyok', label: 'Esettanulmányok' },
+  { path: '/kapcsolat', label: 'Kapcsolat' }
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-taupe-100">
+  <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a href="/">
+        <img src="/logo-primary-dark.svg" alt="LeventeStudio" class="h-8" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.path}
+            class:list={[
+              'text-sm font-light transition-colors duration-200',
+              isActive(link.path)
+                ? 'text-taupe-900 font-normal'
+                : 'text-taupe-700 hover:text-taupe-900'
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light"
+        >
+          <MessageCircle size={18} />
+          Ingyenes konzultáció
+        </a>
+
+        <a
+          href="tel:+36202826843"
+          class="lg:hidden inline-flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors duration-200 text-sm font-light"
+        >
+          <Phone size={16} />
+        </a>
+
+        <button
+          id="mobile-menu-button"
+          class="lg:hidden p-2 text-taupe-900"
+          aria-label="Toggle menu"
+        >
+          <Menu id="menu-icon" size={24} />
+          <X id="close-icon" size={24} class="hidden" />
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" class="lg:hidden mt-4 pb-4 hidden flex-col gap-4 border-t border-taupe-200 pt-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.path}
+          class:list={[
+            'text-base font-light transition-colors duration-200',
+            isActive(link.path)
+              ? 'text-taupe-900 font-normal'
+              : 'text-taupe-700'
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light justify-center"
+      >
+        <MessageCircle size={18} />
+        Ingyenes konzultáció
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+  }
+</script>

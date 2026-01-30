@@ -1,0 +1,565 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
+import FAQItem from '../../components/FAQItem';
+import { Phone, MessageCircle, Mail, CheckCircle } from 'lucide-react';
+
+const pageTitle = 'Weboldal Gyorsítás – Core Web Vitals Optimalizálás | LeventeStudio';
+const pageDescription = 'Professzionális weboldal gyorsítás szolgáltatás. Képoptimalizálás, lazy loading, cache, CDN, JavaScript/CSS optimalizálás. Konkrét sebesség javítás, Core Web Vitals optimalizálás.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://leventestudio.app/szolgaltatas/weboldal-gyorsitas#service',
+      'name': 'Weboldal Gyorsítás Szolgáltatás',
+      'description': 'Weboldal sebesség optimalizálás: képoptimalizálás, lazy loading, cache beállítások, CDN, JavaScript/CSS optimalizálás. Core Web Vitals javítás, Google PageSpeed score növelés.',
+      'provider': {
+        '@type': 'Person',
+        'name': 'Levente Csurka',
+        'jobTitle': 'Weboldal Teljesítmény Szakértő',
+        'url': 'https://leventestudio.app'
+      },
+      'areaServed': 'HU',
+      'serviceType': 'Weboldal Gyorsítás',
+      'offers': {
+        '@type': 'Offer',
+        'price': '120000',
+        'priceCurrency': 'HUF',
+        'availability': 'https://schema.org/InStock'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://leventestudio.app/szolgaltatas/weboldal-gyorsitas#faq',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'Mennyivel gyorsabb lesz az oldalam?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Függ az induló állapottól. Ha most 6-8 másodperc a betöltési idő, általában 2-3 másodpercre tudom csökkenteni. Ha már most 4 másodperc, akkor 1.5-2 másodpercre. A cél: LCP (Largest Contentful Paint) < 2.5s, FID (First Input Delay) < 100ms, CLS (Cumulative Layout Shift) < 0.1.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mennyi idő alatt látszik az eredmény?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Azonnal. Amint javítok valamit (pl. képoptimalizálás), a következő betöltésnél már gyorsabb lesz. Nincs 3 hónapos várakozás, mint SEO-nál. Ha tesztelünk PageSpeed Insights-ban, azonnal látod a javulást.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Működik WordPress / Shopify / Wix / custom oldalon is?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Igen. Minden platformon működik, bár a lehetőségek változnak. WordPress-en teljes kontroll, plugin-ok, hosting váltás. Shopify-on kevesebb kontroll, de képoptimalizálás, Liquid template javítás, app-ok csökkentése. Wix-en nagyon korlátozott, de van min dolgozni. Custom oldalakon teljes kontroll.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Nem fog-e elromlani az oldal?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem. Minden javítás előtt backup, staging környezetben tesztelés (ha van), majd éles indítás. Ha valami mégis elromlik, vissza lehet állítani. Eddig egy ügyfélnél sem romlott el az oldal.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mit nem tudok megcsinálni, ha lassú a szerver?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Ha a szerver válaszidő 2-3 másodperc, mert olcsó shared hosting-on vagy, akkor korlátozott a javítási lehetőség. Ilyenkor javaslom a hosting váltást (segítek kiválasztani jobb hosting-ot, áthelyezésben is tudok segíteni). Ha jó a hosting, nincs probléma.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Meg kell változtatni a dizájnt?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem. A vizuális dizájn ugyanaz marad. Csak technikai optimalizálás: képformátumok, lazy loading, script-ek, cache. Az oldal ugyanúgy néz ki, csak gyorsabban tölt be.'
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const faqs = [
+  {
+    question: 'Mennyivel gyorsabb lesz az oldalam?',
+    answer: 'Függ az induló állapottól. Ha most 6-8 másodperc a betöltési idő, általában 2-3 másodpercre tudom csökkenteni. Ha már most 4 másodperc, akkor 1.5-2 másodpercre. A cél: LCP (Largest Contentful Paint) < 2.5s, FID (First Input Delay) < 100ms, CLS (Cumulative Layout Shift) < 0.1.'
+  },
+  {
+    question: 'Mennyi idő alatt látszik az eredmény?',
+    answer: 'Azonnal. Amint javítok valamit (pl. képoptimalizálás), a következő betöltésnél már gyorsabb lesz. Nincs 3 hónapos várakozás, mint SEO-nál. Ha tesztelünk PageSpeed Insights-ban, azonnal látod a javulást.'
+  },
+  {
+    question: 'Működik WordPress / Shopify / Wix / custom oldalon is?',
+    answer: 'Igen. Minden platformon működik, bár a lehetőségek változnak. WordPress-en teljes kontroll, plugin-ok, hosting váltás. Shopify-on kevesebb kontroll, de képoptimalizálás, Liquid template javítás, app-ok csökkentése. Wix-en nagyon korlátozott, de van min dolgozni. Custom oldalakon teljes kontroll.'
+  },
+  {
+    question: 'Nem fog-e elromlani az oldal?',
+    answer: 'Nem. Minden javítás előtt backup, staging környezetben tesztelés (ha van), majd éles indítás. Ha valami mégis elromlik, vissza lehet állítani. Eddig egy ügyfélnél sem romlott el az oldal.'
+  },
+  {
+    question: 'Mit nem tudok megcsinálni, ha lassú a szerver?',
+    answer: 'Ha a szerver válaszidő 2-3 másodperc, mert olcsó shared hosting-on vagy, akkor korlátozott a javítási lehetőség. Ilyenkor javaslom a hosting váltást (segítek kiválasztani jobb hosting-ot, áthelyezésben is tudok segíteni). Ha jó a hosting, nincs probléma.'
+  },
+  {
+    question: 'Meg kell változtatni a dizájnt?',
+    answer: 'Nem. A vizuális dizájn ugyanaz marad. Csak technikai optimalizálás: képformátumok, lazy loading, script-ek, cache. Az oldal ugyanúgy néz ki, csak gyorsabban tölt be.'
+  },
+  {
+    question: 'Mennyibe kerül a weboldal gyorsítás?',
+    answer: 'Alap optimalizálás: 120.000 Ft. Tartalmaz képoptimalizálást, lazy loading beállítást, cache konfigurálást, fölösleges script-ek eltávolítását, CSS optimalizálást. WordPress + hosting váltás segítség: 180.000 Ft. Komplex e-commerce vagy egyedi rendszer: egyedi árajánlat.'
+  },
+  {
+    question: 'Mennyi ideig tart a munka?',
+    answer: '3-5 munkanap. Attól függ, milyen platformon van az oldal, mennyire komplex, hány oldal van. Egyszerű WordPress oldalon 2-3 nap, komplex e-commerce-nél 5-7 nap.'
+  },
+  {
+    question: 'Kell-e hozzáférés az oldalhoz?',
+    answer: 'Igen. Admin hozzáférés kell (WordPress admin, vagy FTP/SSH hozzáférés custom oldalnál). Ha hosting-ot is javítani kell, akkor hosting admin panel hozzáférés is.'
+  },
+  {
+    question: 'Van garancia?',
+    answer: 'Igen. Ha a munka után nem javul a PageSpeed score legalább 20 ponttal, vagy a betöltési idő nem csökken legalább 30%-kal, visszaadom a pénzed. Eddig minden ügyféllel sikerült javítani.'
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/szolgaltatas/weboldal-gyorsitas"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+
+  <main class="min-h-screen bg-white">
+    <section class="px-6 pt-32 pb-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-light text-taupe-900 mb-6 leading-tight">
+          Weboldal Gyorsítás – Gyorsabb töltés, több konverzió
+        </h1>
+        <p class="text-xl md:text-2xl text-taupe-700 font-light leading-relaxed mb-8">
+          Képoptimalizálás, lazy loading, cache, CDN, JavaScript/CSS optimalizálás. Konkrét sebesség javítás, Core Web Vitals optimalizálás. Azonnal mérhető eredmény.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20gyors%C3%ADt%C3%A1st%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 font-light"
+          >
+            Gyorsítsuk fel az oldalt
+          </a>
+          <a
+            href="#ar"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-50 text-taupe-900 rounded-sm hover:bg-taupe-100 transition-colors duration-200 font-light border border-taupe-200"
+          >
+            Árak és keret
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Miért kell gyorsítani?
+        </h2>
+        <div class="space-y-6 text-taupe-700 font-light leading-relaxed text-lg">
+          <p>
+            Mert a lassú oldal pénzt veszít. Ha 5-6 másodpercig tölt be az oldal, az emberek 50%-a kilép, mielőtt betöltene. Nem látják az ajánlatodat, nem olvassák el a tartalmat, nem kattintanak a CTA gombra. Egyszerűen elmennek.
+          </p>
+          <p>
+            A Google is bünteti a lassú oldalakat. A Core Web Vitals (LCP, FID, CLS) ranking tényező 2021 óta. Ha az oldalad lassú, lejjebb kerülsz a keresési találatokban. Mobilon még rosszabb: az emberek türelmetlenek, ha 3 másodpercnél tovább tölt, bezárják.
+          </p>
+          <p>
+            A gyorsítás tehát nem opció. Kötelező. Minden másodperc számít. Amazon kimérte: 100ms lassulás 1% konverziós veszteség. Google: 500ms lassulás 20% forgalom veszteség. Walmart: 1 másodperc javulás 2% konverzió növekedés.
+          </p>
+          <p>
+            A weboldal gyorsítás pontosan ezt javítja. Megnézem, mi lassítja az oldaladat: képek mérete, fölösleges JavaScript, CSS blokkolás, szerver válaszidő, cache hiánya, CDN hiánya. Végigmegyek minden technikai elemen, javítom, ami lassít. Végül kapsz egy gyors oldalt, ami jobban konvertál, jobb Google rankingje van, és kevesebb embert veszít el betöltés közben.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mi a tünet? Mikor kell gyorsítás?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">5+ másodperces betöltési idő</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              PageSpeed Insights piros színt mutat, Lighthouse score 30-40 alatt. Mobilon még rosszabb. Az emberek kilépnek, mielőtt betöltene.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Képek lassan töltődnek</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              A képek fele meg sem jelenik azonnal, vagy sorban töltődnek be lassan. Nagy fájlméretek, nincs optimalizálás, nincs lazy loading.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Magas bounce rate (kilépési arány)</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Google Analytics mutatja: 60-70% bounce rate, átlagos session idő 10-20 másodperc. Az emberek azonnal kilépnek.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Rossz Core Web Vitals</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Search Console jelzi: LCP > 4s, FID > 300ms, CLS > 0.25. Google bünteti a rangingben, kevesebb organikus forgalom.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Mobil verzió használhatatlan</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Mobilon 10-15 másodperc a betöltés, a képek nem töltődnek be, vagy az oldal összeomlik. Mobil konverzió nulla.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Sok plugin, script, CSS fájl</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              WordPress oldalon 30+ plugin, sok JavaScript fájl, fölösleges CSS. Minden oldalbetöltésnél mindent letölt, nincs cache.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light mb-8">
+          Mit csinálok a gyorsításkor?
+        </h2>
+        <div class="space-y-6 text-cream-100 font-light leading-relaxed">
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">1. Képoptimalizálás</h3>
+            <p class="mb-3">
+              Minden kép tömörítése minőségvesztés nélkül. Modern formátumok használata (WebP, AVIF), ha a böngésző támogatja. Responsive képek (srcset), hogy mobilon kisebb kép töltődjön be. Lazy loading: a képek csak akkor töltődnek be, amikor a felhasználó odagörgeti (nem az egész oldal képeit azonnal).
+            </p>
+            <p>
+              Általában 50-70%-os fájlméret csökkenés, és 1-2 másodperces betöltési idő javulás csak ettől.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">2. JavaScript és CSS optimalizálás</h3>
+            <p class="mb-3">
+              Fölösleges JavaScript és CSS fájlok eltávolítása. Inline critical CSS (a felső rész CSS-e azonnal betöltődik, a többi később). JavaScript defer vagy async loading (nem blokkolja a page render-t). Minification és concatenation (több fájl összevonása, tömörítése).
+            </p>
+            <p>
+              Script-ek, amik nem kellenek az első betöltéshez (pl. chat widget, analytics), későbbre halasztása (deferred loading).
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">3. Cache beállítások</h3>
+            <p class="mb-3">
+              Browser cache: a böngésző tárolja a statikus fájlokat (képek, CSS, JS), nem kell minden alkalommal letölteni. Server-side cache (pl. WordPress-en WP Rocket, WP Super Cache, vagy Cloudflare cache). Object cache, database query cache.
+            </p>
+            <p>
+              Ha cache jól van beállítva, a második betöltés 3-5x gyorsabb, mint az első.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">4. CDN (Content Delivery Network)</h3>
+            <p class="mb-3">
+              CDN használat: a statikus fájlok (képek, CSS, JS) nem a te szervereden vannak, hanem több globális szerveren. A felhasználó a hozzá legközelebbi szerverről tölti le őket, így gyorsabb. Cloudflare, BunnyCDN, vagy más CDN integráció.
+            </p>
+            <p>
+              Ha sok nemzetközi forgalmad van, a CDN nélkülözhetetlen. Ha csak magyar forgalom, akkor is segít, mert a statikus fájlok kiszolgálását leveszi a szerverről.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">5. Szerver és hosting optimalizálás</h3>
+            <p class="mb-3">
+              Szerver válaszidő (TTFB - Time To First Byte) csökkentése. Ha olcsó shared hosting-on vagy, és a TTFB 1-2 másodperc, javaslom a hosting váltást. PHP verzió frissítése (PHP 8.x sokkal gyorsabb, mint 7.x). Gzip vagy Brotli tömörítés bekapcsolása. HTTP/2 vagy HTTP/3 használata.
+            </p>
+            <p>
+              Ha szükséges, segítek hosting váltásban (kiválasztás, migráció).
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">6. Database és backend optimalizálás</h3>
+            <p class="mb-3">
+              WordPress database cleanup: fölösleges adatok törlése (post revisions, spam kommentek, transients). Database query optimalizálás, slow query-k javítása. Plugin-ok átnézése: melyek lassítanak, melyek nem kellenek. Fölösleges plugin-ok kikapcsolása vagy eltávolítása.
+            </p>
+            <p>
+              Ha custom oldal: backend API-k válaszidejének javítása, query-k optimalizálása, cache rétegek hozzáadása.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">7. Core Web Vitals optimalizálás</h3>
+            <p class="mb-3">
+              LCP (Largest Contentful Paint) javítása: a legnagyobb elem (kép, hero section) gyorsabb betöltése. FID (First Input Delay) javítása: JavaScript futási idő csökkentése, interaktivitás gyorsítása. CLS (Cumulative Layout Shift) javítása: elemek méretének előre definiálása, hogy ne ugráljon az oldal betöltés közben.
+            </p>
+            <p>
+              Ezek a Google ranking faktorok, ezért prioritás. Ha ezek rendben vannak, jobb ranking, kevesebb bounce rate.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mit kapsz a gyorsítás után?
+        </h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Gyorsabb betöltési idő (mért eredmény)</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Előtte/utána mérés: PageSpeed Insights score, Lighthouse score, tényleges betöltési idő (desktop és mobil). Általában 50-70% javulás a betöltési időben.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Core Web Vitals optimalizálva</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1. Zöld jelzés a Search Console-ban. Jobb ranking a Google keresésekben.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Részletes dokumentáció</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Mit javítottam, milyen beállításokat változtattam meg, milyen plugin-okat telepítettem vagy töröltem. Ha bármi elromlik később, vissza lehet állítani.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Karbantartási útmutató</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Hogyan tartsd karban a gyors oldalt: új képek feltöltésekor ne felejts el tömöríteni, mely plugin-okat ne telepíts, milyen cache beállításokat ne változtass meg. Egyszerű, követhető lista.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">30 napos support</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Ha valami elromlik, vagy lassulás tapasztalható a javítások után, 30 napig ingyenesen javítom. Kérdezhetsz, ha valami nem világos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Kinek való, kinek nem?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">✅ Kinek való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>5+ másodperces betöltési idő, szeretnéd gyorsítani.</li>
+              <li>Rossz PageSpeed score, szeretnéd javítani.</li>
+              <li>Magas bounce rate, az emberek kilépnek azonnal.</li>
+              <li>Rossz Core Web Vitals, Google bünteti az oldalt.</li>
+              <li>Mobilon használhatatlan lassúság.</li>
+              <li>E-commerce, és a konverzió alacsony a lassúság miatt.</li>
+              <li>Van admin hozzáférésed az oldalhoz, vagy van aki ad.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">❌ Kinek nem való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Nem vagy hajlandó plugin-okat törölni, amik lassítanak.</li>
+              <li>Nem vagy hajlandó hosting-ot váltani, ha az a probléma.</li>
+              <li>Teljes dizájn újratervezést vársz (az nem gyorsítás, hanem redesign).</li>
+              <li>Nincs admin hozzáférésed, és nem tudsz szerezni.</li>
+              <li>A lassúság nem probléma számodra.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ar" class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          Árak és keret
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">Alap gyorsítás</h3>
+            <div class="text-4xl font-normal text-taupe-900 mb-4">120.000 Ft</div>
+            <ul class="space-y-2 text-taupe-700 font-light leading-relaxed mb-6">
+              <li>✓ Képoptimalizálás (minden kép)</li>
+              <li>✓ Lazy loading beállítás</li>
+              <li>✓ Cache konfiguráció</li>
+              <li>✓ JavaScript/CSS optimalizálás</li>
+              <li>✓ Fölösleges script-ek eltávolítása</li>
+              <li>✓ Core Web Vitals optimalizálás</li>
+              <li>✓ Előtte/utána mérés</li>
+              <li>✓ Dokumentáció + karbantartási útmutató</li>
+              <li>✓ 30 napos support</li>
+              <li>✓ 3-5 munkanap átfutás</li>
+            </ul>
+          </div>
+
+          <div class="bg-taupe-900 text-cream-50 p-8 rounded-sm">
+            <h3 class="text-2xl font-light mb-4">WordPress + hosting váltás segítség</h3>
+            <div class="text-4xl font-normal mb-4">180.000 Ft</div>
+            <ul class="space-y-2 text-cream-100 font-light leading-relaxed mb-6">
+              <li>✓ Minden, ami az alap gyorsításban</li>
+              <li>✓ Hosting kiválasztás segítség</li>
+              <li>✓ WordPress migráció új hosting-ra</li>
+              <li>✓ DNS beállítások</li>
+              <li>✓ SSL telepítés</li>
+              <li>✓ Backup stratégia setup</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200 mb-8">
+          <h3 class="text-2xl font-light text-taupe-900 mb-4">Komplex e-commerce / egyedi rendszer</h3>
+          <p class="text-taupe-700 font-light leading-relaxed mb-4">
+            100+ termék, egyedi fejlesztés, komplex backend – egyedi árajánlat. Küldj egy rövid leírást az oldalról, és 24 órán belül küldök konkrét árat.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <p class="text-taupe-700 font-light mb-4">Fizetés: átutalás, számla utólag. 50% előleg induláskor, 50% a munka befejezése után.</p>
+          <p class="text-taupe-900 font-normal text-lg">Garancia: Ha nem javul a PageSpeed score legalább 20 ponttal, vagy a betöltési idő nem csökken legalább 30%-kal, visszaadom a pénzed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-12">
+          Gyakori kérdések
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <FAQItem client:visible question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-light mb-6">
+          Gyorsítsuk fel az oldaladat
+        </h2>
+        <p class="text-xl font-light text-cream-100 mb-8 max-w-2xl mx-auto">
+          Ha lassú az oldal, és szeretnéd javítani – beszéljünk.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a
+            href="tel:+36202826843"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 font-light"
+          >
+            <Phone size={20} />
+            +36 20 282 6843
+          </a>
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20gyors%C3%ADt%C3%A1st%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <MessageCircle size={20} />
+            WhatsApp
+          </a>
+          <a
+            href="mailto:hello@leventestudio.app?subject=Weboldal%20gyors%C3%ADt%C3%A1s%20k%C3%A9r%C3%A9s"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <Mail size={20} />
+            Email
+          </a>
+        </div>
+        <p class="text-sm text-cream-200 font-light">
+          15-20 perces diagnosztikai beszélgetés, utána konkrét ajánlat.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          További szolgáltatások
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a
+            href="/szolgaltatas/weboldal-audit"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">Weboldal Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Átfogó weboldal diagnózis: technikai SEO, teljesítmény, UX/UI, Analytics. Konkrét hibalista, javítási terv.
+            </p>
+          </a>
+          <a
+            href="/szolgaltatas/seo-audit"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">SEO Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Mélyebb SEO elemzés: kulcsszókutatás, konkurencia, backlink profil, tartalom optimalizálás, ranking javítási terv.
+            </p>
+          </a>
+        </div>
+        <div class="mt-8 text-center">
+          <a href="/esettanulmanyok" class="text-taupe-900 font-light underline hover:no-underline">
+            Nézd meg az esettanulmányokat
+          </a>
+          {' · '}
+          <a href="/rolam" class="text-taupe-900 font-light underline hover:no-underline">
+            Rólam
+          </a>
+          {' · '}
+          <a href="/kapcsolat" class="text-taupe-900 font-light underline hover:no-underline">
+            Kapcsolat
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>
