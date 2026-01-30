@@ -1,1 +1,13 @@
-/*  /index.html  200
+# Trailing slash redirects (force canonical URLs)
+/rolam                                   /rolam/                                  301!
+/esettanulmanyok                         /esettanulmanyok/                        301!
+/kapcsolat                               /kapcsolat/                              301!
+/szolgaltatas/weboldal-audit             /szolgaltatas/weboldal-audit/            301!
+/szolgaltatas/seo-audit                  /szolgaltatas/seo-audit/                 301!
+/szolgaltatas/weboldal-gyorsitas         /szolgaltatas/weboldal-gyorsitas/        301!
+/cookie-policy                           /cookie-policy/                          301!
+/privacy-policy                          /privacy-policy/                         301!
+/legal                                   /legal/                                  301!
+
+# 404 handling
+/*  /404.html  404

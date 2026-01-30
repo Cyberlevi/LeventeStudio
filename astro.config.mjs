@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://leventestudio.app',
+  trailingSlash: 'always',
   integrations: [
     react(),
     tailwind({
@@ -20,6 +21,7 @@ export default defineConfig({
   ],
   output: 'static',
   build: {
+    format: 'directory',
     inlineStylesheets: 'auto',
   },
   compressHTML: true,

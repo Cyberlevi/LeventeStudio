@@ -1,5 +1,4 @@
 import Logo from './Logo';
-import { navigate } from '../utils/navigation';
 
 export default function Footer() {
   return (
@@ -9,24 +8,24 @@ export default function Footer() {
           <Logo variant="primary" theme="dark" className="h-8" />
           <div className="flex flex-col items-center gap-4 text-center">
             <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-              <button
-                onClick={() => navigate('/privacy-policy')}
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light cursor-pointer"
+              <a
+                href="/privacy-policy/"
+                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
               >
                 Adatvédelmi Tájékoztató
-              </button>
-              <button
-                onClick={() => navigate('/cookie-policy')}
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light cursor-pointer"
+              </a>
+              <a
+                href="/cookie-policy/"
+                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
               >
                 Süti Szabályzat
-              </button>
-              <button
-                onClick={() => navigate('/legal')}
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light cursor-pointer"
+              </a>
+              <a
+                href="/legal/"
+                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
               >
                 Jogi Információk
-              </button>
+              </a>
             </nav>
             <p className="text-cream-200 text-sm font-light">
               © {new Date().getFullYear()} Levente Stúdió
