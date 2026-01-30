@@ -1,9 +1,3 @@
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import StructuredData from '../components/StructuredData';
-import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
-
 export default function About() {
   const credentials = [
     {
@@ -56,11 +50,6 @@ export default function About() {
 
   return (
     <>
-      <StructuredData />
-      <CookieBanner />
-      <MobileStickyBar />
-      <div className="min-h-screen bg-white">
-        <Header />
 
         <section className="px-6 pt-32 pb-24 bg-white">
           <div className="max-w-5xl mx-auto">
@@ -242,8 +231,6 @@ export default function About() {
           </div>
         </section>
 
-        <Footer />
-      </div>
     </>
   );
 }

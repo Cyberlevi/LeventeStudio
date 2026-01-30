@@ -1,20 +1,10 @@
 import { Phone, MessageCircle, Mail, MapPin, Clock } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import StructuredData from '../components/StructuredData';
-import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
 import { trackConversion } from '../utils/gtm';
 import { isRateLimited, getRateLimitMessage } from '../utils/rateLimit';
 
 export default function ContactPage() {
   return (
     <>
-      <StructuredData />
-      <CookieBanner />
-      <MobileStickyBar />
-      <div className="min-h-screen bg-white">
-        <Header />
 
         <section className="px-6 pt-32 pb-24 bg-white">
           <div className="max-w-4xl mx-auto">
@@ -215,9 +205,6 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
-
-        <Footer />
-      </div>
     </>
   );
 }

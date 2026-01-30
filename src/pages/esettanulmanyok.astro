@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import CaseStudiesPage from './CaseStudiesPage';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  'name': 'Esettanulmányok - Weboldal Audit Projektek',
+  'description': 'Valós példák korábbi weboldal audit projektekből. Konkrét eredmények, mérések, tapasztalatok.',
+  'url': 'https://leventestudio.app/esettanulmanyok',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'jobTitle': 'Weboldal Audit Szakértő'
+  }
+};
+---
+
+<BaseLayout
+  title="Esettanulmányok – Audit Projektek és Eredmények | LeventeStudio"
+  description="Valós példák korábbi weboldal audit projektekből. Nézd meg a konkrét eredményeket, méréseket és tanulságokat."
+  canonical="/esettanulmanyok"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+
+  <div class="min-h-screen bg-white">
+    <HeaderAstro />
+    <CaseStudiesPage client:load />
+    <Footer client:load />
+  </div>
+</BaseLayout>

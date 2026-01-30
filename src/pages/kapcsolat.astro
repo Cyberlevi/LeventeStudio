@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import ContactPage from './ContactPage';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  'name': 'Kapcsolat - LeventeStudio',
+  'description': 'Vedd fel velem a kapcsolatot! WhatsApp, email, telefon. Ingyenes konzultáció weboldal audit szolgáltatásokhoz.',
+  'url': 'https://leventestudio.app/kapcsolat',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'telephone': '+36202826843',
+    'email': 'hello@leventestudio.app'
+  }
+};
+---
+
+<BaseLayout
+  title="Kapcsolat – Vedd fel velem a kapcsolatot | LeventeStudio"
+  description="Kérdésed van a weboldal audit szolgáltatásomról? Vedd fel velem a kapcsolatot WhatsApp-on, emailben vagy telefonon. Ingyenes konzultáció."
+  canonical="/kapcsolat"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+
+  <div class="min-h-screen bg-white">
+    <HeaderAstro />
+    <ContactPage client:load />
+    <Footer client:load />
+  </div>
+</BaseLayout>
