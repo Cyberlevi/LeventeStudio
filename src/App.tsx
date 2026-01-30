@@ -18,6 +18,9 @@ import MobileStickyBar from './components/MobileStickyBar';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookiePolicy from './pages/CookiePolicy';
 import Legal from './pages/Legal';
+import About from './pages/About';
+import CaseStudiesPage from './pages/CaseStudiesPage';
+import ContactPage from './pages/ContactPage';
 import { useScrollTracking } from './hooks/useScrollTracking';
 import { useTimeTracking } from './hooks/useTimeTracking';
 import { trackPageView } from './utils/gtm';
@@ -78,6 +81,11 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/legal" element={<Legal />} />
 
+        {/* Phase 2: Info pages */}
+        <Route path="/rolam" element={<About />} />
+        <Route path="/esettanulmanyok" element={<CaseStudiesPage />} />
+        <Route path="/kapcsolat" element={<ContactPage />} />
+
         {/* Service pages - to be added in Phase 3 */}
         {/* <Route path="/google-ads-audit" element={<GoogleAdsAudit />} /> */}
         {/* <Route path="/meta-ads-audit" element={<MetaAdsAudit />} /> */}
@@ -91,11 +99,6 @@ function App() {
         {/* Local landing pages - to be added in Phase 4 */}
         {/* <Route path="/ppc-szakerto-budapest" element={<BudapestPage />} /> */}
         {/* ... more cities */}
-
-        {/* Info pages - to be added in Phase 2 */}
-        {/* <Route path="/rolam" element={<About />} /> */}
-        {/* <Route path="/esettanulmanyok" element={<CaseStudiesPage />} /> */}
-        {/* <Route path="/kapcsolat" element={<ContactPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
