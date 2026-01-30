@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProblemAwareness from './components/ProblemAwareness';
@@ -21,35 +22,9 @@ import { useScrollTracking } from './hooks/useScrollTracking';
 import { useTimeTracking } from './hooks/useTimeTracking';
 import { trackPageView } from './utils/gtm';
 
-function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
-
+function HomePage() {
   useScrollTracking();
   useTimeTracking();
-
-  useEffect(() => {
-    trackPageView(window.location.pathname);
-
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
-      trackPageView(window.location.pathname);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  if (currentPath === '/privacy-policy') {
-    return <PrivacyPolicy />;
-  }
-
-  if (currentPath === '/cookie-policy') {
-    return <CookiePolicy />;
-  }
-
-  if (currentPath === '/legal') {
-    return <Legal />;
-  }
 
   return (
     <>
@@ -79,6 +54,50 @@ function App() {
         <Footer />
       </div>
     </>
+  );
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    trackPageView(pathname);
+  }, [pathname]);
+
+  return null;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/legal" element={<Legal />} />
+
+        {/* Service pages - to be added in Phase 3 */}
+        {/* <Route path="/google-ads-audit" element={<GoogleAdsAudit />} /> */}
+        {/* <Route path="/meta-ads-audit" element={<MetaAdsAudit />} /> */}
+        {/* <Route path="/linkedin-ads-audit" element={<LinkedInAdsAudit />} /> */}
+        {/* <Route path="/tiktok-ads-audit" element={<TikTokAdsAudit />} /> */}
+        {/* <Route path="/youtube-ads-audit" element={<YouTubeAdsAudit />} /> */}
+        {/* <Route path="/kampanystratégia" element={<CampaignStrategy />} /> */}
+        {/* <Route path="/konverzioptimalizalas" element={<ConversionOptimization />} /> */}
+        {/* <Route path="/analytics-reporting" element={<AnalyticsReporting />} /> */}
+
+        {/* Local landing pages - to be added in Phase 4 */}
+        {/* <Route path="/ppc-szakerto-budapest" element={<BudapestPage />} /> */}
+        {/* ... more cities */}
+
+        {/* Info pages - to be added in Phase 2 */}
+        {/* <Route path="/rolam" element={<About />} /> */}
+        {/* <Route path="/esettanulmanyok" element={<CaseStudiesPage />} /> */}
+        {/* <Route path="/kapcsolat" element={<ContactPage />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
