@@ -68,7 +68,7 @@ const navLinks = [
         <a
           href={link.path}
           class:list={[
-            'text-base font-light transition-colors duration-200',
+            'mobile-menu-link text-base font-light transition-colors duration-200',
             isActive(link.path)
               ? 'text-taupe-900 font-normal'
               : 'text-taupe-700'
@@ -81,7 +81,7 @@ const navLinks = [
         href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light justify-center"
+        class="mobile-menu-link inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light justify-center"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
         Ingyenes konzultáció
@@ -103,6 +103,16 @@ const navLinks = [
         mobileMenu.classList.toggle('flex');
         menuIcon.classList.toggle('hidden');
         closeIcon.classList.toggle('hidden');
+      });
+
+      const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove('flex');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
       });
     }
   }
