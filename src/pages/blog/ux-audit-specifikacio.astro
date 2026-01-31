@@ -5,9 +5,28 @@ import { SEO } from 'astro-seo';
 const title = "UX Audit Bekérő Specifikáció – Útmutató Szakmai Audithoz";
 const description = "Hogyan kérj professzionális UX auditot ügynökségtől vagy szakértőtől. Teljes checklist: felhasználói útvonal, konverziós pontok, mobil UX, információs hierarchia, bizalomépítés.";
 const publishDate = "2025-01-31";
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': title,
+  'description': description,
+  'datePublished': publishDate,
+  'author': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'url': 'https://leventestudio.app',
+    'logo': {
+      '@type': 'ImageObject',
+      'url': 'https://leventestudio.app/logo.png',
+      'width': 512,
+      'height': 512
+    }
+  }
+};
 ---
 
-<BaseLayout>
+<BaseLayout structuredData={structuredData}>
   <SEO
     slot="head"
     title={title}
@@ -20,7 +39,7 @@ const publishDate = "2025-01-31";
       },
       article: {
         publishedTime: publishDate,
-        authors: ["Levente Fekete"],
+        authors: ["Levente Csurka"],
       }
     }}
     twitter={{
