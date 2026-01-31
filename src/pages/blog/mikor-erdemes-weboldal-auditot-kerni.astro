@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SEO } from 'astro-seo';
+
+const title = "Mikor érdemes weboldal auditot kérni – és mikor felesleges?";
+const description = "Weboldal audit nem mindenkinek való. Nézd meg, mikor van itt az ideje egy technikai auditnak, és mikor felesleges költés. Konkrét jelekkel.";
+const publishDate = "2025-01-31";
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title,
+        type: "article",
+        image: "/og-image.jpg",
+      },
+      article: {
+        publishedTime: publishDate,
+        authors: ["Levente Fekete"],
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+    }}
+  />
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-neutral-900">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">Mikor érdemes weboldal auditot kérni</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        Mikor érdemes weboldal auditot kérni – és mikor felesleges?
+      </h1>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>8 perc olvasás</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <p class="text-xl text-neutral-700 leading-relaxed mb-8">
+        Weboldal audit nem mindenkinek kell. Ha az oldal új, nincs forgalom, vagy nincs üzleti cél mögötte, az audit felesleges költés. De ha konkrét technikai jelek vannak – forgalom esés, lassú betöltés, nincs konverzió –, akkor nem opcionális.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az alábbiakban végigmegyünk a konkrét jeleken, amikor érdemes auditot kérni, és amikor felesleges. Nem marketing beszéd, hanem technikai jelzők. Ha felismered magad, valószínűleg szükséged van rá.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mikor érdemes auditot kérni?
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az audit akkor hasznos, amikor konkrét technikai problémák vannak, de nem tudod, honnan indul. Az alábbiakban 6 konkrét jel, amikor érdemes auditot kérni.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Organikus forgalom esik, de nem tudod miért
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha a Google Analytics vagy Search Console mutatja, hogy a forgalom 20-30%-ot esett az elmúlt 3-6 hónapban, de nem változtattál semmit az oldalon, az technikai probléma jele.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Indexelési hiba (oldalak kiestek a keresőből), Core Web Vitals romlás (sebesség lassult), mobil használhatóság probléma, vagy konkurencia előzött meg. Az audit diagnosztizálja, melyik a valódi ok.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. A weboldal lassú, de nem tudod, mitől
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha a PageSpeed Insights 30-50 pontot mutat, vagy a látogatók panaszkodnak, hogy lassú a betöltés, az egyértelmű jel. De mi okozza? Képek? Pluginok? Tárhely? Cache?
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Túl nagy képek, nincs cache, render-blocking erőforrások, lassú tárhely, vagy rossul konfigurált CDN. Az audit diagnosztizálja a sebesség problémát, és megmutatja, hol folyik el az idő.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Van forgalom, de nincs konverzió
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha havi 1000-5000 látogató van, de nem jön megkeresés, nem töltik ki az űrlapot, nem hívnak – az a weboldal szerkezeti problémája.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Nincs világos CTA, az űrlap nem működik, mobilon használhatatlan, nincs bizalmi elem, vagy a tartalom nem kapcsolódik a látogató szándékához. Az audit feltárja, hol szakad meg a konverziós folyamat.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        4. Hirdetést indítasz, de az oldal nem konvertál
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha Google Ads vagy Facebook Ads kampányt tervezel, de nem vagy biztos, hogy az oldal képes konvertálni, az audit megelőző lépés. Hirdetésre költeni rossz landing page-re pénzkidobás.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Lassú betöltés (magasabb bounce rate), mobil használhatóság hiánya, gyenge CTA, hosszú űrlap, vagy nincs bizalmi elem. Az audit megmutatja, hol veszíted el a hirdetésből érkező látogatókat.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        5. Search Console tele van hibákkal
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha a Google Search Console 50+ indexelési hibát, crawl hibát, vagy Core Web Vitals figyelmeztetést mutat, az nem véletlenszerű. Ezek a hibák forgalomvesztést okoznak.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Noindex tag rossz helyeken, 404-es oldalak, duplicate content, robots.txt letiltás, vagy sitemap hiba. Az audit diagnosztizálja a hibákat, és megmutatja, melyik kritikus, melyik nem.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        6. Redesign vagy migráció előtt állsz
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha új dizájnt tervezel, platformot váltasz (pl. WordPress → Webflow), vagy domain nevet változtatsz, az audit megelőző lépés. Migráció közben könnyen elveszítheted a forgalmat, ha nincs megfelelő átirányítás vagy technikai előkészület.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi lehet a probléma:</strong> Hiányzó 301 redirectek, canonical beállítások elvesztése, URL struktúra változás nélküli átvezetés hiánya. Az audit feltérképezi a jelenlegi állapotot, és megmutatja, mi kell a biztonságos migrációhoz.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mikor felesleges az audit?
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az audit nem csodaszer. Vannak helyzetek, amikor felesleges költés, mert más a valódi probléma. Az alábbiakban 4 eset, amikor az audit nem old meg semmit.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Az oldal új, nincs forgalom
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha az oldal 1-3 hónapos, és nincs organikus forgalom, az normális. A Google indexelése 3-6 hónap. Audit helyett tartalomkészítés, link building, és türelem kell.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. Nincs tartalom az oldalon
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha az oldal 3-5 oldal (főoldal, rólunk, kapcsolat), nincs blog, nincs szolgáltatás leírás, az audit nem old meg semmit. Tartalom nélkül nincs mit auditálni.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Design problémát akarsz megoldani
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha az oldal csúnya, elavult kinézetű, vagy nem tetszik a dizájn, az nem technikai probléma. Az audit nem dizájn tanácsadás. Vizuális redesignhez UX/UI designerre van szükség, nem auditra.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        4. Nincs üzleti cél az oldal mögött
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha az oldal hobbi projekt, portfólió, vagy nincs konverziós cél (nincs lead generálás, eladás, megkeresés), az audit felesleges. Nincs mit mérni, nincs mit javítani.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mit kapsz egy valódi auditban?
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Egy valódi technikai audit nem sablon. Nem arról szól, hogy "javítsd a képeket" vagy "használj cache-t". Az audit konkrét diagnosztika:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Technikai SEO audit:</strong> indexelési hibák, crawl hibák, sitemap, robots.txt, canonical beállítások, duplikált tartalom</li>
+        <li><strong>Sebesség audit:</strong> mi lassítja az oldalt (képek, pluginok, tárhely, cache, render-blocking), mennyi időt spórolhatnál</li>
+        <li><strong>Konverzió audit:</strong> CTA elhelyezés, űrlapok működése, mobil használhatóság, bizalmi elemek, bounce rate okok</li>
+        <li><strong>Analytics audit:</strong> megfelelően van-e bekötve a Google Analytics, Search Console, event tracking működik-e</li>
+        <li><strong>Konkurencia összehasonlítás:</strong> hol állsz a versenytársakhoz képest (sebesség, SEO, konverzió)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az audit eredménye: konkrét technikai hibalista, prioritási sorrend (mi a kritikus, mi a nice-to-have), és végrehajtási terv. Nem általános tanácsok, hanem a te weboldaladra vonatkozó diagnózis.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Weboldal audit akkor érdemes, ha konkrét technikai probléma van, de nem tudod, honnan indul. Az audit diagnosztizálja a problémát, és megmutatja a megoldást.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        <strong>Érdemes auditot kérni, ha:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Organikus forgalom esik, de nem tudod miért</li>
+        <li>A weboldal lassú, de nem tudod, mitől</li>
+        <li>Van forgalom, de nincs konverzió</li>
+        <li>Hirdetést indítasz, de nem vagy biztos, hogy az oldal konvertál</li>
+        <li>Search Console tele van hibákkal</li>
+        <li>Redesign vagy migráció előtt állsz</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        <strong>Felesleges az audit, ha:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Az oldal új, nincs forgalom (várj 3-6 hónapot)</li>
+        <li>Nincs tartalom az oldalon (tartalomkészítés kell, nem audit)</li>
+        <li>Design problémát akarsz megoldani (UX/UI designer kell, nem audit)</li>
+        <li>Nincs üzleti cél az oldal mögött (nincs mit mérni)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az audit nem varázslat. De ha konkrét technikai probléma van, az audit az első lépés a javítás felé.
+      </p>
+
+      <!-- CTA Block -->
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Ha bizonytalan vagy, hogy most van-e itt az ideje egy auditnak, beszéljük át röviden.
+        </p>
+        <a
+          href="/kapcsolat/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Ingyenes konzultáció
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          15 perc · nem sales · technikai visszajelzés
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó szolgáltatások</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/szolgaltatas/weboldal-audit/" class="text-blue-600 hover:underline">
+              Weboldal audit szolgáltatás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/seo-audit/" class="text-blue-600 hover:underline">
+              SEO audit
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>
+
+<!-- Meta Description for SEO -->
+<!--
+Meta Description (155 karakter):
+Weboldal audit nem mindenkinek való. Nézd meg, mikor van itt az ideje egy technikai auditnak, és mikor felesleges költés. Konkrét jelekkel.
+-->

@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SEO } from 'astro-seo';
+
+const title = "Weboldal konverzió optimalizálás – mire figyelj, mielőtt hirdetést indítasz?";
+const description = "Hirdetést tervezel? Ellenőrizd előtte a weboldalad konverziós képességét. Nézd meg az 5 kritikus elemet, ami eldönti, működik-e a landing page.";
+const publishDate = "2025-01-31";
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title,
+        type: "article",
+        image: "/og-image.jpg",
+      },
+      article: {
+        publishedTime: publishDate,
+        authors: ["Levente Fekete"],
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+    }}
+  />
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-neutral-900">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">Weboldal konverzió optimalizálás</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        Weboldal konverzió optimalizálás – mire figyelj, mielőtt hirdetést indítasz?
+      </h1>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>9 perc olvasás</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <p class="text-xl text-neutral-700 leading-relaxed mb-8">
+        100 000 Ft hirdetésre, de a weboldalad nem konvertál. Nem átverés – egyszerűen az oldal nem arra van építve, hogy akciót váltson ki. A látogató megérkezik, körbenéz, és elmegy. Nincs CTA, lassú a betöltés, mobilon használhatatlan.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az alábbi 5 kritikus elem határozza meg, hogy a weboldalad konvertál-e vagy sem. Mindegyiknél megmutatom, mi a tipikus hiba, és hogyan ellenőrzöd. Ha bármelyik hiányzik vagy rosszul van megoldva, a hirdetési pénz kifogy, de eredmény nincs.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        1. CTA elhelyezése
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A CTA (Call to Action) az a gomb vagy link, ami megmondja a látogatónak, mit csináljon. Ha nincs világos CTA, a látogató nem tudja, mi a következő lépés.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tipikus hiba:</strong> Nincs CTA a first fold-ban (amit görgetés nélkül látni), vagy túl sok különböző CTA van egyszerre (hívj, írj, töltsd le, iratkozz fel). A látogató paralízisbe esik – nem tudja, melyiket válassza, így egyiket sem választja. Másik hiba: a CTA szöveg homályos ("Tovább", "Kattints ide"), nem mondja meg, mit kap a látogató.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Nyisd meg a weboldalad (mobilon és asztali nézeten is)</li>
+        <li>Nézd meg, mit látsz görgetés nélkül (first fold)</li>
+        <li>Van-e világos CTA gomb? Látható? Kontraszt van a háttérrel?</li>
+        <li>Olvasd el a CTA szöveget – megérted, mit kapsz, ha rákattintasz?</li>
+        <li>Görgess végig az oldalon – hány különböző CTA van? (Több mint 2-3 már sok)</li>
+        <li>Ha van heatmap eszközöd (pl. Hotjar), nézd meg, hányan kattintanak a CTA-ra</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Egy jó CTA: "Kérj ingyenes ajánlatot", "Kezdd el most", "Töltsd le az útmutatót". Rossz CTA: "Tovább", "Kattints ide", "Tudj meg többet".
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        2. Űrlapok
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Az űrlap az a pont, ahol a látogató leadot ad (kapcsolatfelvétel, ajánlatkérés, regisztráció). Ha az űrlap túl hosszú vagy bonyolult, a látogató feladja.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tipikus hiba:</strong> Túl sok mező kérése (név, email, telefon, cím, cégnév, adószám, megjegyzés) – minél több mezőt kell kitölteni, annál kevesebben csinálják meg. Másik hiba: nincs validációs visszajelzés (nem látod, hol rontottad el), vagy a submit gomb nem működik mobilon. Előfordul, hogy az űrlap be sem tölt, mert egy plugin blokkol vagy JS hiba van.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Töltsd ki az űrlapot magad (mobilon és asztali nézeten is)</li>
+        <li>Hány mezőt kell kitölteni? (Több mint 4-5 már sok, ha nincs indok)</li>
+        <li>Próbáld meg hibásan kitölteni (rossz email formátum) – kapod a hibaüzenetet?</li>
+        <li>Kattints a submit gombra – működik? Kapsz visszajelzést, hogy sikeres volt?</li>
+        <li>Nézd meg a böngésző konzolt (F12 → Console) – van-e JS hiba?</li>
+        <li>Ha van analytics, nézd meg, hányan indítják el az űrlapot, és hányan küldik el (form abandonment rate)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az ideális űrlap: név, email, telefon (opcionális), és esetleg egy "Mit keresz?" mező. Ennél több csak akkor, ha tényleg szükséges (pl. B2B céges ajánlatkérés).
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        3. Mobil használhatóság
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A forgalom 60-70%-a mobilról jön. Ha a weboldalad mobilon használhatatlan, a hirdetésre érkező látogatók fele eleve kiesik.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tipikus hiba:</strong> A szöveg túl kicsi olvasáshoz (8-10 px), a gombok túl közel vannak egymáshoz (nehéz eltalálni), vízszintes görgetés van (az oldal kilóg), vagy a menü nem működik mobilon. Másik gyakori probléma: popup-ok mobilon eltakarják a tartalmat, és nincs X gomb a bezáráshoz.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Nyisd meg a weboldalad mobiltelefonon (ne desktop nézetben, hanem tényleg telefonon)</li>
+        <li>Elolvasható a szöveg nagyítás nélkül?</li>
+        <li>El tudod találni a gombokat ujjal? Van közöttük legalább 8-10 mm távolság?</li>
+        <li>Működik a menü? A hamburger ikon megnyitja-e a navigációt?</li>
+        <li>Van-e vízszintes görgetés? (Ez rossz jel, azt jelenti, az oldal szélesebb, mint a képernyő)</li>
+        <li>Ha van popup, be tudod-e zárni? Van X gomb a sarokban?</li>
+        <li>Futtasd le a <strong>Google Mobile-Friendly Test</strong> eszközt (search.google.com/test/mobile-friendly)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Ha a Google Mobile-Friendly Test hibát jelez, az komoly probléma. A hirdetési platformok (Google Ads, Facebook Ads) is büntetik a nem mobilbarát oldalakat.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        4. Betöltési sebesség
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Ha az oldal 3 másodpercnél lassabban tölt, a látogatók 53%-a elhagyja. Hirdetésből érkező látogatóknál ez kritikus – már fizettél a kattintásért, de nem maradt.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tipikus hiba:</strong> Túl nagy képek (3-5 MB-os fotók), nincs cache, lassú tárhely, vagy túl sok plugin/script tölődik be. Másik probléma: render-blocking erőforrások – a böngésző megvárja, amíg a CSS/JS betöltődik, mielőtt megjelenítené az oldalt. A felhasználó fehér képernyőt lát 2-3 másodpercig.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Futtasd le a <strong>Google PageSpeed Insights</strong> eszközt (pagespeed.web.dev)</li>
+        <li>Nézd meg a <strong>Performance</strong> pontszámot (mobilon és asztali nézeten is)</li>
+        <li>Ha 50 alatt van, az rossz. 50-80 között közepes. 80 felett jó.</li>
+        <li>Görgess le az <strong>Opportunities</strong> szekcióhoz – itt látod, mi lassít (képek, JS, CSS)</li>
+        <li>Nézd meg a <strong>Largest Contentful Paint (LCP)</strong> értéket – 2.5 mp felett lassú</li>
+        <li>Próbáld meg mobilneten (nem wifi) betölteni az oldalt – meddig tart?</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A sebesség javítása nem opcionális. Hirdetési platformok (Google Ads Quality Score, Facebook Relevance Score) is figyelik – lassú oldal = magasabb CPC (kattintásonkénti költség).
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        5. Bizalmi elemek
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A látogató nem ismer. Miért bízna benned? Ha nincs bizalmi elem (referencia, garancia, kapcsolat), nem ad meg adatokat.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tipikus hiba:</strong> Nincs ügyfél vélemény, nincs logó (ki vagy?), nincs telefonszám vagy elérhetőség, nincs garancia vagy visszajelzés. A látogató nem tudja, kivel van dolga. Másik hiba: nincs SSL tanúsítvány (https://), a böngésző "Nem biztonságos" figyelmeztetést mutat – azonnal bounce.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Nyisd meg a weboldalad</li>
+        <li>Van-e elérhetőség látható helyen (telefon, email)?</li>
+        <li>Van-e ügyfél vélemény, referencia, logó?</li>
+        <li>Van-e garancia, visszafizetési politika, GYIK?</li>
+        <li>Nézd meg a böngésző címsorát – van-e lakat ikon (SSL)? Ha nincs, az "Nem biztonságos" figyelmeztetés</li>
+        <li>Van-e "Rólunk" oldal, ahol bemutatkozol?</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Bizalmi elemek nélkül a látogató nem ad meg telefonszámot vagy emailt. Hirdetésből érkező látogatóknál ez kritikus – nem ismernek, gyorsan döntenek, és ha nincs bizalom, továbbmennek.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Hirdetést indítani rossz weboldalra pénzkidobás. A kulcs: diagnosztizálni, melyik elem hiányzik vagy rossz:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Ha nincs világos CTA → tedd láthatóvá, konkrét szöveggel</li>
+        <li>Ha túl hosszú az űrlap → csökkentsd 3-5 mezőre</li>
+        <li>Ha mobilon használhatatlan → tedd mobilbaráttá</li>
+        <li>Ha lassú a betöltés → optimalizáld a sebességet</li>
+        <li>Ha nincs bizalmi elem → adj referenciát, elérhetőséget, garanciát</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Hirdetés nélkül is fontos a konverzió optimalizálás. De ha fizetett forgalmat küldessz rossz oldalra, az dupla veszteség: elvész a hirdetési pénz és a potenciális ügyfél is.
+      </p>
+
+      <!-- CTA Block -->
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Mielőtt pénzt költesz hirdetésre, nézzük meg együtt, hogy a weboldalad egyáltalán képes-e konvertálni.
+        </p>
+        <a
+          href="/kapcsolat/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Ingyenes konzultáció
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          15 perc · nem sales · technikai visszajelzés
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó szolgáltatások</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/szolgaltatas/weboldal-audit/" class="text-blue-600 hover:underline">
+              Weboldal audit szolgáltatás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/weboldal-gyorsitas/" class="text-blue-600 hover:underline">
+              Weboldal gyorsítás
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>
+
+<!-- Meta Description for SEO -->
+<!--
+Meta Description (155 karakter):
+Hirdetést tervezel? Ellenőrizd előtte a weboldalad konverziós képességét. Nézd meg az 5 kritikus elemet, ami eldönti, működik-e a landing page.
+-->

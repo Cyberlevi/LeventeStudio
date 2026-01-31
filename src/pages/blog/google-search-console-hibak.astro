@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SEO } from 'astro-seo';
+
+const title = "Google Search Console hibák – mit jelentenek és hogyan javítod őket?";
+const description = "Search Console hibák a weboldaladnál? Nézd meg, mit jelentenek az indexelési, crawl és teljesítmény problémák, és hogyan diagnosztizálhatod őket.";
+const publishDate = "2025-01-31";
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title,
+        type: "article",
+        image: "/og-image.jpg",
+      },
+      article: {
+        publishedTime: publishDate,
+        authors: ["Levente Fekete"],
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+    }}
+  />
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-neutral-900">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">Google Search Console hibák</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        Google Search Console hibák – mit jelentenek és hogyan javítod őket?
+      </h1>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>10 perc olvasás</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <p class="text-xl text-neutral-700 leading-relaxed mb-8">
+        A Google Search Console hibák nem büntetés. Nem jelenti azt, hogy rosszul csináltad. De jelzik, hogy a Google nem látja az oldalad úgy, ahogy kellene – és ez forgalomvesztést jelent.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az alábbiakban végigmegyünk a 3 fő hibacsoport típusán: indexelési hibák, crawl hibák, és teljesítmény problémák. Mindegyiknél megmutatom, mit jelent a hiba, mi okozza, és hogyan diagnosztizálod. Nem általános tanácsok, hanem konkrét ellenőrzési módszerek.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Indexelési hibák
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Az indexelési hiba azt jelenti, hogy a Google megtalálta az oldaladat, de valamiért nem indexelte be (nem vette fel a keresőbe). Ha egy oldal nincs indexelve, nem fog megjelenni a találatok között.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi okozza:</strong> A leggyakoribb okok: noindex meta tag az oldalon, robots.txt letiltás, canonical URL másra mutat, duplikált tartalom, vagy a Google egyszerűen low-quality-nek ítéli az oldalt. Előfordul, hogy egy kategóriaoldal, tag oldal, vagy archívum automatikusan noindex-et kap a WordPress beállításai miatt.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Lépj be a <strong>Google Search Console</strong>-ba</li>
+        <li>Menj a <strong>Pages</strong> (Oldalak) menüpontra a bal oldali sávban</li>
+        <li>Görgess le a <strong>"Why pages aren't indexed"</strong> (Miért nincsenek indexelve az oldalak) szekcióhoz</li>
+        <li>Kattints a leggyakoribb hibatípusra (pl. "Excluded by 'noindex' tag" vagy "Duplicate, Google chose different canonical")</li>
+        <li>Látod az összes érintett URL listáját</li>
+        <li>Nyisd meg az egyik URL-t, és nézd meg a HTML forrását (jobb klikk → View Page Source)</li>
+        <li>Keresd meg a <code>&lt;meta name="robots" content="noindex"&gt;</code> tag-et vagy a <code>&lt;link rel="canonical"&gt;</code> értékét</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Ha az oldal értékes (pl. szolgáltatás oldal, termék), de noindex van rajta, azonnal javítandó. Ha viszont egy archívum vagy szűrő URL, akkor a noindex helyes döntés.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Crawl hibák (bejárási hibák)
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A crawl hiba azt jelenti, hogy a Google bot megpróbálta letölteni az oldaladat, de valami megakadályozta. Lehet szerver hiba (5xx), nem található oldal (404), átirányítási hiba (redirect loop), vagy timeout.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi okozza:</strong> A 404 hibák általában régi URL-ek, amelyekre még mindig mutat valamilyen link (belső vagy külső). Az 5xx hibák szerveroldali problémák: túlterheltség, rossz tárhely konfiguráció, PHP timeout. A redirect loop akkor fordul elő, ha két URL egymásra mutat átirányítással. A timeout akkor, ha a szerver 30 másodpercen belül nem válaszol.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Lépj be a <strong>Google Search Console</strong>-ba</li>
+        <li>Menj a <strong>Settings</strong> (Beállítások) → <strong>Crawl stats</strong> menüpontra</li>
+        <li>Itt látod a crawl kérések számát, válaszidőt, és státusz kódokat</li>
+        <li>Ha sok 4xx vagy 5xx hibát látsz, kattints a <strong>Pages</strong> menüpontra</li>
+        <li>Görgess le a "Not found (404)" vagy "Server error (5xx)" hibákra, és kattints rá</li>
+        <li>Látod az összes problémás URL-t</li>
+        <li>Próbáld meg megnyitni az URL-t manuálisan, és nézd meg, mi történik</li>
+        <li>Ha 404-et kapsz, ellenőrizd, honnan mutat rá link (Search Console → Links → Top linking pages)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A 404 hibákat nem kell minden esetben javítani. Ha egy régi, lényegtelen URL-ről van szó, hagyhatod. De ha értékes oldalról van szó, csinálj 301 redirect-et az új URL-re.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Teljesítmény problémák (Core Web Vitals)
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Core Web Vitals nem klasszikus hiba, de a Search Console jelzi, ha az oldalad lassú vagy rossz felhasználói élményt nyújt. Ez rangsorolási tényező 2021 óta.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi okozza:</strong> A Core Web Vitals 3 metrika: LCP (Largest Contentful Paint – legnagyobb elem betöltése), FID (First Input Delay – interaktivitás), CLS (Cumulative Layout Shift – elcsúszó elemek). Ha ezek rosszak, az azt jelenti, hogy a weboldalad lassan tölt, nehezen kattintható, vagy az elemek elcsúsznak betöltés közben (pl. reklámok miatt).
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Lépj be a <strong>Google Search Console</strong>-ba</li>
+        <li>Menj a <strong>Core Web Vitals</strong> menüpontra a bal oldali sávban</li>
+        <li>Válaszd ki a <strong>Mobile</strong> vagy <strong>Desktop</strong> fület</li>
+        <li>Nézd meg, hány URL van "Poor" (gyenge) kategóriában</li>
+        <li>Kattints a "Poor" csoportra, és látod a problémás URL-eket és a metrikákat</li>
+        <li>Kattints egy konkrét URL-re, majd "View report in PageSpeed Insights"</li>
+        <li>A PageSpeed Insights megmutatja, mi okozza a lassúságot (képek, JS fájlok, szerver válasz)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A Core Web Vitals javítása nem egyszerű. Kép optimalizálás, cache, CDN, render-blocking erőforrások eltávolítása – mindez összefügg. De ha az oldalad "Poor" kategóriában van, az veszteség a rangsorban.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mobile Usability (mobil használhatóság)
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Mobile Usability hibák azt jelentik, hogy a weboldalad nem mobilbarát. A Google elsősorban a mobil verziót nézi (mobile-first indexing), így ez kritikus.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi okozza:</strong> A leggyakoribb hibák: kattintható elemek túl közel vannak egymáshoz, a szöveg túl kicsi olvasáshoz, a tartalom szélesebb mint a képernyő (vízszintes görgetés), vagy a viewport nincs beállítva. Ezek általában régi, nem reszponzív témák vagy hibás CSS beállítások eredményei.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Lépj be a <strong>Google Search Console</strong>-ba</li>
+        <li>Menj a <strong>Mobile Usability</strong> (Mobil használhatóság) menüpontra</li>
+        <li>Ha van hiba, látod a típusát és az érintett URL-eket</li>
+        <li>Kattints a hibatípusra (pl. "Text too small to read" vagy "Clickable elements too close together")</li>
+        <li>Nyisd meg az egyik URL-t mobilon (vagy Developer Tools → Toggle device toolbar)</li>
+        <li>Ellenőrizd, hol vannak túl kicsi szövegek, túl közeli gombok</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A legtöbb mobile usability hiba témaváltással vagy CSS módosítással javítható. De ha a téma régóta nincs frissítve, érdemes modernebb témára váltani.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Sitemap hibák
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A sitemap segíti a Google-t, hogy megtalálja az összes fontos oldaladat. De ha a sitemap hibás URL-eket tartalmaz, az zavart okoz.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Mi okozza:</strong> A sitemap tartalmaz 404-es URL-eket, noindex oldalakat, redirect-et URL-eket, vagy olyan URL-eket, amelyek letiltva vannak a robots.txt-ben. Ez általában automatikus sitemap generátorok hibája (pl. Yoast SEO, Rank Math), amelyek minden oldalt beleraknak a sitemapbe, még azokat is, amelyek nem indexelhetők.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Hogyan ellenőrzöd:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Lépj be a <strong>Google Search Console</strong>-ba</li>
+        <li>Menj a <strong>Sitemaps</strong> menüpontra</li>
+        <li>Ha van hiba, látod a "Couldn't fetch" vagy "Errors" státuszt</li>
+        <li>Kattints a sitemapre, és nézd meg a részleteket</li>
+        <li>Ha 404-es hibát látsz, nyisd meg a sitemap URL-t közvetlenül (pl. https://weboldalad.hu/sitemap.xml)</li>
+        <li>Nézd végig a listát, és keresd meg a hibás URL-eket</li>
+        <li>Ellenőrizd, hogy ezek az URL-ek valóban léteznek-e, és nincsenek-e noindex-elve</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A legtöbb SEO plugin automatikusan kizárja a noindex oldalakat a sitemapből, de nem mindig. Érdemes kézzel is ellenőrizni, hogy a sitemap csak valóban indexelhető URL-eket tartalmaz.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Google Search Console hibák nem jelentik azt, hogy büntetés van az oldalon. De jelzik, hogy valami nem stimmel – és ez forgalomvesztést okoz. A kulcs: diagnosztizálni, melyik hibacsoport érinti az oldaladat:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Ha indexelési hiba van → ellenőrizd a noindex tag-eket és a canonical beállításokat</li>
+        <li>Ha crawl hiba van → javítsd a 404-eket vagy az 5xx hibákat</li>
+        <li>Ha Core Web Vitals gyenge → optimalizáld a sebességet</li>
+        <li>Ha Mobile Usability hiba van → tedd mobilbaráttá az oldalt</li>
+        <li>Ha Sitemap hiba van → tisztítsd meg a sitemapet a hibás URL-ektől</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        A Search Console hibák javítása precíz munka. De ha egyszer helyesen van beállítva, az oldal láthatósága javul, a forgalom nő, és a Google jobban rangsorolja az oldaladat.
+      </p>
+
+      <!-- CTA Block -->
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Ha nem akarod egyedül kibogozni a Search Console hibákat, inkább átnézem az oldalt és megmondom, mi a valódi probléma.
+        </p>
+        <a
+          href="/kapcsolat/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Ingyenes konzultáció
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          15 perc · nem sales · technikai visszajelzés
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó szolgáltatások</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/szolgaltatas/seo-audit/" class="text-blue-600 hover:underline">
+              SEO audit szolgáltatás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/weboldal-audit/" class="text-blue-600 hover:underline">
+              Weboldal audit
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>
+
+<!-- Meta Description for SEO -->
+<!--
+Meta Description (155 karakter):
+Search Console hibák a weboldaladnál? Nézd meg, mit jelentenek az indexelési, crawl és teljesítmény problémák, és hogyan diagnosztizálhatod őket.
+-->
