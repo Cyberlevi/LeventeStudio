@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
-import ContactPage from './ContactPage';
+import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
@@ -38,7 +38,7 @@ const structuredData = {
 
   <div class="min-h-screen bg-white">
     <HeaderAstro />
-    <ContactPage client:load />
+    <Contact client:load />
     <Footer client:load />
   </div>
 </BaseLayout>
