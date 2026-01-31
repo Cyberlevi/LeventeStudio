@@ -127,7 +127,31 @@ const structuredData = {
       </ul>
 
       <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
-        3. Szerveroldali hibák feltárása
+        3. URL struktúra és redirect ellenőrzés
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A canonical URL-ek és redirect láncok helyes működésének ellenőrzése:
+      </p>
+
+      <pre class="bg-neutral-900 text-neutral-100 p-4 rounded-lg overflow-x-auto text-sm mb-2"><code>curl -I https://leventestudio.app/blog
+HTTP/2 301
+location: /blog/</code></pre>
+
+      <p class="text-neutral-700 leading-relaxed mb-6 text-sm italic">
+        Igazolja, hogy a canonical /blog/ végpont felé 301 redirect történik, nincs duplikált URL.
+      </p>
+
+      <pre class="bg-neutral-900 text-neutral-100 p-4 rounded-lg overflow-x-auto text-sm mb-2"><code>curl -I https://leventestudio.app/blog/miert-lassu-a-wordpress-oldalam
+HTTP/2 301
+location: /blog/miert-lassu-a-wordpress-oldalam/</code></pre>
+
+      <p class="text-neutral-700 leading-relaxed mb-6 text-sm italic">
+        Igazolja, hogy a slug URL helyesen a trailing slash-es verzióra terel, így nincs 404 és nincs duplikáció.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        4. Szerveroldali hibák feltárása
       </h3>
 
       <p class="text-neutral-700 leading-relaxed mb-4">
