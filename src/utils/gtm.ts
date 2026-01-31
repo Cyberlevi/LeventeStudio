@@ -1,6 +1,7 @@
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    gtag?: (...args: any[]) => void;
   }
 }
 
@@ -9,6 +10,13 @@ export function pushToDataLayer(eventData: Record<string, unknown>): void {
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(eventData);
+
+  if (window.gtag && eventData.event) {
+    const eventName = eventData.event as string;
+    const eventParams = { ...eventData };
+    delete eventParams.event;
+    window.gtag('event', eventName, eventParams);
+  }
 }
 
 export function trackCTAClick(buttonText: string, location: string): void {
