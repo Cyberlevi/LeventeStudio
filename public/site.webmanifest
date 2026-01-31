@@ -1,0 +1,23 @@
+{
+  "name": "LeventeStudio - Weboldal Audit Szakértő",
+  "short_name": "LeventeStudio",
+  "description": "Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI elemzés.",
+  "icons": [
+    {
+      "src": "/logo-monogram-light.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait"
+}
