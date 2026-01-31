@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
 
 const title = "Klima18ker weboldal audit esettanulmány – technikai optimalizálás";
 const description = "Weboldal technikai audit és optimalizálás a klima18ker.hu esetében. Kiinduló probléma, diagnózis, beavatkozások, eredmények.";
@@ -25,6 +29,11 @@ const structuredData = {
   ogType="article"
   structuredData={structuredData}
 >
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+
+  <div class="min-h-screen bg-white">
+    <HeaderAstro />
 
   <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
     <!-- Breadcrumb -->
@@ -375,4 +384,7 @@ const structuredData = {
 
     </div>
   </article>
+
+  <Footer client:load />
+  </div>
 </BaseLayout>
