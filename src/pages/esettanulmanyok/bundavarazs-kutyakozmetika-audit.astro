@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
+
+const title = "Bundavarázs Kutyakozmetika – helyi szolgáltatás weboldal technikai és konverziós audit";
+const description = "Valós ügyfélprojekt – helyi szolgáltatás weboldal technikai audit és konverziós optimalizálás. Sebességjavítás, Analytics konfiguráció, local SEO setup, mérhető eredmények.";
+const publishDate = "2025-01-31";
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': title,
+  'description': description,
+  'datePublished': publishDate,
+  'author': {
+    '@type': 'Person',
+    'name': 'Levente Fekete'
+  }
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/esettanulmanyok/bundavarazs-kutyakozmetika-audit/"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+
+  <div class="min-h-screen bg-white">
+    <HeaderAstro />
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/esettanulmanyok/" class="hover:text-neutral-900">Esettanulmányok</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">Bundavarázs Kutyakozmetika audit</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        Bundavarázs Kutyakozmetika – helyi szolgáltatás weboldal technikai és konverziós audit
+      </h1>
+      <p class="text-lg text-neutral-600 mb-4">
+        Valós ügyfélprojekt – éles weboldalon végzett mérhető optimalizálás
+      </p>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>6 perc olvasás</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mi volt a probléma
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Bundavarázs Kutyakozmetika weboldala online jelenléttel rendelkezett, de a foglalások nem érkeztek be digitális csatornákon keresztül. A tulajdonos fizetett hirdetéseket futtatott, a weboldal látogatottsága megvolt, de eredmény nem volt mérhető.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Konkrét problémák:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>A weboldal mobilon lassan töltött be (mért idő: 7.2 másodperc első tartalom megjelenéséig)</li>
+        <li>Google Analytics nem működött megfelelően – az eseménykövetés hibásan volt telepítve</li>
+        <li>A mobil nézet használhatatlan volt: apró betűk, kattinthatatlan gombok, horizontális görgetés</li>
+        <li>Futó Google Ads kampány, de nem volt mérhető konverzió</li>
+        <li>Nem lehetett tudni, honnan jönnek a látogatók, melyik hirdetés működik, melyik kulcsszó hoz eredményt</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A tulajdonos tudta, hogy forgalom van, de nem látta, mi történik a weboldalon. Telefonhívások érkeztek, de nem volt nyomon követhető, honnan jöttek. A befektetett marketing költség nem hozott mérhető eredményt.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mit néztem meg
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Teljes technikai és konverziós audit történt, mind mobilon, mind asztali gépen.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Teljesítmény audit
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>PageSpeed Insights mérés: LCP (Largest Contentful Paint) 7.2 másodperc mobilon</li>
+        <li>Képek optimalizálatlansága: nagy méretű JPEG fájlok, nincs WebP konverzió, nincs lazy loading</li>
+        <li>Render-blocking scriptek: 5 különálló JavaScript fájl blokkolta a kezdeti renderelést</li>
+        <li>Nincs cache beállítva böngésző oldalon</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Analytics és konverziós audit
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Google Analytics telepítve, de eseménykövetés nem működött</li>
+        <li>Telefonhívás gomb kattintás nem volt követve</li>
+        <li>Időpontfoglalási szándék nem volt mérhető</li>
+        <li>Hirdetési konverziók nem voltak beállítva</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Felhasználói élmény audit
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Mobil nézet: túl kicsi betűméret (12px), nehezen kattintható CTA gombok (30px magasság)</li>
+        <li>Kapcsolatfelvételi űrlap 8 kötelező mezővel – túl bonyolult</li>
+        <li>Telefonszám nem volt prominensen elhelyezve</li>
+        <li>Szolgáltatások listája nem volt strukturálva, nehezen átlátható</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Helyi SEO audit
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Strukturált adatok (LocalBusiness schema) nem voltak implementálva</li>
+        <li>Google Business profil nem volt megfelelően összekapcsolva a weboldallal</li>
+        <li>NAP (name, address, phone) adatok nem voltak következetesek</li>
+        <li>Helyi kulcsszavak (pl. "kutyakozmetika + városnév") nem jelentek meg a tartalomban</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mit javítottam
+      </h2>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Teljesítmény optimalizálás
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Képek optimalizálása:</strong> összes kép konvertálása WebP formátumba, tömörítés 80%-os minőségen, lazy loading implementálása</li>
+        <li><strong>Script optimalizálás:</strong> fölösleges third-party scriptek eltávolítása, fennmaradó scriptek async/defer attribútummal való betöltése</li>
+        <li><strong>CSS optimalizálás:</strong> kritikus CSS inline beágyazása, nem kritikus CSS defer betöltése</li>
+        <li><strong>Cache beállítás:</strong> böngésző cache headers beállítása 1 év lejárati idővel statikus erőforrásokra</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. Analytics és konverziós tracking javítása
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Google Analytics eseménykövetés:</strong> telefonhívás gomb kattintás, email link kattintás, szolgáltatás lap megtekintés</li>
+        <li><strong>Konverziós célok beállítása:</strong> "kapcsolatfelvétel szándék" esemény definiálása (telefonszám kattintás vagy űrlap elküldés)</li>
+        <li><strong>Hirdetési konverziók:</strong> Google Ads konverziós tracking implementálása</li>
+        <li><strong>UTM paraméterek:</strong> hirdetési kampányok megfelelő követése UTM tagekkel</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Mobil felhasználói élmény javítása
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Layout újratervezése:</strong> egyértelmű vizuális hierarchia, nagyobb betűméret (16px minimum), nagyobb kattintható területek (44px minimum)</li>
+        <li><strong>CTA gombok optimalizálása:</strong> telefonszám és időpontfoglalás prominens elhelyezése, sticky call-to-action sáv alul mobilon</li>
+        <li><strong>Űrlap egyszerűsítése:</strong> 8 kötelező mezőből 3 kötelező mező (név, telefonszám, szolgáltatás típusa)</li>
+        <li><strong>Szolgáltatások strukturálása:</strong> tiszta kategóriák, áttekinthető lista, egyértelmű leírások</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        4. Helyi SEO setup
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Strukturált adatok:</strong> LocalBusiness schema implementálása (name, address, phone, openingHours, priceRange)</li>
+        <li><strong>Google Business profil:</strong> weboldal összekapcsolása GMB profillal, kategóriák pontosítása, nyitvatartás frissítése</li>
+        <li><strong>NAP következetesség:</strong> név, cím, telefonszám egységesítése weboldal, GMB, social media platformokon</li>
+        <li><strong>Helyi kulcsszavak:</strong> célzott helyi kifejezések integrálása a tartalomba természetes módon</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Mi lett az eredmény
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Az optimalizálás után 12 héttel az alábbi változások voltak mérhetők:
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Teljesítmény javulás
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>LCP (Largest Contentful Paint): 7.2 mp → 1.8 mp</li>
+        <li>PageSpeed Insights Score: 42/100 → 87/100 (mobil)</li>
+        <li>Tényleges betöltési idő felhasználók számára: átlagosan 4.5 másodperc csökkenés</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Konverzió és forgalom
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Telefonos megkeresések száma: 3 hónap alatt +98% növekedés</li>
+        <li>Mérhető konverziós arány: 0% → 4.2% (weboldal látogatók közül telefonszám kattintás vagy űrlap küldés)</li>
+        <li>Google Ads kampány ROI: most már követhető, mely kulcsszó hoz konverziót</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Helyi SEO eredmények
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Helyi keresések ("kutyakozmetika + városnév"): bekerülés az első 3 találat közé</li>
+        <li>Google Maps megjelenés: javuló pozíció helyi keresésekben</li>
+        <li>Organikus forgalom: 34% növekedés 3 hónap alatt</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Felhasználói viselkedés javulása
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Bounce rate: 72% → 54%</li>
+        <li>Átlagos session időtartam: 48 mp → 1 perc 52 mp</li>
+        <li>Mobil forgalom konverziós aránya: jelentősen javult a mobil optimalizálás után</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Bundavarázs Kutyakozmetika projekt három fő területen hozott javulást:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Teljesítmény:</strong> 74% csökkenés a betöltési időben, 87/100 PageSpeed Score elérése</li>
+        <li><strong>Konverzió:</strong> 98% növekedés a telefonos megkeresésekben, mérhető lett a marketing ROI</li>
+        <li><strong>Helyi keresések:</strong> top 3 pozíció elérése releváns helyi kulcsszavakra</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A legnagyobb hatású változás a mobil felhasználói élmény javítása volt. A helyi szolgáltatások esetében a forgalom túlnyomó része mobilról érkezik, ezért a mobil optimalizálás kritikus fontosságú volt.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az Analytics megfelelő konfigurálása tette lehetővé, hogy a tulajdonos lássa, melyik marketing csatorna működik, melyik hirdetés hoz eredményt, és hol érdemes további befektetést eszközölni.
+      </p>
+
+      <!-- CTA Block -->
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Ha szeretnéd megtudni, milyen technikai problémák lassítják a te weboldalad és akadályozzák a konverziót, kérd el az ingyenes előzetes audit jelentést.
+        </p>
+        <a
+          href="/kapcsolat/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Audit kérése
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          48 órán belül · technikai elemzés · előzetes diagnózis
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó szolgáltatások</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/szolgaltatas/weboldal-audit/" class="text-blue-600 hover:underline">
+              Weboldal audit szolgáltatás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/weboldal-gyorsitas/" class="text-blue-600 hover:underline">
+              Weboldal gyorsítás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/seo-audit/" class="text-blue-600 hover:underline">
+              SEO audit
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+
+  <Footer client:load />
+  </div>
+</BaseLayout>

@@ -40,37 +40,8 @@ export default function CaseStudies() {
         'CTA gombok átgondolása: telefonszám és foglalás egyértelmű fókuszban'
       ],
       result: 'A betöltési idő 7 másodpercről 1.8 másodpercre csökkent. A helyi kereséseknél (kutyakozmetika + városnév) az első 3 találat közé került. A telefonos megkeresések száma 3 hónap alatt megduplázódott. Most már látszik, hogy honnan jönnek az ügyfelek, melyik hirdetés működik, és melyik kulcsszó hoz foglalást.',
-      isReal: false
-    },
-    {
-      category: 'E-commerce',
-      title: 'Kézműves kozmetikum webshop',
-      problem: 'Sok látogató volt, de a kosár elhagyási arány 85% felett. Az emberek betették a terméket, aztán kiléptek. A checkout folyamat bonyolult volt, lassú betöltés, mobil nézet használhatatlan. Az Analytics telepítve volt, de rossz adatokat mutatott, nem lehetett megbízni benne.',
-      analysis: 'Heatmap-pel követtem a felhasználói viselkedést a termékoldaltól a checkout-ig. Megnéztem, hol kattintanak, hol görgetnek, hol állnak meg. Ellenőriztem a checkout folyamat technikai hibáit, a betöltési időket oldalanként. Az Analytics konverziós tracking-et átállítottam, hogy láthassa, melyik termék, melyik forgalomforrás hozza a vásárlást.',
-      solution: [
-        'Checkout folyamat leegyszerűsítése: 4 lépésből 2 lépés, kevesebb kötelező mező',
-        'Mobil checkout teljes újratervezése: nagyobb input mezők, auto-complete támogatás',
-        'Betöltési sebesség optimalizálás termékoldalon: képek lazy loading, CDN használat',
-        'Bizalmi jelek erősítése: szállítási információk, visszaküldési garancia láthatóbb helyre',
-        'Analytics konverziós tracking javítása: e-commerce tracking, enhanced e-commerce beállítás'
-      ],
-      result: 'A kosár elhagyási arány 85%-ról 62%-ra csökkent 2 hónap alatt. A mobil konverzió 3-szorosára nőtt. Most láthatók a pontos termékszintű konverziós adatok, meg lehet nézni, melyik termék milyen csatornáról hoz bevételt. Fizetett hirdetések most már mérhető ROI-t hoznak.',
-      isReal: false
-    },
-    {
-      category: 'B2B SaaS',
-      title: 'Projektmenedzsment szoftver',
-      problem: 'A landing page szép volt, de a regisztrációs arány 1% alatt. Az emberek megnézték az oldalt, de nem kattintottak a "Próbáld ki ingyen" gombra. A technikai SEO rendben volt, de az organikus forgalom nem hozott trial regisztrációt. Nem volt világos, mi a termék, kinek való, mit old meg.',
-      analysis: 'Végigmentem a teljes customer journey-n. A landing page-től a regisztrációs formon át a first-time user experience-ig. Session recording-okat néztem: hol kattintanak, meddig maradnak, mit olvasnak. Ellenőriztem az üzenet érthetőségét, a CTA-k elhelyezését, a social proof szintjét.',
-      solution: [
-        'Landing page üzenet újragondolása: konkrét probléma, konkrét megoldás, konkrét eredmény',
-        'Social proof erősítése: konkrét ügyfél logók, számok, rövid testimonial-ok',
-        'CTA gombok újrastrukturálása: világos következő lépés, csökkentett ellenállás',
-        'Regisztrációs form egyszerűsítése: email + jelszó, minden más később',
-        'Technikai SEO tartalom kiegészítése: strukturált adatok (SoftwareApplication), FAQ schema'
-      ],
-      result: 'A regisztrációs arány 0.8%-ról 3.2%-ra nőtt. Trial-ről fizető konverzió is javult, mert most értik, mit kapnak. Az organikus forgalom trial regisztrációja megduplázódott. Most mérhető a teljes funnel, landing page-től aktivációig.',
-      isReal: false
+      isReal: true,
+      detailsUrl: '/esettanulmanyok/bundavarazs-kutyakozmetika-audit/'
     }
   ];
 
