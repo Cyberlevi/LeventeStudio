@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SEO } from 'astro-seo';
+
+const title = "UX Audit Bekérő Specifikáció – Útmutató Szakmai Audithoz";
+const description = "Hogyan kérj professzionális UX auditot ügynökségtől vagy szakértőtől. Teljes checklist: felhasználói útvonal, konverziós pontok, mobil UX, információs hierarchia, bizalomépítés.";
+const publishDate = "2025-01-31";
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title,
+        type: "article",
+        image: "/og-image.jpg",
+      },
+      article: {
+        publishedTime: publishDate,
+        authors: ["Levente Fekete"],
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+    }}
+  />
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-neutral-900">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">UX Audit Specifikáció</span>
+    </nav>
+
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        UX Audit Bekérő Specifikáció – Útmutató Szakmai Audithoz
+      </h1>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>12 perc olvasás</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <p class="text-xl text-neutral-700 leading-relaxed mb-8">
+        Ha UX auditot szeretnél kérni ügynökségtől vagy szakértőtől, fontos, hogy pontosan meghatározd, mit vársz el. Ez a specifikáció egy teljes checklist: mit nézzen meg a szakértő, milyen kimenetet szeretnél, és mi az, amit kifejezetten nem vársz el.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az alábbi specifikációt szabadon felhasználhatod, amikor UX auditot kérsz be. Egyszerűen másold ki az egészet, vagy adaptáld a saját igényeidre.
+      </p>
+
+      <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mb-12">
+        <p class="text-blue-900 font-semibold mb-2">Cél</p>
+        <p class="text-neutral-700">
+          Objektív, adatvezérelt felhasználói élmény audit, amely feltárja a konverziót akadályozó UX problémákat mobilon és desktopon, különös tekintettel a kapcsolatfelvételi és döntési pontokra.
+        </p>
+      </div>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Az Audit Fókuszterületei (kötelező)
+      </h2>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Felhasználói útvonal (User Journey)
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Vizsgálandó:</strong> Hogyan jut el a látogató:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Belépéstől (SEO / hirdetés / direkt)</li>
+        <li>A szolgáltatás megértéséig</li>
+        <li>A kapcsolatfelvételig</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Kérdések:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Hol akad meg, hol bizonytalanodik el?</li>
+        <li>Van-e felesleges lépés vagy információs zaj?</li>
+        <li>Logikus-e a folyamat, vagy van-e ugrás, törés?</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. Konverziós pontok vizsgálata
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>CTA-k (Call-to-Action gombok):</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Szövegük érthető-e, motivál-e</li>
+        <li>Elhelyezésük logikus-e, könnyen megtalálható-e</li>
+        <li>Vizuális súlyuk megfelelő-e (elég hangsúlyos-e)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Űrlap:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Mezők száma: túl sok-e, van-e felesleges mező</li>
+        <li>Érthetőség: világos-e, mit kell kitölteni</li>
+        <li>Ellenállási pontok: mi riasztja el a látogatót (GDPR, adatvédelmi aggályok, kötelező mezők)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Telefon / WhatsApp / egyéb gyors kontakt:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Elég hangsúlyos-e?</li>
+        <li>Mobilon mennyire könnyű használni (kattintható-e, direkt hívást indít-e)?</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Mobil UX (kritikus)
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Vizsgálandó:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Olvashatóság: szöveg mérete, betűtípus, kontrasztok</li>
+        <li>Gombméretek, kattintható területek: elég nagy-e ujjal használni</li>
+        <li>Görgetési logika: túl hosszú-e egy szekció, van-e anchor link</li>
+        <li>Sticky elemek (ha vannak): segítenek vagy zavarnak (elveszik a képernyő jelentős részét)</li>
+        <li>Van-e "frusztrációs pont" mobilon: nehéz kitölteni az űrlapot, nem lehet zoom-olni, gombok túl közel egymáshoz</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        <strong>Megjegyzés:</strong> A forgalom 60-70%-a mobilról jön. Ha mobilon nem működik, nincs konverzió.
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        4. Információs hierarchia
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Azonnal érthető-e:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Mit csinál az oldal (mi a szolgáltatás, termék)</li>
+        <li>Kinek szól (célközönség)</li>
+        <li>Mi a következő lépés (világos-e a CTA, hogy mit kell tenni)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Kérdések:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Van-e túl sok szakmai kifejezés?</li>
+        <li>Mi az, ami hiányzik?</li>
+        <li>Mi az, ami felesleges (információs zaj, zavaró elemek)?</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        5. Bizalomépítő elemek
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Van-e elég bizonyíték a döntéshez:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Esettanulmány, referencia</li>
+        <li>Konkrét eredmény (számok, adatok)</li>
+        <li>Folyamat bemutatása (hogyan megy végbe a szolgáltatás)</li>
+        <li>Szociális bizonyíték (vélemények, értékelések, logók)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        <strong>Kérdés:</strong> Mi hiányzik ahhoz, hogy biztonságosnak érezze a kapcsolatfelvételt?
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Az Audit Kimenete (elvárás)
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az audit <strong>nem design terv</strong>, hanem <strong>döntéstámogató anyag</strong>.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Kérjük, tartalmazza:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-3">
+        <li>
+          <strong class="text-red-600">Kritikus UX hibák (azonnali beavatkozás):</strong><br>
+          Konkrét oldal / szekció / elem szintjén, rövid indoklás (miért probléma és mit okoz).
+        </li>
+        <li>
+          <strong class="text-orange-600">Közepes hatású javítások:</strong><br>
+          Ugyancsak konkrét példákkal és indoklással.
+        </li>
+        <li>
+          <strong class="text-green-600">Finomhangolási javaslatok:</strong><br>
+          Amik javítják az élményt, de nem blokkolják a konverziót.
+        </li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Nem kérünk:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Drótvázlatot (wireframe)</li>
+        <li>Redesign javaslatot</li>
+        <li>"Szép lenne ha" típusú ötleteket</li>
+        <li>Általános UX best practice listát (csak konkrét, az oldalra vonatkozó megállapításokat)</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Kontextus
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Az oldal célja:</strong> Minőségi leadek, nem forgalom
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>B2B / szolgáltatás fókusz</li>
+        <li>A látogatók többsége <strong>nem technikai szakember</strong></li>
+        <li>A döntési idő rövid (1-2 látogatás)</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Határidő / Forma
+      </h2>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Audit formátuma:</strong> írásos (PDF vagy Notion/Doc)</li>
+        <li><strong>Terjedelem:</strong> tömör, lényegre törő (nem prezentáció)</li>
+        <li><strong>Határidő:</strong> megbeszélés szerint</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Zárás
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Olyan auditot keresünk, amely kimondja a kellemetlen dolgokat is, és segít eldönteni:
+      </p>
+
+      <ul class="list-disc pl-6 mb-12 text-neutral-700 leading-relaxed space-y-2">
+        <li>Min kell változtatni</li>
+        <li>Min nem</li>
+        <li>És mi az, ami már most jól működik</li>
+      </ul>
+
+      <hr class="my-12 border-neutral-200">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Miért fontos ez a specifikáció?
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A legtöbb UX audit általános tanácsokat ad: "javítsd a CTA-kat", "tedd egyszerűbbé az űrlapot", "használj heatmap-et". De ez nem elég konkrét. Nem tudod, hogy <strong>melyik CTA</strong> a rossz, <strong>miért</strong> nem működik, és <strong>mit</strong> csinálj vele.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Egy professzionális UX audit nem sablon. Konkrétan a te weboldaladra vonatkozik. Megmutatja, hogy <strong>hol akad meg a látogató</strong>, <strong>miért nem hív</strong>, és <strong>mit kell változtatni</strong>, hogy javuljon a konverzió.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Hogyan használd ezt a specifikációt?
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>1. Küldés előtt adaptáld:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Ha e-commerce oldal, módosítsd a "kapcsolatfelvétel" részt "checkout folyamat"-ra</li>
+        <li>Ha SaaS, a "kapcsolatfelvétel" helyett "signup folyamat"</li>
+        <li>Ha blog, a konverzió lehet "feliratkozás" vagy "lead magnet letöltés"</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>2. Add hozzá a saját kontextusodat:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Milyen iparágban dolgozol</li>
+        <li>Mi a fő konverziós cél (lead, eladás, feliratkozás)</li>
+        <li>Milyen Analytics eszközöd van (Google Analytics, Hotjar, Clarity)</li>
+        <li>Van-e ismert probléma (pl. mobilon nem működik az űrlap)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>3. Küldd el az ügynökségnek / szakértőnek:</strong>
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Ez a specifikáció megmutatja, hogy komolyan gondolod, és pontosan tudod, mit vársz. Ezzel időt spórolsz mindkét félnek.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        UX audit akkor hasznos, ha van forgalmad, de nem konvertál. A specifikáció segít konkrét, actionable jelentést kapni, nem pedig általános tanácsokat.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Ha használod ezt a checklistet, amikor UX auditot kérsz, garantált, hogy konkrét, priorizált hibalistát kapsz, amit azonnal használni tudsz.
+      </p>
+
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Ha nem checklistet akarsz, hanem eredményt, ezt én végig is csinálom.
+        </p>
+        <a
+          href="/szolgaltatas/ux-audit/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          UX Audit Szolgáltatás
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          Objektív, adatvezérelt UX audit · Priorizált javítási lista · 5-7 munkanap
+        </p>
+      </div>
+
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó cikkek</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/blog/mikor-erdemes-weboldal-auditot-kerni/" class="text-blue-600 hover:underline">
+              Mikor érdemes weboldal auditot kérni
+            </a>
+          </li>
+          <li>
+            <a href="/blog/weboldal-konverzio-optimalizalas/" class="text-blue-600 hover:underline">
+              Weboldal konverzió optimalizálás
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

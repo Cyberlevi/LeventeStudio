@@ -1,0 +1,542 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderAstro from '../../components/HeaderAstro.astro';
+import Footer from '../../components/Footer';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
+import FAQItem from '../../components/FAQItem';
+import { Phone, MessageCircle, Mail, CheckCircle } from 'lucide-react';
+
+const pageTitle = 'UX Audit – Konverziót Akadályozó Problémák | LeventeStudio';
+const pageDescription = 'Objektív UX audit mobilon és desktopon. Feltárja a konverziót akadályozó problémákat, felhasználói útvonal elemzés, döntési pontok vizsgálata. Konkrét javítási javaslatok.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://leventestudio.app/szolgaltatas/ux-audit#service',
+      'name': 'UX Audit Szolgáltatás',
+      'description': 'Adatvezérelt felhasználói élmény audit: konverziós pontok elemzése, felhasználói útvonal vizsgálat, mobil UX audit, információs hierarchia áttekintés.',
+      'provider': {
+        '@type': 'Person',
+        'name': 'Levente Csurka',
+        'jobTitle': 'UX Audit Szakértő',
+        'url': 'https://leventestudio.app'
+      },
+      'areaServed': 'HU',
+      'serviceType': 'UX Audit',
+      'offers': {
+        '@type': 'Offer',
+        'price': '150000',
+        'priceCurrency': 'HUF',
+        'availability': 'https://schema.org/InStock'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://leventestudio.app/szolgaltatas/ux-audit#faq',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'Mi a különbség a weboldal audit és a UX audit között?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'A weboldal audit technikai: sebesség, SEO, hibák. A UX audit viselkedési: hol akad meg a látogató, mi zavarja, hol nem konvertál. Ha technikai minden rendben, de nem jönnek az ügyfelek, UX audit kell.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Kell-e redesign a UX audit után?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Nem feltétlenül. A legtöbb UX probléma kisebb módosítással javítható: CTA átmozgatás, űrlap egyszerűsítés, mobil gombok nagyítása. Teljes redesign ritkán kell.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Mennyi idő alatt kapom meg az audit jelentést?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': '5-7 munkanap. Ha sürgős, van express opció 48 órás átfutással (+ 50% felár).'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Hozzáférést kell adnom az Analytics-hez?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Igen, Google Analytics (read-only) és Search Console (read-only). Ha van heatmap eszközöd (Hotjar, Clarity), az is hasznos, de nem kötelező.'
+          }
+        },
+        {
+          '@type': 'Question',
+          'name': 'Megjavítod a hibákat, vagy csak leírod?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Az alap UX audit diagnózis + priorizált javítási lista. Ha szeretnéd, hogy megjavítsam, az külön megbízás (implementation). De a jelentés alapján a fejlesztőd is el tudja végezni.'
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const faqs = [
+  {
+    question: 'Mi a különbség a weboldal audit és a UX audit között?',
+    answer: 'A weboldal audit technikai: sebesség, SEO, hibák. A UX audit viselkedési: hol akad meg a látogató, mi zavarja, hol nem konvertál. Ha technikai minden rendben, de nem jönnek az ügyfelek, UX audit kell.'
+  },
+  {
+    question: 'Kell-e redesign a UX audit után?',
+    answer: 'Nem feltétlenül. A legtöbb UX probléma kisebb módosítással javítható: CTA átmozgatás, űrlap egyszerűsítés, mobil gombok nagyítása. Teljes redesign ritkán kell.'
+  },
+  {
+    question: 'Mennyi idő alatt kapom meg az audit jelentést?',
+    answer: '5-7 munkanap. Ha sürgős, van express opció 48 órás átfutással (+ 50% felár).'
+  },
+  {
+    question: 'Hozzáférést kell adnom az Analytics-hez?',
+    answer: 'Igen, Google Analytics (read-only) és Search Console (read-only). Ha van heatmap eszközöd (Hotjar, Clarity), az is hasznos, de nem kötelező.'
+  },
+  {
+    question: 'Megjavítod a hibákat, vagy csak leírod?',
+    answer: 'Az alap UX audit diagnózis + priorizált javítási lista. Ha szeretnéd, hogy megjavítsam, az külön megbízás (implementation). De a jelentés alapján a fejlesztőd is el tudja végezni.'
+  },
+  {
+    question: 'Mennyibe kerül a UX audit?',
+    answer: 'Alap UX audit: 150.000 Ft. Tartalmaz felhasználói útvonal elemzést, konverziós pont vizsgálatot, mobil UX audit-ot, információs hierarchia áttekintést, priorizált javítási listát, 30 perces call-t.'
+  },
+  {
+    question: 'Miért nem kapok több kapcsolatfelvételt, ha van forgalmam?',
+    answer: 'Három fő ok: nem világos, mit kínálsz (információs hierarchia), túl nehéz kapcsolatba lépni (konverziós súrlódás), vagy mobilon használhatatlan (mobil UX). Az audit megmutatja, melyik a valódi ok.'
+  },
+  {
+    question: 'Működik e-commerce / SaaS / szolgáltatás oldalon is?',
+    answer: 'Igen, mindegyiken. A módszer ugyanaz: hol akad meg a látogató, hol nem konvertál, hol van súrlódás. E-commerce-nél checkout, SaaS-nél signup, szolgáltatásnál kapcsolatfelvétel a fókusz.'
+  },
+  {
+    question: 'Van garancia?',
+    answer: 'Ha a jelentésben nincs konkrét, actionable javítási javaslat, amit nem tudsz használni, visszaadom a pénzed. Eddig ez nem fordult elő, mert mindig találok javítani valót.'
+  },
+  {
+    question: 'Kell-e utána folyamatos UX munka?',
+    answer: 'Az audit egyszeri diagnózis. Ha megjavítod a hibákat, nincs szükség rám. Ha szeretnél A/B tesztelést, folyamatos optimalizálást, az külön retainer megállapodás lehet, de nem kötelező.'
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/szolgaltatas/ux-audit/"
+  structuredData={structuredData}
+>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+
+  <main class="min-h-screen bg-white">
+    <section class="px-6 pt-32 pb-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-light text-taupe-900 mb-6 leading-tight">
+          UX Audit – Lásd, miért nem konvertálnak
+        </h1>
+        <p class="text-xl md:text-2xl text-taupe-700 font-light leading-relaxed mb-8">
+          Adatvezérelt elemzés: hol akad meg a látogató, miért nem hív, mit nem ért. Mobilon és desktopon. Nem találgatás, hanem objektív diagnózis.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20UX%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 font-light"
+          >
+            Kérek UX auditot
+          </a>
+          <a
+            href="#ar"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-50 text-taupe-900 rounded-sm hover:bg-taupe-100 transition-colors duration-200 font-light border border-taupe-200"
+          >
+            Árak és keret
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Miért kell UX audit?
+        </h2>
+        <div class="space-y-6 text-taupe-700 font-light leading-relaxed text-lg">
+          <p>
+            Mert van forgalmad, de nem konvertál. Az emberek jönnek, néznek, kilépnek. Nem hívnak, nem töltenek ki űrlapot, nem vásárolnak. Tudod, hogy valami nem működik. De nem látod, hogy mi.
+          </p>
+          <p>
+            A technikai audit megmutatja, hogy gyors-e az oldal, indexelve van-e, jó-e a struktúrája. De nem mutatja meg, hogy miért nem hoz ügyfeleket. A UX audit pontosan ezt tárja fel: hol akad meg a látogató, mit nem ért, mi zavarja, hol dönti el, hogy mégsem fog kapcsolatba lépni.
+          </p>
+          <p>
+            Végigmegyek a felhasználói útvonalon: belépéstől a kapcsolatfelvételig. Megnézem a mobilnézetet, a konverziós pontokat, a CTA-kat, az űrlapokat, az információs hierarchiát, a bizalomépítő elemeket. Végül kapsz egy priorizált listát: mi a kritikus hiba, mi közepes, mit tudsz most gyorsan javítani, mit hosszú távon.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mi a tünet? Mikor kell UX audit?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Van forgalom, nincs konverzió</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Havi 500-2000 látogató, de nem jön kapcsolatfelvétel. Nem hívnak, nem írnak, nem töltik ki az űrlapot. Nem tudod, hol szakad meg a folyamat.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Mobilon nem működik</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              A forgalom 60-70%-a mobilról jön, de a konverzió nulla. Mobilon kicsik a gombok, nehéz az űrlap, olvashatatlan a szöveg.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Nem világos, mit kínálsz</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              A látogatók 10-15 másodperc után kilépnek. Nem értik, mit csinálsz, kinek szólsz, mi a következő lépés. Az üzenet zavaros.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Hirdetés hozza a forgalmat, nem konvertál</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              A hirdetésből jönnek az emberek, de azonnal kilépnek. A landing page nem tartja meg őket, vagy nem világos a CTA.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Magas bounce rate, rövid látogatási idő</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Analytics mutatja: 70-80% bounce rate, átlagos látogatási idő 30 másodperc. Az emberek azonnal kilépnek, nem találják, amit keresnek.
+            </p>
+          </div>
+          <div class="bg-taupe-50 p-6 rounded-sm border border-taupe-200">
+            <h3 class="text-xl font-normal text-taupe-900 mb-3">Látogatók panaszkodnak</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Ha mégis felhívnak, azt mondják: "nem találtam a telefonszámot", "túl bonyolult az űrlap", "nem értettem, mit kínáltok".
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light mb-8">
+          Mit nézek meg a UX auditban?
+        </h2>
+        <div class="space-y-6 text-cream-100 font-light leading-relaxed">
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">1. Felhasználói útvonal (User Journey)</h3>
+            <p class="mb-3">
+              Hogyan jut el a látogató: belépéstől (SEO / hirdetés / direkt) a szolgáltatás megértéséig, majd a kapcsolatfelvételig. Hol akad meg, hol bizonytalanodik el, van-e felesleges lépés vagy információs zaj.
+            </p>
+            <p>
+              Végigmegyek desktop és mobil nézetben is, ellenőrzöm, hogy logikus-e a folyamat, érthető-e minden lépés, van-e világos irány.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">2. Konverziós pontok vizsgálata</h3>
+            <p class="mb-3">
+              CTA-k szövege, elhelyezése, vizuális súlya. Űrlap mezőinek száma, érthetősége, ellenállási pontok. Telefon / WhatsApp / egyéb gyors kontakt: elég hangsúlyos-e, mobilon mennyire könnyű használni.
+            </p>
+            <p>
+              Megnézem, hogy minden konverziós pontban világos-e a következő lépés, nincs-e súrlódás, működik-e a mobilnézet.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">3. Mobil UX (kritikus)</h3>
+            <p class="mb-3">
+              Olvashatóság, gombméretek, kattintható területek, görgetési logika, sticky elemek (ha vannak): segítenek vagy zavarnak. Van-e frusztrációs pont mobilon (túl kicsi gomb, nem lehet kattintani, nehéz kitölteni az űrlapot).
+            </p>
+            <p>
+              A forgalom 60-70%-a mobilról jön. Ha mobilon nem működik, nincs konverzió.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">4. Információs hierarchia</h3>
+            <p class="mb-3">
+              Azonnal érthető-e: mit csinál az oldal, kinek szól, mi a következő lépés. Van-e túl sok szakmai kifejezés, mi az, ami hiányzik, mi az, ami felesleges.
+            </p>
+            <p>
+              Ha a látogató 10 másodperc alatt nem érti, mit csinálsz, kilép. Az audit megmutatja, hol van zavar.
+            </p>
+          </div>
+
+          <div class="bg-taupe-800 p-8 rounded-sm">
+            <h3 class="text-xl font-normal text-cream-50 mb-4">5. Bizalomépítő elemek</h3>
+            <p class="mb-3">
+              Van-e elég bizonyíték a döntéshez: esettanulmány, konkrét eredmény, folyamat bemutatása. Mi hiányzik ahhoz, hogy biztonságosnak érezze a kapcsolatfelvételt.
+            </p>
+            <p>
+              A legtöbb B2B szolgáltatás esetében a látogató nem hív, mert nem bízik. Az audit megmutatja, mi erősítené a bizalmat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Mit kapsz a UX audit után?
+        </h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Priorizált hibalista (PDF vagy Google Doc)</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Kritikus hibák (azonnali beavatkozás), közepes hatású javítások, finomhangolási javaslatok. Minden hiba mellett konkrét példa (oldal / szekció / elem szintjén), rövid indoklás, és mit okoz.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Felhasználói útvonal diagram</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Vizuális térkép: hol lép be a látogató, hol akad meg, hol dönti el, hogy nem hív. Látod a teljes folyamatot, és hol van a probléma.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Screenshotok és annotációk</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Minden hiba mellett screenshot, amiből látod, miről beszélek. Nem elvont jelzések, hanem konkrét vizuális példák.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">Mobil és desktop összehasonlítás</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Külön szekció: mi működik desktopon, mi nem mobilon. Prioritási lista: mit javíts mobilon elsőként.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">30 perces online meeting</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Végigmegyünk a jelentésen. Megmagyarázom, mi mit jelent, mit csinálj először, hova fókuszálj. Kérdezhetsz, tisztázhatjuk, mit nem értesz.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center mt-1">
+              <CheckCircle size={18} />
+            </div>
+            <div>
+              <h3 class="text-xl font-normal text-taupe-900 mb-2">14 napos email support</h3>
+              <p class="text-taupe-700 font-light leading-relaxed">
+                Az audit átadása után 14 napig kérdezhetsz, ha valami nem világos, vagy elakadtál a megvalósítással. Nem full implementációs support, de jelzésre válaszolok.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8">
+          Kinek való, kinek nem?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">✅ Kinek való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Van forgalmad, de nem konvertál.</li>
+              <li>Mobilon nincs konverzió, pedig onnan jön a forgalom.</li>
+              <li>Nem érted, miért nem hívnak, nem írnak.</li>
+              <li>Látogatók panaszkodnak, hogy nem találták a telefonszámot, bonyolult az űrlap.</li>
+              <li>Hirdetésből jönnek, de azonnal kilépnek.</li>
+              <li>Szeretnéd tudni, hol van a súrlódás, hol akad meg a látogató.</li>
+              <li>Hajlandó vagy javítani a problémákat (vagy van, aki megcsinálja).</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">❌ Kinek nem való</h3>
+            <ul class="space-y-3 text-taupe-700 font-light leading-relaxed">
+              <li>Nincs forgalmad. Ha nincs látogató, nincs mit auditálni.</li>
+              <li>Csak valami szép dizájnt akarsz, de nem érdekel a konverzió.</li>
+              <li>Nem vagy hajlandó időt vagy pénzt fektetni a javításokba.</li>
+              <li>Azonnal nagy eredményt vársz, holnaptól.</li>
+              <li>Nem érdekel, hogy miért nem működik, csak csináljam meg.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ar" class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          Árak és keret
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
+            <h3 class="text-2xl font-light text-taupe-900 mb-4">Alap UX audit</h3>
+            <div class="text-4xl font-normal text-taupe-900 mb-4">150.000 Ft</div>
+            <ul class="space-y-2 text-taupe-700 font-light leading-relaxed mb-6">
+              <li>✓ Felhasználói útvonal elemzés</li>
+              <li>✓ Konverziós pontok vizsgálat</li>
+              <li>✓ Mobil UX audit</li>
+              <li>✓ Információs hierarchia áttekintés</li>
+              <li>✓ Bizalomépítő elemek elemzés</li>
+              <li>✓ Priorizált hibalista</li>
+              <li>✓ Screenshotok és példák</li>
+              <li>✓ 30 perces call</li>
+              <li>✓ 14 napos email support</li>
+              <li>✓ 5-7 munkanap átfutás</li>
+            </ul>
+          </div>
+
+          <div class="bg-taupe-900 text-cream-50 p-8 rounded-sm">
+            <h3 class="text-2xl font-light mb-4">Express UX audit</h3>
+            <div class="text-4xl font-normal mb-4">225.000 Ft</div>
+            <ul class="space-y-2 text-cream-100 font-light leading-relaxed mb-6">
+              <li>✓ Minden, ami az alap UX auditban</li>
+              <li>✓ 48 órás átfutás</li>
+              <li>✓ Prioritás support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-taupe-50 p-8 rounded-sm border border-taupe-200 mb-8">
+          <h3 class="text-2xl font-light text-taupe-900 mb-4">Komplex weboldal / e-commerce</h3>
+          <p class="text-taupe-700 font-light leading-relaxed mb-4">
+            Több lépcsős checkout folyamat, egyedi funkciók, komplex felhasználói útvonalak – egyedi árajánlat. Küldj egy rövid leírást az oldalról, és 24 órán belül küldök egy konkrét árat.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <p class="text-taupe-700 font-light mb-4">Fizetés: átutalás, számla utólag. 50% előleg induláskor, 50% a jelentés átadásakor.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-50">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-12">
+          Gyakori kérdések
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <FAQItem client:visible question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-taupe-900 text-cream-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-light mb-6">
+          Kérj UX auditot most
+        </h2>
+        <p class="text-xl font-light text-cream-100 mb-8 max-w-2xl mx-auto">
+          Ha van forgalmad, de nem konvertál, és szeretnéd látni, hol van a probléma – beszéljünk.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a
+            href="tel:+36202826843"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 font-light"
+          >
+            <Phone size={20} />
+            +36 20 282 6843
+          </a>
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20UX%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <MessageCircle size={20} />
+            WhatsApp
+          </a>
+          <a
+            href="mailto:hello@leventestudio.app?subject=UX%20audit%20k%C3%A9r%C3%A9s"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200 font-light"
+          >
+            <Mail size={20} />
+            Email
+          </a>
+        </div>
+        <p class="text-sm text-cream-200 font-light">
+          15-20 perces diagnosztikai beszélgetés, utána konkrét ajánlat.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-16 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-light text-taupe-900 mb-8 text-center">
+          További szolgáltatások
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a
+            href="/szolgaltatas/weboldal-audit/"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">Weboldal Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Átfogó technikai audit: sebesség, SEO, Analytics, hibák. Ha technikai probléma van, ez kell.
+            </p>
+          </a>
+          <a
+            href="/szolgaltatas/seo-audit/"
+            class="block p-8 bg-taupe-50 rounded-sm border border-taupe-200 hover:border-taupe-900 transition-colors duration-200"
+          >
+            <h3 class="text-2xl font-light text-taupe-900 mb-3">SEO Audit</h3>
+            <p class="text-taupe-700 font-light leading-relaxed">
+              Mélyebb SEO elemzés: kulcsszókutatás, konkurencia, backlink profil, ranking javítási terv.
+            </p>
+          </a>
+        </div>
+        <div class="mt-8 text-center">
+          <a href="/esettanulmanyok/" class="text-taupe-900 font-light underline hover:no-underline">
+            Nézd meg az esettanulmányokat
+          </a>
+          {' · '}
+          <a href="/rolam/" class="text-taupe-900 font-light underline hover:no-underline">
+            Rólam
+          </a>
+          {' · '}
+          <a href="/kapcsolat/" class="text-taupe-900 font-light underline hover:no-underline">
+            Kapcsolat
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>
