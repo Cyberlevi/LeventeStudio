@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { trackEvent } from '../utils/gtm';
+import { trackCTAClick, trackAuditRequest } from '../utils/gtm';
 
 export default function Hero() {
   return (
@@ -27,7 +27,10 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#audit-cta"
-            onClick={() => trackEvent('cta_click', 'engagement', 'hero_audit')}
+            onClick={() => {
+              trackCTAClick('Audit kérése', 'hero_primary');
+              trackAuditRequest('hero_cta');
+            }}
             className="inline-flex items-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg"
           >
             Audit kérése
@@ -36,7 +39,7 @@ export default function Hero() {
 
           <a
             href="#deliverables"
-            onClick={() => trackEvent('cta_click', 'engagement', 'hero_learn')}
+            onClick={() => trackCTAClick('Mit kapsz az auditban', 'hero_secondary')}
             className="inline-flex items-center gap-3 px-8 py-4 border border-taupe-300 text-taupe-700 rounded-sm hover:bg-taupe-50 hover:border-taupe-500 transition-colors duration-200 text-lg"
           >
             Mit kapsz az auditban

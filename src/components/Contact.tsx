@@ -1,5 +1,5 @@
 import { Phone, MessageCircle, Mail } from 'lucide-react';
-import { trackConversion } from '../utils/gtm';
+import { trackContactSubmit, trackPhoneClick, trackWhatsAppClick, trackCTAClick } from '../utils/gtm';
 import { isRateLimited, getRateLimitMessage } from '../utils/rateLimit';
 
 export default function Contact() {
@@ -23,7 +23,8 @@ export default function Contact() {
                 alert(getRateLimitMessage());
                 return;
               }
-              trackConversion('click_phone', undefined, 'contact');
+              trackPhoneClick('contact_section');
+              trackContactSubmit('phone_contact');
             }}
             className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >
@@ -42,7 +43,8 @@ export default function Contact() {
                 alert(getRateLimitMessage());
                 return;
               }
-              trackConversion('click_whatsapp', undefined, 'contact');
+              trackWhatsAppClick('contact_section');
+              trackContactSubmit('whatsapp_contact');
             }}
             className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
           >
@@ -59,7 +61,8 @@ export default function Contact() {
                 alert(getRateLimitMessage());
                 return;
               }
-              trackConversion('click_email', undefined, 'contact');
+              trackCTAClick('Email', 'contact_section');
+              trackContactSubmit('email_contact');
             }}
             className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
           >

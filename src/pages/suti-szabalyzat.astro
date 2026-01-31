@@ -85,27 +85,38 @@ const currentDate = new Date().toISOString().split('T')[0];
               </p>
 
               <div class="bg-taupe-50 p-4 rounded-sm mt-4">
-                <h4 class="font-normal text-taupe-900 mb-3">LocalStorage: cookie_consent</h4>
+                <h4 class="font-normal text-taupe-900 mb-3">LocalStorage: ls_consent_v1</h4>
                 <table class="w-full text-sm">
                   <tbody>
                     <tr class="border-b border-taupe-200">
+                      <td class="py-2 font-normal">Kulcs:</td>
+                      <td class="py-2">ls_consent_v1</td>
+                    </tr>
+                    <tr class="border-b border-taupe-200">
                       <td class="py-2 font-normal">Szolgáltató:</td>
-                      <td class="py-2">leventestudio.app</td>
+                      <td class="py-2">leventestudio.app (első féltől származó)</td>
                     </tr>
                     <tr class="border-b border-taupe-200">
                       <td class="py-2 font-normal">Cél:</td>
-                      <td class="py-2">Az Ön süti beállításainak tárolása</td>
+                      <td class="py-2">Az Ön süti beállításainak tárolása (analytics, marketing, necessary)</td>
                     </tr>
                     <tr class="border-b border-taupe-200">
                       <td class="py-2 font-normal">Típus:</td>
                       <td class="py-2">LocalStorage (nem süti, de hasonló funkció)</td>
                     </tr>
+                    <tr class="border-b border-taupe-200">
+                      <td class="py-2 font-normal">Tartalmazott adatok:</td>
+                      <td class="py-2">JSON objektum a consent választásokkal és timestamp-pel</td>
+                    </tr>
                     <tr>
                       <td class="py-2 font-normal">Lejárat:</td>
-                      <td class="py-2">12 hónap vagy manuális törlésig</td>
+                      <td class="py-2">Nem jár le automatikusan, manuális törlésig vagy consent visszavonásig tárolódik</td>
                     </tr>
                   </tbody>
                 </table>
+                <p class="text-xs text-taupe-600 mt-3">
+                  Fallback: Ha localStorage nem elérhető, sessionStorage kerül használatra (munkamenet végéig tárolódik).
+                </p>
               </div>
             </div>
 

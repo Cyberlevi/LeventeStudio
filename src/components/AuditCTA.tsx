@@ -1,5 +1,5 @@
 import { Phone, MessageCircle, Calendar, Mail } from 'lucide-react';
-import { trackConversion } from '../utils/gtm';
+import { trackAuditRequest, trackPhoneClick, trackWhatsAppClick, trackCTAClick } from '../utils/gtm';
 
 interface AuditCTAProps {
   variant?: 'primary' | 'secondary';
@@ -31,7 +31,10 @@ export default function AuditCTA({
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             <a
               href="tel:+36202826843"
-              onClick={() => trackConversion('click_phone', undefined, 'cta_main')}
+              onClick={() => {
+                trackPhoneClick('audit_cta_primary');
+                trackAuditRequest('phone_primary');
+              }}
               className="flex flex-col items-center gap-3 p-8 rounded-sm transition-colors duration-200 bg-taupe-900 text-cream-50 hover:bg-taupe-800"
             >
               <Phone size={32} />
@@ -43,7 +46,10 @@ export default function AuditCTA({
               href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackConversion('click_whatsapp', undefined, 'cta_main')}
+              onClick={() => {
+                trackWhatsAppClick('audit_cta_primary');
+                trackAuditRequest('whatsapp_primary');
+              }}
               className="flex flex-col items-center gap-3 p-8 rounded-sm transition-colors duration-200 bg-taupe-900 text-cream-50 hover:bg-taupe-800"
             >
               <MessageCircle size={32} />
@@ -57,7 +63,10 @@ export default function AuditCTA({
               href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackConversion('click_whatsapp', undefined, 'cta_main')}
+              onClick={() => {
+                trackWhatsAppClick('audit_cta_secondary');
+                trackAuditRequest('whatsapp_secondary');
+              }}
               className="flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 bg-taupe-100 text-taupe-900 hover:bg-taupe-200"
             >
               <MessageCircle size={28} />
@@ -67,7 +76,10 @@ export default function AuditCTA({
 
             <a
               href="mailto:hello@leventestudio.app?subject=Weboldal%20audit%20k%C3%A9r%C3%A9s&body=Szia%2C%0A%0AWeboldal%20audit%C3%A1t%20szeretn%C3%A9m%20k%C3%A9rni.%0A%0AWeboldal%20URL%3A%20%0ATelefonsz%C3%A1m%3A%20%0A%0AProbléma%20r%C3%B6viden%3A%20"
-              onClick={() => trackConversion('click_email', undefined, 'cta_main')}
+              onClick={() => {
+                trackCTAClick('Email írás', 'audit_cta_secondary');
+                trackAuditRequest('email_secondary');
+              }}
               className="flex flex-col items-center gap-3 p-6 rounded-sm transition-colors duration-200 bg-taupe-100 text-taupe-900 hover:bg-taupe-200"
             >
               <Mail size={28} />

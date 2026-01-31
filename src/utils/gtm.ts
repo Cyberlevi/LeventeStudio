@@ -11,52 +11,46 @@ export function pushToDataLayer(eventData: Record<string, unknown>): void {
   window.dataLayer.push(eventData);
 }
 
-export function trackPageView(page: string): void {
+export function trackCTAClick(buttonText: string, location: string): void {
   pushToDataLayer({
-    event: 'page_view',
-    page_path: page,
-    page_title: document.title,
+    event: 'cta_click',
+    button_text: buttonText,
+    page_location: location,
   });
 }
 
-export function trackEvent(
-  eventName: string,
-  eventCategory?: string,
-  eventLabel?: string,
-  eventValue?: number
-): void {
+export function trackContactSubmit(formLocation: string): void {
   pushToDataLayer({
-    event: eventName,
-    event_category: eventCategory || 'engagement',
-    event_label: eventLabel,
-    event_value: eventValue,
+    event: 'contact_submit',
+    form_location: formLocation,
   });
 }
 
-export function trackConversion(
-  conversionName: string,
-  conversionValue?: number,
-  conversionLabel?: string
-): void {
+export function trackAuditRequest(ctaLocation: string): void {
   pushToDataLayer({
-    event: conversionName,
-    event_category: 'conversion',
-    event_label: conversionLabel,
-    value: conversionValue,
+    event: 'audit_request',
+    cta_location: ctaLocation,
   });
 }
 
 export function trackScroll(percentage: number): void {
   pushToDataLayer({
     event: `scroll_${percentage}`,
-    scroll_depth: percentage,
+    scroll_percentage: percentage,
   });
 }
 
-export function trackTimeOnPage(seconds: number): void {
+export function trackPhoneClick(location: string): void {
   pushToDataLayer({
-    event: `time_on_page_${seconds}s`,
-    time_seconds: seconds,
+    event: 'phone_click',
+    click_location: location,
+  });
+}
+
+export function trackWhatsAppClick(location: string): void {
+  pushToDataLayer({
+    event: 'whatsapp_click',
+    click_location: location,
   });
 }
 
@@ -66,7 +60,7 @@ export function trackInteraction(
   interactionValue?: string
 ): void {
   pushToDataLayer({
-    event: `${interactionType}_interaction`,
+    event: `${interactionType}`,
     interaction_type: interactionType,
     interaction_target: interactionTarget,
     interaction_value: interactionValue,
