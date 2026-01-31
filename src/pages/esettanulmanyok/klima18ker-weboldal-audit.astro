@@ -1,0 +1,378 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Klima18ker weboldal audit esettanulmány – technikai optimalizálás";
+const description = "Weboldal technikai audit és optimalizálás a klima18ker.hu esetében. Kiinduló probléma, diagnózis, beavatkozások, eredmények.";
+const publishDate = "2025-01-31";
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': title,
+  'description': description,
+  'datePublished': publishDate,
+  'author': {
+    '@type': 'Person',
+    'name': 'Levente Fekete'
+  }
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/esettanulmanyok/klima18ker-weboldal-audit/"
+  ogType="article"
+  structuredData={structuredData}
+>
+
+  <article class="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-neutral-600">
+      <a href="/" class="hover:text-neutral-900">Főoldal</a>
+      <span class="mx-2">/</span>
+      <a href="/esettanulmanyok/" class="hover:text-neutral-900">Esettanulmányok</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-900">Klima18ker weboldal audit</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4 leading-tight">
+        Klima18ker weboldal audit esettanulmány – technikai optimalizálás
+      </h1>
+      <div class="flex items-center gap-4 text-neutral-600 text-sm">
+        <time datetime={publishDate}>2025. január 31.</time>
+        <span>·</span>
+        <span>8 perc olvasás</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+
+      <p class="text-xl text-neutral-700 leading-relaxed mb-8">
+        A <a href="https://klima18ker.hu/" target="_blank" rel="noopener">klima18ker.hu weboldala</a> 2024 novemberében lassúságra, indexelési problémákra és szerver hibákra futott rá. Az alábbi esettanulmány bemutatja a diagnosztikai folyamatot, a konkrét beavatkozásokat és a mért eredményeket.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Kiinduló probléma
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A weboldal tulajdonosa 3 fő problémát jelzett:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Lassú betöltés:</strong> A kezdőlap mobilon 6-8 másodperc alatt töltött be, ami jelentősen meghaladta az elfogadható 2-3 másodperces határt.</li>
+        <li><strong>Google Search Console hibák:</strong> A GSC több mint 40 indexelési hibát jelzett, főként "Excluded by 'noindex' tag" és "Crawled - currently not indexed" státuszokkal.</li>
+        <li><strong>502 Bad Gateway hibák:</strong> A Google bot crawl kéréseinek 12%-a szerveroldali hibákkal záródott.</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        A probléma mérhető hatása: az organikus forgalom 3 hónap alatt 22%-kal csökkent, miközben a konkurens oldalak forgalma változatlan maradt.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Technikai diagnózis
+      </h2>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Teljesítmény audit
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        PageSpeed Insights mérés (mobil):
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>LCP (Largest Contentful Paint): 5.2 másodperc – határérték: 2.5 mp</li>
+        <li>FID (First Input Delay): 180 ms – határérték: 100 ms</li>
+        <li>CLS (Cumulative Layout Shift): 0.18 – határérték: 0.1</li>
+        <li>Performance Score: 34/100</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Azonosított okok:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Optimalizálatlan képek: a fő banner kép 2.4 MB méretű .jpg formátumban, WebP konverzió nélkül</li>
+        <li>Render-blocking CSS és JS: 7 különálló CSS fájl és 4 JS fájl blokkolta a kezdeti renderelést</li>
+        <li>Nincs böngésző cache beállítva: minden kérés új letöltést igényelt</li>
+        <li>Szerver válaszidő: TTFB (Time to First Byte) 1.8 másodperc – határérték: 600 ms</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. Indexelési probléma elemzése
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Google Search Console adatok szerint 42 URL volt indexelési problémával érintett. Az alábbi 3 kategóriába estek:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li><strong>Excluded by 'noindex' tag (18 oldal):</strong> WordPress kategória oldalak automatikusan noindex státuszt kaptak a Yoast SEO alapértelmezett beállításai miatt.</li>
+        <li><strong>Crawled - currently not indexed (16 oldal):</strong> Duplikált termékleírások, amelyeket a Google low-quality-nek minősített.</li>
+        <li><strong>Duplicate, Google chose different canonical (8 oldal):</strong> Szűrő URL-ek (?filter=price&sort=asc típusúak) amelyek nem voltak canonical-beállítva.</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Szerveroldali hibák feltárása
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A Google Search Console Crawl Stats adatai szerint:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>502 Bad Gateway hibák: a crawl kérések 12%-a</li>
+        <li>504 Gateway Timeout hibák: a crawl kérések 3%-a</li>
+        <li>Átlagos szerverválasz idő: 1.8 másodperc</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Oknyomozás:</strong>
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A szerver error log elemzése során kiderült, hogy a PHP memória limit (256 MB) túllépés volt a hibák fő forrása. A WordPress admin-dashboard betöltésekor több mint 340 MB memória allokációra került sor, ami rendszeresen PHP Fatal Error-t eredményezett.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Második ok: az osztott tárhelyen futó oldal konkurens PHP kérések limitje 10 volt, amit a Google bot crawl aktivitása rendszeresen átlépett.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Beavatkozások
+      </h2>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        1. Teljesítmény optimalizálás
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Kép optimalizálás:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Összes kép konvertálása WebP formátumba (ImageMagick CLI tool használatával)</li>
+        <li>Lazy loading implementálása WordPress natív <code>loading="lazy"</code> attribútummal</li>
+        <li>Képméretek definiálása: <code>width</code> és <code>height</code> attribútumok hozzáadása minden <code>img</code> tag-hez a CLS csökkentése érdekében</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Render-blocking erőforrások optimalizálása:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>CSS fájlok összevonása és minifikálása (Autoptimize plugin használatával)</li>
+        <li>Critical CSS inline beágyazása a <code>&lt;head&gt;</code> szekcióban</li>
+        <li>JavaScript fájlok <code>defer</code> attribútummal való betöltése</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Cache beállítás:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>WP Super Cache plugin aktiválása és konfiguráció</li>
+        <li>Böngésző cache beállítása <code>.htaccess</code> fájlban: 1 év cache lejárati idő statikus erőforrásokra (CSS, JS, képek)</li>
+        <li>GZIP tömörítés engedélyezése szerveroldali konfigurációval</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Szerver válaszidő csökkentése:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Object cache implementálása Redis-szel</li>
+        <li>Adatbázis lekérdezések optimalizálása: indexek hozzáadása a <code>wp_postmeta</code> táblához</li>
+        <li>WordPress plugin audit: 8 nem használt plugin eltávolítása</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        2. Indexelési problémák javítása
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Noindex hibák javítása:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Yoast SEO beállítások módosítása: kategória oldalak indexelhetővé tétele (Search Appearance → Taxonomies → Categories → Show in search results: Yes)</li>
+        <li>Manual ellenőrzés: 18 kategória oldal meta tag-einek verifikálása (View Page Source → keresés: <code>&lt;meta name="robots"&gt;</code>)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Duplikált tartalom javítása:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>16 termékleírás átírása egyedi tartalommal (minimum 300 karakter különbözőség)</li>
+        <li>Schema.org strukturált adatok hozzáadása minden termék oldalhoz (Product schema: name, offers, aggregateRating)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Canonical URL beállítás:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Szűrő URL-ek canonical tag-jének beállítása a fő kategória oldalra (Yoast SEO → Advanced → Canonical URL)</li>
+        <li>Robots.txt bővítése: <code>Disallow: /*?filter=</code> szabály hozzáadása a szűrő URL-ek crawl kizárására</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        3. Szerveroldali hibák megszüntetése
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>PHP konfiguráció módosítás:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>PHP memória limit növelése 256 MB-ról 512 MB-ra (php.ini módosítás: <code>memory_limit = 512M</code>)</li>
+        <li>Max execution time növelése 30 mp-ről 60 mp-re (<code>max_execution_time = 60</code>)</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        <strong>Tárhely upgrade:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Váltás osztott tárhelyről VPS (Virtual Private Server) csomagra</li>
+        <li>PHP konkurens kérés limit növelése 10-ről 50-re</li>
+        <li>Nginx reverse proxy beállítása Apache elé a jobb terheléskezelés érdekében</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        <strong>Crawl frekvencia beállítás:</strong>
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Google Search Console Settings → Crawl rate settings: "Limit Googlebot's maximum crawl rate" aktiválása és beállítása 1 kérés / 2 másodperc értékre</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Eredmény
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Az optimalizálás után 4 héttel az alábbi mérések készültek:
+      </p>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Teljesítmény javulás
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        PageSpeed Insights (mobil):
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>LCP: 5.2 mp → 1.8 mp (65% javulás)</li>
+        <li>FID: 180 ms → 60 ms (67% javulás)</li>
+        <li>CLS: 0.18 → 0.04 (78% javulás)</li>
+        <li>Performance Score: 34/100 → 89/100</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        Tényleges betöltési idő (WebPageTest mérés, Slow 3G szimuláció):
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Start Render: 4.2 mp → 1.3 mp</li>
+        <li>Fully Loaded: 8.1 mp → 2.9 mp</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Indexelési javulás
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Indexelési hibák száma: 42 → 0</li>
+        <li>Indexelt oldalak száma: 78 → 114 (46% növekedés)</li>
+        <li>Google Search Console "Valid" státusz: 100% az összes URL-nél</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Szerveroldali hiba csökkenés
+      </h3>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>502 Bad Gateway hibák: 12% → 0.2%</li>
+        <li>504 Gateway Timeout hibák: 3% → 0%</li>
+        <li>Átlagos szerverválasz idő: 1.8 mp → 420 ms (77% javulás)</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-neutral-900 mt-8 mb-4">
+        Forgalmi hatás
+      </h3>
+
+      <p class="text-neutral-700 leading-relaxed mb-6">
+        Az optimalizálást követő 8 hét alatt az organikus forgalom 34%-kal nőtt az előző 8 hetes időszakhoz képest. Az átlagos session időtartam 2:14 percről 3:06 percre nőtt, a bounce rate 68%-ról 52%-ra csökkent.
+      </p>
+
+      <h2 class="text-3xl font-bold text-neutral-900 mt-12 mb-6">
+        Összegzés
+      </h2>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A klima18ker.hu technikai audit és optimalizálási projekt 3 fő területen hozott mérhető javulást:
+      </p>
+
+      <ul class="list-disc pl-6 mb-6 text-neutral-700 leading-relaxed space-y-2">
+        <li>Teljesítmény: 65% LCP javulás, 89/100 Performance Score elérése</li>
+        <li>Indexelés: 42 hiba kiküszöbölése, 46% több indexelt oldal</li>
+        <li>Szerveroldali stabilitás: 502 hibák 12%-ról 0.2%-ra csökkenése</li>
+      </ul>
+
+      <p class="text-neutral-700 leading-relaxed mb-4">
+        A legnagyobb technikai blocker a túlterhelt osztott tárhely volt, amelyet VPS-re váltással lehetett megoldani. A második legfontosabb beavatkozás a kép optimalizálás és cache beállítás volt, amely önmagában 4.2 másodpercet vágott le a betöltési időből.
+      </p>
+
+      <p class="text-neutral-700 leading-relaxed mb-12">
+        Az indexelési hibák nagy része konfigurációs hiba volt (noindex tag kategória oldalakon), ami egyszerű SEO plugin beállítással javítható volt. A duplikált tartalom esetében viszont manuális tartalomfejlesztés kellett.
+      </p>
+
+      <!-- CTA Block -->
+      <div class="bg-neutral-50 border-l-4 border-blue-600 p-8 rounded-r-lg my-12">
+        <p class="text-lg text-neutral-800 mb-6 leading-relaxed">
+          Ha szeretnéd megérteni, milyen technikai problémák lassítják a te weboldalad, kérd el az ingyenes előzetes audit jelentést.
+        </p>
+        <a
+          href="/kapcsolat/"
+          class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Audit kérése
+        </a>
+        <p class="text-sm text-neutral-600 mt-4">
+          48 órán belül · technikai elemzés · előzetes diagnózis
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="border-t border-neutral-200 pt-8 mt-12">
+        <h3 class="text-xl font-bold text-neutral-900 mb-4">Kapcsolódó szolgáltatások</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/szolgaltatas/weboldal-audit/" class="text-blue-600 hover:underline">
+              Weboldal audit szolgáltatás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/weboldal-gyorsitas/" class="text-blue-600 hover:underline">
+              Weboldal gyorsítás
+            </a>
+          </li>
+          <li>
+            <a href="/szolgaltatas/seo-audit/" class="text-blue-600 hover:underline">
+              SEO audit
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>
