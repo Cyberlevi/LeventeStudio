@@ -8,6 +8,8 @@ interface CaseStudyData {
   analysis: string;
   solution: string[];
   result: string;
+  isReal?: boolean;
+  detailsUrl?: string;
 }
 
 interface CaseStudyProps {
@@ -37,11 +39,23 @@ export default function CaseStudy({ caseStudy }: CaseStudyProps) {
   }, [caseStudy.title]);
 
   return (
-    <div ref={sectionRef} className="bg-taupe-50 p-8 md:p-12 rounded-sm border border-taupe-200">
-      <div className="mb-4">
+    <div
+      ref={sectionRef}
+      className={`p-8 md:p-12 rounded-sm border ${
+        caseStudy.isReal
+          ? 'bg-gradient-to-br from-blue-50 to-taupe-50 border-blue-200'
+          : 'bg-taupe-50 border-taupe-200'
+      }`}
+    >
+      <div className="mb-4 flex items-center gap-3">
         <span className="inline-block px-3 py-1 bg-taupe-900 text-cream-50 text-sm font-light rounded-sm">
           {caseStudy.category}
         </span>
+        {caseStudy.isReal && (
+          <span className="inline-block px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-sm">
+            Valós projekt
+          </span>
+        )}
       </div>
 
       <h3 className="text-3xl font-light text-taupe-900 mb-8">
@@ -72,6 +86,20 @@ export default function CaseStudy({ caseStudy }: CaseStudyProps) {
           <h4 className="text-taupe-900 font-normal mb-3 text-lg">Mi lett az eredmény</h4>
           <p>{caseStudy.result}</p>
         </div>
+
+        {caseStudy.isReal && caseStudy.detailsUrl && (
+          <div className="pt-4">
+            <a
+              href={caseStudy.detailsUrl}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-sm hover:bg-blue-700 transition-colors"
+            >
+              Teljes esettanulmány
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

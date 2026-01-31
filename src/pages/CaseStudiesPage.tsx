@@ -3,6 +3,22 @@ import CaseStudy from '../components/CaseStudy';
 export default function CaseStudiesPage() {
   const cases = [
     {
+      category: 'Klímatechnika',
+      title: 'Klima18ker weboldal technikai audit',
+      problem: 'A weboldal 3 súlyos problémával küzdött: lassú betöltés (6-8 mp mobilon), 42 indexelési hiba a Google Search Console-ban, és szerveroldali 502 hibák a crawl kérések 12%-ánál. Az organikus forgalom 3 hónap alatt 22%-kal csökkent, miközben a konkurensek forgalma változatlan maradt.',
+      analysis: 'Teljesítmény audit PageSpeed Insights-tal: LCP 5.2 mp (határérték: 2.5 mp), Performance Score 34/100. Azonosított problémák: optimalizálatlan képek (2.4 MB banner), 7 render-blocking CSS fájl, nincs cache, TTFB 1.8 mp. Google Search Console részletes elemzés: noindex tag kategória oldalakon, duplikált termékleírások, canonical hiánya szűrő URL-eknél. Szerver log audit: PHP memória limit túllépés, osztott tárhely konkurens kérés limit.',
+      solution: [
+        'Kép optimalizálás: WebP konverzió, lazy loading, width/height attribútumok',
+        'Render-blocking erőforrások: CSS/JS összevonás, critical CSS inline, defer attribútum',
+        'Cache konfiguráció: WP Super Cache, böngésző cache 1 év, GZIP tömörítés',
+        'Indexelési hibák: Yoast SEO beállítás módosítás, 16 termékleírás átírása, canonical URL-ek',
+        'Szerver upgrade: osztott tárhelyről VPS-re váltás, PHP memória limit 512 MB, Nginx reverse proxy'
+      ],
+      result: 'LCP 5.2 mp-ről 1.8 mp-re (65% javulás), Performance Score 89/100. Indexelési hibák 42-ről 0-ra, indexelt oldalak 78-ról 114-re (46% növekedés). 502 hibák 12%-ról 0.2%-ra csökkentek. Organikus forgalom 34%-kal nőtt 8 hét alatt, bounce rate 68%-ról 52%-ra csökkent.',
+      isReal: true,
+      detailsUrl: '/esettanulmanyok/klima18ker-weboldal-audit/'
+    },
+    {
       category: 'Helyi szolgáltatás',
       title: 'Bundavarázs Kutyakozmetika',
       problem: 'A weboldal nem hozott foglalásokat. Lassan töltött be, a Google Analytics nem működött rendesen, a mobil nézet olvashatatlan volt. Az online jelenlétet kézben tartották, de eredmény nem volt. Fizetett hirdetések futottak, de a konverzió nulla. Senki nem hívott, senki nem foglalt időpontot.',
