@@ -147,8 +147,18 @@ const structuredData = {
         404 státuszkód helyes működésének ellenőrzése:
       </p>
 
-      <pre class="bg-neutral-900 text-neutral-100 p-4 rounded-lg overflow-x-auto text-sm mb-2"><code>curl -I https://leventestudio.app/blog/valami-nem-letezik/
-HTTP/2 404</code></pre>
+      <div class="bg-neutral-900 rounded-lg overflow-hidden mb-2 border border-neutral-700">
+        <div class="bg-neutral-800 px-4 py-2 text-neutral-400 text-xs font-mono border-b border-neutral-700 flex items-center gap-2">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <span>bash</span>
+        </div>
+        <pre class="p-4 overflow-x-auto text-sm"><code><span class="text-green-400">$</span> <span class="text-neutral-100">curl -I https://leventestudio.app/blog/valami-nem-letezik/</span>
+<span class="text-red-400">HTTP/2 404</span></code></pre>
+      </div>
 
       <p class="text-neutral-700 leading-relaxed mb-6 text-sm italic">
         Igazolja, hogy nem létező URL-ek korrekt 404-et adnak vissza (nem 200-as soft-404), ami tiszta indexelést támogat.
