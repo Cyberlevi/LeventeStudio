@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+import ProblemLandingPageV2 from '../components/ProblemLandingPageV2';
+
+const pageTitle = 'Weboldal nem hoz ügyfelet? Megnézem, mi a hiba | LeventeStudio';
+const pageDescription = 'Fizettél egy weboldalért, de nem termel? Megnézem, mi nem működik: technikai, SEO, UX. Audit + hibalista + javítási terv.';
+const canonicalURL = '/weboldal-nem-hoz-ugyfelet/';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://leventestudio.app/weboldal-nem-hoz-ugyfelet#service',
+  'name': 'Weboldal Audit',
+  'description': 'Átfogó weboldal audit nem termelő weboldalakhoz. Technikai, SEO, UX hibaelemzés.',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'jobTitle': 'Weboldal Audit Szakértő',
+    'url': 'https://leventestudio.app',
+  },
+  'areaServed': 'HU',
+  'serviceType': 'Weboldal Audit',
+};
+
+const problemData = {
+  h1: 'Weboldal nem hoz ügyfelet? Megnézem, mi a hiba.',
+  intro: 'Ha fizettél egy weboldalért, de nem termel, akkor nem marketing probléma van. Technikai hiba van. Vagy Google nem látja. Vagy látogatók nem értik. Vagy lassú. Megnézem pontosan, mi nem működik – és leírom, mit kell csinálni.',
+  symptoms: [
+    'Van forgalom, de nem konvertál – látogatók 5-10 másodperc alatt lelépnek',
+    'Nincs forgalom – Google nem hozza fel az oldaladat',
+    'Contact form nem működik, vagy spam mappába mennek az üzenetek',
+    'Mobilon használhatatlan – elcsúszik, apró betű, lassú',
+    'Fizettél Google Ads-re, de az oldal nem adta el',
+  ],
+  causes: {
+    title: 'Miért nem hoz ügyfelet a weboldalad',
+    items: [
+      'Technikai SEO hiba – Google nem indexeli, robots.txt blokkolja, sitemap hiányzik',
+      'Lassú oldal – 3+ másodperc töltés, PageSpeed piros, látogatók lelépnek',
+      'UX probléma – nem érthető az értékajánlat, CTA nem látszik, form túl hosszú',
+      'Tartalom probléma – nem egyértelmű mit csinálsz, szakzsargon, nincs benefit',
+      'Technikai bug – form nem küld, oldalak 404, törött linkek',
+    ],
+  },
+  auditScope: {
+    title: 'Mit nézek meg az auditban',
+    items: [
+      'Technikai SEO: indexelés, robots.txt, sitemap, canonical, meta tagek',
+      'Teljesítmény: PageSpeed, Core Web Vitals, betöltési idő',
+      'UX: első 5 másodperc, értékajánlat, CTA, form, mobil élmény',
+      'Tartalom: címek, szöveg érthetősége, benefit kommunikáció',
+      'Analytics: követés helyes-e, konverziós tölcsér hol szakad meg',
+      'Technikai bugok: form működés, linkek, SSL, console hibák',
+    ],
+  },
+  deliverables: {
+    title: 'Mit kapsz',
+    items: [
+      'Átfogó hibalista: technikai, SEO, UX, tartalom – minden, amit találtam',
+      'Üzleti hatás elemzés: melyik hiba veszít neked ügyfelet',
+      'Priorizált javítási terv: mit kell először megcsinálni',
+      'Konkrét megoldások: nem elmélet, hanem "ezt írd át", "ezt javítsd"',
+      'Analytics beállítás: ha nincs rendesen bekötve, leírom mit kell',
+      '60 perces konzultáció: átbeszéljük a hibákat, kérdéseket válaszolok',
+    ],
+  },
+  faq: [
+    {
+      question: 'Mennyi idő alatt fog termelni az oldalam?',
+      answer: 'Attól függ, mi a probléma. Technikai hiba: 1-2 hét javítás + 2-4 hét indexelés. UX probléma: 1 hét javítás, azonnal látszik. SEO: 2-3 hónap.',
+    },
+    {
+      question: 'Ki csinálja meg a javításokat?',
+      answer: 'Te döntöd el. Kapsz egy tervet, megcsináltatod akivel akarsz. Ha kell, ajánlok fejlesztőt.',
+    },
+    {
+      question: 'Garancia van, hogy utána termelni fog?',
+      answer: 'Technikai hibára igen – ha azt feloldom, működni fog. Marketing, tartalom, piacra nem tudok garanciát adni.',
+    },
+    {
+      question: 'Webshopra is működik?',
+      answer: 'Igen. Webshop specifikus dolgokat is megnézem: checkout UX, termékoldal optimalizálás, cart abandon.',
+    },
+    {
+      question: 'Mit csináljak, ha ügynökség csinálta és nem termel?',
+      answer: 'Kérd el a hozzáféréseket. Audit után látni fogod, mi a probléma. Ha nem csinálták meg rendesen, vagy reklamálsz, vagy váltasz.',
+    },
+  ],
+  cta: {
+    title: 'Auditot kérek',
+    subtitle: 'Megnézem az oldaladat, megtalálom a hibákat. 5-7 nap múlva kézhez kapod a teljes riportot és a javítási tervet.',
+  },
+  relatedProblems: [
+    {
+      title: 'Lassú weboldal',
+      url: '/lassu-weboldal/',
+      description: 'PageSpeed piros, Core Web Vitals hiba – megnézem, mi lassítja',
+    },
+    {
+      title: 'Google nem indexel',
+      url: '/google-nem-indexel/',
+      description: 'Nincs forgalom, mert Google nem látja az oldaladat',
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalURL}
+  structuredData={structuredData}
+>
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+  <ProblemLandingPageV2 {...problemData} client:load />
+  <Footer client:load />
+  <CookieBanner client:load />
+</BaseLayout>

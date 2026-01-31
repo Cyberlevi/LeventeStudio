@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+import ProblemLandingPageV2 from '../components/ProblemLandingPageV2';
+
+const pageTitle = 'Google nem indexel? Megnézem, miért | LeventeStudio';
+const pageDescription = 'Nincs forgalom, mert Google nem látja az oldaladat? Search Console hibák. Megnézem, mi blokkolja az indexelést – és leírom a javítást.';
+const canonicalURL = '/google-nem-indexel/';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://leventestudio.app/google-nem-indexel#service',
+  'name': 'Google Indexelési Audit',
+  'description': 'Indexelési problémák diagnosztizálása. Search Console hibák javítása.',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'jobTitle': 'Weboldal Audit Szakértő',
+    'url': 'https://leventestudio.app',
+  },
+  'areaServed': 'HU',
+  'serviceType': 'SEO Audit',
+};
+
+const problemData = {
+  h1: 'Google nem indexel? Megnézem, miért.',
+  intro: 'Ha Google nem látja az oldaladat, akkor nem létezik. Hiába van szép design – ha nem indexelődik, nincs forgalom. 90%-ban technikai ok van: robots.txt, sitemap, canonical, noindex. Megnézem pontosan, mi blokkolja – és leírom a javítást.',
+  symptoms: [
+    'Search Console: "Discovered - currently not indexed"',
+    'Az oldal nincs bent a Google-ben, pedig hónapok óta fent van',
+    'Csak a főoldal indexelődik, aloldalak nem',
+    'Sitemap beküldve, de Google nem olvassa',
+    'Canonical hibák, duplicate content figyelmeztetések',
+  ],
+  causes: {
+    title: 'Miért nem indexel a Google',
+    items: [
+      'Robots.txt blokkolja a Googlebot-ot – rossz beállítás, véletlenül tiltva',
+      'Nincs sitemap vagy rossz – hiányos, hibás URL-ek, nem XML valid',
+      'Noindex meta tag van az oldalakon – fejlesztési tag maradt benn',
+      'Canonical problémák – rossz önhivatkozás vagy duplikált tartalom',
+      'JavaScript render probléma – Google nem látja a tartalmat',
+    ],
+  },
+  auditScope: {
+    title: 'Mit nézek meg az auditban',
+    items: [
+      'Search Console hibák elemzése: Coverage, Pages riport',
+      'Robots.txt ellenőrzése: mi van tiltva, van-e blokk',
+      'Sitemap validálás: XML helyes-e, tartalmazza-e az összes oldalt',
+      'Meta robots és canonical tagek: minden oldalon helyes-e',
+      'Indexálhatóság: Googlebot hozzáfér-e, JavaScript render',
+      'Technikai blokkok: redirect loop, server error, DNS probléma',
+    ],
+  },
+  deliverables: {
+    title: 'Mit kapsz',
+    items: [
+      'Search Console riport elemzés: minden hiba, ami blokkolja az indexelést',
+      'Oldalankénti státusz: melyik oldal miért nincs indexelve',
+      'Robots.txt és sitemap javítási terv: mit kell átírni, hova kell tenni',
+      'Canonical és meta robots javítás: konkrét kód, hogy mit írj be',
+      'Technikai hibajavítás: redirect, DNS, szerver hibák megoldása',
+      'Várható indexelési idő: ha megcsinálod, mennyi idő alatt indexelődik',
+    ],
+  },
+  faq: [
+    {
+      question: 'Mennyi idő alatt indexelődik az oldalam?',
+      answer: 'Ha megcsinálod a javításokat: 1-2 hét. Search Console-ban Request Indexing segít, de nem garancia.',
+    },
+    {
+      question: 'Mi van, ha technikai ok nincs, mégse indexel?',
+      answer: 'Akkor tartalom probléma van. Thin content, duplicate, low quality. Ezt is megnézem, de ez nem technikai audit.',
+    },
+    {
+      question: 'Kell hozzá Search Console hozzáférés?',
+      answer: 'Igen. Owner vagy Full User jogosultság kell. Nélküle nem látom a hibákat.',
+    },
+    {
+      question: 'WordPress oldalra is működik?',
+      answer: 'Igen. WordPress specifikus indexelési hibákat is megnézem: Yoast, RankMath beállítások.',
+    },
+    {
+      question: 'Garancia van, hogy indexelődni fog?',
+      answer: 'Technikai blokkra igen. Ha azt feloldom, indexelődik. Tartalmi problémára nem tudok garanciát adni.',
+    },
+  ],
+  cta: {
+    title: 'Auditot kérek',
+    subtitle: 'Megnézem a Search Console-t és az oldaladat. 3-5 nap múlva kézhez kapod a hibalistát és a javítási tervet.',
+  },
+  relatedProblems: [
+    {
+      title: 'Lassú weboldal',
+      url: '/lassu-weboldal/',
+      description: 'PageSpeed piros, Core Web Vitals hiba – megnézem, mi lassítja',
+    },
+    {
+      title: 'Weboldal nem hoz ügyfelet',
+      url: '/weboldal-nem-hoz-ugyfelet/',
+      description: 'Van oldal, de nem termel – megnézem, mi a hiba',
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalURL}
+  structuredData={structuredData}
+>
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+  <ProblemLandingPageV2 {...problemData} client:load />
+  <Footer client:load />
+  <CookieBanner client:load />
+</BaseLayout>

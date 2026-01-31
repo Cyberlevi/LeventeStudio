@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
+import ProblemLandingPageV2 from '../components/ProblemLandingPageV2';
+
+const pageTitle = 'Lassú weboldal? Megnézem, mi okozza | LeventeStudio';
+const pageDescription = 'Lassú betöltés, rossz PageSpeed, Core Web Vitals hibák. Megnézem pontosan, mi lassítja a weboldalad – és leírom a javítási tervet.';
+const canonicalURL = '/lassu-weboldal/';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://leventestudio.app/lassu-weboldal#service',
+  'name': 'Lassú Weboldal Audit',
+  'description': 'Teljesítmény audit lassú weboldalakhoz. Core Web Vitals, PageSpeed optimalizálás.',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Levente Csurka',
+    'jobTitle': 'Weboldal Audit Szakértő',
+    'url': 'https://leventestudio.app',
+  },
+  'areaServed': 'HU',
+  'serviceType': 'Weboldal Teljesítmény Audit',
+};
+
+const problemData = {
+  h1: 'Lassú weboldal? Megnézem, mi okozza.',
+  intro: 'A lassú weboldal veszít neked ügyfelet. Ha 3 másodpercnél többet tölt, 40% lelép. Ha PageSpeed piros, rosszabb helyen vagy a Google-ben. Megnézem pontosan, mi lassítja – és leírom, mit kell javítani.',
+  symptoms: [
+    'PageSpeed Insights piros vagy sárga – 40-60 pont',
+    'Core Web Vitals hibák a Search Console-ban',
+    'Mobilon másodpercekig tölt a tartalom',
+    'Nagy képek, sok script, WordPress plugin túlterhelés',
+    'Látogatók panaszkodnak a lassúságra',
+  ],
+  causes: {
+    title: 'Miért lassú a weboldalad',
+    items: [
+      'Nem optimalizált képek – nagy fájlméret, nincs WebP, nincs lazy loading',
+      'Túl sok JavaScript – render-blocking scriptek, felesleges könyvtárak',
+      'Lassú szerver / hosting – magas TTFB, nincs cache, nincs CDN',
+      'WordPress plugin túlterhelés – 20-30 plugin, mindegyik betölt CSS-t és JS-t',
+      'Nem optimalizált kód – CSS bloat, használaton kívüli kód, nincs minify',
+    ],
+  },
+  auditScope: {
+    title: 'Mit nézek meg az auditban',
+    items: [
+      'PageSpeed Insights elemzés desktop és mobilon',
+      'Core Web Vitals mérés: LCP, CLS, FID/INP',
+      'Képoptimalizálás: méret, formátum, lazy loading',
+      'JavaScript és CSS: render-blocking, bundle méret',
+      'Szerver teljesítmény: TTFB, cache, CDN',
+      'WordPress specifikus: plugin hatás, theme optimalizálás',
+    ],
+  },
+  deliverables: {
+    title: 'Mit kapsz',
+    items: [
+      'Teljesítmény riport: jelenlegi PageSpeed pontszám és Core Web Vitals értékek',
+      'Hibalista: pontosan mi lassítja az oldalt – képek, scriptek, plugins',
+      'Priorizált javítási terv: melyik módosítás mennyi gyorsulást hoz',
+      'Képoptimalizálási útmutató: konkrét képek, méret, formátum',
+      'Technikai javaslatok: cache, minify, CDN, hosting váltás ha kell',
+      'Várható eredmény: ha megcsinálod, milyen PageSpeed érték várható',
+    ],
+  },
+  faq: [
+    {
+      question: 'Mennyivel lesz gyorsabb az oldalam?',
+      answer: 'Attól függ, mi a probléma. Ha kép optimalizálás, 30-50% gyorsulás reális. Ha szerver lassú, hosting váltással 70-80%. Az audit végén konkrét számot kapasz.',
+    },
+    {
+      question: 'Muszáj lesz hosting váltás?',
+      answer: 'Nem biztos. Először megnézem, mi a probléma. Sok esetben kép + script optimalizálással megoldható. Ha a szerver a lassú, akkor igen.',
+    },
+    {
+      question: 'WordPress oldalra is működik?',
+      answer: 'Igen. WordPress specifikusan is megnézem: plugin hatás, theme optimalizálás, database tisztítás.',
+    },
+    {
+      question: 'Mennyi idő alatt látom az eredményt?',
+      answer: 'Az audit 3-5 nap. A javítások megcsinálása 1-2 hét, attól függően, mennyi a munka.',
+    },
+    {
+      question: 'Ki csinálja meg a javításokat?',
+      answer: 'Te döntöd el. Kapsz egy javítási tervet, azt megcsináltatod akivel akarsz. Ha kell, ajánlok fejlesztőt.',
+    },
+  ],
+  cta: {
+    title: 'Auditot kérek',
+    subtitle: 'Megnézem az oldaladat, lemérem a teljesítményt, leírom a hibákat. 3-5 nap múlva kézhez kapod a tervet.',
+  },
+  relatedProblems: [
+    {
+      title: 'Google nem indexel',
+      url: '/google-nem-indexel/',
+      description: 'Nincs forgalom, mert Google nem látja az oldaladat',
+    },
+    {
+      title: 'Weboldal nem hoz ügyfelet',
+      url: '/weboldal-nem-hoz-ugyfelet/',
+      description: 'Van oldal, de nem termel – megnézem, mi a hiba',
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalURL}
+  structuredData={structuredData}
+>
+  <MobileStickyBar client:load />
+  <HeaderAstro />
+  <ProblemLandingPageV2 {...problemData} client:load />
+  <Footer client:load />
+  <CookieBanner client:load />
+</BaseLayout>
