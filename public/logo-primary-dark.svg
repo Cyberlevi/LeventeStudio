@@ -1,8 +1,8 @@
 <svg viewBox="0 0 300 70" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Precision grid element - top left corner -->
-  <path d="M 0 0 L 12 0 M 0 0 L 0 12" stroke="#faf8f5" stroke-width="0.8" opacity="0.5" stroke-linecap="square"/>
+  <path d="M 0 0 L 12 0 M 0 0 L 0 12" stroke="#5d534c" stroke-width="0.8" opacity="0.5" stroke-linecap="square"/>
 
   <!-- Main name with hierarchy -->
-  <text x="0" y="38" font-size="32" font-weight="400" letter-spacing="0.02em" fill="#faf8f5" font-family="Cormorant Garamond, Georgia, serif">LEVENTE</text>
-  <text x="0" y="60" font-size="16" font-weight="300" letter-spacing="0.05em" fill="#faf8f5" opacity="0.7" font-family="Cormorant Garamond, Georgia, serif">stúdió</text>
+  <text x="0" y="38" font-size="32" font-weight="400" letter-spacing="0.02em" fill="#5d534c" font-family="Cormorant Garamond, Georgia, serif">LEVENTE</text>
+  <text x="0" y="60" font-size="16" font-weight="300" letter-spacing="0.05em" fill="#5d534c" opacity="0.7" font-family="Cormorant Garamond, Georgia, serif">stúdió</text>
 </svg>
