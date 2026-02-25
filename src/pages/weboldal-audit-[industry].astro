@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { industries, type Industry } from '../data/industries';
+import Contact from '../components/Contact';
+
+export async function getStaticPaths() {
+  return industries.map((industry) => ({
+    params: { industry: industry.slug },
+    props: { industry },
+  }));
+}
+
+interface Props {
+  industry: Industry;
+}
+
+const { industry } = Astro.props;
+
+const title = `Weboldal Audit ${industry.namePlural} Számára - LeventeStudio`;
+const description = industry.description;
+const canonicalURL = `https://leventestudio.app/weboldal-audit-${industry.slug}/`;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": `Weboldal Audit ${industry.namePlural} Számára`,
+  "description": industry.description,
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "LeventeStudio",
+    "url": "https://leventestudio.app/"
+  },
+  "areaServed": "HU",
+  "offers": {
+    "@type": "Offer",
+    "price": industry.price,
+    "priceCurrency": "HUF",
+    "description": `Weboldal audit szolgáltatás ${industry.namePlural.toLowerCase()} számára`
+  }
+};
+---
+
+<BaseLayout title={title} description={description} canonicalURL={canonicalURL}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <section class="min-h-screen flex items-center justify-center px-6 py-20 pt-32 bg-cream-50">
+    <div class="max-w-4xl w-full">
+      <div class="inline-block mb-6 px-4 py-2 bg-taupe-100 text-taupe-900 text-sm font-light rounded-sm">
+        Specializált Audit Szolgáltatás
+      </div>
+
+      <h1 class="font-serif text-5xl md:text-6xl font-light text-taupe-900 mb-6 leading-tight">
+        Weboldal Audit<br />
+        <span class="text-taupe-600">{industry.namePlural} Számára</span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-taupe-700 mb-8 font-light">
+        {industry.description}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+        <a
+          href="#audit-cta"
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg font-normal"
+        >
+          Audit kérése
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+
+        <a
+          href="/szolgaltatas/weboldal-audit/"
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-taupe-300 text-taupe-700 rounded-sm hover:bg-taupe-50 hover:border-taupe-500 transition-colors duration-200 text-lg"
+        >
+          Általános audit
+        </a>
+      </div>
+
+      <div class="flex items-center gap-6 text-sm text-taupe-600">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>5-7 nap átfutás</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>{industry.price} Ft</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-900 mb-4">
+        A legtöbb {industry.name.toLowerCase()} weboldal ezekkel a problémákkal küzd
+      </h2>
+      <p class="text-lg text-taupe-600 mb-12">
+        Több mint 50 weboldal audit tapasztalata alapján ezek a leggyakoribb hibák:
+      </p>
+
+      <div class="space-y-4">
+        {industry.painPoints.map((painPoint) => (
+          <div class="flex items-start gap-4 p-6 bg-cream-50 rounded-sm border border-taupe-200">
+            <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <p class="text-lg text-taupe-800">{painPoint}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 bg-taupe-50">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-900 mb-4">
+        Mit kapsz az auditban?
+      </h2>
+      <p class="text-lg text-taupe-600 mb-12">
+        {industry.namePlural} számára specializált audit elemzés:
+      </p>
+
+      <div class="space-y-4">
+        {industry.benefits.map((benefit) => (
+          <div class="flex items-start gap-4 p-6 bg-white rounded-sm border border-taupe-200">
+            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-lg text-taupe-800">{benefit}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 p-8 bg-taupe-900 text-cream-50 rounded-sm">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <div class="text-3xl font-normal mb-2">{industry.price} Ft</div>
+            <div class="text-cream-200">Teljes körű audit 5-7 nap alatt</div>
+          </div>
+          <a
+            href="#audit-cta"
+            class="inline-flex items-center gap-3 px-8 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200 text-lg font-normal"
+          >
+            Audit kérése
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {industry.caseStudySlug && (
+    <section class="py-20 px-6 bg-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-900 mb-4">
+          Így segítettünk egy {industry.name.toLowerCase()} vállalkozásnak
+        </h2>
+        <p class="text-lg text-taupe-600 mb-8">
+          Valós eredmények, mérhető javulás
+        </p>
+        <a
+          href={`/esettanulmanyok/${industry.caseStudySlug}/`}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors"
+        >
+          Esettanulmány megtekintése
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <section class="py-20 px-6 bg-cream-50">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-900 mb-4">
+        Hogyan dolgozom
+      </h2>
+      <p class="text-lg text-taupe-600 mb-12">
+        Strukturált, adat-alapú folyamat minden audit során
+      </p>
+
+      <div class="space-y-8">
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center text-xl font-normal">
+            1
+          </div>
+          <div>
+            <h3 class="text-xl font-normal text-taupe-900 mb-2">Kezdeti konzultáció</h3>
+            <p class="text-taupe-700">
+              15 perces ingyenes beszélgetés, ahol megértem az üzleti céljaidat és a weboldal jelenlegi helyzetét.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center text-xl font-normal">
+            2
+          </div>
+          <div>
+            <h3 class="text-xl font-normal text-taupe-900 mb-2">Technikai elemzés</h3>
+            <p class="text-taupe-700">
+              Teljes körű technikai audit: SEO, teljesítmény, konverzió, UX. Minden sort kézzel vizsgálok meg.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center text-xl font-normal">
+            3
+          </div>
+          <div>
+            <h3 class="text-xl font-normal text-taupe-900 mb-2">Részletes jelentés</h3>
+            <p class="text-taupe-700">
+              Strukturált audit dokumentum konkrét problémákkal, priorizált javítási javaslatokkal és implementációs útmutatóval.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-taupe-900 text-cream-50 rounded-full flex items-center justify-center text-xl font-normal">
+            4
+          </div>
+          <div>
+            <h3 class="text-xl font-normal text-taupe-900 mb-2">Átadó megbeszélés</h3>
+            <p class="text-taupe-700">
+              60 perces video call, ahol végigmegyünk a jelentésen, kérdéseid megválaszolom és a következő lépéseket egyeztetjük.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-900 mb-4">
+        Gyakori kérdések
+      </h2>
+
+      <div class="space-y-6 mt-12">
+        <details class="group bg-cream-50 rounded-sm border border-taupe-200">
+          <summary class="flex items-center justify-between p-6 cursor-pointer text-lg font-normal text-taupe-900">
+            Mennyi idő alatt készül el az audit?
+            <svg class="w-5 h-5 text-taupe-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-taupe-700">
+            Az audit elkészítése általában 5-7 munkanapot vesz igénybe a weboldal komplexitásától függően. Sürgős esetben 3 napos expressz szolgáltatást is kérhetsz.
+          </div>
+        </details>
+
+        <details class="group bg-cream-50 rounded-sm border border-taupe-200">
+          <summary class="flex items-center justify-between p-6 cursor-pointer text-lg font-normal text-taupe-900">
+            Mi van, ha nem értek a jelentésben leírtakhoz?
+            <svg class="w-5 h-5 text-taupe-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-taupe-700">
+            Minden audit tartalmaz egy 60 perces átadó megbeszélést, ahol személyesen elmagyarázom a jelentés minden részletét. Emellett 30 napon belül email-ben is támogatlak, ha kérdéseid merülnek fel.
+          </div>
+        </details>
+
+        <details class="group bg-cream-50 rounded-sm border border-taupe-200">
+          <summary class="flex items-center justify-between p-6 cursor-pointer text-lg font-normal text-taupe-900">
+            Az audit ára tartalmazza az implementációt is?
+            <svg class="w-5 h-5 text-taupe-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-taupe-700">
+            Az audit ára csak az elemzést és a jelentést tartalmazza. A javítások implementációja külön szolgáltatás, amiről a jelentés átadása után egyeztethetsz velem, vagy átadhatod saját fejlesztődnek.
+          </div>
+        </details>
+
+        <details class="group bg-cream-50 rounded-sm border border-taupe-200">
+          <summary class="flex items-center justify-between p-6 cursor-pointer text-lg font-normal text-taupe-900">
+            Garantálod az eredményt?
+            <svg class="w-5 h-5 text-taupe-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-taupe-700">
+            Garantálom, hogy konkrét, implementálható javaslatokat kapsz, amik bizonyítottan javítják a weboldal teljesítményét. 50+ sikeres audit során átlagosan 65%+ teljesítménynövekedést értünk el.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <Contact client:load />
+</BaseLayout>

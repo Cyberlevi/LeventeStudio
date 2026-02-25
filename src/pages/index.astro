@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero from '../components/Hero';
+import TrustBar from '../components/TrustBar';
 import ProblemAwareness from '../components/ProblemAwareness';
 import AuditDeliverables from '../components/AuditDeliverables';
 import AuditCTA from '../components/AuditCTA';
@@ -10,11 +11,13 @@ import HowIWork from '../components/HowIWork';
 import CaseStudies from '../components/CaseStudies';
 import CommonProblems from '../components/CommonProblems';
 import ForWhom from '../components/ForWhom';
+import LeadMagnet from '../components/LeadMagnet';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
+import StickyDesktopCTA from '../components/StickyDesktopCTA';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -60,10 +63,12 @@ const structuredData = {
 >
   <CookieBanner client:load />
   <MobileStickyBar client:load />
+  <StickyDesktopCTA client:load />
 
   <div class="min-h-screen bg-white">
     <HeaderAstro />
     <Hero client:load />
+    <TrustBar client:load />
     <ProblemAwareness client:load />
     <div id="deliverables">
       <AuditDeliverables client:load />
@@ -81,6 +86,7 @@ const structuredData = {
     <CaseStudies client:load />
     <CommonProblems client:load />
     <ForWhom client:load />
+    <LeadMagnet client:load />
     <FAQ client:load />
     <Contact client:load />
     <Footer client:load />

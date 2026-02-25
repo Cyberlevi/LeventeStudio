@@ -74,3 +74,53 @@ export function trackInteraction(
     interaction_value: interactionValue,
   });
 }
+
+export function trackLeadMagnetDownload(magnetType: string, location: string): void {
+  pushToDataLayer({
+    event: 'generate_lead',
+    lead_type: 'lead_magnet',
+    magnet_type: magnetType,
+    location: location,
+    value: 1
+  });
+}
+
+export function trackServiceView(serviceName: string): void {
+  pushToDataLayer({
+    event: 'view_item',
+    item_category: 'service',
+    item_name: serviceName
+  });
+}
+
+export function trackIndustryPageView(industry: string): void {
+  pushToDataLayer({
+    event: 'view_industry_page',
+    industry: industry,
+    page_type: 'vertical_landing'
+  });
+}
+
+export function trackBlogRead(articleTitle: string, readPercentage: number): void {
+  pushToDataLayer({
+    event: 'blog_engagement',
+    article_title: articleTitle,
+    read_percentage: readPercentage
+  });
+}
+
+export function trackFunnelStep(stepName: string, stepNumber: number): void {
+  pushToDataLayer({
+    event: 'funnel_progress',
+    funnel_step: stepName,
+    step_number: stepNumber
+  });
+}
+
+export function trackMicroConversion(conversionType: string, value: string): void {
+  pushToDataLayer({
+    event: 'micro_conversion',
+    conversion_type: conversionType,
+    conversion_value: value
+  });
+}
