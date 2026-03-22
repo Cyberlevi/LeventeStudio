@@ -4,14 +4,9 @@ import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import ProblemAwareness from '../components/ProblemAwareness';
-import AuditDeliverables from '../components/AuditDeliverables';
-import AuditCTA from '../components/AuditCTA';
-import AboutExpert from '../components/AboutExpert';
-import HowIWork from '../components/HowIWork';
-import CaseStudies from '../components/CaseStudies';
-import CommonProblems from '../components/CommonProblems';
-import ForWhom from '../components/ForWhom';
-import LeadMagnet from '../components/LeadMagnet';
+import Solution from '../components/Solution';
+import Pricing from '../components/Pricing';
+import SimpleCaseStudy from '../components/SimpleCaseStudy';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -22,8 +17,8 @@ import StickyDesktopCTA from '../components/StickyDesktopCTA';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  'name': 'LeventeStudio - Weboldal Audit Szakértő',
-  'description': 'Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI, Analytics elemzés. Adat-alapú megközelítés.',
+  'name': 'LeventeStudio - Weboldal Készítés Kisvállalkozásoknak',
+  'description': 'Ügyfélszerző weboldalak kisvállalkozásoknak. SEO optimalizált, gyors, mobilbarát weboldalak 5-7 nap alatt.',
   'image': 'https://leventestudio.app/logo.png',
   'logo': {
     '@type': 'ImageObject',
@@ -34,7 +29,7 @@ const structuredData = {
   'provider': {
     '@type': 'Person',
     'name': 'Levente Csurka',
-    'jobTitle': 'Weboldal Audit Szakértő',
+    'jobTitle': 'Webfejlesztő',
     'telephone': '+36202826843',
     'email': 'hello@leventestudio.app',
     'url': 'https://leventestudio.app',
@@ -47,17 +42,18 @@ const structuredData = {
     }
   },
   'areaServed': 'HU',
-  'serviceType': ['Weboldal Audit', 'SEO Audit', 'Weboldal Gyorsítás'],
+  'serviceType': ['Weboldal Készítés', 'SEO Optimalizálás', 'Landing Page Készítés'],
   'address': {
     '@type': 'PostalAddress',
     'addressCountry': 'HU'
-  }
+  },
+  'priceRange': '250000-750000 HUF'
 };
 ---
 
 <BaseLayout
-  title="Weboldal Audit Szakértő – Adat-alapú Weboldal Elemzés | LeventeStudio"
-  description="Professzionális weboldal audit szolgáltatás. Technikai SEO, teljesítmény, UX/UI, Analytics elemzés. Konkrét hibalista, priorizált javítási terv. Mérnöki háttér, adat-alapú gondolkodás."
+  title="Weboldal Készítés Kisvállalkozásoknak | Ügyfélszerző Honlap 5-7 Nap Alatt | LeventeStudio"
+  description="Ügyfélszerző weboldal kisvállalkozásoknak 5-7 nap alatt. Megépítjük, beindítjuk, megtanítjuk használni. SEO optimalizált, gyors, professzionális. Átlátható árak 250.000 Ft-tól."
   canonical="/"
   structuredData={structuredData}
 >
@@ -70,23 +66,9 @@ const structuredData = {
     <Hero client:load />
     <TrustBar client:load />
     <ProblemAwareness client:load />
-    <div id="deliverables">
-      <AuditDeliverables client:load />
-    </div>
-    <div id="audit-cta">
-      <AuditCTA
-        client:load
-        variant="primary"
-        title="Kérj weboldal auditot most"
-        subtitle="Válaszd ki, ahogy neked kényelmes. Minden út ugyanoda vezet: tiszta kép arról, mi nem működik."
-      />
-    </div>
-    <AboutExpert client:load />
-    <HowIWork client:load />
-    <CaseStudies client:load />
-    <CommonProblems client:load />
-    <ForWhom client:load />
-    <LeadMagnet client:load />
+    <Solution client:load />
+    <Pricing client:load />
+    <SimpleCaseStudy client:load />
     <FAQ client:load />
     <Contact client:load />
     <Footer client:load />

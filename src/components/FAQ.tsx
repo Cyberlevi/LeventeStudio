@@ -3,28 +3,36 @@ import FAQItem from './FAQItem';
 export default function FAQ() {
   const faqs = [
     {
-      question: 'Mennyibe kerül a weboldal audit?',
-      answer: '150.000–300.000 Ft a weboldal méretétől és összetettségétől függően. Kisebb oldalak (5-10 aloldal, egyszerű struktúra) 150.000 Ft körül. Nagyobb rendszerek (e-commerce, sok aloldal, komplex funkciók) 300.000 Ft. Az első 15 perces konzultáció ingyenes, ott megmondom a pontos árat.'
+      question: 'Mennyit tart az egész folyamat?',
+      answer: '5-7 munkanap a konzultációtól az élesítésig. Az Induló csomag akár 3-4 nap alatt is kész lehet. Ha nagyon sürgős, express átfutást is tudunk vállalni.'
     },
     {
-      question: 'Mennyi idő alatt készül el az audit?',
-      answer: 'Egy átlagos weboldal auditja 5-7 munkanap. Nagyobb rendszereknél (e-commerce, több nyelv, komplex funkciók) 10-14 nap. A dokumentáció átadása után közösen átbeszéljük, kérdések, magyarázat, prioritások. Nem adok át egy PDF-et anélkül, hogy végigmennénk rajta.'
+      question: 'Mit kapok pontosan?',
+      answer: 'Egy élő, működő weboldalt. SEO-ra optimalizálva, gyors betöltéssel, mobilon tökéletes. Hozzá videó útmutatót, hogy tudd frissíteni. Plusz 30-90 nap támogatást, ha bármi kérdés van.'
     },
     {
-      question: 'Mit kapok pontosan az audit végén?',
-      answer: 'Részletes audit dokumentációt: minden megtalált probléma prioritási sorrendben. Teljesítmény elemzést (PageSpeed, Core Web Vitals). SEO technikai auditot (meta, structured data, indexelés). Konverziós gátló pontokat heatmap és Analytics alapján. Javítási ütemtervet: mit először, mit később. Ajánlást a következő lépésekre.'
+      question: 'Mi van, ha nem tetszik?',
+      answer: 'Folyamatosan egyeztetünk a fejlesztés alatt. Látod mi készül, beleszólhatsz. Ha valamit nem szeretsz, változtatunk rajta. Amíg nem vagy elégedett, addig csiszoljuk.'
     },
     {
-      question: 'Ki javítja meg a hibákat, amit találsz?',
-      answer: 'Az audit csak a diagnózis. A javítást nem én csinálom, hanem a saját fejlesztőd, vagy egy másik szakember. Az audit dokumentáció elég részletes ahhoz, hogy bárki meg tudja csinálni. Ha nincs fejlesztőd, tudok ajánlani, vagy segítek megtalálni a megfelelő embert.'
+      question: 'Kell hozzá domain és tárhely?',
+      answer: 'Ha van, használjuk azt. Ha nincs, beszerzünk és beállítjuk körülbelül 15.000 Ft/év áron. Megbeszéljük az elején, hogy mi a legjobb megoldás.'
     },
     {
-      question: 'Mikor éri meg auditot csináltatni?',
-      answer: 'Ha a weboldal lassú, nem konvertál, vagy a Google nem talál. Ha fizetett hirdetést futtatsz, de az eredmény nem kielégítő. Ha van forgalom, de nincs lead vagy vásárlás. Ha már van Analytics, de nem érted az adatokat. Ha fejleszteni akarsz, de nem tudod, merre indulj el.'
+      question: 'Tudok majd változtatni az oldalon?',
+      answer: 'Igen. Kapsz videó útmutatót, hogyan frissítsd a szövegeket, képeket. Ha valami bonyolultabb kell (új funkció, design módosítás), megcsinálom neked.'
     },
     {
-      question: 'Dolgozol WordPress / Shopify / custom oldalakkal?',
-      answer: 'Igen, mindhárommal. A platform nem számít, az audit módszer ugyanaz: teljesítmény, SEO, UX, konverzió. WordPress, Shopify, Webflow, custom fejlesztés – mindegy. Az audit arról szól, hogy mi nem működik, nem arról, hogy milyen rendszeren van.'
+      question: 'WordPress lesz?',
+      answer: 'Nem. Modern technológiával építjük (Astro/React), ami gyorsabb, biztonságosabb és olcsóbb fenntartani. De ugyanúgy egyszerű kezelni.'
+    },
+    {
+      question: 'Kell-e utána havidíj?',
+      answer: 'Nem kötelező. Az alap tárhely 5-10 ezer forint havonta. Ha szeretnéd, hogy folyamatosan finomítsuk az oldalt, van havidíjas csomag (40-50k/hó), de ez opcionális.'
+    },
+    {
+      question: 'Miért gyorsabb, mint máshol?',
+      answer: 'Modern fejlesztői eszközöket használok, amikkel sokkal gyorsabban tudok építeni. Nem kell hónapokig tervezgetni, egyszerűen építünk és finomítunk.'
     }
   ];
 
