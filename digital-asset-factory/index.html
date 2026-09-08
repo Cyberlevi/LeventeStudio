@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service Profit Toolkit — Price jobs with real margin</title>
+  <meta name="description" content="Free service business pricing, labor rate, margin and job profit calculators. No signup. Runs in your browser." />
+  <meta name="robots" content="index,follow" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top">Service Profit Toolkit</a>
+      <nav>
+        <a href="#tools">Tools</a>
+        <a href="#premium">Premium</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Free business pricing tools</div>
+          <h1>Know what to charge before you send the quote.</h1>
+          <p class="lead">Turn labor, materials, overhead and target margin into a price that actually leaves profit. Everything runs locally in your browser.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#tools">Open the calculators</a>
+            <a class="btn secondary" href="#premium">See the full toolkit</a>
+          </div>
+          <div class="trust-row">
+            <span>✓ No signup</span>
+            <span>✓ No subscription</span>
+            <span>✓ Private calculations</span>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <div class="card-label">Quick margin check</div>
+          <div class="mini-grid">
+            <label>Job cost<input id="quickCost" type="number" min="0" step="0.01" value="800" /></label>
+            <label>Target margin %<input id="quickMargin" type="number" min="0" max="95" step="0.1" value="30" /></label>
+          </div>
+          <div class="big-result">
+            <span>Price to charge</span>
+            <strong id="quickPrice">$1,142.86</strong>
+          </div>
+          <p id="quickNote" class="muted">At 30% margin, $342.86 remains before tax.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Toolbox</div>
+            <h2>Four calculators. One pricing system.</h2>
+          </div>
+          <p>Use the tabs below. Your values stay on this device.</p>
+        </div>
+
+        <div class="tool-shell">
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="price">Quote price</button>
+            <button class="tab" data-tab="labor">Labor rate</button>
+            <button class="tab" data-tab="margin">Markup ↔ margin</button>
+            <button class="tab" data-tab="profit">Job profit</button>
+          </div>
+
+          <section class="tool-panel active" id="tab-price">
+            <div class="input-grid">
+              <label>Materials<input id="pMaterials" type="number" min="0" step="0.01" value="350" /></label>
+              <label>Labor hours<input id="pHours" type="number" min="0" step="0.1" value="4" /></label>
+              <label>True labor cost / hr<input id="pLabor" type="number" min="0" step="0.01" value="45" /></label>
+              <label>Travel + other costs<input id="pOther" type="number" min="0" step="0.01" value="40" /></label>
+              <label>Allocated overhead<input id="pOverhead" type="number" min="0" step="0.01" value="80" /></label>
+              <label>Target margin %<input id="pMargin" type="number" min="0" max="95" step="0.1" value="30" /></label>
+              <label>Payment fee %<input id="pFee" type="number" min="0" max="20" step="0.1" value="2.9" /></label>
+              <label>Minimum charge<input id="pMinimum" type="number" min="0" step="0.01" value="0" /></label>
+            </div>
+            <div class="results-grid">
+              <div><span>Total modeled cost</span><strong id="rCost">$0</strong></div>
+              <div><span>Recommended quote</span><strong id="rQuote">$0</strong></div>
+              <div><span>Modeled profit</span><strong id="rProfit">$0</strong></div>
+              <div><span>Revenue / labor hour</span><strong id="rPerHour">$0</strong></div>
+            </div>
+            <p class="formula-note">Formula: price = total cost ÷ (1 − target margin − payment fee), then minimum charge is applied.</p>
+          </section>
+
+          <section class="tool-panel" id="tab-labor">
+            <div class="input-grid">
+              <label>Hourly wage<input id="lWage" type="number" min="0" step="0.01" value="28" /></label>
+              <label>Payroll burden %<input id="lBurden" type="number" min="0" step="0.1" value="25" /></label>
+              <label>Paid hours / year<input id="lPaidHours" type="number" min="1" step="1" value="2080" /></label>
+              <label>Billable utilization %<input id="lUtil" type="number" min="1" max="100" step="0.1" value="65" /></label>
+              <label>Annual overhead / tech<input id="lOverhead" type="number" min="0" step="1" value="30000" /></label>
+              <label>Target margin %<input id="lMargin" type="number" min="0" max="95" step="0.1" value="25" /></label>
+            </div>
+            <div class="results-grid three">
+              <div><span>Loaded annual labor</span><strong id="lAnnual">$0</strong></div>
+              <div><span>Break-even / billable hr</span><strong id="lBreakEven">$0</strong></div>
+              <div><span>Target billable rate</span><strong id="lRate">$0</strong></div>
+            </div>
+          </section>
+
+          <section class="tool-panel" id="tab-margin">
+            <div class="input-grid compact">
+              <label>Cost<input id="mCost" type="number" min="0" step="0.01" value="100" /></label>
+              <label>Markup %<input id="mMarkup" type="number" min="0" step="0.1" value="30" /></label>
+            </div>
+            <div class="results-grid three">
+              <div><span>Selling price</span><strong id="mPrice">$0</strong></div>
+              <div><span>Gross profit</span><strong id="mProfit">$0</strong></div>
+              <div><span>Equivalent margin</span><strong id="mMargin">0%</strong></div>
+            </div>
+            <div class="callout">A 30% markup is not a 30% margin. This calculator makes the difference visible.</div>
+          </section>
+
+          <section class="tool-panel" id="tab-profit">
+            <div class="input-grid">
+              <label>Customer price<input id="jPrice" type="number" min="0" step="0.01" value="1200" /></label>
+              <label>Materials<input id="jMaterials" type="number" min="0" step="0.01" value="300" /></label>
+              <label>Labor cost<input id="jLabor" type="number" min="0" step="0.01" value="250" /></label>
+              <label>Travel / equipment<input id="jOther" type="number" min="0" step="0.01" value="75" /></label>
+              <label>Allocated overhead<input id="jOverhead" type="number" min="0" step="0.01" value="125" /></label>
+              <label>Payment fee %<input id="jFee" type="number" min="0" max="20" step="0.1" value="2.9" /></label>
+            </div>
+            <div class="results-grid">
+              <div><span>Total cost incl. fee</span><strong id="jCost">$0</strong></div>
+              <div><span>Profit</span><strong id="jProfit">$0</strong></div>
+              <div><span>Margin</span><strong id="jMargin">0%</strong></div>
+              <div><span>Markup on cost</span><strong id="jMarkup">0%</strong></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="premium" class="section alt">
+      <div class="wrap premium-grid">
+        <div>
+          <div class="eyebrow">Lifetime toolkit</div>
+          <h2>Take the calculators offline and keep your jobs in one place.</h2>
+          <p class="lead small">The premium edition is designed as a one-time purchase: saved jobs, quote builder, scenario comparison, CSV export, customer-ready print view and reusable business defaults.</p>
+          <ul class="checklist">
+            <li>Lifetime browser-based app</li>
+            <li>No monthly subscription</li>
+            <li>Works offline after download</li>
+            <li>Saved jobs stay on the buyer's device</li>
+            <li>Free future formula updates for v1.x</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <div class="badge">Launch edition</div>
+          <div class="price"><span>$</span>19</div>
+          <p>One-time payment</p>
+          <a id="buyButton" class="btn primary wide disabled" href="#" aria-disabled="true">Payment link coming next</a>
+          <small>Stripe checkout will be connected after the product account is linked.</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="wrap faq">
+        <div class="section-head"><div><div class="eyebrow">FAQ</div><h2>Simple by design.</h2></div></div>
+        <details open><summary>Does this replace accounting advice?</summary><p>No. These are planning and pricing tools based on the numbers you enter. Tax and accounting treatment varies by business and location.</p></details>
+        <details><summary>Are the numbers uploaded?</summary><p>No. The free calculators run entirely in your browser. The current MVP does not send pricing inputs to a server.</p></details>
+        <details><summary>Why price from margin instead of adding a percentage?</summary><p>Markup is measured against cost while margin is measured against the selling price. If you need a specific margin, the correct formula solves backward from the final price.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 Service Profit Toolkit</span>
+      <span>Planning tools only · No financial guarantees</span>
+    </div>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
