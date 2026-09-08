@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 const EXPECTED_PAYMENT_LINK = 'plink_1UDUtJFO5q7MQ7EmCAkOz9sB';
 const EXPECTED_AMOUNT = 1900;
@@ -32,6 +32,7 @@ function verifyStripeSignature(rawBody, signatureHeader, secret){
 }
 
 export const handler = async (event) => {
+  connectLambda(event);
   if(event.httpMethod !== 'POST') return {statusCode:405, body:'Method not allowed'};
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   const sig = event.headers?.['stripe-signature'] || event.headers?.['Stripe-Signature'];
