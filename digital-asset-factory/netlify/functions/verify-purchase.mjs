@@ -1,16 +1,4 @@
-const EXPECTED_PAYMENT_LINK = 'plink_1UDUtJFO5q7MQ7EmCAkOz9sB';
-const EXPECTED_AMOUNT = 1900;
-const EXPECTED_CURRENCY = 'usd';
-
-async function getSession(sessionId){
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if(!secret) throw new Error('Missing STRIPE_SECRET_KEY');
-  const res = await fetch('https://api.stripe.com/v1/checkout/sessions/' + encodeURIComponent(sessionId), {
-    headers: { Authorization: 'Bearer ' + secret }
-  });
-  if(!res.ok) throw new Error('Stripe verification failed');
-  return res.json();
-}
+import { getStore } from '@netlify/blobs';
 
 export const handler = async (event) => {
   const sessionId = event.queryStringParameters?.session_id;
@@ -18,14 +6,12 @@ export const handler = async (event) => {
     return {statusCode:400, headers:{'content-type':'application/json','cache-control':'no-store'}, body:JSON.stringify({paid:false})};
   }
   try{
-    const s = await getSession(sessionId);
-    const paid = s.payment_status === 'paid' &&
-      s.mode === 'payment' &&
-      s.payment_link === EXPECTED_PAYMENT_LINK &&
-      s.amount_total === EXPECTED_AMOUNT &&
-      s.currency === EXPECTED_CURRENCY;
+    const store = getStore('service-profit-entitlements');
+    const raw = await store.get(sessionId, {consistency:'strong'});
+    const record = raw ? JSON.parse(raw) : null;
+    const paid = record?.paid === true && record.session_id === sessionId;
     return {
-      statusCode: paid ? 200 : 403,
+      statusCode: paid ? 200 : 404,
       headers:{'content-type':'application/json','cache-control':'no-store'},
       body:JSON.stringify({paid})
     };
