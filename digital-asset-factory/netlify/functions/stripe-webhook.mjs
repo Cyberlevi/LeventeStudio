@@ -1,10 +1,5 @@
 import crypto from 'node:crypto';
-import { connectLambda, getStore } from '@netlify/blobs';
-
-const EXPECTED_PAYMENT_LINK = 'plink_1UDUtJFO5q7MQ7EmCAkOz9sB';
-const EXPECTED_AMOUNT = 1900;
-const EXPECTED_CURRENCY = 'usd';
-const TOLERANCE_SECONDS = 300;
+import { getStore } from '@netlify/blobs';
 
 function verifyStripeSignature(rawBody, signatureHeader, secret){
   if(!rawBody || !signatureHeader || !secret) return false;
@@ -14,7 +9,7 @@ function verifyStripeSignature(rawBody, signatureHeader, secret){
   if(!timestampPart || signatures.length === 0) return false;
   const timestamp = Number(timestampPart.slice(2));
   if(!Number.isFinite(timestamp)) return false;
-  if(Math.abs(Math.floor(Date.now()/1000) - timestamp) > TOLERANCE_SECONDS) return false;
+  if(Math.abs(Math.floor(Date.now()/1000) - timestamp) > 300) return false;
 
   const expected = crypto.createHmac('sha256', secret)
     .update(`${timestamp}.${rawBody}`, 'utf8')
@@ -31,35 +26,37 @@ function verifyStripeSignature(rawBody, signatureHeader, secret){
   });
 }
 
-export const handler = async (event) => {
-  connectLambda(event);
-  if(event.httpMethod !== 'POST') return {statusCode:405, body:'Method not allowed'};
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  const sig = event.headers?.['stripe-signature'] || event.headers?.['Stripe-Signature'];
-  if(!verifyStripeSignature(event.body, sig, secret)){
-    return {statusCode:400, body:'Invalid signature'};
+export default async (req) => {
+  if(req.method !== 'POST') return new Response('Method not allowed', {status:405});
+
+  const rawBody = await req.text();
+  const signature = req.headers.get('stripe-signature');
+  const secret = Netlify.env.get('STRIPE_WEBHOOK_SECRET');
+  if(!verifyStripeSignature(rawBody, signature, secret)){
+    return new Response('Invalid signature', {status:400});
   }
 
   let stripeEvent;
-  try{ stripeEvent = JSON.parse(event.body); }
-  catch{ return {statusCode:400, body:'Invalid JSON'}; }
+  try{ stripeEvent = JSON.parse(rawBody); }
+  catch{ return new Response('Invalid JSON', {status:400}); }
 
-  const accepted = new Set(['checkout.session.completed','checkout.session.async_payment_succeeded']);
-  if(!accepted.has(stripeEvent.type)) return {statusCode:200, body:'Ignored'};
+  if(!['checkout.session.completed','checkout.session.async_payment_succeeded'].includes(stripeEvent.type)){
+    return new Response('Ignored');
+  }
 
   const s = stripeEvent.data?.object;
   const valid = s &&
     s.object === 'checkout.session' &&
     s.payment_status === 'paid' &&
     s.mode === 'payment' &&
-    s.payment_link === EXPECTED_PAYMENT_LINK &&
-    s.amount_total === EXPECTED_AMOUNT &&
-    s.currency === EXPECTED_CURRENCY;
+    s.payment_link === 'plink_1UDUtJFO5q7MQ7EmCAkOz9sB' &&
+    s.amount_total === 1900 &&
+    s.currency === 'usd';
 
-  if(!valid) return {statusCode:200, body:'Not an eligible purchase'};
+  if(!valid) return new Response('Not an eligible purchase');
 
-  const store = getStore('service-profit-entitlements');
-  await store.set(s.id, JSON.stringify({
+  const store = getStore('service-profit-entitlements-test', {consistency:'strong'});
+  await store.setJSON(s.id, {
     paid:true,
     session_id:s.id,
     payment_link:s.payment_link,
@@ -68,7 +65,9 @@ export const handler = async (event) => {
     customer_email:s.customer_details?.email || null,
     created:s.created || Math.floor(Date.now()/1000),
     recorded_at:new Date().toISOString()
-  }));
+  });
 
-  return {statusCode:200, body:'Entitlement recorded'};
+  return new Response('Entitlement recorded');
 };
+
+export const config = { path:'/api/stripe-webhook' };
