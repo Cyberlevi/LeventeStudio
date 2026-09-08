@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Purchase complete — Service Profit Toolkit</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="section">
+    <div class="wrap" style="max-width:760px">
+      <div class="price-card" style="text-align:left">
+        <div class="eyebrow">Payment confirmation</div>
+        <h1 style="font-size:clamp(38px,7vw,62px)">Thanks for your purchase.</h1>
+        <p class="lead small" id="statusText">Checking your Stripe payment…</p>
+        <div id="successBox" hidden>
+          <p>Your payment is confirmed. Your lifetime toolkit is ready.</p>
+          <a id="downloadLink" class="btn primary" href="#">Download the Lifetime Edition</a>
+          <p class="muted">Save the downloaded HTML file somewhere safe. It runs locally in your browser and stores saved jobs on your device.</p>
+        </div>
+        <div id="errorBox" hidden>
+          <p>We could not verify this purchase yet. If the payment just finished, refresh this page once.</p>
+          <a class="btn secondary" href="./">Back to the toolkit</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const sessionId = params.get('session_id');
+    const status = document.getElementById('statusText');
+    const success = document.getElementById('successBox');
+    const error = document.getElementById('errorBox');
+    const download = document.getElementById('downloadLink');
+
+    async function verify(){
+      if(!sessionId){
+        status.textContent = 'Missing checkout session.';
+        error.hidden = false;
+        return;
+      }
+      try{
+        const res = await fetch('/.netlify/functions/verify-purchase?session_id=' + encodeURIComponent(sessionId), {cache:'no-store'});
+        const data = await res.json();
+        if(res.ok && data.paid){
+          status.textContent = 'Payment confirmed.';
+          success.hidden = false;
+          download.href = '/.netlify/functions/download-toolkit?session_id=' + encodeURIComponent(sessionId);
+        }else{
+          status.textContent = 'Payment not verified.';
+          error.hidden = false;
+        }
+      }catch{
+        status.textContent = 'Verification service is temporarily unavailable.';
+        error.hidden = false;
+      }
+    }
+    verify();
+  </script>
+</body>
+</html>
