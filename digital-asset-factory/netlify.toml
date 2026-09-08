@@ -1,9 +1,9 @@
 [build]
   publish = "dist"
   command = "rm -rf dist && mkdir -p dist && cp index.html app.js styles.css success.html dist/"
-  functions = "netlify/functions"
 
 [functions]
+  directory = "netlify/functions"
   node_bundler = "esbuild"
   included_files = ["premium/service-profit-toolkit-premium.html"]
 
