@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 async function hasEntitlement(sessionId){
   const store = getStore('service-profit-entitlements');
@@ -15,6 +15,7 @@ async function hasEntitlement(sessionId){
 }
 
 export const handler = async (event) => {
+  connectLambda(event);
   const sessionId = event.queryStringParameters?.session_id;
   if(!sessionId || !sessionId.startsWith('cs_')){
     return {statusCode:400, body:'Invalid checkout session.'};
