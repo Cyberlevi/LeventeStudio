@@ -37,7 +37,7 @@
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     async function checkOnce(){
-      const res = await fetch('/.netlify/functions/verify-purchase?session_id=' + encodeURIComponent(sessionId), {cache:'no-store'});
+      const res = await fetch('/api/verify-purchase?session_id=' + encodeURIComponent(sessionId), {cache:'no-store'});
       const data = await res.json().catch(()=>({paid:false}));
       return res.ok && data.paid;
     }
@@ -56,7 +56,7 @@
           if(await checkOnce()){
             status.textContent = 'Payment confirmed.';
             success.hidden = false;
-            download.href = '/.netlify/functions/download-toolkit?session_id=' + encodeURIComponent(sessionId);
+            download.href = '/api/download-toolkit?session_id=' + encodeURIComponent(sessionId);
             return;
           }
         }catch{}
