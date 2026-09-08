@@ -24,27 +24,31 @@ No user pricing data is sent to a server. Inputs are stored in localStorage only
 - JSON backup/restore
 - no cloud account and no subscription
 
-Initial launch price hypothesis: **US$19 one-time**.
+Launch price hypothesis: **US$19 one-time**.
 
-## Monetization funnel
-1. Organic/search/social visitor lands on free calculator.
-2. Free tool solves one immediate problem.
-3. CTA offers the lifetime offline toolkit.
-4. Stripe Payment Link handles checkout.
-5. Buyer receives the premium HTML file/download package.
+## Automated fulfillment
+1. Buyer pays through the Stripe Payment Link.
+2. Stripe sends a signed `checkout.session.completed` or `checkout.session.async_payment_succeeded` webhook.
+3. `/api/stripe-webhook` validates the Stripe signature and exact product/payment details.
+4. A paid entitlement is stored in Netlify Blobs.
+5. Stripe redirects the buyer to `success.html?session_id={CHECKOUT_SESSION_ID}`.
+6. `/api/verify-purchase` confirms the entitlement.
+7. `/api/download-toolkit` serves the premium HTML only for an entitled Checkout Session.
+8. The premium source file is excluded from the public static build.
 
-## Current status
-- [x] Market scan
-- [x] Free MVP
-- [x] Premium lifetime MVP
-- [x] Separate Netlify project created (`service-profit-toolkit`)
-- [x] Netlify config
-- [ ] Connect GitHub source to the Netlify project / first deploy
-- [ ] Connect Stripe account
-- [ ] Create Stripe product + payment link
-- [ ] Insert live checkout URL into `index.html`
-- [ ] Add analytics after live deployment
-- [ ] Build first niche SEO landing pages based on validated demand
+## Current test infrastructure
+- Netlify project: `service-profit-toolkit`
+- Stripe product: `Service Profit Toolkit`
+- Stripe price: **$19 one-time (test mode)**
+- Stripe Payment Link: configured
+- Stripe success redirect: configured
+- Stripe webhook endpoint: configured for the two required Checkout events
+- Netlify Blobs: entitlement storage code implemented
+
+## Remaining one-time platform setup
+- Connect `Cyberlevi/LeventeStudio`, branch `digital-asset-factory-mvp`, base directory `digital-asset-factory` to the Netlify project and deploy.
+- In Netlify, create secret Function environment variable `STRIPE_WEBHOOK_SECRET` using the signing secret from the Stripe webhook endpoint.
+- Run a Stripe test checkout and confirm automatic download.
 
 ## Operating rule
 Do not mass-generate thin SEO pages. Expand only into calculator/tool pages that have a distinct use case, useful formulas, and genuinely different user intent.
