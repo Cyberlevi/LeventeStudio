@@ -20,8 +20,8 @@
           <p class="muted">Save the downloaded HTML file somewhere safe. It runs locally in your browser and stores saved jobs on your device.</p>
         </div>
         <div id="errorBox" hidden>
-          <p>We could not verify this purchase yet. If the payment just finished, refresh this page once.</p>
-          <a class="btn secondary" href="./">Back to the toolkit</a>
+          <p>We could not verify this purchase automatically. Use the button below to try again.</p>
+          <button id="retryButton" class="btn secondary" type="button">Check payment again</button>
         </div>
       </div>
     </div>
@@ -33,30 +33,44 @@
     const success = document.getElementById('successBox');
     const error = document.getElementById('errorBox');
     const download = document.getElementById('downloadLink');
+    const retryButton = document.getElementById('retryButton');
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-    async function verify(){
+    async function checkOnce(){
+      const res = await fetch('/.netlify/functions/verify-purchase?session_id=' + encodeURIComponent(sessionId), {cache:'no-store'});
+      const data = await res.json().catch(()=>({paid:false}));
+      return res.ok && data.paid;
+    }
+
+    async function verify(attempts=10){
+      success.hidden = true;
+      error.hidden = true;
       if(!sessionId){
         status.textContent = 'Missing checkout session.';
         error.hidden = false;
         return;
       }
-      try{
-        const res = await fetch('/.netlify/functions/verify-purchase?session_id=' + encodeURIComponent(sessionId), {cache:'no-store'});
-        const data = await res.json();
-        if(res.ok && data.paid){
-          status.textContent = 'Payment confirmed.';
-          success.hidden = false;
-          download.href = '/.netlify/functions/download-toolkit?session_id=' + encodeURIComponent(sessionId);
-        }else{
-          status.textContent = 'Payment not verified.';
-          error.hidden = false;
+      status.textContent = 'Confirming your payment…';
+      for(let i=0;i<attempts;i++){
+        try{
+          if(await checkOnce()){
+            status.textContent = 'Payment confirmed.';
+            success.hidden = false;
+            download.href = '/.netlify/functions/download-toolkit?session_id=' + encodeURIComponent(sessionId);
+            return;
+          }
+        }catch{}
+        if(i < attempts-1){
+          status.textContent = 'Payment received — preparing your download…';
+          await sleep(1200);
         }
-      }catch{
-        status.textContent = 'Verification service is temporarily unavailable.';
-        error.hidden = false;
       }
+      status.textContent = 'Payment confirmation is taking longer than expected.';
+      error.hidden = false;
     }
-    verify();
+
+    retryButton.addEventListener('click',()=>verify(10));
+    verify(10);
   </script>
 </body>
 </html>
