@@ -1,23 +1,20 @@
-import { connectLambda, getStore } from '@netlify/blobs';
+import { getStore } from '@netlify/blobs';
 
-export const handler = async (event) => {
-  connectLambda(event);
-  const sessionId = event.queryStringParameters?.session_id;
+export default async (req) => {
+  const url = new URL(req.url);
+  const sessionId = url.searchParams.get('session_id');
   if(!sessionId || !sessionId.startsWith('cs_')){
-    return {statusCode:400, headers:{'content-type':'application/json','cache-control':'no-store'}, body:JSON.stringify({paid:false})};
+    return Response.json({paid:false}, {status:400, headers:{'cache-control':'no-store'}});
   }
   try{
-    const store = getStore('service-profit-entitlements');
-    const raw = await store.get(sessionId, {consistency:'strong'});
-    const record = raw ? JSON.parse(raw) : null;
+    const store = getStore('service-profit-entitlements-test', {consistency:'strong'});
+    const record = await store.get(sessionId, {type:'json'});
     const paid = record?.paid === true && record.session_id === sessionId;
-    return {
-      statusCode: paid ? 200 : 404,
-      headers:{'content-type':'application/json','cache-control':'no-store'},
-      body:JSON.stringify({paid})
-    };
+    return Response.json({paid}, {status:paid ? 200 : 404, headers:{'cache-control':'no-store'}});
   }catch(err){
     console.error('verify-purchase', err.message);
-    return {statusCode:500, headers:{'content-type':'application/json','cache-control':'no-store'}, body:JSON.stringify({paid:false})};
+    return Response.json({paid:false}, {status:500, headers:{'cache-control':'no-store'}});
   }
 };
+
+export const config = { path:'/api/verify-purchase' };
