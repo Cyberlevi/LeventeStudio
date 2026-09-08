@@ -1,23 +1,17 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { getStore } from '@netlify/blobs';
 
-const EXPECTED_PAYMENT_LINK = 'plink_1UDUtJFO5q7MQ7EmCAkOz9sB';
-const EXPECTED_AMOUNT = 1900;
-const EXPECTED_CURRENCY = 'usd';
-
-async function validPurchase(sessionId){
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if(!secret) throw new Error('Missing STRIPE_SECRET_KEY');
-  const res = await fetch('https://api.stripe.com/v1/checkout/sessions/' + encodeURIComponent(sessionId), {
-    headers: { Authorization: 'Bearer ' + secret }
-  });
-  if(!res.ok) return false;
-  const s = await res.json();
-  return s.payment_status === 'paid' &&
-    s.mode === 'payment' &&
-    s.payment_link === EXPECTED_PAYMENT_LINK &&
-    s.amount_total === EXPECTED_AMOUNT &&
-    s.currency === EXPECTED_CURRENCY;
+async function hasEntitlement(sessionId){
+  const store = getStore('service-profit-entitlements');
+  const raw = await store.get(sessionId, {consistency:'strong'});
+  if(!raw) return false;
+  try{
+    const record = JSON.parse(raw);
+    return record?.paid === true && record.session_id === sessionId;
+  }catch{
+    return false;
+  }
 }
 
 export const handler = async (event) => {
@@ -26,8 +20,8 @@ export const handler = async (event) => {
     return {statusCode:400, body:'Invalid checkout session.'};
   }
   try{
-    if(!(await validPurchase(sessionId))){
-      return {statusCode:403, body:'A completed purchase is required.'};
+    if(!(await hasEntitlement(sessionId))){
+      return {statusCode:403, headers:{'cache-control':'no-store'}, body:'A completed purchase is required.'};
     }
     const filePath = path.resolve(process.cwd(), 'premium/service-profit-toolkit-premium.html');
     const file = await readFile(filePath, 'utf8');
@@ -43,6 +37,6 @@ export const handler = async (event) => {
     };
   }catch(err){
     console.error('download-toolkit', err.message);
-    return {statusCode:500, body:'Download service is temporarily unavailable.'};
+    return {statusCode:500, headers:{'cache-control':'no-store'}, body:'Download service is temporarily unavailable.'};
   }
 };
