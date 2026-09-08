@@ -1,6 +1,7 @@
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 export const handler = async (event) => {
+  connectLambda(event);
   const sessionId = event.queryStringParameters?.session_id;
   if(!sessionId || !sessionId.startsWith('cs_')){
     return {statusCode:400, headers:{'content-type':'application/json','cache-control':'no-store'}, body:JSON.stringify({paid:false})};
