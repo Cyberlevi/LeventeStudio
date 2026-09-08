@@ -1,0 +1,9 @@
+{
+  "name": "service-profit-toolkit",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^9.0.0"
+  }
+}
