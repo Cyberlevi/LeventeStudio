@@ -131,10 +131,12 @@
   }
 
   .subpage-title {
-    @apply font-serif font-light text-white text-balance tracking-editorial;
+    @apply font-serif font-light text-white;
     font-size: clamp(3.35rem, 8.2vw, 7.4rem);
     line-height: .88;
     max-width: 13ch;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
   }
 
   .subpage-lead {
@@ -156,11 +158,13 @@
   }
 
   .signal-button-secondary {
-    @apply inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 border border-white/15 bg-white/[0.025] text-white/80 transition-all duration-200 backdrop-blur-sm;
+    @apply inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 border border-white/15 text-white/80 transition-all duration-200 backdrop-blur-sm;
+    background: rgba(255,255,255,.025);
   }
 
   .signal-button-secondary:hover {
-    @apply border-white/30 bg-white/[0.055] text-white;
+    @apply border-white/30 text-white;
+    background: rgba(255,255,255,.055);
   }
 
   .hightech-section {
@@ -185,7 +189,8 @@
   }
 
   .tech-card-dark {
-    @apply border border-white/10 bg-white/[0.035] text-white transition-all duration-300;
+    @apply border border-white/10 text-white transition-all duration-300;
+    background: rgba(255,255,255,.035);
     backdrop-filter: blur(12px);
   }
 
@@ -200,29 +205,96 @@
   }
 
   .signal-tag-dark {
-    @apply inline-flex items-center px-3 py-1.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] border border-white/10 text-white/60 bg-white/[0.025];
+    @apply inline-flex items-center px-3 py-1.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] border border-white/10 text-white/60;
+    background: rgba(255,255,255,.025);
   }
 
   .editorial-heading {
-    @apply font-serif font-light tracking-editorial text-balance text-graphite-950;
+    @apply font-serif font-light text-graphite-950;
     font-size: clamp(2.7rem, 6vw, 5.4rem);
     line-height: .96;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
   }
 
   .hightech-prose {
-    @apply prose prose-lg prose-neutral max-w-none;
+    max-width: none;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #3f4743;
   }
 
   .hightech-prose :where(h2,h3,h4) {
-    @apply font-serif text-graphite-950 font-light tracking-editorial;
+    @apply font-serif text-graphite-950 font-light;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
   }
 
-  .hightech-prose :where(p,li) {
-    @apply text-graphite-700 leading-relaxed;
+  .hightech-prose :where(h2) {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .hightech-prose :where(h3) {
+    font-size: clamp(1.5rem, 3vw, 2.15rem);
+    line-height: 1.05;
+    margin-top: 2.25rem;
+    margin-bottom: .75rem;
+  }
+
+  .hightech-prose :where(h4) {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: .65rem;
+  }
+
+  .hightech-prose :where(p) {
+    @apply text-graphite-700;
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .hightech-prose :where(ul,ol) {
+    margin: 1.35rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .hightech-prose :where(ul) {
+    list-style: disc;
+  }
+
+  .hightech-prose :where(ol) {
+    list-style: decimal;
+  }
+
+  .hightech-prose :where(li) {
+    @apply text-graphite-700;
+    margin: .45rem 0;
+  }
+
+  .hightech-prose :where(strong) {
+    @apply text-graphite-950 font-semibold;
   }
 
   .hightech-prose :where(a) {
-    @apply text-graphite-950 decoration-signal-400 underline-offset-4;
+    @apply text-graphite-950 decoration-signal-400 underline underline-offset-4;
+  }
+
+  .hightech-prose :where(blockquote) {
+    margin: 2rem 0;
+    padding: .5rem 0 .5rem 1.25rem;
+    border-left: 2px solid var(--ls-signal);
+    color: #505954;
+    font-style: italic;
+  }
+
+  .hightech-prose :where(code) {
+    background: rgba(11,13,12,.06);
+    padding: .12rem .35rem;
+    border-radius: .2rem;
+    font-size: .9em;
   }
 }
 
@@ -259,6 +331,11 @@
   .hightech-section {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .hightech-prose {
+    font-size: 1rem;
+    line-height: 1.75;
   }
 }
 
