@@ -10,14 +10,14 @@ export default function StickyDesktopCTA() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercentage = (scrollPosition / pageHeight) * 100;
+      const scrollPercentage = pageHeight > 0 ? (scrollPosition / pageHeight) * 100 : 0;
 
       if (scrollPercentage > 30 && !isDismissed) {
         setIsVisible(true);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isDismissed]);
 
@@ -40,22 +40,20 @@ export default function StickyDesktopCTA() {
         </button>
 
         <div className="pr-8">
-          <div className="text-sm text-cream-200 mb-2">
-            Ingyenes konzultáció
-          </div>
+          <div className="text-sm text-cream-300 mb-2">Rendszertervezés</div>
           <h3 className="text-xl font-normal mb-3">
-            Kíváncsi vagy, hogyan javíthatnád a weboldalad?
+            Látod a teljes utat a kereséstől a leadig?
           </h3>
           <p className="text-sm text-cream-200 mb-4">
-            15 perces ingyenes konzultáción átbeszéljük a lehetőségeket.
+            Nézzük meg, hol szakad meg az ügyfélút, és mi az a legkisebb rendszer, ami ténylegesen előrelépést ad.
           </p>
 
           <a
-            href="#audit-cta"
+            href="#kapcsolat"
             onClick={() => trackCTAClick('Sticky Desktop CTA', 'desktop_sticky')}
             className="inline-flex items-center gap-2 px-6 py-3 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors w-full justify-center text-sm font-normal"
           >
-            Audit kérése
+            Beszéljük át
             <ArrowRight size={16} />
           </a>
         </div>
