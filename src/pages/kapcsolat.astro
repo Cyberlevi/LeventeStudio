@@ -6,6 +6,7 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
+import SubpageHero from '../components/SubpageHero.astro';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -32,11 +33,24 @@ const structuredData = {
 >
   <CookieBanner client:load />
   <MobileStickyBar client:load />
+  <HeaderAstro />
 
-  <div class="min-h-screen bg-white pt-16">
-    <HeaderAstro />
+  <main class="min-h-screen bg-cream-50">
+    <SubpageHero
+      eyebrow="Start a system conversation"
+      title="Ne általánosságokról beszéljünk."
+      accent="Induljunk a valódi elakadásból."
+      description="A 2 perces diagnózis megmutatja, milyen helyzetből indulunk. Ha gyorsabb, WhatsAppon, emailben vagy telefonon is elérsz."
+      primaryHref="#diagnosztika"
+      primaryLabel="Diagnózis indítása"
+      secondaryHref="#kapcsolat"
+      secondaryLabel="Direkt kapcsolat"
+      meta={['2 min diagnostic', 'Human review', 'No sales bot', 'Direct contact']}
+    />
+
     <LeadDiagnostic />
     <Contact client:load />
-    <Footer />
-  </div>
+  </main>
+
+  <Footer />
 </BaseLayout>
