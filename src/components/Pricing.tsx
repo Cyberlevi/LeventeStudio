@@ -119,7 +119,7 @@ export default function Pricing() {
                 </div>
 
                 <a
-                  href="#kapcsolat"
+                  href="#diagnosztika"
                   onClick={() => trackCTAClick(`Pricing - ${pkg.name}`, 'pricing_cta')}
                   className={`block w-full text-center px-6 py-3 font-normal transition-colors ${
                     pkg.popular
@@ -127,7 +127,7 @@ export default function Pricing() {
                       : 'bg-taupe-900 text-cream-50 hover:bg-taupe-800'
                   }`}
                 >
-                  Beszéljük át
+                  Kérem a rendszerdiagnózist
                 </a>
               </div>
             );
