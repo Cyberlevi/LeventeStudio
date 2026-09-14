@@ -35,11 +35,11 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
-                href="#kapcsolat"
-                onClick={() => trackCTAClick('Rendszertervezés', 'hero_primary')}
+                href="#diagnosztika"
+                onClick={() => trackCTAClick('Rendszerdiagnózis', 'hero_primary')}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 hover:-translate-y-0.5 transition-all duration-200 text-lg font-normal shadow-lg shadow-taupe-900/10"
               >
-                Beszéljük át a rendszert
+                Nézzük meg a rendszered
                 <ArrowRight size={20} />
               </a>
 
