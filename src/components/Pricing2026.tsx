@@ -1,5 +1,4 @@
 import { Check, Gauge, Rocket, Workflow } from 'lucide-react';
-import { trackCTAClick } from '../utils/gtm';
 
 const packages = {
   start: {
@@ -52,7 +51,7 @@ function CompactPackage({ pkg }: { pkg: typeof packages.start }) {
       </div>
       <div className="mt-auto pt-7">
         <p className="border-t border-graphite-950/10 pt-4 text-xs leading-relaxed text-graphite-500"><span className="text-graphite-800">Kinek való:</span> {pkg.suitableFor}</p>
-        <a href="#diagnosztika" onClick={() => trackCTAClick(`Pricing - ${pkg.name}`, 'pricing_cta')} className="mt-5 inline-flex min-h-12 w-full items-center justify-center border border-graphite-950/15 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:border-graphite-950 hover:bg-graphite-950 hover:text-white">Rendszerdiagnózis ↗</a>
+        <a href="#diagnosztika" data-track-cta={`Pricing - ${pkg.name}`} data-track-location="pricing_cta" className="mt-5 inline-flex min-h-12 w-full items-center justify-center border border-graphite-950/15 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:border-graphite-950 hover:bg-graphite-950 hover:text-white">Rendszerdiagnózis ↗</a>
       </div>
     </article>
   );
@@ -100,7 +99,7 @@ export default function Pricing2026() {
 
               <div className="mt-auto pt-10">
                 <p className="border-t border-white/10 pt-5 text-sm leading-relaxed text-white/45"><span className="text-white/75">Kinek való:</span> {packages.grow.suitableFor}</p>
-                <a href="#diagnosztika" onClick={() => trackCTAClick('Pricing - GROW', 'pricing_cta')} className="signal-button-primary mt-6 w-full sm:w-auto">Indítsd a rendszerdiagnózist ↗</a>
+                <a href="#diagnosztika" data-track-cta="Pricing - GROW" data-track-location="pricing_cta" className="signal-button-primary mt-6 w-full sm:w-auto">Indítsd a rendszerdiagnózist ↗</a>
               </div>
             </div>
           </article>

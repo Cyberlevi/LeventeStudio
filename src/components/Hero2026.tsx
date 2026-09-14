@@ -1,5 +1,4 @@
 import { ArrowRight, Bot, Search, Workflow } from 'lucide-react';
-import { trackCTAClick } from '../utils/gtm';
 
 const nodes = [
   ['01', 'FIGYELEM', 'Search / Ads', 'releváns belépés'],
@@ -37,11 +36,11 @@ export default function Hero2026() {
             </div>
 
             <div className="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row">
-              <a href="#diagnosztika" onClick={() => trackCTAClick('2 perces rendszerdiagnózis', 'hero_primary')} className="group inline-flex min-h-14 items-center justify-center gap-3 bg-signal-300 px-5 py-4 text-center font-medium text-graphite-950 transition hover:-translate-y-0.5 hover:bg-signal-500 sm:px-7">
+              <a href="#diagnosztika" data-track-cta="2 perces rendszerdiagnózis" data-track-location="hero_primary" className="group inline-flex min-h-14 items-center justify-center gap-3 bg-signal-300 px-5 py-4 text-center font-medium text-graphite-950 transition hover:-translate-y-0.5 hover:bg-signal-500 sm:px-7">
                 Indítsd a 2 perces diagnózist
                 <ArrowRight size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
               </a>
-              <a href="#lab" onClick={() => trackCTAClick('Studio Lab', 'hero_secondary')} className="inline-flex min-h-14 items-center justify-center border border-white/15 bg-white/[0.025] px-5 py-4 text-center text-ivory-100 transition hover:border-white/30 hover:bg-white/[0.06] sm:px-7">
+              <a href="#lab" data-track-cta="Studio Lab" data-track-location="hero_secondary" className="inline-flex min-h-14 items-center justify-center border border-white/15 bg-white/[0.025] px-5 py-4 text-center text-ivory-100 transition hover:border-white/30 hover:bg-white/[0.06] sm:px-7">
                 Nézd meg a Labot
               </a>
             </div>
@@ -79,7 +78,7 @@ export default function Hero2026() {
 
               <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
                 <div className="flex min-w-0 items-center gap-3">
-                  <img src="/levente_studio_portrait_final.webp" alt="Tarnóczi Levente" className="h-11 w-11 shrink-0 rounded-full object-cover grayscale" />
+                  <img src="/levente_studio_portrait_final.webp" width="44" height="44" decoding="async" alt="Tarnóczi Levente" className="h-11 w-11 shrink-0 rounded-full object-cover grayscale" />
                   <div className="min-w-0"><div className="text-sm">Operator-built systems</div><div className="text-xs text-ivory-400">Tarnóczi Levente</div></div>
                 </div>
                 <Workflow size={19} className="shrink-0 text-signal-300" />
