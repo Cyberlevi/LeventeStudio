@@ -4,6 +4,7 @@ import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
 import CookieBanner from '../../components/CookieBanner';
 import MobileStickyBar from '../../components/MobileStickyBar';
+import SubpageHero from '../../components/SubpageHero.astro';
 
 const title = 'Tudástár – SEO, konverzió, teljesítmény és mérés | Levente Studio';
 const description = 'Gyakorlati útmutatók szolgáltató vállalkozások digitális ügyfélszerzéséhez: SEO, Search Console, konverzió, weboldal teljesítmény és rendszerdiagnózis.';
@@ -58,49 +59,49 @@ const blogPosts = [
   <HeaderAstro />
 
   <main>
-    <section class="pt-36 pb-20 px-6 bg-cream-50 relative overflow-hidden">
-      <div class="absolute inset-0 studio-grid pointer-events-none"></div>
-      <div class="max-w-6xl mx-auto relative">
-        <div class="studio-kicker text-taupe-500 mb-5">Tudástár · Levente Studio</div>
-        <h1 class="font-serif text-5xl md:text-7xl font-light text-taupe-900 leading-[0.98] mb-7 max-w-4xl">
-          Kevesebb marketing-zaj.
-          <span class="block text-taupe-600">Több használható rendszerlogika.</span>
-        </h1>
-        <p class="text-xl text-taupe-700 font-light max-w-3xl leading-relaxed">
-          SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni.
-        </p>
-      </div>
-    </section>
+    <SubpageHero
+      eyebrow="Levente Studio · Knowledge system"
+      title="Kevesebb marketing-zaj."
+      accent="Több használható rendszerlogika."
+      description="SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni."
+      primaryHref="#cikkek"
+      primaryLabel="Cikkek megnyitása"
+      secondaryHref="/kapcsolat/#diagnosztika"
+      secondaryLabel="Saját rendszerem"
+      meta={['SEO', 'Conversion', 'Measurement', 'Operations']}
+    />
 
-    <section class="py-20 px-6 bg-white">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid gap-6 md:grid-cols-2">
+    <section id="cikkek" class="hightech-section bg-cream-50">
+      <div class="hightech-container">
+        <div class="grid lg:grid-cols-12 gap-5 md:gap-6">
           {blogPosts.map((post, index) => (
-            <article class="studio-card border-taupe-200 bg-taupe-50/40 group">
-              <a href={post.url} class="block p-7 md:p-8 h-full">
-                <div class="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.12em] text-taupe-500 mb-7">
-                  <span>{String(index + 1).padStart(2, '0')}</span>
+            <article class:list={[
+              'tech-card-light group',
+              index === 0 ? 'lg:col-span-7' : index === 1 ? 'lg:col-span-5' : 'lg:col-span-4'
+            ]}>
+              <a href={post.url} class="block p-6 sm:p-7 md:p-8 h-full">
+                <div class="flex items-center justify-between gap-4 text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-8">
+                  <span>KN/{String(index + 1).padStart(2, '0')}</span>
                   <span>{post.readTime}</span>
                 </div>
 
-                <h2 class="font-serif text-3xl font-light text-taupe-900 mb-4 leading-tight group-hover:text-taupe-600 transition-colors">
+                <h2 class:list={[
+                  'font-serif font-light tracking-editorial text-graphite-950 leading-[0.96] group-hover:text-graphite-700 transition-colors mb-5',
+                  index === 0 ? 'text-4xl sm:text-5xl md:text-6xl' : 'text-3xl sm:text-4xl'
+                ]}>
                   {post.title}
                 </h2>
-                <p class="text-taupe-700 font-light leading-relaxed mb-7">
-                  {post.description}
-                </p>
+                <p class="text-graphite-700 font-light leading-relaxed mb-8">{post.description}</p>
 
-                <div class="flex flex-wrap gap-2 mb-8">
+                <div class="flex flex-wrap gap-2 mb-9">
                   {post.tags.map((tag) => (
-                    <span class="text-xs px-3 py-1.5 border border-taupe-200 bg-white text-taupe-600 rounded-full">
-                      {tag}
-                    </span>
+                    <span class="signal-tag-light">{tag}</span>
                   ))}
                 </div>
 
-                <div class="flex items-center justify-between border-t border-taupe-200 pt-5">
-                  <time class="text-sm text-taupe-500">{post.date}</time>
-                  <span class="text-sm text-taupe-900 group-hover:translate-x-1 transition-transform">Olvasom →</span>
+                <div class="flex items-center justify-between border-t border-graphite-950/10 pt-5">
+                  <time class="text-xs sm:text-sm text-graphite-500">{post.date}</time>
+                  <span class="text-sm text-graphite-950 group-hover:translate-x-1 transition-transform">Olvasom →</span>
                 </div>
               </a>
             </article>
@@ -109,16 +110,15 @@ const blogPosts = [
       </div>
     </section>
 
-    <section class="py-20 px-6 bg-taupe-900 text-cream-50">
-      <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-        <div class="max-w-2xl">
-          <div class="studio-kicker text-cream-300 mb-4">Nem csak olvasnál?</div>
-          <h2 class="font-serif text-4xl md:text-5xl font-light mb-4">Nézzük meg a saját rendszeredet.</h2>
-          <p class="text-cream-200 font-light text-lg">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p>
+    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+      <div class="hightech-container relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-9 lg:gap-14">
+        <div class="max-w-3xl">
+          <div class="signal-kicker mb-5"><span class="signal-dot"></span>Nem csak olvasnál?</div>
+          <h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] text-balance">Nézzük meg a <span class="text-signal-400">saját rendszeredet.</span></h2>
+          <p class="text-white/60 font-light text-base sm:text-lg mt-6 max-w-2xl">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p>
         </div>
-        <a href="/kapcsolat/" class="inline-flex items-center justify-center px-7 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors whitespace-nowrap">
-          Rendszertervezés
-        </a>
+        <a href="/kapcsolat/#diagnosztika" class="signal-button-primary whitespace-nowrap">2 perces diagnózis ↗</a>
       </div>
     </section>
   </main>
