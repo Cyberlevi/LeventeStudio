@@ -4,47 +4,59 @@ export default function ProblemAwareness() {
   const problems = [
     {
       icon: SearchX,
+      code: 'SIGNAL/01',
       title: 'Van oldalad, de nincs rendszer',
       description: 'A weboldal külön él a kereséstől, a hirdetéstől és az ajánlatkéréstől. Emiatt nehéz megmondani, mi hoz valódi üzletet.'
     },
     {
       icon: Link2Off,
+      code: 'SIGNAL/02',
       title: 'Szétesik az ügyfélút',
       description: 'A látogató eljut az oldalra, de nem egyértelmű a következő lépés. A CTA, az ajánlat és a leadkezelés nincs összekötve.'
     },
     {
       icon: BarChart3,
+      code: 'SIGNAL/03',
       title: 'Mérsz, de nem tudod mit',
       description: 'Van GA4 vagy Ads, mégsem látszik tisztán, melyik kampányból, oldalból vagy keresésből lett valódi érdeklődő.'
     },
     {
       icon: MessageSquareWarning,
+      code: 'SIGNAL/04',
       title: 'Túl sok a kézi munka',
       description: 'Leadek e-mailben, jegyzetben és üzenetekben. A folyamat nehezen követhető, az adminisztráció pedig elveszi az időt az értékes munkától.'
     }
   ];
 
   return (
-    <section className="px-6 py-24 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <p className="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4 text-center">A valódi probléma</p>
-        <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-8 text-center">
-          Nem az a kérdés, van-e weboldalad.
-        </h2>
+    <section className="relative overflow-hidden bg-graphite-950 px-5 py-24 text-white sm:px-6 md:py-32 lg:px-8">
+      <div className="absolute inset-0 subpage-signal-grid opacity-25" aria-hidden="true" />
+      <div className="relative mx-auto max-w-6xl">
+        <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <div className="signal-kicker mb-5"><span className="signal-dot" />A valódi probléma</div>
+            <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">
+              Nem az a kérdés,
+              <span className="block text-signal-400">van-e weboldalad.</span>
+            </h2>
+          </div>
+          <p className="max-w-2xl text-base font-light leading-relaxed text-white/55 sm:text-lg lg:justify-self-end">
+            Az a kérdés, hogy a teljes digitális folyamat együtt dolgozik-e azért, hogy a megfelelő érdeklődőből mérhető lead legyen.
+          </p>
+        </div>
 
-        <p className="text-xl text-taupe-700 font-light text-center mb-16 max-w-3xl mx-auto">
-          Az a kérdés, hogy a teljes digitális folyamat együtt dolgozik-e azért, hogy a megfelelő érdeklődőből mérhető lead legyen.
-        </p>
-
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
           {problems.map((problem) => {
             const Icon = problem.icon;
             return (
-              <div key={problem.title} className="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
-                <Icon size={32} className="text-taupe-700 mb-4" />
-                <h3 className="text-2xl font-normal text-taupe-900 mb-3">{problem.title}</h3>
-                <p className="text-taupe-700 font-light leading-relaxed">{problem.description}</p>
-              </div>
+              <article key={problem.title} className="tech-card-dark p-6 sm:p-7 md:p-8">
+                <div className="mb-10 flex items-start justify-between gap-4">
+                  <div className="flex h-11 w-11 items-center justify-center border border-white/10 text-signal-400"><Icon size={20} /></div>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/30">{problem.code}</span>
+                </div>
+                <h3 className="font-serif text-3xl font-light tracking-editorial text-white sm:text-4xl">{problem.title}</h3>
+                <p className="mt-4 max-w-xl font-light leading-relaxed text-white/55">{problem.description}</p>
+              </article>
             );
           })}
         </div>
