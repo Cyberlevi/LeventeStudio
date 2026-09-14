@@ -1,0 +1,87 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  accent?: string;
+  description: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  meta?: string[];
+}
+
+const {
+  eyebrow,
+  title,
+  accent,
+  description,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+  meta = [],
+} = Astro.props;
+---
+
+<section class="subpage-hero">
+  <div class="subpage-signal-grid" aria-hidden="true"></div>
+  <div class="subpage-glow" aria-hidden="true"></div>
+
+  <div class="subpage-container relative z-10">
+    <div class="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-16 items-end">
+      <div>
+        <div class="signal-kicker mb-6">
+          <span class="signal-dot" aria-hidden="true"></span>
+          {eyebrow}
+        </div>
+
+        <h1 class="subpage-title">
+          {title}
+          {accent && <span class="block text-signal-400">{accent}</span>}
+        </h1>
+
+        <p class="subpage-lead">{description}</p>
+
+        {(primaryHref || secondaryHref) && (
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
+            {primaryHref && primaryLabel && (
+              <a href={primaryHref} class="signal-button-primary">
+                {primaryLabel}
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {secondaryHref && secondaryLabel && (
+              <a href={secondaryHref} class="signal-button-secondary">
+                {secondaryLabel}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      <aside class="tech-status-panel">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4 mb-5">
+          <span class="text-xs uppercase tracking-[0.18em] text-white/45">System status</span>
+          <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400">
+            <span class="signal-dot"></span>
+            live
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          {(meta.length ? meta : ['Strategy', 'Build', 'Measure', 'Improve']).map((item, index) => (
+            <div class="flex items-center justify-between gap-5 py-2 border-b border-white/[0.06] last:border-0">
+              <span class="text-sm text-white/65">{String(index + 1).padStart(2, '0')}</span>
+              <span class="text-sm text-white text-right">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-7 h-px bg-white/10 relative overflow-hidden">
+          <span class="absolute inset-y-0 left-0 w-2/3 bg-signal-400 signal-line"></span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
