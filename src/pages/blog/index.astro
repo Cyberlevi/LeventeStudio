@@ -2,125 +2,118 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
-import { SEO } from 'astro-seo';
+import CookieBanner from '../../components/CookieBanner';
+import MobileStickyBar from '../../components/MobileStickyBar';
 
-const title = "Blog - Weboldal Optimalizálás & Teljesítmény";
-const description = "Technikai útmutatók és szakértői elemzések weboldal sebességről, WordPress optimalizálásról és teljesítmény javításról.";
+const title = 'Tudástár – SEO, konverzió, teljesítmény és mérés | Levente Studio';
+const description = 'Gyakorlati útmutatók szolgáltató vállalkozások digitális ügyfélszerzéséhez: SEO, Search Console, konverzió, weboldal teljesítmény és rendszerdiagnózis.';
 
 const blogPosts = [
   {
-    title: "Mikor érdemes weboldal auditot kérni – és mikor felesleges?",
-    description: "Weboldal audit nem mindenkinek való. Nézd meg, mikor van itt az ideje egy technikai auditnak, és mikor felesleges költés.",
-    url: "/blog/mikor-erdemes-weboldal-auditot-kerni/",
-    date: "2025. január 31.",
-    readTime: "8 perc olvasás",
-    tags: ["Audit", "Weboldal", "Döntéstámogatás"]
+    title: 'Mikor érdemes weboldal auditot kérni – és mikor felesleges?',
+    description: 'Mikor segít valóban egy audit vagy diagnózis, és mikor csak újabb dokumentum készül valódi üzleti hatás nélkül?',
+    url: '/blog/mikor-erdemes-weboldal-auditot-kerni/',
+    date: '2025. január 31.',
+    readTime: '8 perc',
+    tags: ['Diagnózis', 'Weboldal', 'Döntés']
   },
   {
-    title: "Weboldal konverzió optimalizálás – mire figyelj, mielőtt hirdetést indítasz?",
-    description: "Hirdetést tervezel? Ellenőrizd előtte a weboldalad konverziós képességét. Nézd meg az 5 kritikus elemet, ami eldönti, működik-e a landing page.",
-    url: "/blog/weboldal-konverzio-optimalizalas/",
-    date: "2025. január 31.",
-    readTime: "9 perc olvasás",
-    tags: ["Konverzió", "Landing Page", "Hirdetés"]
+    title: 'Weboldal konverzió optimalizálás – mire figyelj hirdetés előtt?',
+    description: 'Öt kritikus pont, amit érdemes átnézni, mielőtt fizetett forgalmat küldesz egy landing oldalra.',
+    url: '/blog/weboldal-konverzio-optimalizalas/',
+    date: '2025. január 31.',
+    readTime: '9 perc',
+    tags: ['Konverzió', 'Landing', 'Hirdetés']
   },
   {
-    title: "Google Search Console hibák – mit jelentenek és hogyan javítod őket?",
-    description: "Search Console hibák a weboldaladnál? Nézd meg, mit jelentenek az indexelési, crawl és teljesítmény problémák, és hogyan diagnosztizálhatod őket.",
-    url: "/blog/google-search-console-hibak/",
-    date: "2025. január 31.",
-    readTime: "10 perc olvasás",
-    tags: ["SEO", "Search Console", "Technikai audit"]
+    title: 'Google Search Console hibák – mit jelentenek és hogyan indulj el?',
+    description: 'Indexelési, crawl és technikai problémák értelmezése anélkül, hogy minden figyelmeztetést azonnal kritikus hibának néznél.',
+    url: '/blog/google-search-console-hibak/',
+    date: '2025. január 31.',
+    readTime: '10 perc',
+    tags: ['SEO', 'Search Console', 'Indexelés']
   },
   {
-    title: "Miért lassú a WordPress oldalam? 7 technikai ok, amit ellenőrizz",
-    description: "WordPress oldalad lassú? Nézd meg a 7 leggyakoribb technikai okot, ami lelassítja a weboldalad, és tanuld meg, hogyan diagnosztizálhatod őket.",
-    url: "/blog/miert-lassu-a-wordpress-oldalam/",
-    date: "2025. január 31.",
-    readTime: "12 perc olvasás",
-    tags: ["WordPress", "Sebesség", "Optimalizálás"]
+    title: 'Miért lassú a WordPress oldalam? 7 technikai ok',
+    description: 'A leggyakoribb teljesítmény-problémák és az a sorrend, ahogy érdemes őket diagnosztizálni.',
+    url: '/blog/miert-lassu-a-wordpress-oldalam/',
+    date: '2025. január 31.',
+    readTime: '12 perc',
+    tags: ['WordPress', 'Sebesség', 'Core Web Vitals']
   }
 ];
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical="/blog/"
->
-  <SEO
-    slot="head"
-    title={title}
-    description={description}
-    openGraph={{
-      basic: {
-        title: title,
-        type: "website",
-        image: "/og-image.jpg",
-      }
-    }}
-    twitter={{
-      card: "summary_large_image",
-    }}
-  />
+<BaseLayout title={title} description={description} canonical="/blog/">
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
 
-  <div class="min-h-screen bg-white">
-    <HeaderAstro />
-
-    <main class="max-w-6xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
-      <!-- Header -->
-      <div class="mb-16">
-        <h1 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-4">
-          Blog
+  <main>
+    <section class="pt-36 pb-20 px-6 bg-cream-50 relative overflow-hidden">
+      <div class="absolute inset-0 studio-grid pointer-events-none"></div>
+      <div class="max-w-6xl mx-auto relative">
+        <div class="studio-kicker text-taupe-500 mb-5">Tudástár · Levente Studio</div>
+        <h1 class="font-serif text-5xl md:text-7xl font-light text-taupe-900 leading-[0.98] mb-7 max-w-4xl">
+          Kevesebb marketing-zaj.
+          <span class="block text-taupe-600">Több használható rendszerlogika.</span>
         </h1>
-        <p class="text-xl text-neutral-600 max-w-3xl">
-          Technikai útmutatók és szakértői elemzések weboldal sebességről, optimalizálásról és teljesítmény javításról.
+        <p class="text-xl text-taupe-700 font-light max-w-3xl leading-relaxed">
+          SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni.
         </p>
       </div>
+    </section>
 
-      <!-- Blog Posts Grid -->
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post) => (
-          <article class="bg-neutral-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <a href={post.url} class="block p-6">
-              <div class="mb-4">
-                <div class="flex items-center gap-2 text-sm text-neutral-600 mb-3">
-                  <time>{post.date}</time>
-                  <span>·</span>
+    <section class="py-20 px-6 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid gap-6 md:grid-cols-2">
+          {blogPosts.map((post, index) => (
+            <article class="studio-card border-taupe-200 bg-taupe-50/40 group">
+              <a href={post.url} class="block p-7 md:p-8 h-full">
+                <div class="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.12em] text-taupe-500 mb-7">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h2 class="text-xl font-bold text-neutral-900 mb-3 leading-tight hover:text-blue-600 transition-colors">
+
+                <h2 class="font-serif text-3xl font-light text-taupe-900 mb-4 leading-tight group-hover:text-taupe-600 transition-colors">
                   {post.title}
                 </h2>
-                <p class="text-neutral-700 leading-relaxed mb-4">
+                <p class="text-taupe-700 font-light leading-relaxed mb-7">
                   {post.description}
                 </p>
-              </div>
-              <div class="flex flex-wrap gap-2 mb-4">
-                {post.tags.map((tag) => (
-                  <span class="text-xs px-3 py-1 bg-neutral-200 text-neutral-700 rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <span class="text-blue-600 font-semibold text-sm hover:underline">
-                Olvass tovább →
-              </span>
-            </a>
-          </article>
-        ))}
-      </div>
 
-      <!-- Empty state message (if no posts in future) -->
-      {blogPosts.length === 0 && (
-        <div class="text-center py-16">
-          <p class="text-neutral-600 text-lg">
-            Hamarosan érkeznek a cikkek...
-          </p>
+                <div class="flex flex-wrap gap-2 mb-8">
+                  {post.tags.map((tag) => (
+                    <span class="text-xs px-3 py-1.5 border border-taupe-200 bg-white text-taupe-600 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div class="flex items-center justify-between border-t border-taupe-200 pt-5">
+                  <time class="text-sm text-taupe-500">{post.date}</time>
+                  <span class="text-sm text-taupe-900 group-hover:translate-x-1 transition-transform">Olvasom →</span>
+                </div>
+              </a>
+            </article>
+          ))}
         </div>
-      )}
-    </main>
+      </div>
+    </section>
 
-    <Footer client:load />
-  </div>
+    <section class="py-20 px-6 bg-taupe-900 text-cream-50">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        <div class="max-w-2xl">
+          <div class="studio-kicker text-cream-300 mb-4">Nem csak olvasnál?</div>
+          <h2 class="font-serif text-4xl md:text-5xl font-light mb-4">Nézzük meg a saját rendszeredet.</h2>
+          <p class="text-cream-200 font-light text-lg">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p>
+        </div>
+        <a href="/kapcsolat/" class="inline-flex items-center justify-center px-7 py-4 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors whitespace-nowrap">
+          Rendszertervezés
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
 </BaseLayout>
