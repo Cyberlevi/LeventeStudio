@@ -1,4 +1,5 @@
 ---
+import '../styles/dark-prose.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from './HeaderAstro.astro';
 import Footer from './Footer';
@@ -13,126 +14,61 @@ interface Props {
   description: string;
   publishDate: string;
   readingTime?: string;
-  relatedContent?: Array<{
-    title: string;
-    description: string;
-    url: string;
-    type: 'blog' | 'service' | 'case-study';
-  }>;
+  relatedContent?: Array<{ title: string; description: string; url: string; type: 'blog' | 'service' | 'case-study'; }>;
 }
 
-const {
-  title,
-  description,
-  publishDate,
-  readingTime = '10 perc olvasás',
-  relatedContent = [],
-} = Astro.props;
-
+const { title, description, publishDate, readingTime = '10 perc olvasás', relatedContent = [] } = Astro.props;
 const formattedDate = new Date(publishDate).toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' });
-
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   'headline': title,
   'description': description,
   'datePublished': publishDate,
-  'author': {
-    '@type': 'Person',
-    '@id': 'https://leventestudio.app/rolam/#tarnoczi-levente',
-    'name': 'Tarnóczi Levente',
-    'url': 'https://leventestudio.app/rolam/',
-    'image': 'https://leventestudio.app/levente_studio_portrait_final.webp'
-  },
-  'publisher': {
-    '@type': 'Organization',
-    '@id': 'https://leventestudio.app/#organization',
-    'name': 'Levente Studio',
-    'url': 'https://leventestudio.app/'
-  },
-  'mainEntityOfPage': {
-    '@type': 'WebPage',
-    '@id': Astro.url.href
-  }
+  'author': { '@type': 'Person', '@id': 'https://leventestudio.app/rolam/#tarnoczi-levente', 'name': 'Tarnóczi Levente', 'url': 'https://leventestudio.app/rolam/', 'image': 'https://leventestudio.app/levente_studio_portrait_final.webp' },
+  'publisher': { '@type': 'Organization', '@id': 'https://leventestudio.app/#organization', 'name': 'Levente Studio', 'url': 'https://leventestudio.app/' },
+  'mainEntityOfPage': { '@type': 'WebPage', '@id': Astro.url.href }
 };
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical={Astro.url.pathname}
-  ogType="article"
-  structuredData={structuredData}
->
+<BaseLayout title={title} description={description} canonical={Astro.url.pathname} ogType="article" structuredData={structuredData}>
   <CookieBanner client:load />
   <MobileStickyBar client:load />
   <HeaderAstro />
 
-  <main>
-    <SubpageHero
-      eyebrow="Levente Studio · Tudástár"
-      title={title}
-      description={description}
-      secondaryHref="/blog/"
-      secondaryLabel="Vissza a Tudástárhoz"
-      meta={[formattedDate, readingTime, 'Tarnóczi Levente', 'Practical insight']}
-    />
+  <main class="bg-graphite-950 text-white">
+    <SubpageHero eyebrow="Levente Studio · Tudástár" title={title} description={description} secondaryHref="/blog/" secondaryLabel="Vissza a Tudástárhoz" meta={[formattedDate, readingTime, 'Tarnóczi Levente', 'Practical insight']} />
 
-    <article class="hightech-section bg-cream-50">
-      <div class="max-w-4xl mx-auto">
-        <nav class="mb-8 sm:mb-10 text-xs sm:text-sm text-graphite-500 flex flex-wrap items-center gap-2">
-          <a href="/" class="hover:text-graphite-950 transition-colors">Főoldal</a>
-          <span class="text-graphite-300">/</span>
-          <a href="/blog/" class="hover:text-graphite-950 transition-colors">Tudástár</a>
-          <span class="text-graphite-300">/</span>
-          <span class="text-graphite-700">Aktuális cikk</span>
+    <article class="hightech-section bg-graphite-900 relative overflow-hidden">
+      <div class="absolute inset-0 studio-grid-dark opacity-15 pointer-events-none"></div>
+      <div class="relative max-w-4xl mx-auto">
+        <nav class="mb-8 sm:mb-10 text-xs sm:text-sm text-white/35 flex flex-wrap items-center gap-2">
+          <a href="/" class="hover:text-white transition-colors">Főoldal</a><span>/</span><a href="/blog/" class="hover:text-white transition-colors">Tudástár</a><span>/</span><span class="text-white/55">Aktuális cikk</span>
         </nav>
 
         <div class="grid lg:grid-cols-[1fr_220px] gap-10 lg:gap-14 items-start">
           <div>
-            <div class="hightech-prose">
-              <slot />
-            </div>
-
+            <div class="hightech-prose hightech-prose-dark"><slot /></div>
             <AuthorBox />
-
-            {relatedContent.length > 0 && (
-              <RelatedContent items={relatedContent} />
-            )}
+            {relatedContent.length > 0 && <RelatedContent items={relatedContent} />}
           </div>
 
           <aside class="hidden lg:block sticky top-28">
-            <div class="border-l border-graphite-950/10 pl-5 space-y-5">
-              <div>
-                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Published</div>
-                <div class="text-sm text-graphite-800">{formattedDate}</div>
-              </div>
-              <div>
-                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Read time</div>
-                <div class="text-sm text-graphite-800">{readingTime}</div>
-              </div>
-              <div>
-                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Focus</div>
-                <div class="text-sm text-graphite-800">Üzleti rendszerlogika</div>
-              </div>
+            <div class="border-l border-white/10 pl-5 space-y-5">
+              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Published</div><div class="text-sm text-white/60">{formattedDate}</div></div>
+              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Read time</div><div class="text-sm text-white/60">{readingTime}</div></div>
+              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Focus</div><div class="text-sm text-white/60">Üzleti rendszerlogika</div></div>
             </div>
           </aside>
         </div>
 
-        <div class="mt-14 sm:mt-16 p-7 sm:p-9 md:p-10 bg-graphite-950 text-white border border-white/10 relative overflow-hidden">
-          <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+        <div class="mt-14 sm:mt-16 p-7 sm:p-9 md:p-10 system-panel border border-signal-400/20 relative overflow-hidden">
+          <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none"></div>
           <div class="relative max-w-2xl">
             <div class="signal-kicker mb-4"><span class="signal-dot"></span>Következő lépés</div>
-            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial leading-[0.98] mb-4 text-balance">
-              A saját rendszeredben is van egy szűk keresztmetszet?
-            </h2>
-            <p class="text-white/60 mb-7 font-light leading-relaxed text-base sm:text-lg">
-              Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.
-            </p>
-            <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">
-              Rendszerdiagnózis
-              <span aria-hidden="true">→</span>
-            </a>
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial leading-[0.98] mb-4 text-balance">A saját rendszeredben is van egy szűk keresztmetszet?</h2>
+            <p class="text-white/55 mb-7 font-light leading-relaxed text-base sm:text-lg">Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.</p>
+            <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">Rendszerdiagnózis <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
