@@ -16,12 +16,15 @@ function trackScroll(percentage: number) {
 
 let tracked50 = false;
 let tracked90 = false;
+let rafId: number | null = null;
 
 function handleScroll() {
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
-  const scrollTop = window.scrollY;
-  const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+  const scrollableHeight = documentHeight - windowHeight;
+  if (scrollableHeight <= 0) return;
+
+  const scrollPercentage = (window.scrollY / scrollableHeight) * 100;
 
   if (scrollPercentage >= 50 && !tracked50) {
     tracked50 = true;
@@ -31,20 +34,20 @@ function handleScroll() {
   if (scrollPercentage >= 90 && !tracked90) {
     tracked90 = true;
     trackScroll(90);
+    window.removeEventListener('scroll', throttledScroll);
   }
 }
 
-let rafId: number | null = null;
-
 function throttledScroll() {
-  if (rafId === null) {
-    rafId = requestAnimationFrame(() => {
-      handleScroll();
-      rafId = null;
-    });
-  }
+  if (tracked90 || rafId !== null) return;
+
+  rafId = requestAnimationFrame(() => {
+    handleScroll();
+    rafId = null;
+  });
 }
 
 if (typeof window !== 'undefined') {
   window.addEventListener('scroll', throttledScroll, { passive: true });
+  requestAnimationFrame(handleScroll);
 }
