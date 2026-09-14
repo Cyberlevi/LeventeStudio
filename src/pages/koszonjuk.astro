@@ -58,12 +58,15 @@ import CookieBanner from '../components/CookieBanner';
 
   <script is:inline>
     (() => {
-      const trackingKey = 'ls_confirmed_lead_v1';
+      const pendingKey = 'ls_lead_submission_pending_v1';
+      let isConfirmedNavigation = false;
 
       try {
-        if (sessionStorage.getItem(trackingKey)) return;
-        sessionStorage.setItem(trackingKey, '1');
+        isConfirmedNavigation = sessionStorage.getItem(pendingKey) === '1';
+        if (isConfirmedNavigation) sessionStorage.removeItem(pendingKey);
       } catch (_) {}
+
+      if (!isConfirmedNavigation) return;
 
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', {
