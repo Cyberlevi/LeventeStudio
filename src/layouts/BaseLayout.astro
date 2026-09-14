@@ -179,6 +179,24 @@ const isDocumentMode = documentPaths.includes(Astro.url.pathname);
           return;
         }
 
+        const channelTarget = element.closest('[data-track-event]');
+        if (channelTarget instanceof HTMLElement) {
+          const eventName = channelTarget.dataset.trackEvent;
+          const location = channelTarget.dataset.trackLocation;
+          if (eventName && location) {
+            const eventData = {
+              event: eventName,
+              click_location: location,
+            };
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(eventData);
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', eventName, { click_location: location });
+            }
+          }
+          return;
+        }
+
         const ctaTarget = element.closest('[data-track-cta]');
         if (!(ctaTarget instanceof HTMLElement)) return;
         const buttonText = ctaTarget.dataset.trackCta;
