@@ -51,8 +51,9 @@ export default function Pricing() {
           {packages.map((pkg, index) => {
             const Icon = pkg.icon;
             const span = pkg.popular ? 'lg:col-span-6' : 'lg:col-span-3';
+            const mobileOrder = pkg.popular ? 'order-first lg:order-none' : 'lg:order-none';
             return (
-              <article key={pkg.name} className={`${span} relative flex min-h-full flex-col border p-6 sm:p-7 ${pkg.popular ? 'system-panel border-signal-400/35' : 'border-white/10 bg-white/[0.02]'}`}>
+              <article key={pkg.name} className={`${mobileOrder} ${span} relative flex min-h-full flex-col border p-6 sm:p-7 ${pkg.popular ? 'system-panel border-signal-400/35' : 'border-white/10 bg-white/[0.02]'}`}>
                 {pkg.popular && <div className="absolute right-5 top-5 text-[10px] uppercase tracking-[0.18em] text-signal-400">Recommended</div>}
                 <div className="mb-10 flex h-11 w-11 items-center justify-center border border-white/10 text-signal-400"><Icon size={20} /></div>
                 <div className="text-[10px] uppercase tracking-[0.18em] text-white/35">SYS/{String(index + 1).padStart(2, '0')} · {pkg.name}</div>
