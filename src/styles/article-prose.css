@@ -1,0 +1,147 @@
+.article-prose {
+  max-width: 68ch;
+  color: #3f4743;
+  font-size: 1.125rem;
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+
+.article-prose :where(h2,h3,h4) {
+  color: #0b0d0c;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  scroll-margin-top: 7rem;
+}
+
+.article-prose :where(h2) {
+  margin-top: 3.4rem;
+  margin-bottom: 1rem;
+  font-size: clamp(2.15rem, 4vw, 3.15rem);
+  line-height: 1.02;
+}
+
+.article-prose :where(h3) {
+  margin-top: 2.5rem;
+  margin-bottom: .8rem;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.08;
+}
+
+.article-prose :where(h4) {
+  margin-top: 2rem;
+  margin-bottom: .7rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.article-prose :where(p) {
+  margin: 1.2rem 0;
+}
+
+.article-prose :where(.lead) {
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.35rem 1.25rem 1.5rem;
+  border-left: 3px solid #bfe85a;
+  background: rgba(255,255,255,.62);
+  color: #2a302d;
+  font-size: clamp(1.15rem, 2vw, 1.3rem);
+  line-height: 1.68;
+  font-weight: 400;
+}
+
+.article-prose :where(ul,ol) {
+  margin: 1.45rem 0;
+  padding-left: 1.65rem;
+}
+
+.article-prose :where(ul) {
+  list-style: disc;
+}
+
+.article-prose :where(ol) {
+  list-style: decimal;
+}
+
+.article-prose :where(li) {
+  margin: .55rem 0;
+  padding-left: .15rem;
+}
+
+.article-prose :where(li)::marker {
+  color: #66706b;
+}
+
+.article-prose :where(strong) {
+  color: #151816;
+  font-weight: 600;
+}
+
+.article-prose :where(a) {
+  color: #151816;
+  font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-color: #bfe85a;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.article-prose :where(a:hover) {
+  text-decoration-color: #151816;
+}
+
+.article-prose :where(blockquote) {
+  margin: 2.2rem 0;
+  padding: .75rem 0 .75rem 1.35rem;
+  border-left: 3px solid #bfe85a;
+  color: #505954;
+  font-size: 1.05em;
+  font-style: italic;
+}
+
+.article-prose :where(code) {
+  border-radius: .2rem;
+  background: rgba(11,13,12,.07);
+  color: #151816;
+  padding: .12rem .35rem;
+  font-size: .9em;
+}
+
+.article-prose :where(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  padding: 1rem 1.1rem;
+  background: #151816;
+  color: #f4f0e8;
+  line-height: 1.6;
+}
+
+.article-prose :where(pre code) {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.article-prose :where(img) {
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+}
+
+@media (max-width: 640px) {
+  .article-prose {
+    font-size: 1.0625rem;
+    line-height: 1.76;
+  }
+
+  .article-prose :where(h2) {
+    margin-top: 2.9rem;
+  }
+
+  .article-prose :where(.lead) {
+    padding: 1.05rem 1rem 1.05rem 1.15rem;
+  }
+}
