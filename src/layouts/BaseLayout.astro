@@ -143,11 +143,36 @@ const isDocumentMode = documentPaths.includes(Astro.url.pathname);
     <slot />
     <script is:inline>
       document.addEventListener('click', (event) => {
-        const target = event.target instanceof Element ? event.target.closest('[data-cookie-settings]') : null;
-        if (!target) return;
-        try { localStorage.removeItem('ls_consent_v1'); } catch (_) {}
-        try { sessionStorage.removeItem('ls_consent_v1'); } catch (_) {}
-        window.location.reload();
+        const element = event.target instanceof Element ? event.target : null;
+        if (!element) return;
+
+        const cookieTarget = element.closest('[data-cookie-settings]');
+        if (cookieTarget) {
+          try { localStorage.removeItem('ls_consent_v1'); } catch (_) {}
+          try { sessionStorage.removeItem('ls_consent_v1'); } catch (_) {}
+          window.location.reload();
+          return;
+        }
+
+        const ctaTarget = element.closest('[data-track-cta]');
+        if (!(ctaTarget instanceof HTMLElement)) return;
+        const buttonText = ctaTarget.dataset.trackCta;
+        const location = ctaTarget.dataset.trackLocation;
+        if (!buttonText || !location) return;
+
+        const eventData = {
+          event: 'cta_click',
+          button_text: buttonText,
+          page_location: location,
+        };
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(eventData);
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'cta_click', {
+            button_text: buttonText,
+            page_location: location,
+          });
+        }
       });
     </script>
   </body>
