@@ -1,5 +1,5 @@
 import { ArrowRight, BarChart3, Bot, Search, Workflow } from 'lucide-react';
-import { trackCTAClick, trackAuditRequest } from '../utils/gtm';
+import { trackCTAClick, trackSystemConsultation } from '../utils/gtm';
 
 export default function Hero() {
   return (
@@ -35,7 +35,7 @@ export default function Hero() {
                 href="#kapcsolat"
                 onClick={() => {
                   trackCTAClick('Rendszertervezés', 'hero_primary');
-                  trackAuditRequest('hero_cta');
+                  trackSystemConsultation('hero_primary');
                 }}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg font-normal"
               >
