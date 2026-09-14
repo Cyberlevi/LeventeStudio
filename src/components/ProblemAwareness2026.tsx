@@ -54,7 +54,7 @@ export default function ProblemAwareness2026() {
           {problems.map((problem, index) => {
             const Icon = problem.icon;
             return (
-              <article key={problem.title} className="group grid gap-5 border-b border-graphite-950/10 py-8 transition-colors hover:bg-white/45 sm:grid-cols-[3.5rem_1fr] sm:px-4 md:grid-cols-[3.5rem_1fr_1.1fr] md:items-center md:gap-8 md:py-9">
+              <article key={problem.title} className="group grid gap-5 border-b border-graphite-950/10 py-8 transition-colors hover:bg-white/50 sm:grid-cols-[3.5rem_1fr] sm:px-4 md:grid-cols-[3.5rem_1fr_1.1fr] md:items-center md:gap-8 md:py-9">
                 <div className="flex h-12 w-12 items-center justify-center border border-graphite-950/10 bg-white text-graphite-950 transition group-hover:border-signal-500/60 group-hover:bg-signal-400">
                   <Icon size={20} />
                 </div>
