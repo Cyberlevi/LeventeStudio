@@ -77,14 +77,3 @@ export function updateGoogleConsent(state: ConsentState): void {
     ad_personalization: state.marketing ? 'granted' : 'denied',
   });
 }
-
-declare global {
-  interface Window {
-    gtag?: (
-      command: 'consent' | 'event' | 'config',
-      action: string,
-      params?: Record<string, unknown>
-    ) => void;
-    dataLayer?: unknown[];
-  }
-}
