@@ -40,20 +40,20 @@ export default function StickyDesktopCTA() {
         </button>
 
         <div className="pr-8">
-          <div className="text-sm text-cream-300 mb-2">Rendszertervezés</div>
+          <div className="text-sm text-cream-300 mb-2">2 perces rendszerdiagnózis</div>
           <h3 className="text-xl font-normal mb-3">
             Látod a teljes utat a kereséstől a leadig?
           </h3>
           <p className="text-sm text-cream-200 mb-4">
-            Nézzük meg, hol szakad meg az ügyfélút, és mi az a legkisebb rendszer, ami ténylegesen előrelépést ad.
+            Pár válaszból gyorsan kiderül, hol érdemes először hozzányúlni a rendszerhez.
           </p>
 
           <a
-            href="#kapcsolat"
-            onClick={() => trackCTAClick('Sticky Desktop CTA', 'desktop_sticky')}
+            href="#diagnosztika"
+            onClick={() => trackCTAClick('Rendszerdiagnózis', 'desktop_sticky')}
             className="inline-flex items-center gap-2 px-6 py-3 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors w-full justify-center text-sm font-normal"
           >
-            Beszéljük át
+            Megnézem a rendszerem
             <ArrowRight size={16} />
           </a>
         </div>
