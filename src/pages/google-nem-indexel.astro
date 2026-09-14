@@ -6,104 +6,103 @@ import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
 import ProblemLandingPageV2 from '../components/ProblemLandingPageV2';
 
-const pageTitle = 'Google nem indexel? Megnézem, miért | LeventeStudio';
-const pageDescription = 'Nincs forgalom, mert Google nem látja az oldaladat? Search Console hibák. Megnézem, mi blokkolja az indexelést – és leírom a javítást.';
+const pageTitle = 'Google nem indexel? Technikai SEO diagnózis | Levente Studio';
+const pageDescription = 'Ha Google nem indexeli az oldalad, feltárjuk a technikai okot: Search Console, robots, sitemap, canonical, renderelés és szerverhibák – prioritásos javítási tervvel.';
 const canonicalURL = '/google-nem-indexel/';
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  '@id': 'https://leventestudio.app/google-nem-indexel#service',
-  'name': 'Google Indexelési Audit',
-  'description': 'Indexelési problémák diagnosztizálása. Search Console hibák javítása.',
+  '@type': 'Service',
+  '@id': 'https://leventestudio.app/google-nem-indexel/#service',
+  'name': 'Google indexelési és technikai SEO diagnózis',
+  'description': 'Indexelési problémák, Search Console hibák és technikai SEO blokkok feltárása és javítási terve.',
   'provider': {
-    '@type': 'Person',
-    'name': 'Levente Csurka',
-    'jobTitle': 'Weboldal Audit Szakértő',
+    '@type': 'ProfessionalService',
+    'name': 'Levente Studio',
     'url': 'https://leventestudio.app',
   },
   'areaServed': 'HU',
-  'serviceType': 'SEO Audit',
+  'serviceType': ['Technikai SEO', 'Indexelési audit', 'Search Console diagnózis'],
 };
 
 const problemData = {
-  h1: 'Google nem indexel? Megnézem, miért.',
-  intro: 'Ha Google nem látja az oldaladat, akkor nem létezik. Hiába van szép design – ha nem indexelődik, nincs forgalom. 90%-ban technikai ok van: robots.txt, sitemap, canonical, noindex. Megnézem pontosan, mi blokkolja – és leírom a javítást.',
+  h1: 'Google nem indexel? Keressük meg, mi blokkolja.',
+  intro: 'Ha egy fontos oldal nincs az indexben, annak lehet technikai, tartalmi vagy struktúrából eredő oka. Nem egyetlen gombot keresünk a Search Console-ban: végignézzük, hogy a Google hozzáfér-e, érti-e és érdemesnek látja-e indexelni az oldalt.',
   symptoms: [
-    'Search Console: "Discovered - currently not indexed"',
-    'Az oldal nincs bent a Google-ben, pedig hónapok óta fent van',
-    'Csak a főoldal indexelődik, aloldalak nem',
-    'Sitemap beküldve, de Google nem olvassa',
-    'Canonical hibák, duplicate content figyelmeztetések',
+    'Search Console: "Discovered - currently not indexed" vagy hasonló státusz',
+    'Az oldal hónapok óta él, mégsem jelenik meg a Google-ben',
+    'Csak a főoldal indexelődik, fontos aloldalak nem',
+    'A sitemap be van küldve, de az URL-ek státusza bizonytalan',
+    'Canonical, redirect vagy duplikációs figyelmeztetések jelennek meg',
   ],
   causes: {
-    title: 'Miért nem indexel a Google',
+    title: 'Mi blokkolhatja az indexelést',
     items: [
-      'Robots.txt blokkolja a Googlebot-ot – rossz beállítás, véletlenül tiltva',
-      'Nincs sitemap vagy rossz – hiányos, hibás URL-ek, nem XML valid',
-      'Noindex meta tag van az oldalakon – fejlesztési tag maradt benn',
-      'Canonical problémák – rossz önhivatkozás vagy duplikált tartalom',
-      'JavaScript render probléma – Google nem látja a tartalmat',
+      'Robots.txt vagy meta robots tiltás',
+      'Hibás, hiányos vagy elavult sitemap',
+      'Canonical és duplikációs probléma',
+      'JavaScript/renderelési akadály vagy gyenge belső linkelés',
+      'Szerverhiba, redirect lánc, DNS vagy elérhetőségi probléma',
     ],
   },
   auditScope: {
-    title: 'Mit nézek meg az auditban',
+    title: 'Mit nézünk meg a technikai SEO diagnózisban',
     items: [
-      'Search Console hibák elemzése: Coverage, Pages riport',
-      'Robots.txt ellenőrzése: mi van tiltva, van-e blokk',
-      'Sitemap validálás: XML helyes-e, tartalmazza-e az összes oldalt',
-      'Meta robots és canonical tagek: minden oldalon helyes-e',
-      'Indexálhatóság: Googlebot hozzáfér-e, JavaScript render',
-      'Technikai blokkok: redirect loop, server error, DNS probléma',
+      'Search Console Pages/Indexing státuszok és mintázatok',
+      'Robots.txt és meta robots szabályok',
+      'XML sitemap és URL-készlet',
+      'Canonical, redirect és duplikációs viselkedés',
+      'Googlebot elérhetőség és renderelési kockázatok',
+      'Belső linkelés, tartalmi érték és indexelhetőségi jelek',
     ],
   },
   deliverables: {
-    title: 'Mit kapsz',
+    title: 'Mit kapsz a végén',
     items: [
-      'Search Console riport elemzés: minden hiba, ami blokkolja az indexelést',
-      'Oldalankénti státusz: melyik oldal miért nincs indexelve',
-      'Robots.txt és sitemap javítási terv: mit kell átírni, hova kell tenni',
-      'Canonical és meta robots javítás: konkrét kód, hogy mit írj be',
-      'Technikai hibajavítás: redirect, DNS, szerver hibák megoldása',
-      'Várható indexelési idő: ha megcsinálod, mennyi idő alatt indexelődik',
+      'Oldalcsoportonkénti diagnózis: miért lehet indexelési probléma',
+      'Prioritásos technikai javítási lista',
+      'Robots, sitemap és canonical javaslatok',
+      'Redirect és szerveroldali hibák javítási terve',
+      'Search Console ellenőrzési és visszamérési folyamat',
+      'Megvalósítási opció, ha a technikai javítást is ránk bíznád',
     ],
   },
   faq: [
     {
-      question: 'Mennyi idő alatt indexelődik az oldalam?',
-      answer: 'Ha megcsinálod a javításokat: 1-2 hét. Search Console-ban Request Indexing segít, de nem garancia.',
+      question: 'Mennyi idő alatt indexelődik az oldal?',
+      answer: 'Erre nincs garantált határidő. A technikai blokk javítható, de az indexelés időzítéséről végül a Google dönt. A cél, hogy minden olyan akadályt megszüntessünk, ami rajtunk múlik.',
     },
     {
-      question: 'Mi van, ha technikai ok nincs, mégse indexel?',
-      answer: 'Akkor tartalom probléma van. Thin content, duplicate, low quality. Ezt is megnézem, de ez nem technikai audit.',
+      question: 'Mi van, ha technikai hiba nincs?',
+      answer: 'Akkor meg kell nézni a tartalmi minőséget, duplikációt, belső linkelést és azt, hogy az oldal mennyire ad egyedi értéket a kereső számára.',
     },
     {
-      question: 'Kell hozzá Search Console hozzáférés?',
-      answer: 'Igen. Owner vagy Full User jogosultság kell. Nélküle nem látom a hibákat.',
+      question: 'Kell Search Console hozzáférés?',
+      answer: 'Nagyon hasznos, mert nélküle kevesebb közvetlen jel áll rendelkezésre. Ha nincs megfelelő hozzáférés, abban is tudunk segíteni, hogyan legyen rendesen beállítva.',
     },
     {
-      question: 'WordPress oldalra is működik?',
-      answer: 'Igen. WordPress specifikus indexelési hibákat is megnézem: Yoast, RankMath beállítások.',
+      question: 'WordPress oldal is jöhet?',
+      answer: 'Igen. Yoast, Rank Math, sablon és plugin oldali indexelési hibákat is meg lehet vizsgálni.',
     },
     {
-      question: 'Garancia van, hogy indexelődni fog?',
-      answer: 'Technikai blokkra igen. Ha azt feloldom, indexelődik. Tartalmi problémára nem tudok garanciát adni.',
+      question: 'Garancia van, hogy bekerül a Google-be?',
+      answer: 'Indexelést senki nem tud korrektül garantálni. A technikai akadályokat viszont azonosítani és javítani lehet, és utána mérhető, hogy változik-e a státusz.',
     },
   ],
   cta: {
-    title: 'Auditot kérek',
-    subtitle: 'Megnézem a Search Console-t és az oldaladat. 3-5 nap múlva kézhez kapod a hibalistát és a javítási tervet.',
+    title: 'Nézzük meg, miért nem látja jól a Google az oldalt',
+    subtitle: 'Küldd el az URL-t és – ha van – a Search Console problémát. Először azt választjuk szét, mi technikai blokk, mi tartalmi kérdés, és mi az, amin nem érdemes vakon változtatni.',
   },
   relatedProblems: [
     {
       title: 'Lassú weboldal',
       url: '/lassu-weboldal/',
-      description: 'PageSpeed piros, Core Web Vitals hiba – megnézem, mi lassítja',
+      description: 'PageSpeed, Core Web Vitals és teljesítménydiagnózis',
     },
     {
       title: 'Weboldal nem hoz ügyfelet',
       url: '/weboldal-nem-hoz-ugyfelet/',
-      description: 'Van oldal, de nem termel – megnézem, mi a hiba',
+      description: 'Az ügyfélszerzési út teljes diagnózisa',
     },
   ],
 };
@@ -117,7 +116,7 @@ const problemData = {
 >
   <MobileStickyBar client:load />
   <HeaderAstro />
-  <ProblemLandingPageV2 {...problemData} client:load />
-  <Footer client:load />
+  <ProblemLandingPageV2 {...problemData} />
+  <Footer />
   <CookieBanner client:load />
 </BaseLayout>
