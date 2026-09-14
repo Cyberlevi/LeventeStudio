@@ -34,6 +34,15 @@ export function trackContactSubmit(formLocation: string): void {
   });
 }
 
+export function trackSystemConsultation(location: string): void {
+  pushToDataLayer({
+    event: 'generate_lead',
+    lead_type: 'system_consultation',
+    lead_source: location,
+  });
+}
+
+/** @deprecated Legacy event name kept for older pages until migration is complete. */
 export function trackAuditRequest(ctaLocation: string): void {
   pushToDataLayer({
     event: 'audit_request',
