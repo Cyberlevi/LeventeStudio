@@ -1,255 +1,117 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Logo from '../components/Logo';
-import { ArrowLeft, Scale } from 'lucide-react';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
 
 const currentDate = new Date().toISOString().split('T')[0];
 ---
 
 <BaseLayout
-  title="Jogi Információk - Levente Stúdió"
-  description="A leventestudio.app weboldal üzemeltetőjének és szolgáltatójának kötelező jogi információi a hatályos magyar jogszabályok szerint."
+  title="Jogi Információk | Levente Studio"
+  description="A leventestudio.app weboldal üzemeltetésével, szolgáltatásaival, elérhetőségeivel, szellemi tulajdonával és felelősségi kereteivel kapcsolatos tájékoztatás."
   canonical="/jogi-informaciok/"
 >
-  <div class="min-h-screen bg-cream-50">
-    <header class="sticky top-0 z-50 bg-white border-b border-taupe-200 px-6 py-4">
-      <div class="max-w-4xl mx-auto flex items-center justify-between">
-        <Logo variant="primary" theme="light" className="h-8" client:load />
-        <a
-          href="/"
-          class="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light"
-        >
-          <ArrowLeft size={16} client:load />
-          Vissza a főoldalra
-        </a>
-      </div>
-    </header>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
 
-    <main class="max-w-4xl mx-auto px-6 py-12">
-      <div class="flex items-center gap-4 mb-8">
-        <Scale className="text-taupe-700" size={32} client:load />
-        <h1 class="text-4xl font-normal text-taupe-900">Jogi Információk</h1>
-      </div>
+  <main class="pt-32 pb-20 bg-cream-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="studio-kicker text-taupe-500 mb-5">Weboldal és szolgáltatói tájékoztató</div>
+      <h1 class="font-serif text-5xl md:text-6xl font-light text-taupe-900 mb-5">Jogi Információk</h1>
+      <p class="text-sm text-taupe-500 mb-10">Utolsó frissítés: {currentDate}</p>
 
-      <div class="prose prose-taupe max-w-none space-y-8 text-taupe-800 font-light leading-relaxed">
-        <section>
-          <p class="text-sm text-taupe-600 mb-6">
-            Utolsó frissítés: {currentDate}
-          </p>
-          <p>
-            Ez az oldal tartalmazza a leventestudio.app weboldal üzemeltetőjének és
-            szolgáltatójának kötelező adatait a hatályos magyar jogszabályok szerint.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">1. Szolgáltató adatai</h2>
-          <div class="bg-white p-6 rounded-sm border-2 border-taupe-300">
-            <div class="space-y-3">
-              <div>
-                <p class="text-sm text-taupe-600 font-normal">Név:</p>
-                <p class="text-lg text-taupe-900">Tarnóczi Levente</p>
-              </div>
-
-              <div class="border-t border-taupe-200 pt-3">
-                <p class="text-sm text-taupe-600 font-normal">E-mail:</p>
-                <p class="text-lg">
-                  <a href="mailto:tarnoczilevente@gmail.com" class="text-taupe-900 underline hover:text-taupe-700">
-                    tarnoczilevente@gmail.com
-                  </a>
-                </p>
-              </div>
-
-              <div class="border-t border-taupe-200 pt-3">
-                <p class="text-sm text-taupe-600 font-normal">Telefon:</p>
-                <p class="text-lg">
-                  <a href="tel:+36303337272" class="text-taupe-900 underline hover:text-taupe-700">
-                    +36 30 333 7272
-                  </a>
-                </p>
-              </div>
-
-              <div class="border-t border-taupe-200 pt-3">
-                <p class="text-sm text-taupe-600 font-normal">Weboldal:</p>
-                <p class="text-lg">
-                  <a href="https://leventestudio.app" class="text-taupe-900 underline hover:text-taupe-700">
-                    leventestudio.app
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">2. Tevékenység</h2>
-          <p>
-            A Levente Stúdió weboldal audit, SEO tanácsadás és teljesítmény optimalizálás
-            szolgáltatásokat nyújt elsősorban budapesti vállalkozások, kisvállalatok és
-            vállalkozók részére.
-          </p>
-
-          <div class="mt-6 space-y-4">
-            <div class="bg-white p-5 rounded-sm border border-taupe-200">
-              <h3 class="font-normal text-taupe-900 mb-2">Fő szolgáltatások:</h3>
-              <ul class="list-disc pl-6 space-y-1 text-sm">
-                <li>Weboldal audit és elemzés</li>
-                <li>SEO (keresőoptimalizálás) tanácsadás</li>
-                <li>Teljesítmény optimalizálás</li>
-                <li>Weboldal technikai felülvizsgálat</li>
-                <li>Konverzió optimalizálás</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">3. Tárhely szolgáltató</h2>
-          <div class="bg-white p-6 rounded-sm border border-taupe-200">
-            <p class="mb-2"><strong>Szolgáltató:</strong> Netlify, Inc.</p>
-            <p class="mb-2"><strong>Cím:</strong> 44 Montgomery Street, Suite 300, San Francisco, CA 94104, USA</p>
-            <p class="mb-2"><strong>Weboldal:</strong> <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer" class="text-taupe-900 underline hover:text-taupe-700">netlify.com</a></p>
-            <p><strong>Adatvédelmi tájékoztató:</strong> <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer" class="text-taupe-900 underline hover:text-taupe-700">Netlify Privacy Policy</a></p>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">4. Szellemi tulajdon</h2>
-          <p>
-            A leventestudio.app weboldalon megjelenő tartalmak (szövegek, képek, logók,
-            grafikai elemek, dizájn) szerzői jogi védelem alatt állnak.
-          </p>
-          <p class="mt-4">
-            <strong>Jogosult:</strong> Tarnóczi Levente
-          </p>
-          <p class="mt-4">
-            A tartalmak bármilyen formában történő másolása, terjesztése vagy felhasználása
-            csak az üzemeltető előzetes írásos engedélyével lehetséges.
-          </p>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">Használt nyílt forráskódú szoftverek:</h3>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>React (MIT License)</li>
-            <li>Astro (MIT License)</li>
-            <li>Tailwind CSS (MIT License)</li>
-            <li>Lucide React (ISC License)</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">5. Felelősség korlátozás</h2>
-          <p>
-            A leventestudio.app weboldalon található információk tájékoztató jellegűek.
-            Törekszünk arra, hogy a tartalmak pontosak és naprakészek legyenek, azonban nem
-            vállalunk felelősséget az esetleges pontatlanságokért vagy hiányosságokért.
-          </p>
-          <p class="mt-4">
-            A weboldalon található külső linkekért (harmadik felek weboldalai) nem vállalunk
-            felelősséget. A linkelt oldalak tartalma a saját üzemeltetőik felelősségi körébe tartozik.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">6. Alkalmazandó jog és jogviták</h2>
-          <p>
-            A weboldal használatára és a szolgáltatásokra a magyar jog az irányadó.
-          </p>
-          <p class="mt-4">
-            Az esetleges jogvitákat a felek elsősorban békés úton próbálják rendezni.
-            Ennek eredménytelensége esetén a magyar bíróságok rendelkeznek hatáskörrel
-            és illetékességgel.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">7. Kapcsolódó dokumentumok</h2>
-          <div class="grid gap-4 mt-6">
-            <a
-              href="/adatvedelem/"
-              class="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group"
-            >
-              <h3 class="font-normal text-taupe-900 mb-2 group-hover:text-taupe-700 transition-colors">
-                Adatvédelmi Tájékoztató
-              </h3>
-              <p class="text-sm text-taupe-600">
-                Részletes információk az adatkezelésről, az Ön jogairól és a GDPR megfelelésről.
-              </p>
-            </a>
-
-            <a
-              href="/suti-szabalyzat/"
-              class="block p-5 bg-white border-2 border-taupe-200 rounded-sm hover:border-taupe-400 transition-colors group"
-            >
-              <h3 class="font-normal text-taupe-900 mb-2 group-hover:text-taupe-700 transition-colors">
-                Süti Szabályzat
-              </h3>
-              <p class="text-sm text-taupe-600">
-                Információk a weboldalon használt sütikről és azok kezeléséről.
-              </p>
-            </a>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">8. Kapcsolatfelvétel</h2>
-          <p class="mb-6">
-            Ha kérdése van a jogi információkkal, szolgáltatásainkkal vagy a weboldal
-            működésével kapcsolatban, forduljon hozzánk bizalommal az alábbi elérhetőségeken:
-          </p>
-
-          <div class="bg-taupe-900 text-cream-50 p-8 rounded-sm space-y-4">
-            <div>
-              <p class="text-sm text-cream-300 font-normal mb-1">E-mail:</p>
-              <a href="mailto:tarnoczilevente@gmail.com" class="text-lg hover:text-cream-200 transition-colors underline">
-                tarnoczilevente@gmail.com
-              </a>
-            </div>
-
-            <div>
-              <p class="text-sm text-cream-300 font-normal mb-1">Telefon:</p>
-              <a href="tel:+36303337272" class="text-lg hover:text-cream-200 transition-colors underline">
-                +36 30 333 7272
-              </a>
-            </div>
-
-            <div>
-              <p class="text-sm text-cream-300 font-normal mb-1">WhatsApp:</p>
-              <a
-                href="https://wa.me/36303337272"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-lg hover:text-cream-200 transition-colors underline"
-              >
-                +36 30 333 7272
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">9. Hatálybalépés</h2>
-          <p>
-            Ez a Jogi Információk oldal 2026. január 29-én lép hatályba.
-          </p>
-        </section>
-
-        <section class="border-t border-taupe-200 pt-8 mt-12">
-          <p class="text-sm text-taupe-600">
-            Ez az oldal az elektronikus kereskedelmi szolgáltatások, valamint az
-            információs társadalommal összefüggő szolgáltatások egyes kérdéseiről szóló
-            2001. évi CVIII. törvény (Elker. tv.) és vonatkozó jogszabályok előírásainak
-            megfelelően készült.
-          </p>
-        </section>
-      </div>
-    </main>
-
-    <footer class="bg-taupe-900 border-t border-taupe-800 px-6 py-8 mt-16">
-      <div class="max-w-4xl mx-auto text-center">
-        <p class="text-cream-200 text-sm font-light">
-          © {new Date().getFullYear()} Levente Stúdió
+      <div class="prose prose-lg prose-neutral max-w-none prose-headings:text-taupe-900 prose-p:text-taupe-700">
+        <p>
+          Ez az oldal a leventestudio.app weboldal üzemeltetéséhez és a Levente Studio szolgáltatásaihoz kapcsolódó alapvető tájékoztatást foglalja össze. Egyedi ajánlat vagy szerződés esetén az abban rögzített feltételek az irányadók.
         </p>
+
+        <h2>1. Üzemeltető és kapcsolat</h2>
+        <div class="not-prose bg-white border border-taupe-200 p-6 rounded-sm my-6 text-taupe-700">
+          <p><strong class="text-taupe-900">Név:</strong> Tarnóczi Levente</p>
+          <p><strong class="text-taupe-900">Márka:</strong> Levente Studio</p>
+          <p><strong class="text-taupe-900">E-mail:</strong> <a class="underline" href="mailto:hello@leventestudio.app">hello@leventestudio.app</a></p>
+          <p><strong class="text-taupe-900">Telefon:</strong> <a class="underline" href="tel:+36202826843">+36 20 282 6843</a></p>
+          <p><strong class="text-taupe-900">WhatsApp:</strong> <a class="underline" href="https://wa.me/36202826843" target="_blank" rel="noopener noreferrer">+36 20 282 6843</a></p>
+          <p><strong class="text-taupe-900">Weboldal:</strong> leventestudio.app</p>
+        </div>
+        <p>
+          Ha valamely jogszabály vagy konkrét üzleti helyzet további szolgáltatói adat közzétételét teszi szükségessé, azt a vonatkozó szerződéses vagy hivatalos dokumentáció tartalmazza. Ezen az oldalon nem tüntetünk fel olyan cég-, adó- vagy nyilvántartási adatot, amelyet nem tudunk hiteles forrásból megerősíteni.
+        </p>
+
+        <h2>2. A Levente Studio tevékenysége</h2>
+        <p>
+          A Levente Studio digitális ügyfélszerző és működési rendszereket tervez, fejleszt és optimalizál szolgáltató vállalkozások számára. A konkrét projekt tartalma minden esetben az elfogadott ajánlat és megállapodás szerint alakul.
+        </p>
+        <ul>
+          <li>weboldal- és landingrendszerek tervezése és fejlesztése,</li>
+          <li>technikai SEO és keresési rendszerdiagnózis,</li>
+          <li>konverzió- és felhasználói út optimalizálás,</li>
+          <li>GA4/GTM és leadmérési infrastruktúra kialakítása,</li>
+          <li>leadkezelési, CRM- és workflow-folyamatok,</li>
+          <li>automatizálás és AI-támogatott munkafolyamatok, ahol azok üzletileg indokoltak.</li>
+        </ul>
+
+        <h2>3. Tárhely és technikai infrastruktúra</h2>
+        <p>
+          A weboldal kiszolgálásához Netlify infrastruktúrát használunk. További információ a szolgáltatóról és annak adatkezeléséről a <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">netlify.com</a> oldalon érhető el.
+        </p>
+        <p>
+          A weboldal több nyílt forráskódú technológiára épül, többek között Astro, React, Tailwind CSS és Lucide komponensekre. Ezek saját licencfeltételeik szerint használhatók.
+        </p>
+
+        <h2>4. Szellemi tulajdon</h2>
+        <p>
+          A leventestudio.app saját szövegei, vizuális elemei, márkaelemei, egyedi komponensei, esettanulmányai és eredeti dokumentációi szerzői jogi vagy más szellemi tulajdonjogi védelem alatt állhatnak. Harmadik félhez tartozó márkanevek, logók és szoftverek a saját jogosultjaik tulajdonát képezik.
+        </p>
+        <p>
+          A saját tartalmak üzleti célú másolása, újraközlése vagy lényegi átdolgozása előzetes engedély nélkül nem megengedett, kivéve ha jogszabály vagy az adott licenc másként rendelkezik.
+        </p>
+
+        <h2>5. Tájékoztató tartalmak és felelősség</h2>
+        <p>
+          A Tudástárban és a weboldal más részein közzétett szakmai tartalmak általános tájékoztatást szolgálnak. Nem minősülnek egyedi jogi, adózási, pénzügyi vagy más szabályozott szakmai tanácsadásnak.
+        </p>
+        <p>
+          Törekszünk a technikai és szakmai információk pontosságára, ugyanakkor a webes platformok, keresőmotorok, hirdetési rendszerek és külső szolgáltatások működése idővel változhat. Egy konkrét projektben mindig az aktuális állapotot és a tényleges rendszerbeállításokat kell ellenőrizni.
+        </p>
+
+        <h2>6. Külső hivatkozások</h2>
+        <p>
+          A weboldal harmadik felek oldalaira mutató linkeket tartalmazhat. A külső oldalak tartalmáért, elérhetőségéért és adatkezelési gyakorlatáért azok saját üzemeltetői felelnek.
+        </p>
+
+        <h2>7. Eredmények és üzleti teljesítmény</h2>
+        <p>
+          Weboldal-, SEO-, konverziós, hirdetési vagy automatizálási projekt esetén konkrét üzleti eredmény, rangsorolás, leadmennyiség vagy bevételnövekedés előre nem garantálható. A Levente Studio célja mérhető rendszer, megfelelő technikai megvalósítás és adat alapján javítható működés kialakítása.
+        </p>
+
+        <h2>8. Alkalmazandó feltételek</h2>
+        <p>
+          Egy konkrét szolgáltatás részletes tartalmát, díjazását, ütemezését, felelősségi körét és egyéb feltételeit az adott ajánlat, megrendelés vagy szerződés rögzíti. Ha ezen általános weboldali tájékoztatás és egy egyedi megállapodás között eltérés van, az egyedi megállapodás az irányadó.
+        </p>
+
+        <h2>9. Kapcsolódó dokumentumok</h2>
+        <ul>
+          <li><a href="/adatvedelem/">Adatvédelmi Tájékoztató</a></li>
+          <li><a href="/suti-szabalyzat/">Süti Szabályzat</a></li>
+        </ul>
+
+        <h2>10. Kapcsolat</h2>
+        <p>
+          A weboldallal, szolgáltatással vagy jelen tájékoztatóval kapcsolatban a <a href="mailto:hello@leventestudio.app">hello@leventestudio.app</a> címen vagy a <a href="tel:+36202826843">+36 20 282 6843</a> telefonszámon lehet kapcsolatba lépni.
+        </p>
+
+        <div class="mt-12 p-6 border border-taupe-200 bg-white rounded-sm">
+          <p class="m-0 text-sm">
+            A Levente Studio szolgáltatási és technikai környezetének változásakor ezt az oldalt is frissítjük, hogy a nyilvános tájékoztatás összhangban maradjon a tényleges működéssel.
+          </p>
+        </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </main>
+
+  <Footer />
 </BaseLayout>
