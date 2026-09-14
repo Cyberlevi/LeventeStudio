@@ -1,5 +1,5 @@
 import { Phone, MessageCircle, Mail } from 'lucide-react';
-import { trackContactSubmit, trackPhoneClick, trackWhatsAppClick, trackCTAClick } from '../utils/gtm';
+import { trackPhoneClick, trackWhatsAppClick, trackCTAClick } from '../utils/gtm';
 import { isRateLimited, getRateLimitMessage } from '../utils/rateLimit';
 
 export default function Contact() {
@@ -27,7 +27,6 @@ export default function Contact() {
                 return;
               }
               trackWhatsAppClick('contact_section');
-              trackContactSubmit('whatsapp_contact');
             }}
             className="studio-card flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm"
           >
@@ -45,7 +44,6 @@ export default function Contact() {
                 return;
               }
               trackCTAClick('Email', 'contact_section');
-              trackContactSubmit('email_contact');
             }}
             className="studio-card flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm border-taupe-700"
           >
@@ -63,7 +61,6 @@ export default function Contact() {
                 return;
               }
               trackPhoneClick('contact_section');
-              trackContactSubmit('phone_contact');
             }}
             className="studio-card flex flex-col items-center gap-3 p-6 border border-taupe-700 text-cream-100 rounded-sm bg-taupe-900"
           >
