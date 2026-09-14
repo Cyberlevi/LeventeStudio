@@ -1,35 +1,40 @@
 ---
-import { ArrowRight, BarChart3, Bot, Database, Gauge, Search, Workflow } from 'lucide-react';
+import { ArrowRight, BarChart3, Database, Gauge, Search, Workflow } from 'lucide-react';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
 import MobileStickyBar from '../components/MobileStickyBar';
 import Contact from '../components/Contact';
+import SubpageHero from '../components/SubpageHero.astro';
 
 const systems = [
   {
     icon: Gauge,
+    code: '01',
     title: 'Konverziós web és landing rendszer',
     description: 'Gyors, keresőbarát oldal világos ajánlattal, mérhető CTA-kkal és olyan struktúrával, amely az érdeklődőt a kapcsolatfelvétel felé vezeti.',
-    items: ['Astro-alapú modern frontend', 'mobil-first UX', 'technikai SEO', 'konverziómérés']
+    items: ['Astro frontend', 'mobil-first UX', 'technikai SEO', 'konverziómérés']
   },
   {
     icon: Search,
+    code: '02',
     title: 'Kereslet és ügyfélszerzés',
     description: 'SEO- és hirdetés-ready rendszer. Nem különálló marketingelemeket építünk, hanem egy közös útvonalat a kereséstől a leadig.',
-    items: ['SEO struktúra', 'landing page-ek', 'Google Ads mérési alap', 'Search Console + GA4']
+    items: ['SEO struktúra', 'landing page-ek', 'Ads mérési alap', 'Search Console + GA4']
   },
   {
     icon: Database,
+    code: '03',
     title: 'Lead és CRM infrastruktúra',
     description: 'A beérkező érdeklődő ne vesszen el e-mailben vagy jegyzetekben. A lead útja követhető, szűrhető és később automatizálható.',
-    items: ['Supabase backend', 'lead adatbázis', 'státuszok és jegyzetek', 'export és dashboard']
+    items: ['lead adatbázis', 'státuszok', 'jegyzetek', 'dashboard']
   },
   {
     icon: Workflow,
+    code: '04',
     title: 'AI és automatizálás',
     description: 'Az AI nem dísz a weboldalon. Ott használjuk, ahol időt takarít meg: elemzésben, tartalmi munkában, adminisztrációban és döntéstámogatásban.',
-    items: ['AI-assisted workflow', 'automatizált értesítések', 'riport-előkészítés', 'folyamat-egyszerűsítés']
+    items: ['AI-assisted workflow', 'értesítések', 'riport-előkészítés', 'folyamat-egyszerűsítés']
   }
 ];
 
@@ -44,20 +49,8 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   'name': 'AI-native digitális ügyfélszerző rendszerek',
-  'provider': {
-    '@type': 'ProfessionalService',
-    'name': 'Levente Studio',
-    'url': 'https://leventestudio.app'
-  },
-  'areaServed': 'HU',
-  'serviceType': [
-    'Webfejlesztés',
-    'Konverzióoptimalizálás',
-    'SEO',
-    'Lead rendszer',
-    'CRM integráció',
-    'AI automatizálás'
-  ]
+  'provider': { '@type': 'ProfessionalService', 'name': 'Levente Studio', 'url': 'https://leventestudio.app' },
+  'areaServed': 'HU'
 };
 ---
 
@@ -68,143 +61,104 @@ const structuredData = {
   structuredData={structuredData}
 >
   <MobileStickyBar client:load />
+  <HeaderAstro />
 
-  <div class="min-h-screen bg-white">
-    <HeaderAstro />
+  <main>
+    <SubpageHero
+      eyebrow="Solutions architecture · 2026"
+      title="Nem egy új weboldal kell."
+      accent="Egy működő rendszer kell."
+      description="Web, SEO, hirdetési mérés, leadkezelés és automatizálás egy közös rendszerben. Az AI gyorsítja az elemzést és a kivitelezést, de az üzleti logikát nem helyettesíti."
+      primaryHref="#rendszerek"
+      primaryLabel="Rendszerelemek"
+      secondaryHref="/kapcsolat/#diagnosztika"
+      secondaryLabel="2 perces diagnózis"
+      meta={['Web + landing', 'SEO + demand', 'Lead + CRM', 'AI + automation']}
+    />
 
-    <main>
-      <section class="pt-36 pb-20 px-6 bg-cream-50 border-b border-taupe-100">
-        <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
-          <div>
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-taupe-200 rounded-full mb-7 text-sm text-taupe-700">
-              <Bot className="w-4 h-4" />
-              AI-native digital systems · 2026
-            </div>
-
-            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-light text-taupe-900 leading-[0.98] mb-7">
-              Nem egy új weboldal kell.
-              <span class="block text-taupe-600">Egy működő rendszer kell.</span>
-            </h1>
-
-            <p class="text-xl text-taupe-700 font-light leading-relaxed max-w-3xl mb-5">
-              Web, SEO, hirdetési mérés, leadkezelés és automatizálás egy közös rendszerben.
-              Úgy építjük fel, hogy lásd, honnan jön az érdeklődő, mi történik vele és hol lehet javítani a folyamaton.
-            </p>
-
-            <p class="text-base text-taupe-600 mb-9 max-w-2xl">
-              Az AI nálunk gyorsítja az elemzést és a kivitelezést, de az üzleti logikát nem helyettesíti.
-              A cél nem több funkció, hanem több mérhető eredmény és kevesebb kézi munka.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a href="#rendszerek" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors">
-                Mit építünk?
-                <ArrowRight className="w-5 h-5" />
-              </a>
-              <a href="#kapcsolat" class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-taupe-300 text-taupe-900 rounded-sm hover:bg-white transition-colors">
-                Beszéljük át a rendszered
-              </a>
-            </div>
+    <section id="rendszerek" class="hightech-section bg-cream-50">
+      <div class="hightech-container">
+        <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-16 items-start mb-12 md:mb-16">
+          <div class="lg:sticky lg:top-28">
+            <div class="text-xs uppercase tracking-[0.18em] text-graphite-400 mb-4">System layers</div>
+            <h2 class="editorial-heading">Egy rendszer. <span class="text-graphite-500">Négy összekapcsolt réteg.</span></h2>
           </div>
-
-          <aside class="bg-taupe-900 text-cream-50 p-8 md:p-10 rounded-sm">
-            <p class="text-sm uppercase tracking-[0.18em] text-cream-300 mb-6">A különbség</p>
-            <div class="space-y-6">
-              <div>
-                <p class="text-cream-300 text-sm mb-1">Régi megközelítés</p>
-                <p class="text-xl font-light">Weboldal → átadás → reméljük, hogy működik.</p>
-              </div>
-              <div class="h-px bg-taupe-700"></div>
-              <div>
-                <p class="text-cream-300 text-sm mb-1">Levente Studio</p>
-                <p class="text-xl font-light">Forgalom → ajánlat → konverzió → lead → mérés → optimalizálás.</p>
-              </div>
-            </div>
-          </aside>
+          <p class="text-lg text-graphite-700 font-light leading-relaxed max-w-2xl lg:pt-6">A legtöbb probléma abból jön, hogy a weboldal, a marketing, a mérés és az ügyfélkezelés külön életet él. Mi ezeket kötjük össze úgy, hogy a teljes út mérhető legyen.</p>
         </div>
-      </section>
 
-      <section id="rendszerek" class="py-24 px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-          <div class="max-w-3xl mb-14">
-            <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4">Rendszerelemek</p>
-            <h2 class="text-4xl md:text-5xl font-light text-taupe-900 mb-5">Egy rendszer. Négy összekapcsolt réteg.</h2>
-            <p class="text-lg text-taupe-700 font-light">A legtöbb probléma abból jön, hogy a weboldal, a marketing, a mérés és az ügyfélkezelés külön életet él. Mi ezeket kötjük össze.</p>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-6">
-            {systems.map(({ icon: Icon, title, description, items }) => (
-              <article class="border border-taupe-200 p-8 rounded-sm bg-taupe-50/40">
-                <Icon className="w-8 h-8 text-taupe-700 mb-6" />
-                <h3 class="text-2xl text-taupe-900 mb-3">{title}</h3>
-                <p class="text-taupe-700 font-light leading-relaxed mb-6">{description}</p>
-                <div class="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span class="px-3 py-1.5 text-sm bg-white border border-taupe-200 text-taupe-700 rounded-full">{item}</span>
-                  ))}
+        <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+          {systems.map(({ icon: Icon, code, title, description, items }) => (
+            <article class="tech-card-light p-6 sm:p-7 md:p-8 lg:p-9 group">
+              <div class="flex items-start justify-between gap-5 mb-10">
+                <div class="w-11 h-11 border border-graphite-950/10 flex items-center justify-center bg-graphite-950 text-signal-400">
+                  <Icon className="w-5 h-5" />
                 </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section class="py-24 px-6 bg-taupe-900 text-cream-50">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-3 mb-5 text-cream-300">
-            <BarChart3 className="w-5 h-5" />
-            <span class="text-sm uppercase tracking-[0.18em]">Módszer</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-light max-w-3xl mb-14">Nem technológiával kezdünk. Az üzleti folyamattal kezdünk.</h2>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map(([number, title, text]) => (
-              <div class="border-t border-taupe-700 pt-5">
-                <div class="text-cream-300 text-sm mb-5">{number}</div>
-                <h3 class="text-xl mb-3">{title}</h3>
-                <p class="text-cream-200 font-light leading-relaxed">{text}</p>
+                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400">LAYER/{code}</div>
               </div>
-            ))}
-          </div>
+              <h3 class="font-serif text-3xl sm:text-4xl font-light tracking-editorial text-graphite-950 leading-[0.96] mb-4">{title}</h3>
+              <p class="text-graphite-700 font-light leading-relaxed mb-7">{description}</p>
+              <div class="flex flex-wrap gap-2">
+                {items.map((item) => <span class="signal-tag-light">{item}</span>)}
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
-
-      <section class="py-24 px-6 bg-cream-50">
-        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4">Levente Studio Lab</p>
-            <h2 class="text-4xl md:text-5xl font-light text-taupe-900 mb-6">Saját rendszereken teszteljük, amit építünk.</h2>
-            <p class="text-lg text-taupe-700 font-light leading-relaxed mb-8">
-              A klímás, furatos és helyi szolgáltatói projektjeink nem makettek. Valós ajánlatkérések, valódi kampányok és valódi üzleti döntések futnak rajtuk. Így nem csak fejlesztési elméletből dolgozunk.
-            </p>
-            <a href="/esettanulmanyok/" class="inline-flex items-center gap-2 text-taupe-900 font-normal border-b border-taupe-400 pb-1 hover:border-taupe-900 transition-colors">
-              Nézd meg az esettanulmányokat
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-
-          <div class="grid gap-4">
-            <a href="/esettanulmanyok/klima18ker-weboldal-audit/" class="block bg-white p-6 border border-taupe-200 hover:border-taupe-400 transition-colors">
-              <div class="text-sm text-taupe-500 mb-2">Klímatechnika</div>
-              <div class="text-xl text-taupe-900">Klima18ker → web + SEO + mérés</div>
-            </a>
-            <a href="/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/" class="block bg-white p-6 border border-taupe-200 hover:border-taupe-400 transition-colors">
-              <div class="text-sm text-taupe-500 mb-2">Építőipari szolgáltatás</div>
-              <div class="text-xl text-taupe-900">FuratMester → landing + Ads + lead funnel</div>
-            </a>
-            <a href="/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/" class="block bg-white p-6 border border-taupe-200 hover:border-taupe-400 transition-colors">
-              <div class="text-sm text-taupe-500 mb-2">Helyi szolgáltatás</div>
-              <div class="text-xl text-taupe-900">Bundavarázs → local presence + mérhető érdeklődés</div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <div id="kapcsolat">
-        <Contact client:load />
       </div>
-    </main>
+    </section>
 
-    <Footer />
-  </div>
+    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+      <div class="hightech-container relative">
+        <div class="flex items-center gap-3 mb-5 text-signal-400">
+          <BarChart3 className="w-5 h-5" />
+          <span class="text-xs uppercase tracking-[0.2em]">Method / operating loop</span>
+        </div>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] max-w-4xl mb-12 md:mb-16 text-balance">Nem technológiával kezdünk. <span class="text-signal-400">Az üzleti folyamattal.</span></h2>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {steps.map(([number, title, text]) => (
+            <div class="tech-card-dark p-6 md:p-7 min-h-[250px] flex flex-col">
+              <div class="text-xs text-signal-400 tracking-[0.18em] mb-12">{number}</div>
+              <h3 class="text-xl text-white mb-3">{title}</h3>
+              <p class="text-white/55 font-light leading-relaxed text-sm mt-auto">{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="hightech-section bg-cream-50">
+      <div class="hightech-container grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">
+        <div>
+          <div class="text-xs uppercase tracking-[0.18em] text-graphite-400 mb-4">Levente Studio Lab</div>
+          <h2 class="editorial-heading mb-6">Saját rendszereken teszteljük, amit építünk.</h2>
+          <p class="text-lg text-graphite-700 font-light leading-relaxed mb-8">A klímás, furatos és helyi szolgáltatói projektjeink nem makettek. Valós ajánlatkérések, kampányok és üzleti döntések futnak rajtuk.</p>
+          <a href="/esettanulmanyok/" class="inline-flex items-center gap-2 text-graphite-950 border-b border-signal-400 pb-1">Esettanulmányok <ArrowRight className="w-4 h-4" /></a>
+        </div>
+
+        <div class="grid gap-4">
+          {[
+            ['Klima18ker', 'Web + SEO + mérés', '/esettanulmanyok/klima18ker-weboldal-audit/'],
+            ['FuratMester', 'Landing + Ads + lead funnel', '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/'],
+            ['Bundavarázs', 'Local presence + mérés', '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/']
+          ].map(([name, meta, href], index) => (
+            <a href={href} class="tech-card-light p-6 sm:p-7 flex items-center justify-between gap-5 group">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">LAB/{String(index + 1).padStart(2, '0')}</div>
+                <div class="font-serif text-2xl sm:text-3xl font-light tracking-editorial text-graphite-950">{name}</div>
+                <div class="text-sm text-graphite-500 mt-1">{meta}</div>
+              </div>
+              <ArrowRight className="w-5 h-5 text-graphite-500 group-hover:translate-x-1 transition-transform" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div id="kapcsolat">
+      <Contact client:load />
+    </div>
+  </main>
+
+  <Footer />
 </BaseLayout>
