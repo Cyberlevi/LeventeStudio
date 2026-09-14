@@ -9,28 +9,31 @@ import MobileStickyBar from '../components/MobileStickyBar';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  'name': 'Levente Csurka',
-  'jobTitle': 'Weboldal Audit Szakértő',
-  'telephone': '+36202826843',
+  'name': 'Tarnóczi Levente',
+  'jobTitle': 'Digitális rendszerépítő',
   'email': 'hello@leventestudio.app',
-  'url': 'https://leventestudio.app',
+  'url': 'https://leventestudio.app/rolam/',
   'image': 'https://leventestudio.app/levente_studio_portrait_final.webp',
-  'logo': {
-    '@type': 'ImageObject',
-    'url': 'https://leventestudio.app/logo.png',
-    'width': 512,
-    'height': 512
+  'worksFor': {
+    '@type': 'ProfessionalService',
+    'name': 'Levente Studio',
+    'url': 'https://leventestudio.app'
   },
-  'address': {
-    '@type': 'PostalAddress',
-    'addressCountry': 'HU'
-  }
+  'knowsAbout': [
+    'Webfejlesztés',
+    'SEO',
+    'Google Ads mérés',
+    'Webanalitika',
+    'Lead management',
+    'AI workflow',
+    'Üzleti automatizálás'
+  ]
 };
 ---
 
 <BaseLayout
-  title="Rólam – Levente Csurka, Weboldal Audit Szakértő | LeventeStudio"
-  description="Mérnöki háttér, adat-alapú gondolkodás, 8+ év tapasztalat webes technológiákban. Ismerj meg jobban és tudj meg, hogyan segíthetek."
+  title="Rólam – Tarnóczi Levente, digitális rendszerépítő | Levente Studio"
+  description="A Levente Studio mögötti rendszerépítő szemlélet: web, SEO, Ads mérés, leadkezelés és AI-assisted működés saját éles projekteken tesztelve."
   canonical="/rolam/"
   structuredData={structuredData}
 >
@@ -39,7 +42,7 @@ const structuredData = {
 
   <div class="min-h-screen bg-white">
     <HeaderAstro />
-    <AboutExpert client:load />
-    <Footer client:load />
+    <AboutExpert />
+    <Footer />
   </div>
 </BaseLayout>
