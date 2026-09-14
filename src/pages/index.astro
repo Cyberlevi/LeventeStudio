@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero from '../components/Hero';
+import StudioLab from '../components/StudioLab';
 import TrustBar from '../components/TrustBar';
 import ProblemAwareness from '../components/ProblemAwareness';
 import Solution from '../components/Solution';
@@ -17,8 +18,8 @@ import StickyDesktopCTA from '../components/StickyDesktopCTA';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  'name': 'LeventeStudio - Weboldal Készítés Kisvállalkozásoknak',
-  'description': 'Ügyfélszerző weboldalak kisvállalkozásoknak. SEO optimalizált, gyors, mobilbarát weboldalak 5-7 nap alatt.',
+  'name': 'Levente Studio - AI-native digitális növekedési rendszerek',
+  'description': 'Weboldal, SEO, mérés, automatizálás és ügyfélszerző rendszerek szolgáltató vállalkozásoknak.',
   'image': 'https://leventestudio.app/logo.png',
   'logo': {
     '@type': 'ImageObject',
@@ -28,32 +29,32 @@ const structuredData = {
   },
   'provider': {
     '@type': 'Person',
-    'name': 'Levente Csurka',
-    'jobTitle': 'Webfejlesztő',
-    'telephone': '+36202826843',
+    'name': 'Tarnóczi Levente',
+    'jobTitle': 'Digitális rendszerépítő',
     'email': 'hello@leventestudio.app',
     'url': 'https://leventestudio.app',
-    'image': 'https://leventestudio.app/levente_studio_portrait_final.webp',
-    'logo': {
-      '@type': 'ImageObject',
-      'url': 'https://leventestudio.app/logo.png',
-      'width': 512,
-      'height': 512
-    }
+    'image': 'https://leventestudio.app/levente_studio_portrait_final.webp'
   },
   'areaServed': 'HU',
-  'serviceType': ['Weboldal Készítés', 'SEO Optimalizálás', 'Landing Page Készítés'],
+  'serviceType': [
+    'Ügyfélszerző weboldal',
+    'SEO optimalizálás',
+    'Konverziómérés',
+    'Lead rendszer',
+    'Üzleti automatizálás',
+    'AI workflow'
+  ],
   'address': {
     '@type': 'PostalAddress',
     'addressCountry': 'HU'
   },
-  'priceRange': '250000-750000 HUF'
+  'priceRange': '$$'
 };
 ---
 
 <BaseLayout
-  title="Weboldal Készítés Kisvállalkozásoknak | Ügyfélszerző Honlap 5-7 Nap Alatt | LeventeStudio"
-  description="Ügyfélszerző weboldal kisvállalkozásoknak 5-7 nap alatt. Megépítjük, beindítjuk, megtanítjuk használni. SEO optimalizált, gyors, professzionális. Átlátható árak 250.000 Ft-tól."
+  title="AI-native ügyfélszerző rendszerek vállalkozásoknak | Levente Studio"
+  description="Weboldal, SEO, mérés és automatizálás egy rendszerben. AI-native digitális ügyfélszerzés szolgáltató vállalkozásoknak, saját éles projekteken tesztelt módszerekkel."
   canonical="/"
   structuredData={structuredData}
 >
@@ -64,13 +65,14 @@ const structuredData = {
   <div class="min-h-screen bg-white">
     <HeaderAstro />
     <Hero client:load />
-    <TrustBar client:load />
-    <ProblemAwareness client:load />
-    <Solution client:load />
+    <StudioLab />
+    <TrustBar />
+    <ProblemAwareness />
+    <Solution />
     <Pricing client:load />
-    <SimpleCaseStudy client:load />
+    <SimpleCaseStudy />
     <FAQ client:load />
     <Contact client:load />
-    <Footer client:load />
+    <Footer />
   </div>
 </BaseLayout>
