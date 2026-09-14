@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+---
+
+<BaseLayout
+  title="Köszönöm a megkeresést | Levente Studio"
+  description="A rendszerdiagnózis megérkezett. Innen már konkrétan tudunk továbbmenni."
+  canonical="/koszonjuk/"
+  noindex={true}
+>
+  <CookieBanner client:load />
+  <div class="min-h-screen bg-cream-50 flex flex-col">
+    <HeaderAstro />
+
+    <main class="flex-1 px-6 pt-40 pb-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="studio-kicker text-taupe-500 mb-5">Rendszerdiagnózis elküldve</div>
+        <h1 class="font-serif text-5xl md:text-7xl font-light text-taupe-900 leading-[0.98] mb-7 text-balance">
+          Megérkezett.
+          <span class="block text-taupe-600">Most már van miből kiindulni.</span>
+        </h1>
+        <p class="text-xl text-taupe-700 font-light leading-relaxed max-w-2xl mx-auto mb-10">
+          Átnézem a megadott helyzetet, és az első egyeztetésen nem általánosságokról beszélünk, hanem arról, hol van nálad a legnagyobb üzleti és digitális súrlódás.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10 text-left">
+          <div class="bg-white border border-taupe-200 p-6">
+            <div class="text-xs uppercase tracking-[0.14em] text-taupe-500 mb-2">Következő lépés</div>
+            <div class="text-lg text-taupe-900">Átnézem a beküldött adatokat.</div>
+          </div>
+          <div class="bg-white border border-taupe-200 p-6">
+            <div class="text-xs uppercase tracking-[0.14em] text-taupe-500 mb-2">Egyeztetés</div>
+            <div class="text-lg text-taupe-900">Konkrét rendszerirányról beszélünk.</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="/" class="inline-flex items-center justify-center px-7 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors">
+            Vissza a főoldalra
+          </a>
+          <a
+            href="https://wa.me/36202826843?text=Szia%2C%20elk%C3%BCldtem%20a%20Levente%20Studio%20rendszerdiagn%C3%B3zist."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-7 py-4 border border-taupe-300 bg-white text-taupe-900 hover:border-taupe-500 transition-colors"
+          >
+            WhatsAppon is jelzek
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+
+  <script is:inline>
+    (() => {
+      const trackingKey = 'ls_confirmed_lead_v1';
+
+      try {
+        if (sessionStorage.getItem(trackingKey)) return;
+        sessionStorage.setItem(trackingKey, '1');
+      } catch (_) {}
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          lead_type: 'system_diagnostic',
+          lead_source: 'netlify_form',
+        });
+      }
+    })();
+  </script>
+</BaseLayout>
