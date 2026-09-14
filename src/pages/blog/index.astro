@@ -41,7 +41,7 @@ const blogPosts = [
                 <h2 class:list={['font-serif font-light tracking-editorial text-graphite-950 leading-[1.02] group-hover:text-graphite-700 transition-colors mb-5 text-balance', index === 0 ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-[2.35rem]']}>{post.title}</h2>
                 <p class="text-graphite-600 leading-relaxed mb-7">{post.description}</p>
                 <div class="flex flex-wrap gap-2 mb-8">{post.tags.map((tag) => <span class="inline-flex items-center px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] border border-graphite-950/10 text-graphite-600 bg-ivory-100">{tag}</span>)}</div>
-                <div class="flex items-center justify-between gap-4 border-t border-graphite-950/10 pt-5"><time class="text-xs sm:text-sm text-graphite-500">{post.date}</time><span class="text-sm font-medium text-graphite-850 group-hover:translate-x-1 transition-transform">Olvasom <span aria-hidden="true">→</span></span></div>
+                <div class="flex items-center justify-between gap-4 border-t border-graphite-950/10 pt-5"><time class="text-xs sm:text-sm text-graphite-500">{post.date}</time><span class="text-sm font-medium text-graphite-800 group-hover:translate-x-1 transition-transform">Olvasom <span aria-hidden="true">→</span></span></div>
               </a>
             </article>
           ))}
