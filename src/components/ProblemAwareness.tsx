@@ -1,63 +1,52 @@
-import { AlertCircle, TrendingDown, Clock, Search } from 'lucide-react';
+import { BarChart3, Link2Off, MessageSquareWarning, SearchX } from 'lucide-react';
 
 export default function ProblemAwareness() {
   const problems = [
     {
-      icon: Clock,
-      title: 'Lassú oldal',
-      description: 'Sokáig tölt be, a látogató nem vár. A Google sem szereti.'
+      icon: SearchX,
+      title: 'Van oldalad, de nincs rendszer',
+      description: 'A weboldal külön él a kereséstől, a hirdetéstől és az ajánlatkéréstől. Emiatt nehéz megmondani, mi hoz valódi üzletet.'
     },
     {
-      icon: Search,
-      title: 'Nem találják meg',
-      description: 'Ha rákeresnek a szolgáltatásodra, te nem jössz fel. A konkurencia előrébb van.'
+      icon: Link2Off,
+      title: 'Szétesik az ügyfélút',
+      description: 'A látogató eljut az oldalra, de nem egyértelmű a következő lépés. A CTA, az ajánlat és a leadkezelés nincs összekötve.'
     },
     {
-      icon: TrendingDown,
-      title: 'Nem hoz ügyfelet',
-      description: 'Van látogató, de senki nem hív, nem ír. A weboldal csak "ott van".'
+      icon: BarChart3,
+      title: 'Mérsz, de nem tudod mit',
+      description: 'Van GA4 vagy Ads, mégsem látszik tisztán, melyik kampányból, oldalból vagy keresésből lett valódi érdeklődő.'
     },
     {
-      icon: AlertCircle,
-      title: 'Mobilon használhatatlan',
-      description: 'A látogatók 70%-a mobilról nézi. Ha ott rossz, nem működik semmi.'
+      icon: MessageSquareWarning,
+      title: 'Túl sok a kézi munka',
+      description: 'Leadek e-mailben, jegyzetben és üzenetekben. A folyamat nehezen követhető, az adminisztráció pedig elveszi az időt az értékes munkától.'
     }
   ];
 
   return (
     <section className="px-6 py-24 bg-white">
       <div className="max-w-5xl mx-auto">
+        <p className="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4 text-center">A valódi probléma</p>
         <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-8 text-center">
-          Ismerős ez neked?
+          Nem az a kérdés, van-e weboldalad.
         </h2>
 
         <p className="text-xl text-taupe-700 font-light text-center mb-16 max-w-3xl mx-auto">
-          Van weboldalad, de nem cseng a telefon. Nem jönnek ügyfelek.
-          Négy gyakori probléma, amiért a weboldalak nem működnek:
+          Az a kérdés, hogy a teljes digitális folyamat együtt dolgozik-e azért, hogy a megfelelő érdeklődőből mérhető lead legyen.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {problems.map((problem, index) => {
+          {problems.map((problem) => {
             const Icon = problem.icon;
             return (
-              <div key={index} className="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
+              <div key={problem.title} className="bg-taupe-50 p-8 rounded-sm border border-taupe-200">
                 <Icon size={32} className="text-taupe-700 mb-4" />
-                <h3 className="text-2xl font-normal text-taupe-900 mb-3">
-                  {problem.title}
-                </h3>
-                <p className="text-taupe-700 font-light leading-relaxed">
-                  {problem.description}
-                </p>
+                <h3 className="text-2xl font-normal text-taupe-900 mb-3">{problem.title}</h3>
+                <p className="text-taupe-700 font-light leading-relaxed">{problem.description}</p>
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-16 bg-cream-50 p-8 md:p-12 rounded-sm border border-taupe-200">
-          <p className="text-lg text-taupe-700 font-light leading-relaxed text-center">
-            Ha legalább kettőre ráismertél, akkor jó helyen jársz.
-            Ezeket a problémákat meg tudjuk oldani.
-          </p>
         </div>
       </div>
     </section>
