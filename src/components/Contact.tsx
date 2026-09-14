@@ -4,10 +4,10 @@ import { isRateLimited, getRateLimitMessage } from '../utils/rateLimit';
 
 export default function Contact() {
   return (
-    <section className="px-6 py-24 pb-32 md:pb-24 bg-taupe-900 text-cream-50">
+    <section id="kapcsolat" className="px-6 py-24 pb-32 md:pb-24 bg-taupe-900 text-cream-50 scroll-mt-24">
       <div className="max-w-5xl mx-auto text-center">
         <p className="text-sm uppercase tracking-[0.18em] text-cream-300 mb-4">Rendszertervezés</p>
-        <h2 className="text-4xl md:text-5xl font-light mb-8">
+        <h2 className="font-serif text-4xl md:text-6xl font-light mb-8 text-balance">
           Nézzük meg, hol lehet egyszerűbb és mérhetőbb a működésed.
         </h2>
 
@@ -29,7 +29,7 @@ export default function Contact() {
               trackWhatsAppClick('contact_section');
               trackContactSubmit('whatsapp_contact');
             }}
-            className="flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors duration-200"
+            className="studio-card flex flex-col items-center gap-3 p-6 bg-cream-50 text-taupe-900 rounded-sm"
           >
             <MessageCircle size={30} />
             <span className="text-lg font-light">WhatsApp</span>
@@ -47,7 +47,7 @@ export default function Contact() {
               trackCTAClick('Email', 'contact_section');
               trackContactSubmit('email_contact');
             }}
-            className="flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm hover:bg-taupe-700 transition-colors duration-200"
+            className="studio-card flex flex-col items-center gap-3 p-6 bg-taupe-800 text-cream-50 rounded-sm border-taupe-700"
           >
             <Mail size={30} />
             <span className="text-lg font-light">Email</span>
@@ -65,7 +65,7 @@ export default function Contact() {
               trackPhoneClick('contact_section');
               trackContactSubmit('phone_contact');
             }}
-            className="flex flex-col items-center gap-3 p-6 border border-taupe-700 text-cream-100 rounded-sm hover:bg-taupe-800 transition-colors duration-200"
+            className="studio-card flex flex-col items-center gap-3 p-6 border border-taupe-700 text-cream-100 rounded-sm bg-taupe-900"
           >
             <Phone size={30} />
             <span className="text-lg font-light">Telefon</span>
