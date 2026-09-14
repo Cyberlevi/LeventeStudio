@@ -1,2 +1,5 @@
+# Legacy case study redirects
+/esettanulmanyok/bundavarazs-kutyakozmetika-audit/  /esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/  301
+
 # 404 handling
 /*  /404.html  404
