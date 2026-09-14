@@ -10,7 +10,7 @@ interface Props { eyebrow: string; title: string; lead: string; stack: string[];
 const { eyebrow, title, lead, stack, sections, built, lessons, liveUrl } = Astro.props;
 ---
 
-<MobileStickyBar client:load />
+<MobileStickyBar client:idle />
 <div class="min-h-screen bg-graphite-950 text-white">
   <HeaderAstro />
   <main>
