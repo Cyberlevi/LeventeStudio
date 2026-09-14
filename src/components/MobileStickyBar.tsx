@@ -1,5 +1,5 @@
 import { Phone, MessageCircle } from 'lucide-react';
-import { trackPhoneClick, trackWhatsAppClick, trackContactSubmit } from '../utils/gtm';
+import { trackPhoneClick, trackWhatsAppClick } from '../utils/gtm';
 
 export default function MobileStickyBar() {
   return (
@@ -7,10 +7,7 @@ export default function MobileStickyBar() {
       <div className="grid grid-cols-2 gap-0">
         <a
           href="tel:+36202826843"
-          onClick={() => {
-            trackPhoneClick('mobile_sticky_bar');
-            trackContactSubmit('phone_sticky');
-          }}
+          onClick={() => trackPhoneClick('mobile_sticky_bar')}
           className="flex items-center justify-center gap-2 py-4 bg-taupe-600 text-cream-50 hover:bg-taupe-700 transition-colors duration-200 active:bg-taupe-800"
         >
           <Phone size={20} />
@@ -21,10 +18,7 @@ export default function MobileStickyBar() {
           href="https://wa.me/36202826843?text=Szia%2C%20egy%20%C3%BCgyf%C3%A9lszerz%C5%91%20digit%C3%A1lis%20rendszerr%C5%91l%20szeretn%C3%A9k%20egyeztetni."
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => {
-            trackWhatsAppClick('mobile_sticky_bar');
-            trackContactSubmit('whatsapp_sticky');
-          }}
+          onClick={() => trackWhatsAppClick('mobile_sticky_bar')}
           className="flex items-center justify-center gap-2 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-950"
         >
           <MessageCircle size={20} />
