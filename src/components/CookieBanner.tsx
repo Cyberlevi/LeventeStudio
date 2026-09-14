@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Shield } from 'lucide-react';
 import { getConsentState, setConsentState, updateGoogleConsent, hasConsent } from '../utils/consent';
-import { loadPlausible } from '../utils/plausible';
 import { navigate } from '../utils/navigation';
 
 export default function CookieBanner() {
@@ -16,14 +15,12 @@ export default function CookieBanner() {
   useEffect(() => {
     if (!hasConsent()) {
       setIsVisible(true);
-    } else {
-      const existingConsent = getConsentState();
-      if (existingConsent) {
-        updateGoogleConsent(existingConsent);
-        if (existingConsent.analytics) {
-          loadPlausible();
-        }
-      }
+      return;
+    }
+
+    const existingConsent = getConsentState();
+    if (existingConsent) {
+      updateGoogleConsent(existingConsent);
     }
   }, []);
 
@@ -35,7 +32,6 @@ export default function CookieBanner() {
     };
     setConsentState(state);
     updateGoogleConsent({ ...state, timestamp: Date.now() });
-    loadPlausible();
     setIsVisible(false);
   };
 
@@ -53,9 +49,6 @@ export default function CookieBanner() {
   const savePreferences = () => {
     setConsentState(preferences);
     updateGoogleConsent({ ...preferences, timestamp: Date.now() });
-    if (preferences.analytics) {
-      loadPlausible();
-    }
     setIsVisible(false);
   };
 
@@ -82,21 +75,20 @@ export default function CookieBanner() {
           {!showDetails ? (
             <>
               <p className="text-taupe-700 font-light leading-relaxed mb-4">
-                Ez az oldal sütiket használ a működéshez és az adatok méréséhez. Az analitikai és
-                marketing sütik opcionálisak.
+                Ez az oldal sütiket használ a működéshez, a méréshez és – ha engedélyezed – a marketing teljesítményének követéséhez.
               </p>
 
               <p className="text-taupe-600 text-sm font-light mb-6">
                 További információ:{' '}
                 <button
-                  onClick={() => navigate('/privacy-policy')}
+                  onClick={() => navigate('/adatvedelem/')}
                   className="text-taupe-900 underline hover:text-taupe-700 cursor-pointer"
                 >
                   Adatvédelmi Tájékoztató
                 </button>
                 {' • '}
                 <button
-                  onClick={() => navigate('/cookie-policy')}
+                  onClick={() => navigate('/suti-szabalyzat/')}
                   className="text-taupe-900 underline hover:text-taupe-700 cursor-pointer"
                 >
                   Süti Szabályzat
@@ -146,7 +138,7 @@ export default function CookieBanner() {
                   <div className="flex-1">
                     <h4 className="text-taupe-900 font-normal mb-1">Analitikai sütik</h4>
                     <p className="text-sm text-taupe-600 font-light">
-                      Segítenek megérteni, hogyan használod az oldalt (Google Analytics).
+                      A weboldal használatának és a konverziós út mérésére szolgálnak.
                     </p>
                   </div>
                   <input
@@ -163,7 +155,7 @@ export default function CookieBanner() {
                   <div className="flex-1">
                     <h4 className="text-taupe-900 font-normal mb-1">Marketing sütik</h4>
                     <p className="text-sm text-taupe-600 font-light">
-                      Hirdetések mérésére és remarketing kampányokra szolgálnak.
+                      Hirdetési konverziómérésre és remarketing funkciókra szolgálnak.
                     </p>
                   </div>
                   <input
