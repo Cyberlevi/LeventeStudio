@@ -5,36 +5,36 @@ import Footer from '../components/Footer';
 ---
 
 <BaseLayout
-  title="404 - Oldal nem található | LeventeStudio"
-  description="A keresett oldal nem található."
+  title="404 – Oldal nem található | Levente Studio"
+  description="A keresett oldal nem található. Térj vissza a Levente Studio főoldalára, megoldásaihoz vagy tudástárához."
+  noindex={true}
 >
-  <div class="min-h-screen bg-white flex flex-col">
+  <div class="min-h-screen bg-cream-50 flex flex-col">
     <HeaderAstro />
 
-    <main class="flex-grow flex items-center justify-center px-6">
-      <div class="max-w-2xl text-center py-20">
-        <h1 class="text-6xl font-light text-taupe-900 mb-4">404</h1>
-        <h2 class="text-2xl font-light text-taupe-700 mb-6">Oldal nem található</h2>
-        <p class="text-taupe-600 mb-8 font-light">
-          A keresett oldal nem létezik vagy át lett helyezve.
+    <main class="flex-grow flex items-center justify-center px-6 pt-28 relative overflow-hidden">
+      <div class="absolute inset-0 studio-grid pointer-events-none"></div>
+      <div class="max-w-3xl text-center py-20 relative">
+        <div class="studio-kicker text-taupe-500 mb-5 justify-center">Eltévedtünk egy kicsit</div>
+        <h1 class="font-serif text-8xl md:text-9xl font-light text-taupe-900 mb-3">404</h1>
+        <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-800 mb-6">Ez az oldal már nincs itt.</h2>
+        <p class="text-lg text-taupe-600 mb-10 font-light max-w-2xl mx-auto">
+          Lehet, hogy áthelyeztük a 2026-os újrastrukturálás során. A fontos tartalmakat nem veszítettük el – innen gyorsan tovább tudsz menni.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="/"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-sm font-light"
-          >
-            Vissza a főoldalra
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
+          <a href="/" class="inline-flex items-center justify-center px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors">
+            Főoldal
           </a>
-          <a
-            href="/blog/"
-            class="inline-flex items-center gap-2 px-6 py-3 border border-taupe-300 text-taupe-900 rounded-sm hover:bg-taupe-50 transition-colors duration-200 text-sm font-light"
-          >
-            Blog oldalak
+          <a href="/ai-webfejlesztes/" class="inline-flex items-center justify-center px-6 py-3 border border-taupe-300 bg-white text-taupe-900 rounded-sm hover:border-taupe-500 transition-colors">
+            Megoldások
+          </a>
+          <a href="/blog/" class="inline-flex items-center justify-center px-6 py-3 border border-taupe-300 bg-white text-taupe-900 rounded-sm hover:border-taupe-500 transition-colors">
+            Tudástár
           </a>
         </div>
       </div>
     </main>
 
-    <Footer client:load />
+    <Footer />
   </div>
 </BaseLayout>
