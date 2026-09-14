@@ -5,124 +5,50 @@ import Footer from './Footer';
 import MobileStickyBar from './MobileStickyBar';
 import SubpageHero from './SubpageHero.astro';
 
-interface Section {
-  title: string;
-  body: string;
-}
-
-interface Props {
-  eyebrow: string;
-  title: string;
-  lead: string;
-  stack: string[];
-  sections: Section[];
-  built: string[];
-  lessons: string[];
-  liveUrl?: string;
-}
-
+interface Section { title: string; body: string; }
+interface Props { eyebrow: string; title: string; lead: string; stack: string[]; sections: Section[]; built: string[]; lessons: string[]; liveUrl?: string; }
 const { eyebrow, title, lead, stack, sections, built, lessons, liveUrl } = Astro.props;
 ---
 
 <MobileStickyBar client:load />
-<div class="min-h-screen bg-cream-50">
+<div class="min-h-screen bg-graphite-950 text-white">
   <HeaderAstro />
-
   <main>
-    <SubpageHero
-      eyebrow={eyebrow}
-      title={title}
-      description={lead}
-      primaryHref="#rendszer"
-      primaryLabel="Rendszer felépítése"
-      secondaryHref="/esettanulmanyok/"
-      secondaryLabel="Összes rendszer"
-      meta={stack.slice(0, 4)}
-    />
+    <SubpageHero eyebrow={eyebrow} title={title} description={lead} primaryHref="#rendszer" primaryLabel="Rendszer felépítése" secondaryHref="/esettanulmanyok/" secondaryLabel="Összes rendszer" meta={stack.slice(0,4)} />
 
-    <section id="rendszer" class="hightech-section bg-cream-50">
-      <div class="hightech-container grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
+    <section id="rendszer" class="hightech-section bg-graphite-900 relative overflow-hidden">
+      <div class="absolute inset-0 studio-grid-dark opacity-20 pointer-events-none"></div>
+      <div class="hightech-container relative grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
         <div class="space-y-10 md:space-y-14">
-          {sections.map((section, index) => (
-            <section class="grid md:grid-cols-[72px_1fr] gap-5 md:gap-8 border-t border-graphite-950/10 pt-7 md:pt-9">
-              <div class="text-xs tracking-[0.18em] text-graphite-500">{String(index + 1).padStart(2, '0')}</div>
-              <div>
-                <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial text-graphite-950 mb-4 text-balance">{section.title}</h2>
-                <p class="text-base sm:text-lg text-graphite-700 font-light leading-relaxed max-w-3xl">{section.body}</p>
-              </div>
+          {sections.map((section,index) => (
+            <section class="grid md:grid-cols-[72px_1fr] gap-5 md:gap-8 border-t border-white/10 pt-7 md:pt-9">
+              <div class="text-xs tracking-[0.18em] text-signal-400">{String(index+1).padStart(2,'0')}</div>
+              <div><h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial text-white mb-4 text-balance">{section.title}</h2><p class="text-base sm:text-lg text-white/55 font-light leading-relaxed max-w-3xl">{section.body}</p></div>
             </section>
           ))}
         </div>
-
         <aside class="lg:sticky lg:top-28">
-          <div class="bg-graphite-950 text-white p-6 sm:p-8 md:p-9 border border-white/10 relative overflow-hidden">
-            <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+          <div class="system-panel text-white p-6 sm:p-8 md:p-9 border border-signal-400/20 relative overflow-hidden">
+            <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none"></div>
             <div class="relative">
-              <div class="flex items-center justify-between gap-4 mb-7">
-                <p class="text-xs uppercase tracking-[0.2em] text-white/45">Build map</p>
-                <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400">
-                  <span class="signal-dot"></span>
-                  live system
-                </span>
-              </div>
-
-              <ul class="space-y-4 mb-9">
-                {built.map((item, index) => (
-                  <li class="flex gap-3 text-white/75 font-light border-b border-white/[0.07] pb-4 last:border-0 last:pb-0">
-                    <span class="text-xs text-signal-400 pt-1">{String(index + 1).padStart(2, '0')}</span>
-                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-signal-400" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {liveUrl && (
-                <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="signal-button-primary w-full sm:w-auto">
-                  Élő projekt
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              )}
+              <div class="flex items-center justify-between gap-4 mb-7"><p class="text-xs uppercase tracking-[0.2em] text-white/40">Build map</p><span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400"><span class="signal-dot"></span>live system</span></div>
+              <ul class="space-y-4 mb-9">{built.map((item,index) => <li class="flex gap-3 text-white/70 font-light border-b border-white/[0.07] pb-4 last:border-0 last:pb-0"><span class="text-xs text-signal-400 pt-1">{String(index+1).padStart(2,'0')}</span><CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-signal-400" /><span>{item}</span></li>)}</ul>
+              {liveUrl && <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="signal-button-primary w-full sm:w-auto">Élő projekt <ArrowRight className="w-4 h-4" /></a>}
             </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+    <section class="hightech-section bg-graphite-950 relative overflow-hidden">
       <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
       <div class="hightech-container relative">
-        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16 mb-10 md:mb-14">
-          <div>
-            <div class="signal-kicker mb-4"><span class="signal-dot"></span>Learnings</div>
-            <h2 class="font-serif text-4xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Nem referencia. <span class="text-signal-400">Működési tapasztalat.</span></h2>
-          </div>
-          <p class="text-lg text-white/60 font-light leading-relaxed max-w-2xl lg:pt-10">A rendszerből azt visszük tovább, ami éles üzleti helyzetben is működőképesnek bizonyul.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-4 md:gap-5">
-          {lessons.map((lesson, index) => (
-            <div class="tech-card-dark p-6 md:p-7">
-              <div class="text-xs text-signal-400 tracking-[0.18em] mb-5">{String(index + 1).padStart(2, '0')}</div>
-              <p class="text-white/75 font-light leading-relaxed">{lesson}</p>
-            </div>
-          ))}
-        </div>
+        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16 mb-10 md:mb-14"><div><div class="signal-kicker mb-4"><span class="signal-dot"></span>Learnings</div><h2 class="font-serif text-4xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Nem referencia. <span class="text-signal-400">Működési tapasztalat.</span></h2></div><p class="text-lg text-white/55 font-light leading-relaxed max-w-2xl lg:pt-10">A rendszerből azt visszük tovább, ami éles üzleti helyzetben is működőképesnek bizonyul.</p></div>
+        <div class="grid md:grid-cols-2 gap-4 md:gap-5">{lessons.map((lesson,index) => <div class="tech-card-dark p-6 md:p-7"><div class="text-xs text-signal-400 tracking-[0.18em] mb-5">{String(index+1).padStart(2,'0')}</div><p class="text-white/70 font-light leading-relaxed">{lesson}</p></div>)}</div>
       </div>
     </section>
 
-    <section class="hightech-section bg-signal-400 text-graphite-950">
-      <div class="hightech-container flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-        <div class="max-w-3xl">
-          <div class="text-xs uppercase tracking-[0.2em] opacity-60 mb-4">Next system</div>
-          <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Hasonló rendszert szeretnél a saját vállalkozásodnak?</h2>
-        </div>
-        <a href="/kapcsolat/" class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-graphite-950 text-white hover:bg-graphite-900 transition-colors whitespace-nowrap">
-          Beszéljük át
-          <ArrowRight className="w-5 h-5" />
-        </a>
-      </div>
-    </section>
+    <section class="hightech-section bg-signal-400 text-graphite-950"><div class="hightech-container flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"><div class="max-w-3xl"><div class="text-xs uppercase tracking-[0.2em] opacity-60 mb-4">Next system</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Hasonló rendszert szeretnél a saját vállalkozásodnak?</h2></div><a href="/kapcsolat/" class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-graphite-950 text-white hover:bg-graphite-900 transition-colors whitespace-nowrap">Beszéljük át <ArrowRight className="w-5 h-5" /></a></div></section>
   </main>
-
   <Footer />
 </div>
