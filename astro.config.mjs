@@ -3,7 +3,6 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://leventestudio.app',
   trailingSlash: 'always',
@@ -13,10 +12,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     sitemap({
-      lastmod: new Date(),
-      changefreq: 'weekly',
-      priority: 0.8,
-      filter: (page) => !page.includes('/admin'),
+      filter: (page) => !page.includes('/admin') && !page.endsWith('/404/'),
     }),
   ],
   output: 'static',
