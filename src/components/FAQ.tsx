@@ -3,44 +3,45 @@ import FAQItem from './FAQItem';
 export default function FAQ() {
   const faqs = [
     {
-      question: 'Mennyit tart az egész folyamat?',
-      answer: '5-7 munkanap a konzultációtól az élesítésig. Az Induló csomag akár 3-4 nap alatt is kész lehet. Ha nagyon sürgős, express átfutást is tudunk vállalni.'
+      question: 'Ez weboldalkészítés vagy marketing?',
+      answer: 'A kettő közötti falat bontjuk le. A weboldalt, a keresési struktúrát, a mérést, a leadkezelést és szükség esetén az automatizálást egy közös ügyfélút részeként tervezzük meg.'
     },
     {
-      question: 'Mit kapok pontosan?',
-      answer: 'Egy élő, működő weboldalt. SEO-ra optimalizálva, gyors betöltéssel, mobilon tökéletes. Hozzá videó útmutatót, hogy tudd frissíteni. Plusz 30-90 nap támogatást, ha bármi kérdés van.'
+      question: 'Mit jelent nálatok az AI-native működés?',
+      answer: 'Az AI-t nem dísznek tesszük az oldalra. Elemzésre, fejlesztési gyorsításra, tartalmi munkára, riport-előkészítésre és automatizálható adminisztrációra használjuk. Az üzleti döntéseket továbbra is valós adatok és emberi kontroll vezetik.'
     },
     {
-      question: 'Mi van, ha nem tetszik?',
-      answer: 'Folyamatosan egyeztetünk a fejlesztés alatt. Látod mi készül, beleszólhatsz. Ha valamit nem szeretsz, változtatunk rajta. Amíg nem vagy elégedett, addig csiszoljuk.'
+      question: 'Mennyi idő alatt készül el?',
+      answer: 'A rendszer méretétől függ. Egy fókuszált landing és mérési alap néhány munkanap alatt elkészülhet, egy többoldalas, CRM-et vagy automatizálást is tartalmazó rendszer ennél hosszabb projekt. Az ütemezést a rendszerterv után rögzítjük.'
     },
     {
-      question: 'Kell hozzá domain és tárhely?',
-      answer: 'Ha van, használjuk azt. Ha nincs, beszerzünk és beállítjuk körülbelül 15.000 Ft/év áron. Megbeszéljük az elején, hogy mi a legjobb megoldás.'
+      question: 'Kell mindenkinek CRM és automatizálás?',
+      answer: 'Nem. Csak azt építjük be, ami az adott vállalkozás működését ténylegesen egyszerűsíti. Egy helyi szolgáltatónak sokszor a jó landing, helyi jelenlét és tiszta mérés fontosabb, mint egy nagy CRM.'
     },
     {
-      question: 'Tudok majd változtatni az oldalon?',
-      answer: 'Igen. Kapsz videó útmutatót, hogyan frissítsd a szövegeket, képeket. Ha valami bonyolultabb kell (új funkció, design módosítás), megcsinálom neked.'
+      question: 'WordPress-szel is dolgoztok?',
+      answer: 'Meglévő WordPress rendszert auditálni, migrálni vagy szükség esetén továbbfejleszteni is lehet. Új rendszereknél általában modern, gyors és jól skálázható technológiát választunk az üzleti igény alapján.'
     },
     {
-      question: 'WordPress lesz?',
-      answer: 'Nem. Modern technológiával építjük (Astro/React), ami gyorsabb, biztonságosabb és olcsóbb fenntartani. De ugyanúgy egyszerű kezelni.'
+      question: 'Honnan tudom, hogy működik-e?',
+      answer: 'Már a tervezéskor meghatározzuk, mi számít konverziónak. A cél az, hogy ne csak látogatottságot láss, hanem követhető legyen a keresésből vagy kampányból érkező valódi érdeklődés útja is.'
     },
     {
-      question: 'Kell-e utána havidíj?',
-      answer: 'Nem kötelező. Az alap tárhely 5-10 ezer forint havonta. Ha szeretnéd, hogy folyamatosan finomítsuk az oldalt, van havidíjas csomag (40-50k/hó), de ez opcionális.'
+      question: 'Van egyszeri projekt és folyamatos együttműködés is?',
+      answer: 'Igen. Lehet egyszeri rendszerépítés, de a legerősebb eredmény akkor jön, amikor az éles adatok alapján később is tudjuk javítani a landingeket, mérést, ajánlatot és automatizálást.'
     },
     {
-      question: 'Miért gyorsabb, mint máshol?',
-      answer: 'Modern fejlesztői eszközöket használok, amikkel sokkal gyorsabban tudok építeni. Nem kell hónapokig tervezgetni, egyszerűen építünk és finomítunk.'
+      question: 'Mennyibe kerül?',
+      answer: 'A főoldalon START, GROW és SCALE szinteket mutatunk irányadó induló árakkal. A pontos ajánlatot a cél, a meglévő rendszer és a szükséges integrációk alapján adjuk meg.'
     }
   ];
 
   return (
     <section className="px-6 py-24 bg-white">
       <div className="max-w-4xl mx-auto">
+        <p className="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4 text-center">GYIK</p>
         <h2 className="text-4xl md:text-5xl font-light text-taupe-900 mb-16 text-center">
-          Gyakran ismételt kérdések
+          Amit rendszerépítés előtt érdemes tisztázni
         </h2>
 
         <div className="space-y-8">
