@@ -62,15 +62,15 @@ const {
 
       <aside class="tech-status-panel">
         <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4 mb-5">
-          <span class="text-xs uppercase tracking-[0.18em] text-white/45">System status</span>
+          <span class="text-xs uppercase tracking-[0.18em] text-white/55">Rendszerállapot</span>
           <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400">
             <span class="signal-dot"></span>
-            live
+            aktív
           </span>
         </div>
 
         <div class="space-y-3">
-          {(meta.length ? meta : ['Strategy', 'Build', 'Measure', 'Improve']).map((item, index) => (
+          {(meta.length ? meta : ['Stratégia', 'Építés', 'Mérés', 'Fejlesztés']).map((item, index) => (
             <div class="flex items-center justify-between gap-5 py-2 border-b border-white/[0.06] last:border-0">
               <span class="text-sm text-white/65">{String(index + 1).padStart(2, '0')}</span>
               <span class="text-sm text-white text-right">{item}</span>
