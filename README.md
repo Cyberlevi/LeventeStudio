@@ -30,3 +30,5 @@ npm run build
 ```
 
 A PR quality gate GitHub Actionsban is definiálva van. Ha a repository runner/policy miatt egy job még a checkout előtt megáll, az nem tekinthető forráskód-build eredménynek; ilyenkor külön build-környezetben kell validálni.
+
+A 2026-os átépítés merge előtt draft PR-ban marad, amíg a production build és a fő konverziós út ellenőrzése le nem zárul.
