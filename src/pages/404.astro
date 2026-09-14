@@ -9,28 +9,32 @@ import Footer from '../components/Footer';
   description="A keresett oldal nem található. Térj vissza a Levente Studio főoldalára, megoldásaihoz vagy tudástárához."
   noindex={true}
 >
-  <div class="min-h-screen bg-cream-50 flex flex-col">
+  <div class="min-h-screen bg-graphite-950 text-white flex flex-col">
     <HeaderAstro />
 
-    <main class="flex-grow flex items-center justify-center px-6 pt-28 relative overflow-hidden">
-      <div class="absolute inset-0 studio-grid pointer-events-none"></div>
-      <div class="max-w-3xl text-center py-20 relative">
-        <div class="studio-kicker text-taupe-500 mb-5 justify-center">Eltévedtünk egy kicsit</div>
-        <h1 class="font-serif text-8xl md:text-9xl font-light text-taupe-900 mb-3">404</h1>
-        <h2 class="font-serif text-3xl md:text-4xl font-light text-taupe-800 mb-6">Ez az oldal már nincs itt.</h2>
-        <p class="text-lg text-taupe-600 mb-10 font-light max-w-2xl mx-auto">
-          Lehet, hogy áthelyeztük a 2026-os újrastrukturálás során. A fontos tartalmakat nem veszítettük el – innen gyorsan tovább tudsz menni.
-        </p>
-        <div class="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
-          <a href="/" class="inline-flex items-center justify-center px-6 py-3 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors">
-            Főoldal
-          </a>
-          <a href="/ai-webfejlesztes/" class="inline-flex items-center justify-center px-6 py-3 border border-taupe-300 bg-white text-taupe-900 rounded-sm hover:border-taupe-500 transition-colors">
-            Megoldások
-          </a>
-          <a href="/blog/" class="inline-flex items-center justify-center px-6 py-3 border border-taupe-300 bg-white text-taupe-900 rounded-sm hover:border-taupe-500 transition-colors">
-            Tudástár
-          </a>
+    <main class="flex-grow flex items-center justify-center px-5 sm:px-6 pt-32 pb-16 relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-45 pointer-events-none"></div>
+      <div class="absolute inset-0 subpage-glow pointer-events-none"></div>
+
+      <div class="max-w-5xl w-full relative z-10 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-end">
+        <div>
+          <div class="signal-kicker mb-6"><span class="signal-dot"></span>System route error</div>
+          <div class="font-serif text-[8rem] sm:text-[11rem] md:text-[14rem] leading-[0.7] tracking-editorial text-signal-400">404</div>
+        </div>
+
+        <div>
+          <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] mb-6 text-balance">
+            Ez az útvonal már <span class="text-signal-400">nem aktív.</span>
+          </h1>
+          <p class="text-base sm:text-lg text-white/55 font-light leading-relaxed mb-8 max-w-2xl">
+            Lehet, hogy áthelyeztük a 2026-os újrastrukturálás során. Innen gyorsan vissza tudsz kapcsolódni a rendszerbe.
+          </p>
+
+          <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+            <a href="/" class="signal-button-primary">Főoldal ↗</a>
+            <a href="/ai-webfejlesztes/" class="signal-button-secondary">Megoldások</a>
+            <a href="/blog/" class="signal-button-secondary">Tudástár</a>
+          </div>
         </div>
       </div>
     </main>
