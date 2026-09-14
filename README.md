@@ -12,7 +12,7 @@ AI-native digitális ügyfélszerző és működési rendszerek szolgáltató v�
 - Supabase integrációs alapok
 - Netlify / statikus deploy
 
-A production build belépője az Astro (`npm run build` → `astro build`). A repo korábbi Vite/React SPA belépője átmenetileg kompatibilitási okból még megtalálható, de nem ez határozza meg a production route-okat. A legacy SPA külön takarítási körben távolítható el, miután a production build ellenőrzött.
+A production build belépője az Astro (`npm run build` → `astro build`). A korábbi Vite/React SPA belépő és az App-only örökség már ki lett takarítva a 2026-os újraindítási branchből.
 
 ## Fejlesztési elvek
 
@@ -29,4 +29,8 @@ npm run lint
 npm run build
 ```
 
-A 2026-os átépítés draft PR-ban marad, amíg a production build és a fő konverziós út ellenőrzése le nem zárul. A GitHub Actions quality gate jelenleg repository runner/policy szinten, még a checkout előtt áll meg, ezért ez nem forráskód-build eredmény.
+A 2026-os átépítés draft PR-ban marad, amíg a production build és a fő konverziós út ellenőrzése le nem zárul.
+
+- GitHub Actions quality gate: jelenleg repository runner/policy szinten, még a checkout előtt áll meg, ezért ez nem forráskód-build eredmény.
+- Netlify: a production a `main` branchet használja; Deploy Previews és branch deployok engedélyezve vannak a 2026-os branch vizuális és build QA-jához.
+- Éles merge csak sikeres preview/build és mobil + desktop ellenőrzés után.
