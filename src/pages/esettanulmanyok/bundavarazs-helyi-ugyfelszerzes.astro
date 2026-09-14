@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SystemCaseStudy from '../../components/SystemCaseStudy.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': 'Bundavarázs – helyi ügyfélszerző rendszer esettanulmány',
+  'description': 'Helyi szolgáltatói jelenlét, weboldal, Google Business Profile és mérési alapok összekapcsolása.',
+  'author': { '@type': 'Organization', 'name': 'Levente Studio' }
+};
+---
+
+<BaseLayout
+  title="Bundavarázs esettanulmány – helyi ügyfélszerzés | Levente Studio"
+  description="Hogyan épül fel egy helyi szolgáltató digitális jelenléte: weboldal, Google Business Profile, analitika és konverzióközpontú ügyfélút."
+  canonical="/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/"
+  structuredData={structuredData}
+>
+  <SystemCaseStudy
+    eyebrow="Levente Studio Lab · helyi szolgáltatás"
+    title="Bundavarázs: helyi jelenlétből mérhető ügyfélszerzés"
+    lead="Egy helyi szolgáltatónál a digitális rendszer feladata nem az, hogy technikainak tűnjön. A gazdinak gyorsan meg kell találnia a szolgáltatást, meg kell bíznia benne, és egyszerűen kapcsolatba kell tudnia lépni. A háttérben viszont ugyanúgy mérhető és fejleszthető rendszer dolgozik."
+    stack={['local SEO', 'Google Business Profile', 'GA4', 'mobil UX', 'konverziós CTA']}
+    sections={[
+      {
+        title: 'A helyi szolgáltatás sajátossága',
+        body: 'Kutyakozmetikánál a döntés erősen bizalmi és földrajzi. A felhasználó nem országos szolgáltatót keres, hanem közeli, megbízható helyet, ahol látja a szolgáltatásokat és gyorsan kapcsolatba tud lépni. Emiatt a weboldal, a Google helyi jelenlét és a mobil használhatóság egyetlen ügyfélút része.'
+      },
+      {
+        title: 'Mit kötöttünk össze',
+        body: 'A webes jelenlétet a helyi keresési logikához igazítottuk, a Google Business Profile és az analitika pedig ugyanabba a mérési képbe került. Így nem csak az látszik, hogy van-e forgalom, hanem az is vizsgálható, hogy mely felületek terelik a látogatót valódi kapcsolatfelvétel felé.'
+      },
+      {
+        title: 'Miért fontos ez a Levente Studio számára',
+        body: 'A projekt jól mutatja, hogy nem minden vállalkozásnak kell bonyolult CRM vagy nagy kampányrendszer. A jó rendszer mindig az adott üzlet méretéhez és ügyfélútjához igazodik. A technológia csak annyi legyen, amennyi ténylegesen segíti a működést.'
+      }
+    ]}
+    built={[
+      'mobil-first szolgáltatói webes jelenlét',
+      'helyi keresésre optimalizált információs struktúra',
+      'Google Business Profile kapcsolódás',
+      'GA4 mérési alapok',
+      'egyértelmű kapcsolatfelvételi útvonalak',
+      'későbbi Ads és konverzióoptimalizálás alapja'
+    ]}
+    lessons={[
+      'Helyi szolgáltatásnál a közelség, bizalom és egyszerű kapcsolatfelvétel együtt döntő.',
+      'Nem minden vállalkozásnak kell komplex technológiai stack; a rendszer méretét az üzleti folyamat határozza meg.',
+      'A Google helyi jelenlét és a saját weboldal nem egymás helyett, hanem egymást erősítve működik.',
+      'A mérés akkor hasznos, ha az üzleti kérdésre válaszol: honnan jött az érdeklődő és mit tett az oldalon.'
+    ]}
+    liveUrl="https://bundavarazs.hu"
+  />
+</BaseLayout>
