@@ -2,45 +2,49 @@ import Logo from './Logo';
 
 export default function Footer() {
   return (
-    <footer className="px-6 py-12 pb-24 md:pb-12 bg-taupe-900 border-t border-taupe-800">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col items-center gap-6">
-          <Logo variant="primary" theme="dark" className="h-8" />
-          <div className="flex flex-col items-center gap-4 text-center">
-            <p className="max-w-xl text-cream-300 text-sm font-light leading-relaxed">
+    <footer className="px-5 sm:px-6 lg:px-8 py-12 sm:py-14 pb-24 md:pb-14 bg-graphite-950 border-t border-white/10 text-white relative overflow-hidden">
+      <div className="absolute inset-0 subpage-signal-grid opacity-20 pointer-events-none" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-end border-b border-white/10 pb-10 sm:pb-12">
+          <div>
+            <Logo variant="primary" theme="dark" className="h-8 mb-6" />
+            <p className="max-w-xl text-white/55 text-sm sm:text-base font-light leading-relaxed">
               AI-native digitális ügyfélszerző rendszerek szolgáltató vállalkozásoknak — web, SEO, mérés, leadkezelés és automatizálás egy rendszerben.
             </p>
-            <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm" aria-label="Jogi és adatvédelmi linkek">
-              <a
-                href="/adatvedelem/"
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
-              >
-                Adatvédelmi Tájékoztató
-              </a>
-              <a
-                href="/suti-szabalyzat/"
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
-              >
-                Süti Szabályzat
-              </a>
-              <button
-                type="button"
-                data-cookie-settings
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light cursor-pointer"
-              >
-                Süti Beállítások
-              </button>
-              <a
-                href="/jogi-informaciok/"
-                className="text-cream-300 hover:text-cream-100 transition-colors font-light"
-              >
-                Jogi Információk
-              </a>
-            </nav>
-            <p className="text-cream-200 text-sm font-light">
-              © {new Date().getFullYear()} Levente Studio
-            </p>
           </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 text-sm">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-white/30 mb-3">Navigate</div>
+              <div className="space-y-2 text-white/60">
+                <a href="/ai-webfejlesztes/" className="block hover:text-signal-400 transition-colors">Megoldások</a>
+                <a href="/esettanulmanyok/" className="block hover:text-signal-400 transition-colors">Esettanulmányok</a>
+                <a href="/blog/" className="block hover:text-signal-400 transition-colors">Tudástár</a>
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-white/30 mb-3">Studio</div>
+              <div className="space-y-2 text-white/60">
+                <a href="/rolam/" className="block hover:text-signal-400 transition-colors">Rólam</a>
+                <a href="/kapcsolat/" className="block hover:text-signal-400 transition-colors">Kapcsolat</a>
+                <a href="/kapcsolat/#diagnosztika" className="block hover:text-signal-400 transition-colors">Diagnózis</a>
+              </div>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <div className="text-[10px] uppercase tracking-[0.18em] text-white/30 mb-3">Legal</div>
+              <div className="space-y-2 text-white/60">
+                <a href="/adatvedelem/" className="block hover:text-signal-400 transition-colors">Adatvédelem</a>
+                <a href="/suti-szabalyzat/" className="block hover:text-signal-400 transition-colors">Süti szabályzat</a>
+                <button type="button" data-cookie-settings className="block hover:text-signal-400 transition-colors cursor-pointer">Süti beállítások</button>
+                <a href="/jogi-informaciok/" className="block hover:text-signal-400 transition-colors">Jogi információk</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/30">
+          <span>© {new Date().getFullYear()} Levente Studio</span>
+          <span className="inline-flex items-center gap-2 text-signal-400"><span className="signal-dot" />system online</span>
         </div>
       </div>
     </footer>
