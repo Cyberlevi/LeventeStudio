@@ -154,6 +154,31 @@ const isDocumentMode = documentPaths.includes(Astro.url.pathname);
           return;
         }
 
+        const faqTarget = element.closest('[data-track-faq]');
+        if (faqTarget instanceof HTMLElement) {
+          const details = faqTarget.closest('details');
+          if (details instanceof HTMLDetailsElement && !details.open) {
+            const index = faqTarget.dataset.faqIndex;
+            const question = faqTarget.dataset.faqQuestion;
+            const eventData = {
+              event: 'faq_expand',
+              interaction_type: 'faq_expand',
+              interaction_target: `faq_${index || 'unknown'}`,
+              interaction_value: question || '',
+            };
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(eventData);
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'faq_expand', {
+                interaction_type: 'faq_expand',
+                interaction_target: `faq_${index || 'unknown'}`,
+                interaction_value: question || '',
+              });
+            }
+          }
+          return;
+        }
+
         const ctaTarget = element.closest('[data-track-cta]');
         if (!(ctaTarget instanceof HTMLElement)) return;
         const buttonText = ctaTarget.dataset.trackCta;
