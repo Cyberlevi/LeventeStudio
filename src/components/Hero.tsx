@@ -3,16 +3,19 @@ import { trackCTAClick, trackSystemConsultation } from '../utils/gtm';
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20 pt-32 bg-cream-50">
-      <div className="max-w-6xl w-full">
+    <section className="min-h-screen flex items-center justify-center px-6 py-20 pt-32 bg-cream-50 relative overflow-hidden">
+      <div className="absolute inset-0 studio-grid pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 studio-glow pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-6xl w-full relative">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-taupe-100 text-taupe-900 text-sm font-light rounded-full">
+            <div className="studio-kicker mb-6 px-4 py-2 bg-white/80 border border-taupe-200 text-taupe-800 rounded-full backdrop-blur-sm">
               <Bot size={16} />
               AI-native digitális növekedési rendszerek · 2026
             </div>
 
-            <h1 className="font-serif text-5xl md:text-7xl font-light text-taupe-900 mb-6 leading-[0.98]">
+            <h1 className="font-serif text-5xl md:text-7xl font-light text-taupe-900 mb-6 leading-[0.98] text-balance">
               Nem csak weboldalt.<br />
               <span className="text-taupe-600">Ügyfélszerző rendszert.</span>
             </h1>
@@ -22,8 +25,8 @@ export default function Hero() {
                 Web + SEO + hirdetés + mérés + automatizálás egy rendszerben.
               </p>
               <p>
-                Olyan digitális rendszereket építünk szolgáltató vállalkozásoknak, amelyek nem csak jól néznek ki,
-                hanem mérhetően több megkeresést hoznak és kevesebb kézi munkát igényelnek.
+                Olyan digitális rendszereket építünk szolgáltató vállalkozásoknak, amelyek az érdeklődőszerzésre,
+                a mérhetőségre és a kevesebb kézi adminisztrációra vannak optimalizálva.
               </p>
               <p className="text-base text-taupe-600">
                 Amit ügyfélnek adunk, azt előtte saját, éles vállalkozásokon teszteljük.
@@ -37,7 +40,7 @@ export default function Hero() {
                   trackCTAClick('Rendszertervezés', 'hero_primary');
                   trackSystemConsultation('hero_primary');
                 }}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors duration-200 text-lg font-normal"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 hover:-translate-y-0.5 transition-all duration-200 text-lg font-normal shadow-lg shadow-taupe-900/10"
               >
                 Beszéljük át a rendszert
                 <ArrowRight size={20} />
@@ -46,7 +49,7 @@ export default function Hero() {
               <a
                 href="#lab"
                 onClick={() => trackCTAClick('Valós rendszerek', 'hero_secondary')}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-taupe-300 text-taupe-700 rounded-sm hover:bg-taupe-50 hover:border-taupe-500 transition-colors duration-200 text-lg"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-taupe-300 bg-white/60 text-taupe-700 rounded-sm hover:bg-white hover:border-taupe-500 hover:-translate-y-0.5 transition-all duration-200 text-lg backdrop-blur-sm"
               >
                 Valós rendszereink
               </a>
@@ -62,24 +65,26 @@ export default function Hero() {
 
           <div className="hidden md:block">
             <div className="relative">
-              <div className="aspect-square rounded-sm overflow-hidden bg-taupe-100">
+              <div className="absolute -inset-5 border border-taupe-200/70 rounded-sm" aria-hidden="true" />
+              <div className="aspect-square rounded-sm overflow-hidden bg-taupe-100 relative shadow-2xl shadow-taupe-900/10">
                 <img
                   src="/levente_studio_portrait_final.webp"
                   alt="Tarnóczi Levente - Levente Studio digitális rendszerek"
                   className="w-full h-full object-cover"
                   loading="eager"
+                  fetchPriority="high"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-sm shadow-lg border border-taupe-200 max-w-xs">
-                <div className="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-2">Levente Studio Lab</div>
-                <div className="text-2xl font-normal text-taupe-900 mb-2">Előbb magunkon teszteljük.</div>
+              <div className="absolute -bottom-6 -right-6 bg-white/95 p-6 rounded-sm shadow-xl border border-taupe-200 max-w-xs backdrop-blur-sm">
+                <div className="text-xs uppercase tracking-[0.18em] text-taupe-500 mb-2">Levente Studio Lab</div>
+                <div className="font-serif text-2xl font-normal text-taupe-900 mb-2">Előbb magunkon teszteljük.</div>
                 <div className="text-sm text-taupe-600">Éles szolgáltató vállalkozásokon mérjük, mi működik.</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-24 border-y border-taupe-200 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="mt-24 border-y border-taupe-200 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 bg-cream-50/60 backdrop-blur-sm">
           <div>
             <div className="text-2xl font-normal text-taupe-900 mb-1">AI-native</div>
             <div className="text-sm text-taupe-600">nem AI-díszítés</div>
