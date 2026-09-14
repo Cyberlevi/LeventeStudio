@@ -14,9 +14,11 @@ export interface Props {
 }
 
 const routeOgSources: Record<string, string> = {
+  '/esettanulmanyok/': '/og-munkak-2026.svg',
   '/esettanulmanyok/klima18ker-weboldal-audit/': '/og-klima18ker-2026.svg',
   '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/': '/og-furatmester-2026.svg',
   '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/': '/og-bundavarazs-2026.svg',
+  '/blog/': '/og-tudastar-2026.svg',
   '/blog/google-search-console-hibak/': '/og-google-search-console-hibak-2026.svg',
   '/blog/miert-lassu-a-wordpress-oldalam/': '/og-miert-lassu-wordpress-2026.svg',
   '/blog/mikor-erdemes-weboldal-auditot-kerni/': '/og-weboldal-audit-mikor-2026.svg',
@@ -27,6 +29,10 @@ const routeOgSource = routeOgSources[Astro.url.pathname];
 const routeOgImage = routeOgSource
   ? `/.netlify/images?url=${encodeURIComponent(routeOgSource)}&w=1200&h=630&fit=cover&fm=jpg&q=90`
   : '/og-levente-studio-2026.png';
+const routeOgType = (
+  (Astro.url.pathname.startsWith('/blog/') && Astro.url.pathname !== '/blog/') ||
+  (Astro.url.pathname.startsWith('/esettanulmanyok/') && Astro.url.pathname !== '/esettanulmanyok/')
+) ? 'article' : 'website';
 
 const {
   title = 'Levente Studio – AI-native ügyfélszerző rendszerek',
@@ -34,7 +40,7 @@ const {
   canonical = Astro.url.pathname,
   ogImage = routeOgImage,
   ogImageAlt = 'Levente Studio – Nem csak weboldalt. Ügyfélszerző rendszert.',
-  ogType = 'website',
+  ogType = routeOgType,
   noindex = false,
   structuredData,
 } = Astro.props;
