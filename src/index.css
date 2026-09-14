@@ -17,7 +17,7 @@
   }
 
   body {
-    @apply antialiased font-sans bg-cream-50 text-taupe-900 overflow-x-hidden;
+    @apply antialiased font-sans bg-graphite-950 text-ivory-100 overflow-x-hidden;
     text-rendering: optimizeLegibility;
   }
 
