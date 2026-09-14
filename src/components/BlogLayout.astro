@@ -1,5 +1,5 @@
 ---
-import '../styles/dark-prose.css';
+import '../styles/article-prose.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from './HeaderAstro.astro';
 import Footer from './Footer';
@@ -7,7 +7,6 @@ import CookieBanner from './CookieBanner';
 import MobileStickyBar from './MobileStickyBar';
 import AuthorBox from './AuthorBox';
 import RelatedContent from './RelatedContent';
-import SubpageHero from './SubpageHero.astro';
 
 interface Props {
   title: string;
@@ -25,6 +24,9 @@ const structuredData = {
   'headline': title,
   'description': description,
   'datePublished': publishDate,
+  'dateModified': publishDate,
+  'inLanguage': 'hu-HU',
+  'image': 'https://leventestudio.app/og-levente-studio-2026.png',
   'author': { '@type': 'Person', '@id': 'https://leventestudio.app/rolam/#tarnoczi-levente', 'name': 'Tarnóczi Levente', 'url': 'https://leventestudio.app/rolam/', 'image': 'https://leventestudio.app/levente_studio_portrait_final.webp' },
   'publisher': { '@type': 'Organization', '@id': 'https://leventestudio.app/#organization', 'name': 'Levente Studio', 'url': 'https://leventestudio.app/' },
   'mainEntityOfPage': { '@type': 'WebPage', '@id': Astro.url.href }
@@ -36,44 +38,108 @@ const structuredData = {
   <MobileStickyBar client:idle />
   <HeaderAstro />
 
-  <main class="bg-graphite-950 text-white">
-    <SubpageHero eyebrow="Levente Studio · Tudástár" title={title} description={description} secondaryHref="/blog/" secondaryLabel="Vissza a Tudástárhoz" meta={[formattedDate, readingTime, 'Tarnóczi Levente', 'Practical insight']} />
-
-    <article class="hightech-section bg-graphite-900 relative overflow-hidden">
-      <div class="absolute inset-0 studio-grid-dark opacity-15 pointer-events-none"></div>
-      <div class="relative max-w-4xl mx-auto">
-        <nav class="mb-8 sm:mb-10 text-xs sm:text-sm text-white/35 flex flex-wrap items-center gap-2">
-          <a href="/" class="hover:text-white transition-colors">Főoldal</a><span>/</span><a href="/blog/" class="hover:text-white transition-colors">Tudástár</a><span>/</span><span class="text-white/55">Aktuális cikk</span>
+  <main class="bg-graphite-950">
+    <header class="relative overflow-hidden bg-graphite-950 text-white pt-36 sm:pt-40 lg:pt-44 pb-14 sm:pb-16 lg:pb-20">
+      <div class="absolute inset-0 studio-grid-dark opacity-35 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_82%_20%,rgba(216,255,120,.10),transparent_24%)]" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-5xl px-5 sm:px-6 lg:px-8">
+        <nav class="mb-7 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-white/60" aria-label="Morzsanavigáció">
+          <a href="/" class="hover:text-white transition-colors">Főoldal</a>
+          <span class="text-white/30" aria-hidden="true">/</span>
+          <a href="/blog/" class="hover:text-white transition-colors">Tudástár</a>
         </nav>
 
-        <div class="grid lg:grid-cols-[1fr_220px] gap-10 lg:gap-14 items-start">
-          <div>
-            <div class="hightech-prose hightech-prose-dark"><slot /></div>
+        <div class="mb-5 inline-flex items-center gap-3 text-[11px] sm:text-xs uppercase tracking-[0.2em] text-white/65">
+          <span class="signal-dot" aria-hidden="true"></span>
+          Gyakorlati útmutató
+        </div>
+
+        <h1 class="max-w-[18ch] font-serif text-[clamp(2.75rem,6.2vw,5.4rem)] font-light leading-[0.96] tracking-editorial text-balance">
+          {title}
+        </h1>
+        <p class="mt-6 max-w-3xl text-base sm:text-lg lg:text-xl font-light leading-relaxed text-white/72">
+          {description}
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/10 pt-5 text-sm text-white/62">
+          <time datetime={publishDate}>{formattedDate}</time>
+          <span class="hidden sm:inline text-white/25" aria-hidden="true">•</span>
+          <span>{readingTime}</span>
+          <span class="hidden sm:inline text-white/25" aria-hidden="true">•</span>
+          <a href="/rolam/" class="hover:text-white transition-colors">Tarnóczi Levente</a>
+        </div>
+      </div>
+    </header>
+
+    <article class="bg-ivory-100 text-graphite-950">
+      <div class="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_240px] gap-12 lg:gap-16 items-start">
+          <div class="min-w-0 max-w-[46rem]">
+            <div id="article-content" class="article-prose"><slot /></div>
             <AuthorBox />
             {relatedContent.length > 0 && <RelatedContent items={relatedContent} />}
           </div>
 
-          <aside class="hidden lg:block sticky top-28">
-            <div class="border-l border-white/10 pl-5 space-y-5">
-              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Published</div><div class="text-sm text-white/60">{formattedDate}</div></div>
-              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Read time</div><div class="text-sm text-white/60">{readingTime}</div></div>
-              <div><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-2">Focus</div><div class="text-sm text-white/60">Üzleti rendszerlogika</div></div>
+          <aside class="hidden lg:block sticky top-28" aria-label="Cikk tartalomjegyzéke">
+            <div class="border-l border-graphite-950/10 pl-5">
+              <div class="mb-4 text-[10px] uppercase tracking-[0.18em] text-graphite-500">Tartalom</div>
+              <nav id="article-toc" class="space-y-3 text-sm leading-snug text-graphite-600">
+                <span class="text-graphite-400">Fejezetek betöltése…</span>
+              </nav>
+              <div class="mt-7 border-t border-graphite-950/10 pt-5 text-xs leading-relaxed text-graphite-500">
+                <div class="font-medium text-graphite-700">{readingTime}</div>
+                <div class="mt-1">Frissítve: {formattedDate}</div>
+              </div>
             </div>
           </aside>
         </div>
-
-        <div class="mt-14 sm:mt-16 p-7 sm:p-9 md:p-10 system-panel border border-signal-400/20 relative overflow-hidden">
-          <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none"></div>
-          <div class="relative max-w-2xl">
-            <div class="signal-kicker mb-4"><span class="signal-dot"></span>Következő lépés</div>
-            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial leading-[0.98] mb-4 text-balance">A saját rendszeredben is van egy szűk keresztmetszet?</h2>
-            <p class="text-white/55 mb-7 font-light leading-relaxed text-base sm:text-lg">Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.</p>
-            <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">Rendszerdiagnózis <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
       </div>
     </article>
+
+    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none" aria-hidden="true"></div>
+      <div class="hightech-container relative">
+        <div class="max-w-3xl">
+          <div class="signal-kicker mb-4"><span class="signal-dot"></span>Következő lépés</div>
+          <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">A saját rendszeredben is van egy szűk keresztmetszet?</h2>
+          <p class="text-white/65 mt-5 mb-7 font-light leading-relaxed text-base sm:text-lg max-w-2xl">Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.</p>
+          <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">Rendszerdiagnózis <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />
+
+  <script is:inline>
+    (() => {
+      const content = document.getElementById('article-content');
+      const toc = document.getElementById('article-toc');
+      if (!content || !toc) return;
+
+      const headings = Array.from(content.querySelectorAll('h2'));
+      if (!headings.length) {
+        toc.innerHTML = '<span class="text-graphite-400">Rövid útmutató</span>';
+        return;
+      }
+
+      const slugify = (value) => value
+        .toLocaleLowerCase('hu-HU')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      toc.innerHTML = '';
+      headings.forEach((heading, index) => {
+        const label = heading.textContent?.trim() || `Fejezet ${index + 1}`;
+        if (!heading.id) heading.id = `${slugify(label) || 'fejezet'}-${index + 1}`;
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = label;
+        link.className = 'block border-l border-transparent pl-3 -ml-[21px] hover:border-graphite-950 hover:text-graphite-950 transition-colors';
+        toc.appendChild(link);
+      });
+    })();
+  </script>
 </BaseLayout>
