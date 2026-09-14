@@ -1,23 +1,38 @@
 {
-  "name": "Levente Studio - AI-native digitális rendszerek",
+  "name": "Levente Studio – AI-native ügyfélszerző rendszerek",
   "short_name": "Levente Studio",
   "description": "Digitális ügyfélszerző rendszerek szolgáltató vállalkozásoknak: web, SEO, mérés, leadkezelés és automatizálás.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0b0d0c",
+  "background_color": "#0b0d0c",
   "icons": [
     {
-      "src": "/logo-monogram-light.svg",
+      "src": "/brand-mark.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/",
-  "orientation": "portrait"
+  ]
 }

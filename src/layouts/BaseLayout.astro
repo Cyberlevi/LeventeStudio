@@ -7,6 +7,7 @@ export interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: string;
   noindex?: boolean;
   structuredData?: object;
@@ -16,7 +17,8 @@ const {
   title = 'Levente Studio – AI-native ügyfélszerző rendszerek',
   description = 'Weboldal, SEO, mérés, leadkezelés és automatizálás egy rendszerben szolgáltató vállalkozásoknak.',
   canonical = Astro.url.pathname,
-  ogImage = '/og-image.jpg',
+  ogImage = '/og-levente-studio-2026.png',
+  ogImageAlt = 'Levente Studio – Nem csak weboldalt. Ügyfélszerző rendszert.',
   ogType = 'website',
   noindex = false,
   structuredData,
@@ -25,6 +27,11 @@ const {
 const siteUrl = 'https://leventestudio.app';
 const fullCanonical = canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const ogImageType = fullOgImage.endsWith('.png')
+  ? 'image/png'
+  : fullOgImage.endsWith('.webp')
+    ? 'image/webp'
+    : 'image/jpeg';
 const hasCustomHead = Astro.slots.has('head');
 const documentPaths = ['/adatvedelem/', '/suti-szabalyzat/', '/jogi-informaciok/'];
 const isDocumentMode = documentPaths.includes(Astro.url.pathname);
@@ -35,11 +42,17 @@ const isDocumentMode = documentPaths.includes(Astro.url.pathname);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#bfe85a" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="application-name" content="Levente Studio" />
+    <meta name="apple-mobile-web-app-title" content="Levente Studio" />
     <meta name="theme-color" content="#0b0d0c" />
     <meta name="color-scheme" content="light dark" />
 
@@ -57,17 +70,25 @@ const isDocumentMode = documentPaths.includes(Astro.url.pathname);
       <>
         <title>{title}</title>
         <meta name="description" content={description} />
+
         <meta property="og:type" content={ogType} />
         <meta property="og:url" content={fullCanonical} />
+        <meta property="og:site_name" content="Levente Studio" />
+        <meta property="og:locale" content="hu_HU" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={fullOgImage} />
+        <meta property="og:image:secure_url" content={fullOgImage} />
+        <meta property="og:image:type" content={ogImageType} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={ogImageAlt} />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={fullOgImage} />
+        <meta name="twitter:image:alt" content={ogImageAlt} />
       </>
     )}
 
