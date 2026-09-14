@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://leventestudio.app';
-const fullCanonical = `${siteUrl}${canonical}`;
+const fullCanonical = canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---
 
@@ -43,7 +43,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- SEO -->
     <title>{title}</title>
@@ -115,5 +115,25 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
     </noscript>
 
     <slot />
+
+    <script is:inline>
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element
+          ? event.target.closest('[data-cookie-settings]')
+          : null;
+
+        if (!target) return;
+
+        try {
+          localStorage.removeItem('ls_consent_v1');
+        } catch (_) {}
+
+        try {
+          sessionStorage.removeItem('ls_consent_v1');
+        } catch (_) {}
+
+        window.location.reload();
+      });
+    </script>
   </body>
 </html>
