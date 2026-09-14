@@ -1,0 +1,105 @@
+---
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import HeaderAstro from './HeaderAstro.astro';
+import Footer from './Footer';
+import MobileStickyBar from './MobileStickyBar';
+
+interface Section {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  stack: string[];
+  sections: Section[];
+  built: string[];
+  lessons: string[];
+  liveUrl?: string;
+}
+
+const { eyebrow, title, lead, stack, sections, built, lessons, liveUrl } = Astro.props;
+---
+
+<MobileStickyBar client:load />
+<div class="min-h-screen bg-white">
+  <HeaderAstro />
+
+  <main>
+    <section class="pt-36 pb-20 px-6 bg-cream-50 border-b border-taupe-100">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-5">{eyebrow}</p>
+        <h1 class="font-serif text-5xl md:text-6xl font-light text-taupe-900 leading-tight mb-7">{title}</h1>
+        <p class="text-xl text-taupe-700 font-light leading-relaxed max-w-3xl mb-8">{lead}</p>
+        <div class="flex flex-wrap gap-2">
+          {stack.map((item) => (
+            <span class="px-3 py-1.5 text-sm border border-taupe-200 bg-white text-taupe-700 rounded-full">{item}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white">
+      <div class="max-w-5xl mx-auto grid lg:grid-cols-[1fr_0.8fr] gap-12">
+        <div class="space-y-12">
+          {sections.map((section) => (
+            <section>
+              <h2 class="text-3xl text-taupe-900 mb-4">{section.title}</h2>
+              <p class="text-lg text-taupe-700 font-light leading-relaxed">{section.body}</p>
+            </section>
+          ))}
+        </div>
+
+        <aside>
+          <div class="sticky top-28 bg-taupe-900 text-cream-50 p-8 rounded-sm">
+            <p class="text-sm uppercase tracking-[0.18em] text-cream-300 mb-5">Mit építettünk</p>
+            <ul class="space-y-4 mb-8">
+              {built.map((item) => (
+                <li class="flex gap-3 text-cream-100 font-light">
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {liveUrl && (
+              <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-cream-50 border-b border-cream-300 pb-1">
+                Élő projekt
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="py-20 px-6 bg-cream-50 border-y border-taupe-100">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4">Amit ebből továbbviszünk</p>
+        <h2 class="text-3xl md:text-4xl text-taupe-900 mb-9">Nem csak referencia. Működési tapasztalat.</h2>
+        <div class="grid md:grid-cols-2 gap-5">
+          {lessons.map((lesson) => (
+            <div class="p-6 bg-white border border-taupe-200 text-taupe-700 font-light leading-relaxed">{lesson}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div>
+          <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-3">Következő lépés</p>
+          <h2 class="text-3xl text-taupe-900">Hasonló rendszert szeretnél a saját vállalkozásodnak?</h2>
+        </div>
+        <a href="/kapcsolat/" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors whitespace-nowrap">
+          Beszéljük át
+          <ArrowRight className="w-5 h-5" />
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</div>
