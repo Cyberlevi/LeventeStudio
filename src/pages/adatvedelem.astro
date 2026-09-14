@@ -1,277 +1,125 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Logo from '../components/Logo';
-import { ArrowLeft } from 'lucide-react';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Footer from '../components/Footer';
+import CookieBanner from '../components/CookieBanner';
+import MobileStickyBar from '../components/MobileStickyBar';
 
 const currentDate = new Date().toISOString().split('T')[0];
 ---
 
 <BaseLayout
-  title="Adatvédelmi Tájékoztató - Levente Stúdió"
-  description="Részletes tájékoztatás arról, hogyan kezeljük a személyes adatait a leventestudio.app weboldalon. GDPR megfelelő adatkezelés."
+  title="Adatvédelmi Tájékoztató | Levente Studio"
+  description="Tájékoztatás a leventestudio.app weboldal adatkezeléséről, kapcsolatfelvételi csatornáiról, analitikájáról és a látogatók jogairól."
   canonical="/adatvedelem/"
 >
-  <div class="min-h-screen bg-cream-50">
-    <header class="sticky top-0 z-50 bg-white border-b border-taupe-200 px-6 py-4">
-      <div class="max-w-4xl mx-auto flex items-center justify-between">
-        <Logo variant="primary" theme="light" className="h-8" client:load />
-        <a
-          href="/"
-          class="flex items-center gap-2 text-taupe-700 hover:text-taupe-900 transition-colors text-sm font-light"
-        >
-          <ArrowLeft size={16} client:load />
-          Vissza a főoldalra
-        </a>
-      </div>
-    </header>
+  <CookieBanner client:load />
+  <MobileStickyBar client:load />
+  <HeaderAstro />
 
-    <main class="max-w-4xl mx-auto px-6 py-12">
-      <h1 class="text-4xl font-normal text-taupe-900 mb-8">Adatvédelmi Tájékoztató</h1>
+  <main class="pt-32 pb-20 bg-cream-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="studio-kicker text-taupe-500 mb-5">Jogi tájékoztató</div>
+      <h1 class="font-serif text-5xl md:text-6xl font-light text-taupe-900 mb-5">Adatvédelmi Tájékoztató</h1>
+      <p class="text-sm text-taupe-500 mb-10">Utolsó frissítés: {currentDate}</p>
 
-      <div class="prose prose-taupe max-w-none space-y-8 text-taupe-800 font-light leading-relaxed">
-        <section>
-          <p class="text-sm text-taupe-600 mb-6">
-            Utolsó frissítés: {currentDate}
-          </p>
-          <p>
-            A Levente Stúdió elkötelezett a személyes adatok védelme iránt. Ez az Adatvédelmi Tájékoztató
-            részletesen ismerteti, hogyan gyűjtjük, használjuk és védjük az Ön adatait a
-            leventestudio.app weboldalon.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">1. Adatkezelő</h2>
-          <div class="bg-white p-6 rounded-sm border border-taupe-200">
-            <p><strong>Név:</strong> Tarnóczi Levente</p>
-            <p><strong>E-mail:</strong> tarnoczilevente@gmail.com</p>
-            <p><strong>Weboldal:</strong> leventestudio.app</p>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">2. Milyen adatokat gyűjtünk?</h2>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">2.1. Kapcsolatfelvételi adatok</h3>
-          <p>
-            Amikor Ön kapcsolatba lép velünk telefonon, e-mailben vagy WhatsApp-on keresztül,
-            az alábbi adatokat kezeljük:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>Telefonszám</li>
-            <li>E-mail cím</li>
-            <li>Név (ha megadja)</li>
-            <li>Kommunikáció tartalma</li>
-          </ul>
-          <p class="mt-4">
-            <strong>Jogalap:</strong> Hozzájárulás és jogos érdek (GDPR 6. cikk (1) bekezdés a) és f) pont)
-            - a kapcsolatfelvétel megválaszolása és szolgáltatásaink nyújtása.
-          </p>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">2.2. Technikai és viselkedési adatok</h3>
-          <p>Weboldal használata során automatikusan gyűjtött adatok:</p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>IP-cím (anonim módon tároljuk)</li>
-            <li>Böngésző típusa és verziója</li>
-            <li>Operációs rendszer</li>
-            <li>Megtekintett oldalak és látogatási időpontok</li>
-            <li>Oldal görgetési mélység (scroll tracking)</li>
-            <li>Oldal látogatási időtartam (time on page)</li>
-            <li>Kattintási események és konverziók</li>
-            <li>Hivatkozó weboldal (referrer)</li>
-          </ul>
-          <p class="mt-4">
-            <strong>Jogalap:</strong> Hozzájárulás (GDPR 6. cikk (1) bekezdés a) pont) - süti beállításokon
-            keresztül adott engedély alapján.
-          </p>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">2.3. Cookie-k és helyi tárolás</h3>
-          <p>
-            Weboldalunk sütiket (cookie) és localStorage technológiát használ. Részletes információkat
-            a <a href="/suti-szabalyzat/" class="text-taupe-900 underline hover:text-taupe-700">Süti Szabályzatban</a> talál.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">3. Adatkezelés célja</h2>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>Kapcsolatfelvételi kérések kezelése és megválaszolása</li>
-            <li>Szolgáltatásaink nyújtása és üzleti ajánlatok készítése</li>
-            <li>Weboldal működésének biztosítása</li>
-            <li>Weboldal teljesítményének és használhatóságának elemzése</li>
-            <li>Felhasználói élmény javítása</li>
-            <li>Marketing tevékenység hatékonyságának mérése</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">4. Adattovábbítás harmadik feleknek</h2>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">4.1. Google LLC (Analytics & Tag Manager)</h3>
-          <p>
-            Weboldalunk Google Analytics és Google Tag Manager szolgáltatásokat használ
-            látogatói statisztikák gyűjtésére.
-          </p>
-          <ul class="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Adatkezelő:</strong> Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</li>
-            <li><strong>Átadott adatok:</strong> IP-cím (anonimizált), böngésző információk, látogatási adatok</li>
-            <li><strong>Adatkezelési tájékoztató:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-taupe-900 underline hover:text-taupe-700">Google Privacy Policy</a></li>
-            <li><strong>Adatvédelmi garancia:</strong> Standard Contractual Clauses (SCC) és Google EU-US Data Privacy Framework tanúsítás</li>
-          </ul>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">4.2. Plausible Analytics</h3>
-          <p>
-            Weboldalunk Plausible Analytics-et használ privacy-first webanalitika céljából.
-          </p>
-          <ul class="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Adatkezelő:</strong> Plausible Insights OÜ, Vabaduse väljak 5-26, 10146 Tallinn, Észtország</li>
-            <li><strong>Átadott adatok:</strong> Oldal látogatások, anonimizált technikai adatok</li>
-            <li><strong>Különlegesség:</strong> Nem használ sütiket, nem gyűjt személyes adatokat</li>
-            <li><strong>Adatkezelési tájékoztató:</strong> <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer" class="text-taupe-900 underline hover:text-taupe-700">Plausible Data Policy</a></li>
-          </ul>
-
-          <h3 class="text-xl font-normal text-taupe-900 mb-3 mt-6">4.3. WhatsApp (Meta Platforms)</h3>
-          <p>
-            Ha Ön a WhatsApp kapcsolatfelvételi lehetőséget választja, adatai a Meta Platforms
-            adatkezelési gyakorlatai alá kerülnek.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">5. Adatmegőrzés</h2>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Kapcsolatfelvételi adatok:</strong> Maximum 3 év vagy az Ön törlési kérelméig</li>
-            <li><strong>Analitikai adatok (Google Analytics):</strong> 26 hónap (alapértelmezett beállítás)</li>
-            <li><strong>Analitikai adatok (Plausible):</strong> Folyamatos, de anonimizált módon</li>
-            <li><strong>Cookie hozzájárulás:</strong> 12 hónap vagy visszavonásig</li>
-          </ul>
-          <p class="mt-4">
-            A megőrzési időszak lejártával, vagy az Ön kérésére az adatokat véglegesen töröljük.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">6. Az Ön jogai (GDPR)</h2>
-          <p>Ön az alábbi jogokkal rendelkezik személyes adataival kapcsolatban:</p>
-
-          <div class="space-y-4 mt-4">
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Hozzáférés joga</h4>
-              <p class="text-sm">Tájékoztatást kérhet arról, hogy kezelünk-e Önről adatokat, és másolatot kérhet róluk.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Helyesbítés joga</h4>
-              <p class="text-sm">Kérheti pontatlan vagy hiányos adatainak javítását vagy kiegészítését.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Törléshez való jog ("elfeledtetéshez való jog")</h4>
-              <p class="text-sm">Kérheti személyes adatainak törlését, ha már nincs jogalapunk a kezelésükhöz.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Adatkezelés korlátozásának joga</h4>
-              <p class="text-sm">Bizonyos esetekben kérheti adatai kezelésének korlátozását.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Adathordozhatóság joga</h4>
-              <p class="text-sm">Kérheti, hogy az Önről gyűjtött adatokat strukturált, géppel olvasható formátumban bocsássuk rendelkezésére.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Tiltakozás joga</h4>
-              <p class="text-sm">Tiltakozhat személyes adatai kezelése ellen, különösen közvetlen üzletszerzés esetén.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-sm border border-taupe-200">
-              <h4 class="font-normal text-taupe-900 mb-2">Hozzájárulás visszavonásának joga</h4>
-              <p class="text-sm">Bármikor visszavonhatja a hozzájárulását a süti beállításokban vagy írásban.</p>
-            </div>
-          </div>
-
-          <p class="mt-6">
-            <strong>Jogai gyakorlásához</strong> írjon nekünk: tarnoczilevente@gmail.com
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">7. Panasztétel joga</h2>
-          <p>
-            Ha úgy érzi, hogy megsértettük az adatvédelmi jogszabályokat, panaszt tehet a
-            Nemzeti Adatvédelmi és Információszabadság Hatóságnál (NAIH):
-          </p>
-          <div class="bg-white p-6 rounded-sm border border-taupe-200 mt-4">
-            <p><strong>Nemzeti Adatvédelmi és Információszabadság Hatóság</strong></p>
-            <p>Cím: 1055 Budapest, Falk Miksa utca 9-11.</p>
-            <p>Postacím: 1363 Budapest, Pf. 9.</p>
-            <p>Telefon: +36 (1) 391-1400</p>
-            <p>E-mail: ugyfelszolgalat@naih.hu</p>
-            <p>Weboldal: <a href="https://naih.hu" target="_blank" rel="noopener noreferrer" class="text-taupe-900 underline hover:text-taupe-700">naih.hu</a></p>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">8. Adatbiztonság</h2>
-          <p>
-            Az Ön adatainak védelme érdekében megfelelő technikai és szervezési intézkedéseket
-            alkalmazunk:
-          </p>
-          <ul class="list-disc pl-6 space-y-2 mt-4">
-            <li>HTTPS titkosítás a teljes weboldalon</li>
-            <li>Google Consent Mode v2 implementáció</li>
-            <li>Rendszeres biztonsági frissítések</li>
-            <li>Hozzáférés-korlátozás az adatokhoz</li>
-            <li>IP anonimizálás a Google Analytics-ben</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">9. Kiskorúak adatai</h2>
-          <p>
-            Szolgáltatásaink 18 év alatti személyek számára nem elérhetők. Tudatosan nem gyűjtünk
-            16 év alatti személyektől adatokat. Ha tudomásunkra jut, hogy 16 év alatti személytől
-            gyűjtöttünk adatokat, azonnal töröljük azokat.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">10. Módosítások</h2>
-          <p>
-            Fenntartjuk a jogot, hogy ezt az Adatvédelmi Tájékoztatót bármikor módosítsuk.
-            A módosítások ezen az oldalon kerülnek közzétételre. Javasoljuk, hogy rendszeresen
-            ellenőrizze ezt az oldalt.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-normal text-taupe-900 mb-4">11. Kapcsolat</h2>
-          <p>
-            Ha kérdése van az adatkezeléssel kapcsolatban, vegye fel velünk a kapcsolatot:
-          </p>
-          <div class="bg-white p-6 rounded-sm border border-taupe-200 mt-4">
-            <p><strong>E-mail:</strong> tarnoczilevente@gmail.com</p>
-            <p><strong>Telefon:</strong> <a href="tel:+36303337272" class="text-taupe-900 underline hover:text-taupe-700">+36 30 333 7272</a></p>
-          </div>
-        </section>
-
-        <section class="border-t border-taupe-200 pt-8 mt-12">
-          <p class="text-sm text-taupe-600">
-            Ez az Adatvédelmi Tájékoztató a GDPR (EU 2016/679 rendelet) és a magyar
-            információs önrendelkezési jogról és az információszabadságról szóló 2011. évi CXII.
-            törvény (Infotv.) előírásainak megfelelően készült.
-          </p>
-        </section>
-      </div>
-    </main>
-
-    <footer class="bg-taupe-900 border-t border-taupe-800 px-6 py-8 mt-16">
-      <div class="max-w-4xl mx-auto text-center">
-        <p class="text-cream-200 text-sm font-light">
-          © {new Date().getFullYear()} Levente Stúdió
+      <div class="prose prose-lg prose-neutral max-w-none prose-headings:text-taupe-900 prose-p:text-taupe-700">
+        <p>
+          A jelen tájékoztató célja, hogy összefoglalja, milyen személyes adatok kerülhetnek kezelésre a leventestudio.app használata és a Levente Studio szolgáltatásaival kapcsolatos kapcsolatfelvétel során.
         </p>
+
+        <h2>1. Adatkezelő és kapcsolat</h2>
+        <div class="not-prose bg-white border border-taupe-200 p-6 rounded-sm my-6 text-taupe-700">
+          <p><strong class="text-taupe-900">Adatkezelő:</strong> Tarnóczi Levente – Levente Studio</p>
+          <p><strong class="text-taupe-900">E-mail:</strong> <a class="underline" href="mailto:hello@leventestudio.app">hello@leventestudio.app</a></p>
+          <p><strong class="text-taupe-900">Telefon:</strong> <a class="underline" href="tel:+36202826843">+36 20 282 6843</a></p>
+          <p><strong class="text-taupe-900">Weboldal:</strong> leventestudio.app</p>
+        </div>
+
+        <h2>2. Kapcsolatfelvétel során kezelt adatok</h2>
+        <p>
+          Ha e-mailben, telefonon vagy WhatsAppon keresel meg, az általad megadott adatokat kezeljük. Ilyen lehet különösen a neved, e-mail címed, telefonszámod, a vállalkozásodra vagy projektedre vonatkozó információ és a kommunikáció tartalma.
+        </p>
+        <p>
+          Ezeket az adatokat a megkeresés megválaszolására, ajánlat készítésére, a kért szolgáltatás előkészítésére és – ha létrejön együttműködés – a kapcsolattartásra használjuk. A konkrét jogalap az adott helyzettől függhet, például szerződéskötést megelőző lépés, szerződés teljesítése, hozzájárulás vagy jogos érdek lehet.
+        </p>
+
+        <h2>3. Weboldalhasználati és technikai adatok</h2>
+        <p>
+          A weboldal technikai működése során a böngésző és a tárhelyszolgáltató rendszerének működéséből adódó technikai adatok keletkezhetnek, például IP-cím, böngészőtípus, kért URL, időpont és hibainformáció.
+        </p>
+        <p>
+          A hozzájárulási beállításaidtól függően Google Analytics 4 és Google Tag Manager segítségével oldalmegtekintési és interakciós eseményeket is mérünk. Ilyen lehet például CTA-kattintás, kapcsolatfelvételi csatorna kiválasztása vagy görgetési esemény.
+        </p>
+
+        <h2>4. Consent Mode és sütik</h2>
+        <p>
+          A weboldal Google Consent Mode v2 jelzéseket használ. Alapértelmezésben az analitikai és hirdetési tárolási állapotokat tiltottként állítjuk be, majd a választásod alapján frissítjük őket.
+        </p>
+        <p>
+          Ha az <code>analytics_storage</code> állapot tiltott, a Google Analytics nem ír és nem olvas első féltől származó analitikai sütiket. A Google Consent Mode technikai működése ugyanakkor korlátozott, süti nélküli jelzések továbbítását lehetővé teheti. A részletes technikai leírást a <a href="/suti-szabalyzat/">Süti Szabályzat</a> tartalmazza.
+        </p>
+
+        <h2>5. Igénybe vett külső szolgáltatók</h2>
+        <h3>Google</h3>
+        <p>
+          Google Analytics 4, Google Tag Manager és Google Fonts szolgáltatásokat használunk. A Google saját adatkezelési feltételei az általa kezelt adatokra is vonatkoznak. További információ: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Adatvédelmi Irányelvek</a>.
+        </p>
+
+        <h3>Netlify</h3>
+        <p>
+          A weboldal kiszolgálásához Netlify infrastruktúrát használunk. A tárhely- és hálózati szolgáltatás működése során technikai naplóadatok keletkezhetnek.
+        </p>
+
+        <h3>WhatsApp / Meta</h3>
+        <p>
+          Ha a WhatsApp kapcsolatfelvételt választod, a kommunikáció a WhatsApp/Meta szolgáltatásán keresztül történik, ezért annak saját adatkezelési feltételei is alkalmazandók.
+        </p>
+
+        <h2>6. Adatok megőrzése</h2>
+        <p>
+          Személyes adatot csak addig őrzünk, ameddig az adatkezelés céljához szükséges, illetve ameddig jogi, számviteli vagy esetleges igényérvényesítési kötelezettség indokolja. Az analitikai adatok megőrzési ideje a használt szolgáltatás és az adott fiók aktuális beállításaitól is függhet.
+        </p>
+
+        <h2>7. Az érintettek jogai</h2>
+        <p>
+          A vonatkozó adatvédelmi szabályok feltételei szerint kérhetsz tájékoztatást a rólad kezelt adatokról, kérheted azok helyesbítését vagy törlését, az adatkezelés korlátozását, egyes esetekben az adatok hordozhatóságát, valamint tiltakozhatsz bizonyos adatkezelések ellen. Hozzájáruláson alapuló adatkezelésnél a hozzájárulás visszavonható.
+        </p>
+        <p>
+          Adatvédelmi kérésedet a <a href="mailto:hello@leventestudio.app">hello@leventestudio.app</a> címre küldheted.
+        </p>
+
+        <h2>8. Panasz lehetősége</h2>
+        <p>
+          Adatvédelmi panasszal a Nemzeti Adatvédelmi és Információszabadság Hatósághoz (NAIH) is fordulhatsz.
+        </p>
+        <div class="not-prose bg-white border border-taupe-200 p-6 rounded-sm my-6 text-taupe-700">
+          <p><strong class="text-taupe-900">NAIH</strong></p>
+          <p>1055 Budapest, Falk Miksa utca 9–11.</p>
+          <p>Levelezési cím: 1363 Budapest, Pf. 9.</p>
+          <p>Telefon: +36 (1) 391-1400</p>
+          <p>E-mail: ugyfelszolgalat@naih.hu</p>
+          <p><a class="underline" href="https://naih.hu" target="_blank" rel="noopener noreferrer">naih.hu</a></p>
+        </div>
+
+        <h2>9. Adatbiztonság</h2>
+        <p>
+          A weboldal HTTPS-kapcsolatot használ, a hozzájárulási állapotot kliensoldali tárolással kezeli, és az oldalhoz, mérési fiókokhoz és kapcsolódó rendszerekhez való hozzáférést korlátozzuk. Egyetlen internetes rendszer sem tekinthető abszolút kockázatmentesnek, ezért a technikai beállításokat időről időre felülvizsgáljuk.
+        </p>
+
+        <h2>10. A tájékoztató módosítása</h2>
+        <p>
+          Ha a weboldal funkciói, mérési megoldásai vagy adatkezelési folyamatai változnak, ezt a tájékoztatót is frissítjük. A mindenkori változat ezen az URL-en érhető el.
+        </p>
+
+        <div class="mt-12 p-6 border border-taupe-200 bg-white rounded-sm">
+          <p class="m-0 text-sm">
+            Ez a tájékoztató a jelenlegi weboldali működést foglalja össze. Egyedi szerződéses vagy jogszabályi helyzetben további adatkezelési tájékoztatás is szükséges lehet.
+          </p>
+        </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </main>
+
+  <Footer />
 </BaseLayout>
