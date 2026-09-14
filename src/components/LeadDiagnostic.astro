@@ -16,22 +16,14 @@
       </p>
 
       <div class="space-y-4 text-sm text-taupe-700">
-        <div class="flex gap-3">
-          <span class="text-taupe-400">01</span>
-          <span>Megnézzük, honnan jönnek most az érdeklődők.</span>
-        </div>
-        <div class="flex gap-3">
-          <span class="text-taupe-400">02</span>
-          <span>Azonosítjuk a legnagyobb digitális súrlódást.</span>
-        </div>
-        <div class="flex gap-3">
-          <span class="text-taupe-400">03</span>
-          <span>Az első beszélgetésre már konkrét iránnyal érkezünk.</span>
-        </div>
+        <div class="flex gap-3"><span class="text-taupe-400">01</span><span>Megnézzük, honnan jönnek most az érdeklődők.</span></div>
+        <div class="flex gap-3"><span class="text-taupe-400">02</span><span>Azonosítjuk a legnagyobb digitális súrlódást.</span></div>
+        <div class="flex gap-3"><span class="text-taupe-400">03</span><span>Az első beszélgetésre már konkrét iránnyal érkezünk.</span></div>
       </div>
     </div>
 
     <form
+      id="system-diagnostic-form"
       name="system-diagnostic"
       method="POST"
       action="/koszonjuk/"
@@ -49,77 +41,34 @@
       <input type="hidden" name="gclid" id="lead-gclid" />
 
       <p class="hidden" aria-hidden="true">
-        <label>
-          Ezt a mezőt hagyd üresen:
-          <input name="bot-field" tabindex="-1" autocomplete="off" />
-        </label>
+        <label>Ezt a mezőt hagyd üresen:<input name="bot-field" tabindex="-1" autocomplete="off" /></label>
       </p>
 
       <div class="grid md:grid-cols-2 gap-5">
         <div>
           <label for="lead-name" class="block text-sm text-taupe-700 mb-2">Név *</label>
-          <input
-            id="lead-name"
-            name="name"
-            type="text"
-            autocomplete="name"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          />
+          <input id="lead-name" name="name" type="text" autocomplete="name" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200" />
         </div>
-
         <div>
           <label for="lead-email" class="block text-sm text-taupe-700 mb-2">E-mail *</label>
-          <input
-            id="lead-email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          />
+          <input id="lead-email" name="email" type="email" autocomplete="email" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200" />
         </div>
       </div>
 
       <div class="mt-5">
         <label for="lead-website" class="block text-sm text-taupe-700 mb-2">Weboldal / projekt URL</label>
-        <input
-          id="lead-website"
-          name="website"
-          type="url"
-          inputmode="url"
-          placeholder="https://"
-          class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-        />
+        <input id="lead-website" name="website" type="url" inputmode="url" placeholder="https://" class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200" />
       </div>
 
       <div class="grid md:grid-cols-2 gap-5 mt-5">
         <div>
           <label for="lead-business" class="block text-sm text-taupe-700 mb-2">Milyen vállalkozás? *</label>
-          <input
-            id="lead-business"
-            name="business_type"
-            type="text"
-            placeholder="pl. klíma, építőipar, szépségipar"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          />
+          <input id="lead-business" name="business_type" type="text" placeholder="pl. klíma, építőipar, szépségipar" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200" />
         </div>
-
         <div>
           <label for="lead-volume" class="block text-sm text-taupe-700 mb-2">Havi megkeresések *</label>
-          <select
-            id="lead-volume"
-            name="monthly_inquiries"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          >
-            <option value="">Válassz</option>
-            <option value="0-5">0–5</option>
-            <option value="6-20">6–20</option>
-            <option value="21-50">21–50</option>
-            <option value="51+">51+</option>
-            <option value="unknown">Nem tudom pontosan</option>
+          <select id="lead-volume" name="monthly_inquiries" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200">
+            <option value="">Válassz</option><option value="0-5">0–5</option><option value="6-20">6–20</option><option value="21-50">21–50</option><option value="51+">51+</option><option value="unknown">Nem tudom pontosan</option>
           </select>
         </div>
       </div>
@@ -127,67 +76,30 @@
       <div class="grid md:grid-cols-2 gap-5 mt-5">
         <div>
           <label for="lead-goal" class="block text-sm text-taupe-700 mb-2">Mi a fő cél? *</label>
-          <select
-            id="lead-goal"
-            name="primary_goal"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          >
-            <option value="">Válassz</option>
-            <option value="more-leads">Több érdeklődő</option>
-            <option value="better-leads">Jobb minőségű érdeklődők</option>
-            <option value="measurement">Végre látni, mi működik</option>
-            <option value="automation">Kevesebb kézi adminisztráció</option>
-            <option value="rebuild">Weboldal / rendszer újraépítése</option>
+          <select id="lead-goal" name="primary_goal" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200">
+            <option value="">Válassz</option><option value="more-leads">Több érdeklődő</option><option value="better-leads">Jobb minőségű érdeklődők</option><option value="measurement">Végre látni, mi működik</option><option value="automation">Kevesebb kézi adminisztráció</option><option value="rebuild">Weboldal / rendszer újraépítése</option>
           </select>
         </div>
-
         <div>
           <label for="lead-bottleneck" class="block text-sm text-taupe-700 mb-2">Hol érzed az elakadást? *</label>
-          <select
-            id="lead-bottleneck"
-            name="bottleneck"
-            required
-            class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200"
-          >
-            <option value="">Válassz</option>
-            <option value="traffic">Kevés releváns forgalom</option>
-            <option value="conversion">Jönnek látogatók, de kevés a megkeresés</option>
-            <option value="tracking">Nem látom, miből lesz ügyfél</option>
-            <option value="lead-handling">Szétesik a leadkezelés</option>
-            <option value="manual-work">Túl sok a kézi munka</option>
-            <option value="unknown">Nem tudom – ezt kell kideríteni</option>
+          <select id="lead-bottleneck" name="bottleneck" required class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200">
+            <option value="">Válassz</option><option value="traffic">Kevés releváns forgalom</option><option value="conversion">Jönnek látogatók, de kevés a megkeresés</option><option value="tracking">Nem látom, miből lesz ügyfél</option><option value="lead-handling">Szétesik a leadkezelés</option><option value="manual-work">Túl sok a kézi munka</option><option value="unknown">Nem tudom – ezt kell kideríteni</option>
           </select>
         </div>
       </div>
 
       <div class="mt-5">
         <label for="lead-note" class="block text-sm text-taupe-700 mb-2">Mi az az egy dolog, amin most leginkább változtatnál?</label>
-        <textarea
-          id="lead-note"
-          name="note"
-          rows="4"
-          class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200 resize-y"
-        ></textarea>
+        <textarea id="lead-note" name="note" rows="4" class="w-full border border-taupe-300 bg-cream-50 px-4 py-3.5 text-taupe-900 outline-none focus:border-taupe-700 focus:ring-2 focus:ring-taupe-200 resize-y"></textarea>
       </div>
 
       <label class="flex items-start gap-3 mt-6 text-sm text-taupe-600 leading-relaxed">
         <input type="checkbox" name="privacy_acknowledged" value="yes" required class="mt-1 accent-taupe-900" />
-        <span>
-          Elolvastam az <a href="/adatvedelem/" target="_blank" rel="noopener noreferrer" class="underline text-taupe-900">adatvédelmi tájékoztatót</a>, és kérem, hogy a megadott elérhetőségemen a megkeresésemre válaszoljanak. *
-        </span>
+        <span>Elolvastam az <a href="/adatvedelem/" target="_blank" rel="noopener noreferrer" class="underline text-taupe-900">adatvédelmi tájékoztatót</a>, és kérem, hogy a megadott elérhetőségemen a megkeresésemre válaszoljanak. *</span>
       </label>
 
-      <button
-        type="submit"
-        class="mt-7 w-full bg-taupe-900 text-cream-50 px-7 py-4 text-base font-normal hover:bg-taupe-800 transition-colors focus:outline-none focus:ring-2 focus:ring-taupe-500 focus:ring-offset-2"
-      >
-        Rendszerdiagnózis elküldése →
-      </button>
-
-      <p class="mt-4 text-xs text-taupe-500 text-center">
-        Nincs automata sales-sorozat. A beküldés célja, hogy az első egyeztetés már konkrét legyen.
-      </p>
+      <button type="submit" class="mt-7 w-full bg-taupe-900 text-cream-50 px-7 py-4 text-base font-normal hover:bg-taupe-800 transition-colors focus:outline-none focus:ring-2 focus:ring-taupe-500 focus:ring-offset-2">Rendszerdiagnózis elküldése →</button>
+      <p class="mt-4 text-xs text-taupe-500 text-center">Nincs automata sales-sorozat. A beküldés célja, hogy az első egyeztetés már konkrét legyen.</p>
     </form>
   </div>
 </section>
@@ -206,14 +118,19 @@
 
     Object.entries(mapping).forEach(([id, key]) => {
       const input = document.getElementById(id);
-      if (input instanceof HTMLInputElement) {
-        input.value = params.get(key) || '';
-      }
+      if (input instanceof HTMLInputElement) input.value = params.get(key) || '';
     });
 
     const sourcePage = document.getElementById('lead-source-page');
-    if (sourcePage instanceof HTMLInputElement) {
-      sourcePage.value = window.location.pathname;
+    if (sourcePage instanceof HTMLInputElement) sourcePage.value = window.location.pathname;
+
+    const form = document.getElementById('system-diagnostic-form');
+    if (form instanceof HTMLFormElement) {
+      form.addEventListener('submit', () => {
+        try {
+          sessionStorage.setItem('ls_lead_submission_pending_v1', '1');
+        } catch (_) {}
+      });
     }
   })();
 </script>
