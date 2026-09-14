@@ -1,0 +1,83 @@
+---
+---
+
+<div
+  id="desktop-system-cta"
+  class="fixed bottom-8 right-8 z-50 hidden md:block"
+  style="display:none"
+  aria-hidden="true"
+>
+  <div class="relative max-w-sm overflow-hidden border border-white/10 bg-graphite-950/95 text-white shadow-2xl shadow-black/30 backdrop-blur-xl">
+    <div class="subpage-signal-grid pointer-events-none absolute inset-0 opacity-25" aria-hidden="true"></div>
+    <div class="relative p-6">
+      <button
+        id="desktop-system-cta-close"
+        type="button"
+        class="absolute right-4 top-4 text-white/30 transition-colors hover:text-white"
+        aria-label="Diagnózis ajánlat bezárása"
+      >
+        <span aria-hidden="true" class="text-lg leading-none">×</span>
+      </button>
+
+      <div class="pr-8">
+        <div class="mb-4 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">
+          <span class="signal-dot"></span> system diagnostic
+        </div>
+        <h3 class="mb-3 font-serif text-2xl font-light leading-tight tracking-editorial">
+          Látod a teljes utat a kereséstől a leadig?
+        </h3>
+        <p class="mb-5 text-sm leading-relaxed text-white/55">
+          Pár válaszból gyorsan kiderül, hol érdemes először hozzányúlni a rendszerhez.
+        </p>
+
+        <a
+          href="#diagnosztika"
+          data-track-cta="Rendszerdiagnózis"
+          data-track-location="desktop_sticky"
+          class="inline-flex w-full items-center justify-center gap-2 bg-signal-400 px-5 py-3 text-sm font-semibold text-graphite-950 transition-colors hover:bg-signal-300"
+        >
+          Megnézem a rendszerem
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById('desktop-system-cta');
+    const close = document.getElementById('desktop-system-cta-close');
+    if (!root || !close) return;
+
+    let dismissed = false;
+    let visible = false;
+
+    const setVisible = (next) => {
+      if (next === visible) return;
+      visible = next;
+      if (next) {
+        root.style.removeProperty('display');
+        root.setAttribute('aria-hidden', 'false');
+      } else {
+        root.style.display = 'none';
+        root.setAttribute('aria-hidden', 'true');
+      }
+    };
+
+    const handleScroll = () => {
+      if (dismissed || visible) return;
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percentage = pageHeight > 0 ? (window.scrollY / pageHeight) * 100 : 0;
+      if (percentage > 30) setVisible(true);
+    };
+
+    close.addEventListener('click', () => {
+      dismissed = true;
+      setVisible(false);
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  })();
+</script>
