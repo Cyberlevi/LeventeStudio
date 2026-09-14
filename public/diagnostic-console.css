@@ -1,0 +1,110 @@
+#diagnosztika {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(216,255,120,.10), transparent 24%),
+    radial-gradient(circle at 86% 72%, rgba(255,255,255,.055), transparent 28%),
+    linear-gradient(180deg, #0b0d0c 0%, #111411 100%) !important;
+  color: #f4f0e8;
+  border-top: 1px solid rgba(244,240,232,.08);
+  border-bottom: 1px solid rgba(244,240,232,.08);
+}
+
+#diagnosztika > .studio-grid {
+  opacity: .72 !important;
+  background-image:
+    linear-gradient(rgba(244,240,232,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,240,232,.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.85), rgba(0,0,0,.38) 68%, transparent 100%);
+}
+
+#diagnosztika::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 0%, rgba(216,255,120,.025) 46%, transparent 70%);
+  z-index: 0;
+}
+
+#diagnosztika .hightech-container {
+  position: relative;
+  z-index: 1;
+}
+
+#diagnosztika .editorial-heading {
+  color: #f4f0e8 !important;
+}
+
+#diagnosztika .editorial-heading span {
+  color: rgba(244,240,232,.48) !important;
+}
+
+#diagnosztika .text-graphite-400 {
+  color: rgba(244,240,232,.38) !important;
+}
+
+#diagnosztika .text-graphite-500 {
+  color: rgba(244,240,232,.48) !important;
+}
+
+#diagnosztika .text-graphite-700 {
+  color: rgba(244,240,232,.68) !important;
+}
+
+#diagnosztika .space-y-3 > div {
+  border-color: rgba(244,240,232,.10) !important;
+}
+
+#diagnosztika .space-y-3 > div:hover {
+  border-color: rgba(216,255,120,.28) !important;
+}
+
+#diagnosztika form {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(216,255,120,.10), transparent 22%),
+    linear-gradient(180deg, rgba(21,24,22,.98), rgba(8,10,9,.99)) !important;
+  border-color: rgba(244,240,232,.13) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(244,240,232,.025),
+    0 36px 100px rgba(0,0,0,.38) !important;
+}
+
+#diagnosztika form::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(216,255,120,.72), transparent);
+  opacity: .7;
+}
+
+@media (max-width: 1023px) {
+  #diagnosztika .hightech-container {
+    gap: 2.5rem;
+  }
+
+  #diagnosztika .lg\:sticky {
+    position: static !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #diagnosztika {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  #diagnosztika .editorial-heading {
+    font-size: clamp(2.8rem, 13vw, 4.15rem);
+    line-height: .94;
+  }
+
+  #diagnosztika form {
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+  }
+}
