@@ -14,34 +14,19 @@ export default function FAQItem({ question, answer, index }: FAQItemProps) {
   const handleToggle = () => {
     const newState = !isOpen;
     setIsOpen(newState);
-
-    if (newState) {
-      trackInteraction('faq_expand', `faq_${index}`, question);
-    }
+    if (newState) trackInteraction('faq_expand', `faq_${index}`, question);
   };
 
   return (
-    <div className="border-b border-taupe-200 pb-8 last:border-0">
-      <button
-        onClick={handleToggle}
-        className="w-full text-left flex items-start justify-between gap-4 group"
-      >
-        <h3 className="text-xl md:text-2xl font-normal text-taupe-900 group-hover:text-taupe-700 transition-colors">
-          {question}
-        </h3>
-        <ChevronDown
-          size={24}
-          className={`flex-shrink-0 text-taupe-600 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
+    <div className="border-b border-white/10 py-6 first:pt-0 last:border-0 sm:py-7">
+      <button onClick={handleToggle} className="group flex w-full items-start justify-between gap-5 text-left">
+        <div className="flex gap-4 sm:gap-6">
+          <span className="pt-1 text-[10px] uppercase tracking-[0.18em] text-signal-400">Q/{String(index + 1).padStart(2, '0')}</span>
+          <h3 className="font-serif text-2xl font-light tracking-editorial text-white transition-colors group-hover:text-signal-400 md:text-3xl">{question}</h3>
+        </div>
+        <ChevronDown size={22} className={`mt-1 flex-shrink-0 text-white/40 transition-transform duration-200 ${isOpen ? 'rotate-180 text-signal-400' : ''}`} />
       </button>
-
-      {isOpen && (
-        <p className="text-taupe-700 font-light leading-relaxed mt-4 animate-in fade-in duration-200">
-          {answer}
-        </p>
-      )}
+      {isOpen && <p className="ml-0 mt-4 max-w-3xl font-light leading-relaxed text-white/55 sm:ml-[4.7rem]">{answer}</p>}
     </div>
   );
 }
