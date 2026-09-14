@@ -12,49 +12,36 @@ interface RelatedContentProps {
   title?: string;
 }
 
-export default function RelatedContent({ items, title = "Kapcsolódó tartalmak" }: RelatedContentProps) {
+export default function RelatedContent({ items, title = 'Kapcsolódó tartalmak' }: RelatedContentProps) {
   const getTypeLabel = (type: string) => {
     switch (type) {
-      case 'blog':
-        return 'Blog cikk';
-      case 'service':
-        return 'Szolgáltatás';
-      case 'case-study':
-        return 'Esettanulmány';
-      default:
-        return '';
+      case 'blog': return 'Blog cikk';
+      case 'service': return 'Szolgáltatás';
+      case 'case-study': return 'Esettanulmány';
+      default: return '';
     }
   };
 
   return (
-    <section className="py-12 bg-cream-50 rounded-sm border border-taupe-200 my-12">
-      <div className="px-8">
-        <h2 className="text-2xl font-normal text-taupe-900 mb-6">
-          {title}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {items.map((item, index) => (
-            <a
-              key={index}
-              href={item.url}
-              className="block p-6 bg-white rounded-sm border border-taupe-200 hover:border-taupe-400 transition-colors group"
-            >
-              <div className="text-xs text-taupe-600 mb-2 uppercase tracking-wide">
-                {getTypeLabel(item.type)}
-              </div>
-              <h3 className="text-lg font-normal text-taupe-900 mb-2 group-hover:text-taupe-700">
-                {item.title}
-              </h3>
-              <p className="text-sm text-taupe-600 mb-4">
-                {item.description}
-              </p>
-              <div className="flex items-center gap-2 text-sm text-taupe-700 group-hover:gap-3 transition-all">
-                Tovább
-                <ArrowRight size={16} />
-              </div>
-            </a>
-          ))}
+    <section className="my-12 border-y border-white/10 py-10 sm:py-12">
+      <div className="mb-7 flex items-end justify-between gap-5">
+        <div>
+          <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">Related signals</div>
+          <h2 className="font-serif text-3xl font-light tracking-editorial text-white sm:text-4xl">{title}</h2>
         </div>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2">
+        {items.map((item, index) => (
+          <a key={index} href={item.url} className="tech-card-dark group block p-6">
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <span className="text-[10px] uppercase tracking-[0.16em] text-signal-400">{getTypeLabel(item.type)}</span>
+              <span className="text-[10px] text-white/25">REL/{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 className="mb-3 font-serif text-2xl font-light tracking-editorial text-white transition-colors group-hover:text-signal-400">{item.title}</h3>
+            <p className="mb-5 text-sm font-light leading-relaxed text-white/50">{item.description}</p>
+            <div className="flex items-center gap-2 text-sm text-white/70 transition-all group-hover:gap-3 group-hover:text-white">Tovább <ArrowRight size={16} className="text-signal-400" /></div>
+          </a>
+        ))}
       </div>
     </section>
   );
