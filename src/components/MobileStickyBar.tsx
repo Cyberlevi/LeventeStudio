@@ -3,15 +3,18 @@ import { trackPhoneClick, trackWhatsAppClick } from '../utils/gtm';
 
 export default function MobileStickyBar() {
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-cream-50 border-t border-taupe-200 shadow-lg">
-      <div className="grid grid-cols-2 gap-0">
+    <div
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-graphite-950/95 backdrop-blur-xl border-t border-white/10 shadow-2xl shadow-black/30"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
+      <div className="grid grid-cols-2 gap-px bg-white/10">
         <a
           href="tel:+36202826843"
           onClick={() => trackPhoneClick('mobile_sticky_bar')}
-          className="flex items-center justify-center gap-2 py-4 bg-taupe-600 text-cream-50 hover:bg-taupe-700 transition-colors duration-200 active:bg-taupe-800"
+          className="flex items-center justify-center gap-2.5 py-3.5 px-3 bg-graphite-950 text-white/75 active:bg-graphite-900 transition-colors"
         >
-          <Phone size={20} />
-          <span className="font-light">Hívás</span>
+          <Phone size={18} className="text-signal-400" />
+          <span className="text-sm font-medium">Hívás</span>
         </a>
 
         <a
@@ -19,10 +22,10 @@ export default function MobileStickyBar() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackWhatsAppClick('mobile_sticky_bar')}
-          className="flex items-center justify-center gap-2 py-4 bg-taupe-900 text-cream-50 hover:bg-taupe-800 transition-colors duration-200 active:bg-taupe-950"
+          className="flex items-center justify-center gap-2.5 py-3.5 px-3 bg-signal-400 text-graphite-950 active:bg-signal-300 transition-colors"
         >
-          <MessageCircle size={20} />
-          <span className="font-light">WhatsApp</span>
+          <MessageCircle size={18} />
+          <span className="text-sm font-semibold">WhatsApp</span>
         </a>
       </div>
     </div>
