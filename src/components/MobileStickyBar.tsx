@@ -18,7 +18,7 @@ export default function MobileStickyBar() {
         </a>
 
         <a
-          href="https://wa.me/36202826843?text=Szia%2C%20weboldal%20auditot%20szeretn%C3%A9k%20k%C3%A9rni"
+          href="https://wa.me/36202826843?text=Szia%2C%20egy%20%C3%BCgyf%C3%A9lszerz%C5%91%20digit%C3%A1lis%20rendszerr%C5%91l%20szeretn%C3%A9k%20egyeztetni."
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => {
