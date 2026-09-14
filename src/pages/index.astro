@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
-import Hero from '../components/Hero';
+import Hero2026 from '../components/Hero2026';
 import StudioLab from '../components/StudioLab';
 import TrustBar from '../components/TrustBar';
 import ProblemAwareness from '../components/ProblemAwareness';
@@ -64,13 +64,13 @@ const structuredData = {
 
   <div class="min-h-screen bg-white">
     <HeaderAstro />
-    <Hero client:load />
+    <Hero2026 client:load />
     <TrustBar />
+    <StudioLab />
     <ProblemAwareness />
     <Solution />
-    <StudioLab />
-    <Pricing client:load />
     <LeadDiagnostic />
+    <Pricing client:load />
     <FAQ client:load />
     <Contact client:load />
     <Footer />
