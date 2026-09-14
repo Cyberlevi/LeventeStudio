@@ -27,6 +27,13 @@ export function trackCTAClick(buttonText: string, location: string): void {
   });
 }
 
+export function trackPageView(pathname: string): void {
+  pushToDataLayer({
+    event: 'page_view',
+    page_path: pathname,
+  });
+}
+
 export function trackContactSubmit(formLocation: string): void {
   pushToDataLayer({
     event: 'contact_submit',
