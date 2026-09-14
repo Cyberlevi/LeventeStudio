@@ -6,6 +6,7 @@ const projects = [
     category: 'Klímatechnika',
     description: 'Helyi szolgáltatói rendszer weboldallal, technikai SEO-val, mérési infrastruktúrával és konverziófókusszal.',
     capabilities: ['Web + SEO', 'GA4 / GTM', 'Konverzió-optimalizálás'],
+    href: '/esettanulmanyok/klima18ker-weboldal-audit/',
     icon: Search,
   },
   {
@@ -13,6 +14,7 @@ const projects = [
     category: 'Faláttörés és magfúrás',
     description: 'Leadközpontú rendszer landingekkel, Google Ads-kompatibilis méréssel, ajánlatkérési folyamattal és folyamatos finomhangolással.',
     capabilities: ['Landing rendszer', 'Ads-ready tracking', 'Lead funnel'],
+    href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/',
     icon: Target,
   },
   {
@@ -20,21 +22,23 @@ const projects = [
     category: 'Helyi szolgáltatás',
     description: 'Lokális ügyfélszerzési modell keresési jelenléttel, mérhető kampányokkal és szolgáltatói konverziós logikával.',
     capabilities: ['Local growth', 'Mérés', 'Kampánylogika'],
+    href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/',
     icon: BarChart3,
   },
 ];
 
 export default function StudioLab() {
   return (
-    <section id="lab" className="px-6 py-24 bg-taupe-900 text-cream-50">
-      <div className="max-w-6xl mx-auto">
+    <section id="lab" className="px-6 py-24 bg-taupe-900 text-cream-50 scroll-mt-24 relative overflow-hidden">
+      <div className="absolute inset-0 studio-grid-dark opacity-25 pointer-events-none" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative">
         <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-end mb-14">
           <div>
-            <div className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-cream-300 mb-5">
+            <div className="studio-kicker text-cream-300 mb-5">
               <Workflow size={16} />
               Levente Studio Lab
             </div>
-            <h2 className="font-serif text-4xl md:text-6xl font-light leading-tight">
+            <h2 className="font-serif text-4xl md:text-6xl font-light leading-tight text-balance">
               Nem prezentációban bizonyítunk.
               <span className="block text-cream-300">Éles rendszereken.</span>
             </h2>
@@ -51,7 +55,12 @@ export default function StudioLab() {
           {projects.map((project) => {
             const Icon = project.icon;
             return (
-              <article key={project.name} className="group border border-taupe-700 bg-taupe-800/40 p-7 hover:bg-taupe-800 transition-colors">
+              <a
+                key={project.name}
+                href={project.href}
+                className="group studio-card border-taupe-700 bg-taupe-800/40 p-7 text-cream-50"
+                aria-label={`${project.name} esettanulmány megnyitása`}
+              >
                 <div className="flex items-start justify-between gap-6 mb-8">
                   <div className="w-11 h-11 border border-taupe-600 flex items-center justify-center">
                     <Icon size={21} />
@@ -70,7 +79,7 @@ export default function StudioLab() {
                     </span>
                   ))}
                 </div>
-              </article>
+              </a>
             );
           })}
         </div>
