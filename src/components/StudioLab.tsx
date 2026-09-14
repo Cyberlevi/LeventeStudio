@@ -30,6 +30,12 @@ const projects = [
   },
 ];
 
+const evidence = [
+  ['03', 'saját üzleti rendszer', 'Nem demo és nem fiktív referencia.'],
+  ['01', 'összekötött ügyfélút', 'Kereséstől vagy hirdetéstől a megkeresésig.'],
+  ['∞', 'iteráció', 'Építés → mérés → javítás valós használatból.'],
+];
+
 export default function StudioLab() {
   return (
     <section id="lab" className="relative overflow-hidden bg-graphite-950 px-6 py-24 text-ivory-100 scroll-mt-24 md:py-32">
@@ -43,9 +49,24 @@ export default function StudioLab() {
               <span className="block font-serif-display italic text-ivory-400">bizonyítunk.</span>
             </h2>
           </div>
-          <p className="max-w-2xl text-lg font-light leading-relaxed text-ivory-400 lg:justify-self-end md:text-xl">
-            Saját szolgáltató vállalkozásokon építjük és teszteljük a webes, SEO-, hirdetési, mérési és automatizálási folyamatokat. Ami élesben működik, azt visszük tovább ügyfélprojektekbe.
-          </p>
+          <div className="max-w-2xl lg:justify-self-end">
+            <p className="text-lg font-light leading-relaxed text-ivory-400 md:text-xl">
+              Saját szolgáltató vállalkozásokon építjük és teszteljük a webes, SEO-, hirdetési, mérési és automatizálási folyamatokat. Ami éles működésben beválik, azt visszük tovább ügyfélprojektekbe.
+            </p>
+            <p className="mt-5 text-sm leading-relaxed text-ivory-300">
+              Ez a különbség egy portfólió és egy működő labor között: itt nem azt mutatjuk meg, mit tudnánk építeni, hanem azt, milyen rendszerlogikát használunk a saját üzleteinkben is.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-px border border-white/10 bg-white/10 md:grid-cols-3">
+          {evidence.map(([value, title, detail]) => (
+            <div key={title} className="bg-graphite-950 p-5 sm:p-6">
+              <div className="text-3xl font-light tracking-[-0.04em] text-signal-300">{value}</div>
+              <div className="mt-3 text-sm font-medium text-ivory-100">{title}</div>
+              <div className="mt-1 text-xs leading-relaxed text-ivory-400">{detail}</div>
+            </div>
+          ))}
         </div>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-12">
@@ -68,6 +89,7 @@ export default function StudioLab() {
                     <div className="mt-6 flex flex-wrap gap-2">
                       {project.capabilities.map(cap => <span key={cap} className="border border-white/10 px-2.5 py-1.5 text-[10px] uppercase tracking-[0.12em] text-ivory-400">{cap}</span>)}
                     </div>
+                    <div className="mt-6 text-xs font-medium text-signal-300">Esettanulmány megnyitása ↗</div>
                   </div>
                 </div>
               </a>

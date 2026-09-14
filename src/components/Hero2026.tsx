@@ -1,10 +1,16 @@
-import { ArrowRight, Bot, Search, Workflow } from 'lucide-react';
+import { ArrowRight, Bot, CheckCircle2, Search, Workflow } from 'lucide-react';
 
 const nodes = [
   ['01', 'FIGYELEM', 'Search / Ads', 'releváns belépés'],
   ['02', 'KONVERZIÓ', 'Landing / Offer', 'egyértelmű következő lépés'],
   ['03', 'LEAD', 'Source captured', 'mérhető érdeklődő'],
   ['04', 'MŰKÖDÉS', 'Follow-up', 'kevesebb kézi admin'],
+];
+
+const proofPoints = [
+  'Saját szolgáltató vállalkozásokon tesztelve',
+  'Forrástól a leadig mérhető',
+  'Nem sablonoldal: üzleti rendszer',
 ];
 
 export default function Hero2026() {
@@ -19,20 +25,29 @@ export default function Hero2026() {
             <div className="mb-8 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-ivory-400">
               <span className="inline-flex items-center gap-2 text-signal-300"><span className="signal-dot" />Levente Studio</span>
               <span className="text-white/20">/</span><span>Systems Lab</span>
-              <span className="text-white/20">/</span><span>2026</span>
+              <span className="text-white/20">/</span><span>Operator-built</span>
             </div>
 
-            <h1 className="max-w-5xl text-[clamp(2.45rem,12vw,7.6rem)] leading-[0.9] tracking-[-0.05em] text-balance sm:leading-[0.88] sm:tracking-[-0.055em]">
-              Nem weboldalt
-              <span className="block">építünk.</span>
-              <span className="mt-2 block font-serif-display italic font-light tracking-[-0.035em] text-ivory-400">Ügyfélszerző rendszert.</span>
+            <h1 className="max-w-5xl text-[clamp(2.45rem,11.2vw,7.2rem)] leading-[0.9] tracking-[-0.05em] text-balance sm:leading-[0.88] sm:tracking-[-0.055em]">
+              Amit neked építek,
+              <span className="block">előbb magamon</span>
+              <span className="mt-2 block font-serif-display italic font-light tracking-[-0.035em] text-ivory-400">tesztelem.</span>
             </h1>
 
             <div className="mt-8 max-w-3xl border-l border-white/15 pl-5 sm:mt-9 md:pl-7">
-              <p className="text-lg text-ivory-100 sm:text-xl md:text-2xl">Web + SEO + hirdetés + mérés + automatizálás.</p>
+              <p className="text-lg text-ivory-100 sm:text-xl md:text-2xl">Digitális ügyfélszerző rendszerek szolgáltató vállalkozásoknak.</p>
               <p className="mt-3 text-base font-light leading-relaxed text-ivory-400 md:text-lg">
-                Egy összekötött ügyfélút szolgáltató vállalkozásoknak — saját, éles projekteken tesztelt rendszerlogikával.
+                Web + SEO + hirdetés + mérés + leadkezelés + automatizálás — egy összekötött rendszerben, saját éles vállalkozásokon kipróbált logikával.
               </p>
+            </div>
+
+            <div className="mt-7 grid gap-2 sm:grid-cols-3">
+              {proofPoints.map((point) => (
+                <div key={point} className="flex items-start gap-2 border border-white/10 bg-white/[0.025] px-3 py-3 text-xs leading-relaxed text-ivory-300">
+                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-signal-300" />
+                  <span>{point}</span>
+                </div>
+              ))}
             </div>
 
             <div className="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row">
@@ -41,7 +56,7 @@ export default function Hero2026() {
                 <ArrowRight size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
               </a>
               <a href="#lab" data-track-cta="Studio Lab" data-track-location="hero_secondary" className="inline-flex min-h-14 items-center justify-center border border-white/15 bg-white/[0.025] px-5 py-4 text-center text-ivory-100 transition hover:border-white/30 hover:bg-white/[0.06] sm:px-7">
-                Nézd meg a Labot
+                Mutasd a bizonyítékot
               </a>
             </div>
 
@@ -57,7 +72,7 @@ export default function Hero2026() {
             <div className="relative">
               <div className="flex flex-col gap-3 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between">
                 <div><div className="text-[10px] uppercase tracking-[0.22em] text-ivory-400">System signal</div><div className="mt-1 text-base font-medium sm:text-lg">Acquisition operating map</div></div>
-                <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-signal-300"><span className="signal-dot" />online</div>
+                <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-signal-300"><span className="signal-dot" />live logic</div>
               </div>
 
               <div className="relative mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -79,7 +94,7 @@ export default function Hero2026() {
               <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
                 <div className="flex min-w-0 items-center gap-3">
                   <img src="/levente_studio_portrait_final.webp" width="44" height="44" decoding="async" alt="Tarnóczi Levente" className="h-11 w-11 shrink-0 rounded-full object-cover grayscale" />
-                  <div className="min-w-0"><div className="text-sm">Operator-built systems</div><div className="text-xs text-ivory-400">Tarnóczi Levente</div></div>
+                  <div className="min-w-0"><div className="text-sm">Operator-built systems</div><div className="text-xs text-ivory-400">Tarnóczi Levente · saját üzleti környezetből</div></div>
                 </div>
                 <Workflow size={19} className="shrink-0 text-signal-300" />
               </div>
