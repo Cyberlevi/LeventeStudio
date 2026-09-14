@@ -6,6 +6,7 @@ import CookieBanner from './CookieBanner';
 import MobileStickyBar from './MobileStickyBar';
 import AuthorBox from './AuthorBox';
 import RelatedContent from './RelatedContent';
+import SubpageHero from './SubpageHero.astro';
 
 interface Props {
   title: string;
@@ -28,6 +29,8 @@ const {
   relatedContent = [],
 } = Astro.props;
 
+const formattedDate = new Date(publishDate).toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' });
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -45,19 +48,12 @@ const structuredData = {
     '@type': 'Organization',
     '@id': 'https://leventestudio.app/#organization',
     'name': 'Levente Studio',
-    'url': 'https://leventestudio.app/',
-    'logo': {
-      '@type': 'ImageObject',
-      'url': 'https://leventestudio.app/logo.png',
-      'width': 512,
-      'height': 512
-    }
+    'url': 'https://leventestudio.app/'
   },
   'mainEntityOfPage': {
     '@type': 'WebPage',
     '@id': Astro.url.href
-  },
-  'image': 'https://leventestudio.app/og-image.jpg'
+  }
 };
 ---
 
@@ -73,61 +69,71 @@ const structuredData = {
   <HeaderAstro />
 
   <main>
-    <article class="pt-36 pb-20">
-      <header class="px-6 pb-14 bg-cream-50 relative overflow-hidden">
-        <div class="absolute inset-0 studio-grid pointer-events-none"></div>
-        <div class="max-w-4xl mx-auto relative">
-          <nav class="mb-8 text-sm text-taupe-500">
-            <a href="/" class="hover:text-taupe-900">Főoldal</a>
-            <span class="mx-2">/</span>
-            <a href="/blog/" class="hover:text-taupe-900">Tudástár</a>
-          </nav>
+    <SubpageHero
+      eyebrow="Levente Studio · Tudástár"
+      title={title}
+      description={description}
+      secondaryHref="/blog/"
+      secondaryLabel="Vissza a Tudástárhoz"
+      meta={[formattedDate, readingTime, 'Tarnóczi Levente', 'Practical insight']}
+    />
 
-          <div class="studio-kicker text-taupe-500 mb-5">Levente Studio · Tudástár</div>
-          <h1 class="font-serif text-5xl sm:text-6xl font-light text-taupe-900 mb-7 leading-[1.02] text-balance">
-            {title}
-          </h1>
-          <p class="text-xl text-taupe-700 font-light leading-relaxed mb-7 max-w-3xl">
-            {description}
-          </p>
-          <div class="flex flex-wrap items-center gap-3 text-sm text-taupe-500">
-            <time datetime={publishDate}>
-              {new Date(publishDate).toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time>
-            <span>•</span>
-            <span>{readingTime}</span>
-            <span>•</span>
-            <span>Tarnóczi Levente</span>
+    <article class="hightech-section bg-cream-50">
+      <div class="max-w-4xl mx-auto">
+        <nav class="mb-8 sm:mb-10 text-xs sm:text-sm text-graphite-500 flex flex-wrap items-center gap-2">
+          <a href="/" class="hover:text-graphite-950 transition-colors">Főoldal</a>
+          <span class="text-graphite-300">/</span>
+          <a href="/blog/" class="hover:text-graphite-950 transition-colors">Tudástár</a>
+          <span class="text-graphite-300">/</span>
+          <span class="text-graphite-700">Aktuális cikk</span>
+        </nav>
+
+        <div class="grid lg:grid-cols-[1fr_220px] gap-10 lg:gap-14 items-start">
+          <div>
+            <div class="hightech-prose">
+              <slot />
+            </div>
+
+            <AuthorBox />
+
+            {relatedContent.length > 0 && (
+              <RelatedContent items={relatedContent} />
+            )}
           </div>
+
+          <aside class="hidden lg:block sticky top-28">
+            <div class="border-l border-graphite-950/10 pl-5 space-y-5">
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Published</div>
+                <div class="text-sm text-graphite-800">{formattedDate}</div>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Read time</div>
+                <div class="text-sm text-graphite-800">{readingTime}</div>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-[0.18em] text-graphite-400 mb-2">Focus</div>
+                <div class="text-sm text-graphite-800">Üzleti rendszerlogika</div>
+              </div>
+            </div>
+          </aside>
         </div>
-      </header>
 
-      <div class="max-w-3xl mx-auto px-6 py-14">
-        <div class="prose prose-lg prose-neutral max-w-none prose-headings:text-taupe-900 prose-p:text-taupe-700 prose-a:text-taupe-900">
-          <slot />
-        </div>
-
-        <AuthorBox />
-
-        {relatedContent.length > 0 && (
-          <RelatedContent items={relatedContent} />
-        )}
-
-        <div class="mt-16 p-8 md:p-10 bg-taupe-900 text-cream-50 rounded-sm">
-          <div class="studio-kicker text-cream-300 mb-4">Következő lépés</div>
-          <h2 class="font-serif text-3xl md:text-4xl font-light mb-4 text-balance">
-            A saját rendszeredben is van egy szűk keresztmetszet?
-          </h2>
-          <p class="text-cream-200 mb-7 font-light leading-relaxed">
-            Nem kell találgatni. Átnézzük, hol akad el a keresésből vagy hirdetésből érkező érdeklődő, és mi az a javítás, amit először érdemes megcsinálni.
-          </p>
-          <a
-            href="/kapcsolat/"
-            class="inline-flex items-center gap-3 px-6 py-3 bg-cream-50 text-taupe-900 rounded-sm hover:bg-cream-100 transition-colors"
-          >
-            Rendszertervezés
-            <span aria-hidden="true">→</span>
-          </a>
+        <div class="mt-14 sm:mt-16 p-7 sm:p-9 md:p-10 bg-graphite-950 text-white border border-white/10 relative overflow-hidden">
+          <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+          <div class="relative max-w-2xl">
+            <div class="signal-kicker mb-4"><span class="signal-dot"></span>Következő lépés</div>
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial leading-[0.98] mb-4 text-balance">
+              A saját rendszeredben is van egy szűk keresztmetszet?
+            </h2>
+            <p class="text-white/60 mb-7 font-light leading-relaxed text-base sm:text-lg">
+              Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.
+            </p>
+            <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">
+              Rendszerdiagnózis
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </article>
