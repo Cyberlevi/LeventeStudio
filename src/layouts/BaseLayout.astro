@@ -1,5 +1,6 @@
 ---
 import '../index.css';
+import '../styles/document-mode.css';
 
 export interface Props {
   title?: string;
@@ -25,6 +26,8 @@ const siteUrl = 'https://leventestudio.app';
 const fullCanonical = canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 const hasCustomHead = Astro.slots.has('head');
+const documentPaths = ['/adatvedelem/', '/suti-szabalyzat/', '/jogi-informaciok/'];
+const isDocumentMode = documentPaths.includes(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -32,7 +35,6 @@ const hasCustomHead = Astro.slots.has('head');
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -69,9 +71,7 @@ const hasCustomHead = Astro.slots.has('head');
       </>
     )}
 
-    {structuredData && (
-      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    )}
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
 
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -85,49 +85,26 @@ const hasCustomHead = Astro.slots.has('head');
       });
       gtag('js', new Date());
     </script>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNDL3K56Q2"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('config', 'G-LNDL3K56Q2');
     </script>
-
     <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-WZHLTWBD');
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WZHLTWBD');
     </script>
-
-    <script>
-      import '../scripts/scroll-tracking';
-    </script>
+    <script>import '../scripts/scroll-tracking';</script>
   </head>
-  <body>
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WZHLTWBD" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-
+  <body class:list={{ 'document-mode': isDocumentMode }}>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WZHLTWBD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <slot />
-
     <script is:inline>
       document.addEventListener('click', (event) => {
-        const target = event.target instanceof Element
-          ? event.target.closest('[data-cookie-settings]')
-          : null;
-
+        const target = event.target instanceof Element ? event.target.closest('[data-cookie-settings]') : null;
         if (!target) return;
-
-        try {
-          localStorage.removeItem('ls_consent_v1');
-        } catch (_) {}
-
-        try {
-          sessionStorage.removeItem('ls_consent_v1');
-        } catch (_) {}
-
+        try { localStorage.removeItem('ls_consent_v1'); } catch (_) {}
+        try { sessionStorage.removeItem('ls_consent_v1'); } catch (_) {}
         window.location.reload();
       });
     </script>
