@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
-import AboutExpert from '../components/AboutExpert';
+import AboutExpertDark from '../components/AboutExpertDark';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
@@ -14,20 +14,8 @@ const structuredData = {
   'email': 'hello@leventestudio.app',
   'url': 'https://leventestudio.app/rolam/',
   'image': 'https://leventestudio.app/levente_studio_portrait_final.webp',
-  'worksFor': {
-    '@type': 'ProfessionalService',
-    'name': 'Levente Studio',
-    'url': 'https://leventestudio.app'
-  },
-  'knowsAbout': [
-    'Webfejlesztés',
-    'SEO',
-    'Google Ads mérés',
-    'Webanalitika',
-    'Lead management',
-    'AI workflow',
-    'Üzleti automatizálás'
-  ]
+  'worksFor': { '@type': 'ProfessionalService', 'name': 'Levente Studio', 'url': 'https://leventestudio.app' },
+  'knowsAbout': ['Webfejlesztés','SEO','Google Ads mérés','Webanalitika','Lead management','AI workflow','Üzleti automatizálás']
 };
 ---
 
@@ -39,10 +27,5 @@ const structuredData = {
 >
   <CookieBanner client:load />
   <MobileStickyBar client:load />
-
-  <div class="min-h-screen bg-white">
-    <HeaderAstro />
-    <AboutExpert />
-    <Footer />
-  </div>
+  <div class="min-h-screen bg-graphite-950"><HeaderAstro /><AboutExpertDark /><Footer /></div>
 </BaseLayout>
