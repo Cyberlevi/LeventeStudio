@@ -13,11 +13,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    background: #faf8f5;
+    background: var(--ls-graphite);
   }
 
   body {
-    @apply antialiased font-sans bg-cream-50 text-taupe-900;
+    @apply antialiased font-sans bg-cream-50 text-taupe-900 overflow-x-hidden;
     text-rendering: optimizeLegibility;
   }
 
@@ -26,7 +26,7 @@
   }
 
   a, button, input, textarea, select {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-taupe-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-50;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-400 focus-visible:ring-offset-2;
   }
 
   ::selection {
@@ -58,7 +58,8 @@
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 88%);
   }
 
-  .studio-grid-dark {
+  .studio-grid-dark,
+  .subpage-signal-grid {
     background-image:
       linear-gradient(rgba(244, 240, 232, 0.055) 1px, transparent 1px),
       linear-gradient(90deg, rgba(244, 240, 232, 0.055) 1px, transparent 1px);
@@ -71,7 +72,8 @@
       radial-gradient(circle at 20% 65%, rgba(136, 117, 104, 0.10), transparent 30%);
   }
 
-  .system-panel {
+  .system-panel,
+  .tech-status-panel {
     background:
       radial-gradient(circle at 78% 14%, rgba(216, 255, 120, 0.10), transparent 28%),
       linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
@@ -85,6 +87,7 @@
     background: var(--ls-signal);
     box-shadow: 0 0 0 5px rgba(216,255,120,.08), 0 0 22px rgba(216,255,120,.42);
     animation: signal-pulse 3.2s ease-in-out infinite;
+    flex: 0 0 auto;
   }
 
   .signal-line {
@@ -97,6 +100,129 @@
     border: 1px solid rgba(244,240,232,.12);
     background: rgba(244,240,232,.035);
     backdrop-filter: blur(10px);
+  }
+
+  .subpage-hero {
+    @apply relative overflow-hidden text-white;
+    padding-top: clamp(9rem, 14vw, 12rem);
+    padding-bottom: clamp(4.5rem, 8vw, 7rem);
+    background:
+      radial-gradient(circle at 82% 18%, rgba(216,255,120,.12), transparent 22%),
+      radial-gradient(circle at 20% 78%, rgba(255,255,255,.05), transparent 25%),
+      var(--ls-graphite);
+  }
+
+  .subpage-signal-grid {
+    @apply absolute inset-0 pointer-events-none opacity-60;
+    mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,.72) 60%, transparent 100%);
+  }
+
+  .subpage-glow {
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(115deg, transparent 0%, rgba(216,255,120,.035) 52%, transparent 72%);
+  }
+
+  .subpage-container {
+    @apply w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8;
+  }
+
+  .signal-kicker {
+    @apply inline-flex items-center gap-3 text-[11px] sm:text-xs uppercase tracking-[0.22em] text-white/55;
+  }
+
+  .subpage-title {
+    @apply font-serif font-light text-white text-balance tracking-editorial;
+    font-size: clamp(3.35rem, 8.2vw, 7.4rem);
+    line-height: .88;
+    max-width: 13ch;
+  }
+
+  .subpage-lead {
+    @apply mt-7 text-base sm:text-lg md:text-xl text-white/65 font-light leading-relaxed;
+    max-width: 46rem;
+  }
+
+  .tech-status-panel {
+    @apply p-5 sm:p-6 md:p-7 lg:p-8 border border-white/10;
+  }
+
+  .signal-button-primary {
+    @apply inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 bg-signal-400 text-graphite-950 font-medium border border-signal-400 transition-all duration-200;
+  }
+
+  .signal-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 50px rgba(216,255,120,.16);
+  }
+
+  .signal-button-secondary {
+    @apply inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 border border-white/15 bg-white/[0.025] text-white/80 transition-all duration-200 backdrop-blur-sm;
+  }
+
+  .signal-button-secondary:hover {
+    @apply border-white/30 bg-white/[0.055] text-white;
+  }
+
+  .hightech-section {
+    @apply px-5 sm:px-6 lg:px-8;
+    padding-top: clamp(4rem, 8vw, 7rem);
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .hightech-container {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .tech-card-light {
+    @apply border border-graphite-950/10 bg-white transition-all duration-300;
+    box-shadow: 0 12px 40px rgba(11,13,12,.045);
+  }
+
+  .tech-card-light:hover {
+    transform: translateY(-3px);
+    border-color: rgba(11,13,12,.22);
+    box-shadow: 0 20px 60px rgba(11,13,12,.075);
+  }
+
+  .tech-card-dark {
+    @apply border border-white/10 bg-white/[0.035] text-white transition-all duration-300;
+    backdrop-filter: blur(12px);
+  }
+
+  .tech-card-dark:hover {
+    transform: translateY(-3px);
+    border-color: rgba(216,255,120,.28);
+    background: rgba(255,255,255,.055);
+  }
+
+  .signal-tag-light {
+    @apply inline-flex items-center px-3 py-1.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] border border-graphite-950/10 text-graphite-700 bg-cream-50;
+  }
+
+  .signal-tag-dark {
+    @apply inline-flex items-center px-3 py-1.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] border border-white/10 text-white/60 bg-white/[0.025];
+  }
+
+  .editorial-heading {
+    @apply font-serif font-light tracking-editorial text-balance text-graphite-950;
+    font-size: clamp(2.7rem, 6vw, 5.4rem);
+    line-height: .96;
+  }
+
+  .hightech-prose {
+    @apply prose prose-lg prose-neutral max-w-none;
+  }
+
+  .hightech-prose :where(h2,h3,h4) {
+    @apply font-serif text-graphite-950 font-light tracking-editorial;
+  }
+
+  .hightech-prose :where(p,li) {
+    @apply text-graphite-700 leading-relaxed;
+  }
+
+  .hightech-prose :where(a) {
+    @apply text-graphite-950 decoration-signal-400 underline-offset-4;
   }
 }
 
@@ -122,6 +248,18 @@
 @keyframes signal-scan {
   from { background-position: 220% 0; }
   to { background-position: -120% 0; }
+}
+
+@media (max-width: 640px) {
+  .subpage-title {
+    font-size: clamp(3rem, 15vw, 4.7rem);
+    max-width: 10ch;
+  }
+
+  .hightech-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
