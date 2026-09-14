@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import HeaderAstro from './HeaderAstro.astro';
 import Footer from './Footer';
 import MobileStickyBar from './MobileStickyBar';
+import SubpageHero from './SubpageHero.astro';
 
 interface Section {
   title: string;
@@ -24,76 +25,98 @@ const { eyebrow, title, lead, stack, sections, built, lessons, liveUrl } = Astro
 ---
 
 <MobileStickyBar client:load />
-<div class="min-h-screen bg-white">
+<div class="min-h-screen bg-cream-50">
   <HeaderAstro />
 
   <main>
-    <section class="pt-36 pb-20 px-6 bg-cream-50 border-b border-taupe-100">
-      <div class="max-w-5xl mx-auto">
-        <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-5">{eyebrow}</p>
-        <h1 class="font-serif text-5xl md:text-6xl font-light text-taupe-900 leading-tight mb-7">{title}</h1>
-        <p class="text-xl text-taupe-700 font-light leading-relaxed max-w-3xl mb-8">{lead}</p>
-        <div class="flex flex-wrap gap-2">
-          {stack.map((item) => (
-            <span class="px-3 py-1.5 text-sm border border-taupe-200 bg-white text-taupe-700 rounded-full">{item}</span>
-          ))}
-        </div>
-      </div>
-    </section>
+    <SubpageHero
+      eyebrow={eyebrow}
+      title={title}
+      description={lead}
+      primaryHref="#rendszer"
+      primaryLabel="Rendszer felépítése"
+      secondaryHref="/esettanulmanyok/"
+      secondaryLabel="Összes rendszer"
+      meta={stack.slice(0, 4)}
+    />
 
-    <section class="py-20 px-6 bg-white">
-      <div class="max-w-5xl mx-auto grid lg:grid-cols-[1fr_0.8fr] gap-12">
-        <div class="space-y-12">
-          {sections.map((section) => (
-            <section>
-              <h2 class="text-3xl text-taupe-900 mb-4">{section.title}</h2>
-              <p class="text-lg text-taupe-700 font-light leading-relaxed">{section.body}</p>
+    <section id="rendszer" class="hightech-section bg-cream-50">
+      <div class="hightech-container grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
+        <div class="space-y-10 md:space-y-14">
+          {sections.map((section, index) => (
+            <section class="grid md:grid-cols-[72px_1fr] gap-5 md:gap-8 border-t border-graphite-950/10 pt-7 md:pt-9">
+              <div class="text-xs tracking-[0.18em] text-graphite-500">{String(index + 1).padStart(2, '0')}</div>
+              <div>
+                <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-editorial text-graphite-950 mb-4 text-balance">{section.title}</h2>
+                <p class="text-base sm:text-lg text-graphite-700 font-light leading-relaxed max-w-3xl">{section.body}</p>
+              </div>
             </section>
           ))}
         </div>
 
-        <aside>
-          <div class="sticky top-28 bg-taupe-900 text-cream-50 p-8 rounded-sm">
-            <p class="text-sm uppercase tracking-[0.18em] text-cream-300 mb-5">Mit építettünk</p>
-            <ul class="space-y-4 mb-8">
-              {built.map((item) => (
-                <li class="flex gap-3 text-cream-100 font-light">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        <aside class="lg:sticky lg:top-28">
+          <div class="bg-graphite-950 text-white p-6 sm:p-8 md:p-9 border border-white/10 relative overflow-hidden">
+            <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+            <div class="relative">
+              <div class="flex items-center justify-between gap-4 mb-7">
+                <p class="text-xs uppercase tracking-[0.2em] text-white/45">Build map</p>
+                <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400">
+                  <span class="signal-dot"></span>
+                  live system
+                </span>
+              </div>
 
-            {liveUrl && (
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-cream-50 border-b border-cream-300 pb-1">
-                Élő projekt
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            )}
+              <ul class="space-y-4 mb-9">
+                {built.map((item, index) => (
+                  <li class="flex gap-3 text-white/75 font-light border-b border-white/[0.07] pb-4 last:border-0 last:pb-0">
+                    <span class="text-xs text-signal-400 pt-1">{String(index + 1).padStart(2, '0')}</span>
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-signal-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {liveUrl && (
+                <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="signal-button-primary w-full sm:w-auto">
+                  Élő projekt
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              )}
+            </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="py-20 px-6 bg-cream-50 border-y border-taupe-100">
-      <div class="max-w-5xl mx-auto">
-        <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-4">Amit ebből továbbviszünk</p>
-        <h2 class="text-3xl md:text-4xl text-taupe-900 mb-9">Nem csak referencia. Működési tapasztalat.</h2>
-        <div class="grid md:grid-cols-2 gap-5">
-          {lessons.map((lesson) => (
-            <div class="p-6 bg-white border border-taupe-200 text-taupe-700 font-light leading-relaxed">{lesson}</div>
+    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
+      <div class="hightech-container relative">
+        <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16 mb-10 md:mb-14">
+          <div>
+            <div class="signal-kicker mb-4"><span class="signal-dot"></span>Learnings</div>
+            <h2 class="font-serif text-4xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Nem referencia. <span class="text-signal-400">Működési tapasztalat.</span></h2>
+          </div>
+          <p class="text-lg text-white/60 font-light leading-relaxed max-w-2xl lg:pt-10">A rendszerből azt visszük tovább, ami éles üzleti helyzetben is működőképesnek bizonyul.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 md:gap-5">
+          {lessons.map((lesson, index) => (
+            <div class="tech-card-dark p-6 md:p-7">
+              <div class="text-xs text-signal-400 tracking-[0.18em] mb-5">{String(index + 1).padStart(2, '0')}</div>
+              <p class="text-white/75 font-light leading-relaxed">{lesson}</p>
+            </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="py-20 px-6 bg-white">
-      <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
-        <div>
-          <p class="text-sm uppercase tracking-[0.18em] text-taupe-500 mb-3">Következő lépés</p>
-          <h2 class="text-3xl text-taupe-900">Hasonló rendszert szeretnél a saját vállalkozásodnak?</h2>
+    <section class="hightech-section bg-signal-400 text-graphite-950">
+      <div class="hightech-container flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        <div class="max-w-3xl">
+          <div class="text-xs uppercase tracking-[0.2em] opacity-60 mb-4">Next system</div>
+          <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">Hasonló rendszert szeretnél a saját vállalkozásodnak?</h2>
         </div>
-        <a href="/kapcsolat/" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-taupe-900 text-cream-50 rounded-sm hover:bg-taupe-800 transition-colors whitespace-nowrap">
+        <a href="/kapcsolat/" class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-graphite-950 text-white hover:bg-graphite-900 transition-colors whitespace-nowrap">
           Beszéljük át
           <ArrowRight className="w-5 h-5" />
         </a>
