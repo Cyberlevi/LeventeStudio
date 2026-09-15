@@ -1,55 +1,31 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SystemCaseStudy from '../../components/SystemCaseStudy.astro';
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  'headline': 'FuratMester – digitális ügyfélszerző rendszer esettanulmány',
-  'description': 'Landing page, Google Ads mérés, lead funnel és konverzióoptimalizálás egy speciális építőipari szolgáltatáshoz.',
-  'author': { '@type': 'Organization', 'name': 'Levente Studio' }
-};
+const structuredData={'@context':'https://schema.org','@type':'Article','headline':'FuratMester – digitális ügyfélszerző rendszer esettanulmány','description':'Landing page, Google Ads mérés, lead funnel és konverzióoptimalizálás egy speciális építőipari szolgáltatáshoz.','author':{'@type':'Organization','name':'Levente Studio'}};
 ---
-
-<BaseLayout
-  title="FuratMester esettanulmány – landing, Ads és lead funnel | Levente Studio"
-  description="Hogyan épül fel egy speciális helyi szolgáltatás digitális ügyfélszerző rendszere: landing page, Google Ads mérés, ajánlatstruktúra és leadkövetés."
-  canonical="/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/"
-  structuredData={structuredData}
->
-  <SystemCaseStudy
-    eyebrow="Levente Studio Lab · építőipari szolgáltatás"
-    title="FuratMester: a kereséstől az ajánlatkérésig mérhető rendszer"
-    lead="Egy speciális szolgáltatásnál nem elég, hogy szép legyen az oldal. Az érdeklődőnek azonnal értenie kell, mit kap, a hirdetésnek a megfelelő oldalra kell vinnie, a leadet pedig mérni kell. A FuratMesternél ezt a teljes utat egy rendszerként építettük fel."
-    stack={['Astro', 'Google Ads', 'GA4', 'GTM', 'SEO', 'lead tracking']}
-    sections={[
-      {
-        title: 'A kiinduló helyzet',
-        body: 'A faláttörés és páraelszívó-kivezetés tipikusan olyan szolgáltatás, amelyre akkor keresnek rá, amikor konkrét munka van. Ez erős vásárlási szándékot jelent, de az ajánlatot gyorsan és egyértelműen kell kommunikálni: furatméret, falanyag, kiegészítők, kiszállás és a komplett kivitelezés tartalma.'
-      },
-      {
-        title: 'A rendszer logikája',
-        body: 'A landing oldalak nem általános céges bemutatkozásként működnek. Egy konkrét problémára adnak választ, majd az érdeklődőt ajánlatkérés felé terelik. A Google Ads és az analitika ugyanahhoz a funnelhez kapcsolódik, ezért láthatóvá válik, melyik keresésből, oldalból és CTA-ból lesz valódi lead.'
-      },
-      {
-        title: 'Folyamatos optimalizálás',
-        body: 'A rendszer nem az átadáskor ér véget. Az ajánlatok, árstruktúrák, kizáró kulcsszavak, landing szövegek és konverziós események az éles megkeresések alapján finomíthatók. Ez a működés adja a Levente Studio rendszerépítő szemléletének egyik legerősebb gyakorlati alapját.'
-      }
-    ]}
-    built={[
-      'szolgáltatás-specifikus landing struktúra',
-      'SEO és keresési szándék szerinti tartalom',
-      'Google Ads-ready mérési környezet',
-      'GA4/GTM lead események',
-      'ajánlatkérési CTA és funnel logika',
-      'folyamatos ár- és konkurencia-visszamérés'
-    ]}
-    lessons={[
-      'Niche szolgáltatásnál a konkrét ajánlat és a keresési szándék fontosabb, mint a sok általános céges tartalom.',
-      'A hirdetés csak akkor optimalizálható jól, ha a valódi lead külön eseményként mérhető.',
-      'Az ár önmagában kevés: a csomag tartalma és az ügyfél által megspórolt szervezés is része az értékajánlatnak.',
-      'A landing, az Ads és az ajánlatadási folyamat együtt ad értelmezhető üzleti képet.'
-    ]}
-    liveUrl="https://lyukfurasbudapest.hu"
-  />
+<BaseLayout title="FuratMester esettanulmány – landing, Ads és lead funnel | Levente Studio" description="Valós saját projekt: hogyan kapcsolódik össze a keresési szándék, landing, Google Ads, GA4 mérés és ajánlatkérés egy speciális helyi szolgáltatás ügyfélszerző rendszerében." canonical="/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/" structuredData={structuredData}>
+<SystemCaseStudy
+ eyebrow="Levente Studio Lab · saját, élő rendszer"
+ title="FuratMester: nem weboldal. Mérhető út a kereséstől az ajánlatkérésig."
+ lead="A FuratMester saját üzleti projekt, ezért nem egy ügyfélnek készített kirakat-referencia. Ugyanabban a környezetben építjük, mérjük és javítjuk, ahol a valódi érdeklődők, hirdetési költségek, ajánlatok és kivitelezések találkoznak."
+ stack={['Astro','Google Ads','GA4','GTM','SEO','lead tracking']}
+ proofLabel="Valós rendszer · igazolható réteg"
+ proofNote="Itt szándékosan nem írunk ki becsült CPL-t, konverziós arányt vagy bevételt. A projekt éles, a mérési infrastruktúra működik; a publikus KPI-kat akkor tesszük ide, amikor azonos időszakból, tiszta definícióval visszaigazolhatók."
+ proofMetrics={[
+  {value:'LIVE',label:'Éles szolgáltatás',detail:'Valós keresésekre és valós ajánlatkérésekre épülő saját projekt.'},
+  {value:'GA4 + GTM',label:'Leadmérés',detail:'A digitális ügyfélút eseményszinten mérhető.'},
+  {value:'ADS → LEAD',label:'Összekötött funnel',detail:'A keresletfogás nem különálló kampány, hanem a landing és az ajánlatkérés része.'}
+ ]}
+ proofFlow={['Google keresés / Ads','szolgáltatás-specifikus landing','ajánlat és bizalmi elemek','ajánlatkérés / lead','visszamérés és javítás']}
+ sections={[
+  {title:'01. A kereslet már létezett',body:'A faláttörés és páraelszívó-kivezetés tipikusan problématudatos keresés. Az érdeklődő nem inspirációt keres: konkrét munkát akar megoldani. A rendszer első feladata ezért nem a cég hosszú bemutatása, hanem a keresési szándék gyors és pontos kiszolgálása.'},
+  {title:'02. Termékké tettük a szolgáltatást',body:'A furat önmagában nehezen összehasonlítható ajánlat. A kommunikáció ezért a komplett megoldás felé épül: furat, falátvezetés, visszacsapás, külső lezárás és a szükséges kapcsolódó elemek. Így az ár mögött láthatóvá válik az érték és csökken a puszta árverseny.'},
+  {title:'03. A landing és a hirdetés ugyanazt az ígéretet viszi tovább',body:'A keresési kulcsszó, a hirdetési üzenet és a céloldal nem három külön projekt. Egy ügyfélút részei. A látogató azt kapja a landingen, amit a keresés és a hirdetés alapján várt, majd egyértelmű ajánlatkérési útvonalon tud továbbmenni.'},
+  {title:'04. A lead visszakerül a rendszerbe',body:'GA4 és GTM eseményekkel elkülöníthető a puszta látogatás az üzletileg fontos műveletektől. Így nem a kattintás a végpont: azt akarjuk látni, melyik forrás, landing és CTA hoz tényleges megkeresést.'},
+  {title:'05. Az éles működésből tanulunk',body:'Az ajánlatok, árstruktúra, kizáró kulcsszavak, landing szövegek és konverziós pontok nem véglegesek. A valós érdeklődésekből származó tapasztalat visszakerül a rendszerbe. Ez az a működési ciklus, amit a Levente Studio más szolgáltató vállalkozásoknál is alkalmaz.'}
+ ]}
+ built={['keresési szándékra épített szolgáltatási landingek','komplett ajánlat- és értékstruktúra','SEO + Google Ads keresletfogás','GA4 / GTM lead események','forrás → landing → CTA → lead mérési logika','ár- és konkurencia-visszamérés','folyamatos CRO iteráció']}
+ lessons={['Niche szolgáltatásnál a konkrét probléma és ajánlat gyorsabb bizalmat épít, mint az általános céges bemutatkozás.','A kattintás nem üzleti eredmény. A leadig kell követni az ügyfélutat.','A komplett megoldás kommunikációja csökkenti annak esélyét, hogy az érdeklődő csak a furat egységárát hasonlítsa össze.','A saját projekt előnye, hogy a webes döntések és a tényleges ajánlatadási tapasztalat ugyanabba az optimalizálási körbe kerülnek.']}
+ liveUrl="https://lyukfurasbudapest.hu"
+/>
 </BaseLayout>
