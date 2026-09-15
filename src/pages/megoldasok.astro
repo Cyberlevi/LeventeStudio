@@ -1,15 +1,105 @@
 ---
-import { ArrowRight, Globe2, Target, Workflow } from 'lucide-react';
+import { ArrowRight, Gauge, Globe2, Target, Workflow } from 'lucide-react';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
 import SubpageHero from '../components/SubpageHero.astro';
-const offers=[
-  {icon:Globe2,eyebrow:'01 / ALAP',title:'Ügyfélszerző weboldal',text:'Ha az online alapot kell rendbe tenni: ajánlat, mobilélmény, SEO és leadmérés egy rendszerben.',price:'250 000 Ft-tól',href:'/weboldal-keszites/'},
-  {icon:Target,eyebrow:'02 / GROWTH',title:'Komplett ügyfélszerzés',text:'Ha már nem csak jelenlét kell, hanem kereslet, landingek és mérhető lead funnel.',price:'500 000 Ft-tól',href:'/ugyfelszerzes/'},
-  {icon:Workflow,eyebrow:'03 / SCALE',title:'AI automatizálás + CRM',text:'Ha a növekedéssel együtt már a leadkezelés és a kézi adminisztráció lett a szűk keresztmetszet.',price:'750 000 Ft-tól',href:'/ai-automatizalas/'}
+
+const offers = [
+  {
+    icon: Globe2,
+    eyebrow: 'LS/01 · PRESENCE',
+    title: 'Profi online jelenlét',
+    text: 'Ha először csak egy gyors, hiteles és kereshető online alap kell — felesleges túlépítés nélkül.',
+    price: '149 000 Ft-tól',
+    href: '/online-jelenlet/'
+  },
+  {
+    icon: Gauge,
+    eyebrow: 'LS/02 · START',
+    title: 'Mérhető ügyfélszerző weboldal',
+    text: 'Ha az online alapnak már ajánlatkérést, mérhető konverziót és bővíthető SEO-struktúrát is kell adnia.',
+    price: '250 000 Ft-tól',
+    href: '/weboldal-keszites/'
+  },
+  {
+    icon: Target,
+    eyebrow: 'LS/03 · GROW',
+    title: 'Komplett ügyfélszerzés',
+    text: 'Ha már nem csak jelenlét kell, hanem keresletkutatás, landingek, mérés és kampányra kész lead funnel.',
+    price: '450–650 000 Ft',
+    href: '/ugyfelszerzes/'
+  },
+  {
+    icon: Workflow,
+    eyebrow: 'LS/04 · SCALE',
+    title: 'Automatizálás + CRM',
+    text: 'Ha a növekedéssel együtt már a leadkezelés, az utánkövetés és a kézi adminisztráció lett a szűk keresztmetszet.',
+    price: '750 000 Ft-tól',
+    href: '/ai-automatizalas/'
+  }
 ];
 ---
-<BaseLayout title="Digitális ügyfélszerző rendszerek | Levente Studio" description="Weboldal, ügyfélszerzés, CRM és AI automatizálás szolgáltató vállalkozásoknak. Válaszd azt a rendszerszintet, ahol most a legnagyobb a szűk keresztmetszet." canonical="/megoldasok/">
-<HeaderAstro/><main class="bg-graphite-950 text-white"><SubpageHero eyebrow="Levente Studio / megoldások" title="Nem csomagot választasz." accent="Szűk keresztmetszetet oldunk meg." description="Három belépési pont ugyanabba a rendszerbe. A diagnózis alapján azt építjük meg először, ami jelenleg a legtöbb érdeklődőt, időt vagy pénzt engedi elfolyni." primaryHref="#megoldasok" primaryLabel="Megoldások" secondaryHref="/kapcsolat/#diagnosztika" secondaryLabel="2 perces diagnózis" meta={['Web','Ügyfélszerzés','CRM','AI automation']} />
-<section id="megoldasok" class="hightech-section bg-graphite-900"><div class="hightech-container"><div class="grid lg:grid-cols-3 gap-5">{offers.map(({icon:Icon,eyebrow,title,text,price,href})=><a href={href} class="tech-card-dark p-7 md:p-8 min-h-[390px] flex flex-col group"><div class="flex justify-between items-start"><span class="text-[10px] uppercase tracking-[.18em] text-signal-400">{eyebrow}</span><Icon className="w-5 h-5 text-signal-400"/></div><h2 class="font-serif text-4xl font-light leading-[.95] mt-12">{title}</h2><p class="text-white/55 leading-relaxed mt-5">{text}</p><div class="mt-auto pt-10"><div class="text-xl text-white mb-5">{price}</div><span class="inline-flex items-center gap-2 text-signal-400">Részletek <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform"/></span></div></a>)}</div><div class="mt-12 border border-white/10 p-7 md:p-9 flex flex-col md:flex-row gap-6 md:items-center md:justify-between"><div><div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-2">Nem tudod, melyik kell?</div><h2 class="font-serif text-3xl md:text-4xl font-light">Nem neked kell kitalálnod.</h2><p class="text-white/50 mt-3">A rövid rendszerdiagnózis alapján megkeressük, hol érdemes kezdeni.</p></div><a href="/kapcsolat/#diagnosztika" class="signal-button-primary inline-flex shrink-0">Kérem a rendszerdiagnózist <ArrowRight className="w-4 h-4"/></a></div></div></section></main><Footer/></BaseLayout>
+
+<BaseLayout
+  title="Digitális ügyfélszerző rendszerek és csomagok | Levente Studio"
+  description="Presence, Start, Grow és Scale digitális rendszerek szolgáltató vállalkozásoknak: online jelenlét, ügyfélszerző weboldal, leadgenerálás, CRM és automatizálás."
+  canonical="/megoldasok/"
+>
+  <HeaderAstro />
+  <main class="bg-graphite-950 text-white">
+    <SubpageHero
+      eyebrow="Levente Studio · megoldások"
+      title="Négy termék."
+      accent="Egy növekedési logika."
+      description="Nem ugyanazt a rendszert adjuk mindenkinek. A vállalkozásod jelenlegi helyzete dönti el, hogy profi jelenlétre, mérhető weboldalra, komplett ügyfélszerzésre vagy automatizált működésre van szükség."
+      primaryHref="#megoldasok"
+      primaryLabel="Termékek"
+      secondaryHref="/kapcsolat/#diagnosztika"
+      secondaryLabel="2 perces diagnózis"
+      meta={['Presence', 'Start', 'Grow', 'Scale']}
+    />
+
+    <section id="megoldasok" class="hightech-section bg-graphite-900 relative overflow-hidden">
+      <div class="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true"></div>
+      <div class="hightech-container relative">
+        <div class="max-w-4xl mb-12 sm:mb-14">
+          <div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-4">Termékpaletta</div>
+          <h2 class="font-serif text-4xl sm:text-6xl font-light leading-[.94]">A legkisebb szükséges rendszerrel kezdünk. <span class="text-signal-400">Nem a legdrágábbal.</span></h2>
+          <p class="mt-6 text-base sm:text-lg text-white/60 leading-relaxed max-w-3xl">A négy szint egymásra épül, de nem kell végiglépkedni rajtuk. Ha már működő webed van, indulhatunk GROW vagy SCALE szintről is.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {offers.map(({ icon: Icon, eyebrow, title, text, price, href }, index) => (
+            <a href={href} class:list={[
+              'p-7 md:p-8 min-h-[430px] flex flex-col group transition duration-300',
+              index === 2 ? 'border border-signal-400/30 bg-graphite-950 shadow-[0_24px_80px_rgba(0,0,0,.25)]' : 'tech-card-dark'
+            ]}>
+              <div class="flex justify-between items-start gap-4">
+                <span class="text-[10px] uppercase tracking-[.18em] text-signal-400">{eyebrow}</span>
+                <Icon className="w-5 h-5 text-signal-400" />
+              </div>
+              {index === 2 && <div class="mt-6 inline-flex self-start border border-signal-400/25 px-2.5 py-1 text-[10px] uppercase tracking-[.16em] text-signal-400">Leggyakoribb választás</div>}
+              <h3 class="font-serif text-4xl font-light leading-[.95] mt-10">{title}</h3>
+              <p class="text-white/60 leading-relaxed mt-5">{text}</p>
+              <div class="mt-auto pt-10">
+                <div class="text-xl text-white mb-5">{price}</div>
+                <span class="inline-flex items-center gap-2 text-signal-400">Részletek <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div class="mt-12 border border-white/10 p-7 md:p-9 flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
+          <div>
+            <div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-2">Nem tudod, melyik kell?</div>
+            <h2 class="font-serif text-3xl md:text-4xl font-light">Nem neked kell kitalálnod.</h2>
+            <p class="text-white/55 mt-3">A rövid rendszerdiagnózis alapján megkeressük, hol érdemes kezdeni — és ha a Presence elég, nem fogunk Scale-t eladni.</p>
+          </div>
+          <a href="/kapcsolat/#diagnosztika" class="signal-button-primary inline-flex shrink-0">Kérem a rendszerdiagnózist <ArrowRight className="w-4 h-4" /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
