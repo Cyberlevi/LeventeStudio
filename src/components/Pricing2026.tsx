@@ -2,34 +2,34 @@ import { Check, Gauge, Rocket, Workflow } from 'lucide-react';
 
 const packages = {
   start: {
-    name: 'START',
+    name: 'INDULÁS',
     code: 'SYS/01',
     price: '250.000 Ft-tól',
-    tagline: 'Ügyfélszerző jelenlét',
-    description: 'Gyors indulás annak, akinek nem digitális névjegykártya kell, hanem mérhető online alap.',
+    tagline: 'Ügyfélszerző weboldal',
+    description: 'Annak, akinek egy profi, gyors és mérhető online alap kell — nem csak egy szép digitális névjegykártya.',
     icon: Gauge,
-    features: ['Konverziós landing vagy kompakt web', 'Technikai SEO + schema', 'GA4 + alap leadmérés', 'Mobil-first Astro', 'Ajánlatkérési út', '30 nap támogatás'],
-    suitableFor: 'Új vagy újrainduló szolgáltató vállalkozásnak.'
+    features: ['Konverziós landing vagy kompakt web', 'Mobil-first, gyors felépítés', 'Technikai SEO alapok', 'GA4 + leadmérés', 'Ajánlatkérési út', '30 nap támogatás'],
+    suitableFor: 'Induló vagy megújuló szolgáltató vállalkozásnak, amelynek először stabil online alap kell.'
   },
   grow: {
-    name: 'GROW',
+    name: 'ÜGYFÉLSZERZÉS',
     code: 'SYS/02',
     price: '500.000 Ft-tól',
-    tagline: 'Ügyfélszerző rendszer',
-    description: 'A web, a keresési jelenlét, a mérés és a leadfolyamat egyetlen üzleti rendszerként működik.',
+    tagline: 'Komplett ügyfélszerző rendszer',
+    description: 'Nem csak elkészül a weboldalad: felépítjük köré azt a mérhető rendszert, amely keresletet fog, érdeklődőt szerez és megmutatja, mi hozza az ügyfelet.',
     icon: Rocket,
-    features: ['Komplett web- és landing rendszer', 'SEO + keresési szándék', 'GA4 + GTM + lead események', 'Ads-ready konverziómérés', 'CTA + funnel optimalizálás', 'Alap automatizálások', '60 nap finomhangolás'],
-    suitableFor: 'Működő vállalkozásnak, amely több és mérhetőbb megkeresést akar.'
+    features: ['Komplett web- és landing rendszer', 'Kulcsszó- és konkurenciakutatás', 'SEO + keresési szándék', 'GA4 + GTM + lead események', 'Google Ads-ready mérés', 'CTA + funnel optimalizálás', 'Alap lead automatizálás', '60 nap finomhangolás'],
+    suitableFor: 'Működő szolgáltató vállalkozásnak, amely több és mérhetőbb megkeresést akar.'
   },
   scale: {
-    name: 'SCALE',
+    name: 'RENDSZER',
     code: 'SYS/03',
     price: '750.000 Ft-tól',
-    tagline: 'Digitális működési rendszer',
-    description: 'Az ügyfélszerzés és utánkövetés több pontját automatizáljuk, hogy növekedés közben is kezelhető maradjon.',
+    tagline: 'Automatizált ügyfélkezelés',
+    description: 'Az ügyfélszerzés után a leadkezelést és az ismétlődő folyamatokat is rendszerbe tesszük, hogy kevesebb érdeklődő vesszen el és kevesebb legyen a kézi munka.',
     icon: Workflow,
-    features: ['Minden a GROW rendszerből', 'CRM vagy lead dashboard', 'Automatikus státuszok', 'Email/workflow automatizálás', 'AI-támogatott belső folyamatok', 'Egyedi dashboard', '90 nap optimalizálás'],
-    suitableFor: 'Növekedő szolgáltatónak, ahol már a teljes működés a szűk keresztmetszet.'
+    features: ['Minden az ÜGYFÉLSZERZÉS csomagból', 'CRM vagy lead dashboard', 'Automatikus státuszok és utánkövetés', 'Email/workflow automatizálás', 'AI-támogatott belső folyamatok', 'Egyedi dashboard', '90 nap optimalizálás'],
+    suitableFor: 'Növekedő szolgáltatónak, ahol már az érdeklődők kezelése és a kézi adminisztráció a szűk keresztmetszet.'
   }
 };
 
@@ -51,7 +51,7 @@ function CompactPackage({ pkg }: { pkg: typeof packages.start }) {
       </div>
       <div className="mt-auto pt-7">
         <p className="border-t border-graphite-950/10 pt-4 text-xs leading-relaxed text-graphite-500"><span className="text-graphite-800">Kinek való:</span> {pkg.suitableFor}</p>
-        <a href="#diagnosztika" data-track-cta={`Pricing - ${pkg.name}`} data-track-location="pricing_cta" className="mt-5 inline-flex min-h-12 w-full items-center justify-center border border-graphite-950/15 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:border-graphite-950 hover:bg-graphite-950 hover:text-white">Rendszerdiagnózis ↗</a>
+        <a href="#diagnosztika" data-track-cta={`Pricing - ${pkg.name}`} data-track-location="pricing_cta" className="mt-5 inline-flex min-h-12 w-full items-center justify-center border border-graphite-950/15 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:border-graphite-950 hover:bg-graphite-950 hover:text-white">Megnézem, mire van szükségem ↗</a>
       </div>
     </article>
   );
@@ -66,10 +66,10 @@ export default function Pricing2026() {
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-14 grid gap-8 border-b border-graphite-950/10 pb-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end md:mb-16">
           <div>
-            <div className="mb-5 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-graphite-500"><span className="signal-dot" />Rendszerek, nem oldalszámok</div>
-            <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">Ott kezdjük, <span className="text-graphite-500">ahol most tartasz.</span></h2>
+            <div className="mb-5 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-graphite-500"><span className="signal-dot" />Három üzleti helyzet · három rendszer</div>
+            <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">Ne funkciót válassz. <span className="text-graphite-500">A célodhoz válassz rendszert.</span></h2>
           </div>
-          <p className="max-w-2xl text-base font-light leading-relaxed text-graphite-600 sm:text-lg lg:justify-self-end">Az ár nem az aloldalak számától nő, hanem a rendszer mélységétől, a méréstől és az automatizálástól.</p>
+          <p className="max-w-2xl text-base font-light leading-relaxed text-graphite-600 sm:text-lg lg:justify-self-end">Van, akinek először egy erős weboldal kell. Van, akinek több érdeklődő. És van, ahol már az ügyfélkezelést kell automatizálni. Innen indul az árazás.</p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-12">
@@ -80,7 +80,7 @@ export default function Pricing2026() {
               <div className="flex items-start justify-between gap-5">
                 <div className="flex h-12 w-12 items-center justify-center border border-white/10 text-signal-400"><GrowIcon size={21} /></div>
                 <div className="text-right">
-                  <div className="text-[10px] uppercase tracking-[0.18em] text-signal-400">Recommended</div>
+                  <div className="text-[10px] uppercase tracking-[0.18em] text-signal-400">Leggyakoribb választás</div>
                   <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/35">{packages.grow.code} · {packages.grow.name}</div>
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function Pricing2026() {
 
               <div className="mt-auto pt-10">
                 <p className="border-t border-white/10 pt-5 text-sm leading-relaxed text-white/45"><span className="text-white/75">Kinek való:</span> {packages.grow.suitableFor}</p>
-                <a href="#diagnosztika" data-track-cta="Pricing - GROW" data-track-location="pricing_cta" className="signal-button-primary mt-6 w-full sm:w-auto">Indítsd a rendszerdiagnózist ↗</a>
+                <a href="#diagnosztika" data-track-cta="Pricing - ACQUISITION" data-track-location="pricing_cta" className="signal-button-primary mt-6 w-full sm:w-auto">Kérem a rendszerdiagnózist ↗</a>
               </div>
             </div>
           </article>
@@ -110,9 +110,9 @@ export default function Pricing2026() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-graphite-950/10 pt-7 text-xs leading-relaxed text-graphite-500 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-3xl">A végleges ajánlatot a cél, a meglévő rendszer és a szükséges integrációk alapján adjuk. A cél minden szinten ugyanaz: mérhetőbb ügyfélszerzés és egyszerűbb működés.</p>
-          <span className="shrink-0 uppercase tracking-[0.16em]">Build → measure → improve</span>
+        <div className="mt-10 grid gap-5 border-t border-graphite-950/10 pt-7 md:grid-cols-[1.2fr_.8fr] md:items-start">
+          <p className="text-xs leading-relaxed text-graphite-500">Az árak induló projektárak. A végleges ajánlatot a cél, a meglévő rendszer, a tartalom és a szükséges integrációk alapján adjuk. Hirdetési költés, külső szoftverek és fizetős licencek csak akkor részei az ajánlatnak, ha ezt külön feltüntetjük.</p>
+          <p className="text-xs leading-relaxed text-graphite-500 md:text-right"><span className="font-medium text-graphite-800">Nem tudod, melyik kell?</span><br />A 2 perces diagnózis után nem a drágábbat, hanem a szükséges szintet javasoljuk.</p>
         </div>
       </div>
     </section>
