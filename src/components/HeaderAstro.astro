@@ -1,123 +1,22 @@
 ---
 const { pathname } = Astro.url;
+const solutionPaths = ['/megoldasok/','/weboldal-keszites/','/ugyfelszerzes/','/ai-automatizalas/','/ai-webfejlesztes/'];
 const isActive = (path: string) => pathname === path || pathname === path + '/';
-
 const navLinks = [
-  { path: '/ai-webfejlesztes/', label: 'Megoldások' },
-  { path: '/esettanulmanyok/', label: 'Lab / munkák' },
-  { path: '/blog/', label: 'Tudástár' },
-  { path: '/rolam/', label: 'Rólam' },
-  { path: '/kapcsolat/', label: 'Kapcsolat' }
+  { path: '/megoldasok/', label: 'Megoldások', active: solutionPaths.some(path => isActive(path)) },
+  { path: '/esettanulmanyok/', label: 'Esettanulmányok', active: isActive('/esettanulmanyok/') },
+  { path: '/blog/', label: 'Tudástár', active: isActive('/blog/') },
+  { path: '/rolam/', label: 'Rólam', active: isActive('/rolam/') }
 ];
 ---
-
 <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-graphite-950/85 text-ivory-100 backdrop-blur-xl">
   <div class="mx-auto flex max-w-[86rem] items-center justify-between px-6 py-4">
-    <a href="/" class="group flex items-center gap-3" aria-label="Levente Studio főoldal">
-      <img
-        src="/brand-mark.svg"
-        width="36"
-        height="36"
-        alt=""
-        class="h-9 w-9 shrink-0 transition duration-300 group-hover:scale-[1.04]"
-        aria-hidden="true"
-      />
-      <span class="leading-none">
-        <span class="block text-sm font-medium tracking-[0.14em]">LEVENTE</span>
-        <span class="mt-1 block text-[9px] uppercase tracking-[0.28em] text-ivory-400">studio / systems</span>
-      </span>
-    </a>
-
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Fő navigáció">
-      {navLinks.map(link => (
-        <a
-          href={link.path}
-          aria-current={isActive(link.path) ? 'page' : undefined}
-          class:list={[
-            'text-sm transition-colors',
-            isActive(link.path) ? 'text-ivory-100' : 'text-ivory-400 hover:text-ivory-100'
-          ]}
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
-
-    <div class="flex items-center gap-3">
-      <a
-        href="/kapcsolat/#diagnosztika"
-        data-track-cta="2 perces rendszerdiagnózis"
-        data-track-location="header_desktop"
-        class="hidden bg-signal-300 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:bg-signal-500 md:inline-flex"
-      >
-        2 perces diagnózis
-      </a>
-      <button id="mobile-menu-button" class="inline-flex h-10 w-10 items-center justify-center border border-white/15 text-ivory-100 lg:hidden" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="mobile-menu">
-        <span id="menu-icon" class="text-lg leading-none">☰</span>
-        <span id="close-icon" class="hidden text-lg leading-none">×</span>
-      </button>
-    </div>
+    <a href="/" class="group flex items-center gap-3" aria-label="Levente Studio főoldal"><img src="/brand-mark.svg" width="36" height="36" alt="" class="h-9 w-9 shrink-0 transition duration-300 group-hover:scale-[1.04]" aria-hidden="true"/><span class="leading-none"><span class="block text-sm font-medium tracking-[0.14em]">LEVENTE</span><span class="mt-1 block text-[9px] uppercase tracking-[0.28em] text-ivory-400">studio / systems</span></span></a>
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Fő navigáció">{navLinks.map(link => <a href={link.path} aria-current={link.active?'page':undefined} class:list={['text-sm transition-colors',link.active?'text-ivory-100':'text-ivory-400 hover:text-ivory-100']}>{link.label}</a>)}</nav>
+    <div class="flex items-center gap-3"><a href="/kapcsolat/#diagnosztika" data-track-cta="2 perces rendszerdiagnózis" data-track-location="header_desktop" class="hidden bg-signal-300 px-5 py-3 text-sm font-medium text-graphite-950 transition hover:bg-signal-500 md:inline-flex">2 perces diagnózis</a><button id="mobile-menu-button" class="inline-flex h-10 w-10 items-center justify-center border border-white/15 text-ivory-100 lg:hidden" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="mobile-menu"><span id="menu-icon" class="text-lg leading-none">☰</span><span id="close-icon" class="hidden text-lg leading-none">×</span></button></div>
   </div>
-
-  <nav id="mobile-menu" class="hidden border-t border-white/10 bg-graphite-950 px-6 py-5 lg:hidden" aria-label="Mobil navigáció">
-    <div class="mx-auto flex max-w-[86rem] flex-col gap-4">
-      {navLinks.map(link => (
-        <a
-          href={link.path}
-          aria-current={isActive(link.path) ? 'page' : undefined}
-          class:list={[
-            'mobile-menu-link py-1 text-base transition-colors',
-            isActive(link.path) ? 'text-ivory-100' : 'text-ivory-400 hover:text-ivory-100'
-          ]}
-        >
-          {link.label}
-        </a>
-      ))}
-      <a
-        href="/kapcsolat/#diagnosztika"
-        data-track-cta="2 perces rendszerdiagnózis"
-        data-track-location="header_mobile"
-        class="mobile-menu-link mt-2 inline-flex justify-center bg-signal-300 px-5 py-3 font-medium text-graphite-950"
-      >
-        2 perces diagnózis
-      </a>
-    </div>
-  </nav>
+  <nav id="mobile-menu" class="hidden border-t border-white/10 bg-graphite-950 px-6 py-5 lg:hidden" aria-label="Mobil navigáció"><div class="mx-auto flex max-w-[86rem] flex-col gap-4">{navLinks.map(link => <a href={link.path} aria-current={link.active?'page':undefined} class:list={['mobile-menu-link py-1 text-base transition-colors',link.active?'text-ivory-100':'text-ivory-400 hover:text-ivory-100']}>{link.label}</a>)}<div class="my-1 border-t border-white/10"></div><a href="/weboldal-keszites/" class="mobile-menu-link text-sm text-ivory-400">Ügyfélszerző weboldal</a><a href="/ugyfelszerzes/" class="mobile-menu-link text-sm text-ivory-400">Komplett ügyfélszerzés</a><a href="/ai-automatizalas/" class="mobile-menu-link text-sm text-ivory-400">AI automatizálás + CRM</a><a href="/kapcsolat/#diagnosztika" data-track-cta="2 perces rendszerdiagnózis" data-track-location="header_mobile" class="mobile-menu-link mt-2 inline-flex justify-center bg-signal-300 px-5 py-3 font-medium text-graphite-950">2 perces diagnózis</a></div></nav>
 </header>
-
 <script is:inline>
-  (() => {
-    const button = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-    if (!button || !menu || !menuIcon || !closeIcon) return;
-
-    const setOpen = (open) => {
-      menu.classList.toggle('hidden', !open);
-      menuIcon.classList.toggle('hidden', open);
-      closeIcon.classList.toggle('hidden', !open);
-      button.setAttribute('aria-expanded', String(open));
-      button.setAttribute('aria-label', open ? 'Menü bezárása' : 'Menü megnyitása');
-      document.documentElement.style.overflow = open ? 'hidden' : '';
-    };
-
-    button.addEventListener('click', () => {
-      setOpen(menu.classList.contains('hidden'));
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape' || menu.classList.contains('hidden')) return;
-      setOpen(false);
-      button.focus();
-    });
-
-    document.querySelectorAll('.mobile-menu-link').forEach(link => {
-      link.addEventListener('click', () => setOpen(false));
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024 && !menu.classList.contains('hidden')) setOpen(false);
-    });
-  })();
+(()=>{const button=document.getElementById('mobile-menu-button'),menu=document.getElementById('mobile-menu'),menuIcon=document.getElementById('menu-icon'),closeIcon=document.getElementById('close-icon');if(!button||!menu||!menuIcon||!closeIcon)return;const setOpen=(open)=>{menu.classList.toggle('hidden',!open);menuIcon.classList.toggle('hidden',open);closeIcon.classList.toggle('hidden',!open);button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'Menü bezárása':'Menü megnyitása');document.documentElement.style.overflow=open?'hidden':'';};button.addEventListener('click',()=>setOpen(menu.classList.contains('hidden')));document.addEventListener('keydown',event=>{if(event.key!=='Escape'||menu.classList.contains('hidden'))return;setOpen(false);button.focus();});document.querySelectorAll('.mobile-menu-link').forEach(link=>link.addEventListener('click',()=>setOpen(false)));window.addEventListener('resize',()=>{if(window.innerWidth>=1024&&!menu.classList.contains('hidden'))setOpen(false);});})();
 </script>
