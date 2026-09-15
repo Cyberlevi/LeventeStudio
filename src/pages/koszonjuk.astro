@@ -4,58 +4,7 @@ import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 ---
-
-<BaseLayout
-  title="Köszönöm a megkeresést | Levente Studio"
-  description="A rendszerdiagnózis megérkezett. Innen már konkrétan tudunk továbbmenni."
-  canonical="/koszonjuk/"
-  noindex={true}
->
-  <CookieBanner client:load />
-  <div class="min-h-screen bg-graphite-950 text-white flex flex-col">
-    <HeaderAstro />
-
-    <main class="relative flex-1 overflow-hidden px-5 pb-24 pt-40 sm:px-6">
-      <div class="absolute inset-0 subpage-signal-grid opacity-35 pointer-events-none"></div>
-      <div class="absolute inset-0 subpage-glow pointer-events-none"></div>
-
-      <div class="relative mx-auto max-w-4xl text-center">
-        <div class="signal-kicker mb-6 justify-center"><span class="signal-dot"></span>Rendszerdiagnózis elküldve</div>
-        <h1 class="font-serif text-5xl font-light leading-[0.92] tracking-editorial text-balance sm:text-6xl md:text-8xl">
-          Megérkezett.
-          <span class="block text-signal-400">Most már van miből kiindulni.</span>
-        </h1>
-        <p class="mx-auto mb-12 mt-7 max-w-2xl text-base font-light leading-relaxed text-white/55 sm:text-lg md:text-xl">
-          Átnézem a megadott helyzetet, és az első egyeztetésen nem általánosságokról beszélünk, hanem arról, hol van nálad a legnagyobb üzleti és digitális súrlódás.
-        </p>
-
-        <div class="mx-auto mb-10 grid max-w-2xl gap-4 text-left sm:grid-cols-2">
-          <div class="tech-card-dark p-6"><div class="mb-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">NEXT/01</div><div class="text-lg text-white">Átnézem a beküldött adatokat.</div></div>
-          <div class="tech-card-dark p-6"><div class="mb-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">NEXT/02</div><div class="text-lg text-white">Konkrét rendszerirányról beszélünk.</div></div>
-        </div>
-
-        <div class="flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/" class="signal-button-primary">Vissza a főoldalra ↗</a>
-          <a href="https://wa.me/36202826843?text=Szia%2C%20elk%C3%BCldtem%20a%20Levente%20Studio%20rendszerdiagn%C3%B3zist." target="_blank" rel="noopener noreferrer" class="signal-button-secondary">WhatsAppon is jelzek</a>
-        </div>
-      </div>
-    </main>
-
-    <Footer />
-  </div>
-
-  <script is:inline>
-    (() => {
-      const pendingKey = 'ls_lead_submission_pending_v1';
-      let isConfirmedNavigation = false;
-      try {
-        isConfirmedNavigation = sessionStorage.getItem(pendingKey) === '1';
-        if (isConfirmedNavigation) sessionStorage.removeItem(pendingKey);
-      } catch (_) {}
-      if (!isConfirmedNavigation) return;
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', { lead_type: 'system_diagnostic', lead_source: 'netlify_form' });
-      }
-    })();
-  </script>
-</BaseLayout>
+<BaseLayout title="Köszönöm a megkeresést | Levente Studio" description="A rendszerdiagnózis megérkezett. Innen már konkrétan tudunk továbbmenni." canonical="/koszonjuk/" noindex={true}><CookieBanner client:load/><div class="min-h-screen bg-graphite-950 text-white flex flex-col"><HeaderAstro/><main class="relative flex-1 overflow-hidden px-5 pb-24 pt-40 sm:px-6"><div class="absolute inset-0 subpage-signal-grid opacity-35 pointer-events-none"></div><div class="absolute inset-0 subpage-glow pointer-events-none"></div><div class="relative mx-auto max-w-4xl text-center"><div class="signal-kicker mb-6 justify-center"><span class="signal-dot"></span>Rendszerdiagnózis elküldve</div><h1 class="font-serif text-5xl font-light leading-[0.92] tracking-editorial text-balance sm:text-6xl md:text-8xl">Megérkezett.<span class="block text-signal-400">Most már van miből kiindulni.</span></h1><p class="mx-auto mb-12 mt-7 max-w-2xl text-base font-light leading-relaxed text-white/55 sm:text-lg md:text-xl">Átnézem a megadott helyzetet, és az első egyeztetésen nem általánosságokról beszélünk, hanem arról, hol van nálad a legnagyobb üzleti és digitális súrlódás.</p><div class="mx-auto mb-10 grid max-w-2xl gap-4 text-left sm:grid-cols-2"><div class="tech-card-dark p-6"><div class="mb-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">NEXT/01</div><div class="text-lg text-white">Átnézem a beküldött adatokat.</div></div><div class="tech-card-dark p-6"><div class="mb-2 text-[10px] uppercase tracking-[0.18em] text-signal-400">NEXT/02</div><div class="text-lg text-white">Konkrét rendszerirányról beszélünk.</div></div></div><div class="flex flex-col justify-center gap-3 sm:flex-row"><a href="/" class="signal-button-primary">Vissza a főoldalra ↗</a><a href="https://wa.me/36202826843?text=Szia%2C%20elk%C3%BCldtem%20a%20Levente%20Studio%20rendszerdiagn%C3%B3zist." target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_after_lead" data-track-location="thank_you" class="signal-button-secondary">WhatsAppon is jelzek</a></div></div></main><Footer/></div>
+<script is:inline>
+(()=>{const pendingKey='ls_lead_submission_pending_v1';let confirmed=false,source='',entry='';try{confirmed=sessionStorage.getItem(pendingKey)==='1';source=sessionStorage.getItem('ls_lead_source_v1')||'';entry=sessionStorage.getItem('ls_entry_page_v1')||'';if(confirmed){sessionStorage.removeItem(pendingKey);sessionStorage.removeItem('ls_lead_source_v1');}}catch(_){}if(!confirmed)return;const eventData={event:'generate_lead',lead_type:'system_diagnostic',lead_source:'netlify_form',source_page:source||'unknown',entry_page:entry||'unknown'};window.dataLayer=window.dataLayer||[];window.dataLayer.push(eventData);if(typeof window.gtag==='function')window.gtag('event','generate_lead',{lead_type:'system_diagnostic',lead_source:'netlify_form',source_page:source||'unknown',entry_page:entry||'unknown'});})();
+</script></BaseLayout>
