@@ -1,8 +1,13 @@
-export type DiagnosticRoute = { code: string; name: string; price: string; href: string; reason: string } | null;
+import { findOffer } from '../data/studio-offers';
 
-export function getDiagnosticRoute(goal: string): DiagnosticRoute {
-  if (goal === 'rebuild') return { code: 'SYS/01', name: 'Ügyfélszerző weboldal', price: '250 000 Ft-tól', href: '/weboldal-keszites/', reason: 'A megadott cél alapján először az online alapot és az ajánlatkérési utat érdemes rendbe tenni.' };
-  if (['more-leads','better-leads','measurement'].includes(goal)) return { code: 'SYS/02', name: 'Komplett ügyfélszerző rendszer', price: '500 000 Ft-tól', href: '/ugyfelszerzes/', reason: 'A megadott cél alapján nem egyetlen webes elem, hanem a kereslet, landing és mérés összekötése a logikus első irány.' };
-  if (goal === 'automation') return { code: 'SYS/03', name: 'Automatizált ügyfélkezelés', price: '750 000 Ft-tól', href: '/ai-automatizalas/', reason: 'A megadott cél alapján a leadkezelés és az ismétlődő folyamatok rendszerbe szervezése lehet a következő szint.' };
-  return null;
+export type DiagnosticRoute = { code: string; id: string; name: string; price: string; href: string; reason: string } | null;
+
+export function getDiagnosticRoute(goal: string, selectedPackage = ''): DiagnosticRoute {
+  const preferred = findOffer(selectedPackage);
+  const defaultId = ({ presence: 'PRESENCE', rebuild: 'START', 'more-leads': 'GROW', 'better-leads': 'GROW', measurement: 'GROW', automation: 'SCALE' } as Record<string,string>)[goal];
+  const offer = preferred || findOffer(defaultId);
+  if (!offer) return null;
+  return { code: offer.code, id: offer.id, name: offer.title, price: offer.price,
+    href: `/#csomag-${offer.id.toLowerCase()}`,
+    reason: preferred ? 'Ezt a csomagot jelölted meg. A pontos tartalmat és a végösszeget az egyeztetés után rögzítjük.' : 'A megadott cél alapján ez lehet a kiindulópont. A feladat megismerése után személyesen pontosítjuk az ajánlatot.' };
 }

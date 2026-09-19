@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { trackTimeOnPage } from '../utils/gtm';
+import { pushToDataLayer } from '../utils/gtm';
+
+const trackTimeOnPage = (seconds: number) => pushToDataLayer({ event: 'time_on_page', time_seconds: seconds });
 
 export function useTimeTracking() {
   const tracked60 = useRef(false);

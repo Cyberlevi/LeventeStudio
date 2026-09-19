@@ -1,9 +1,3 @@
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
-  }
-}
-
 function trackScroll(percentage: number) {
   if (typeof window === 'undefined') return;
 

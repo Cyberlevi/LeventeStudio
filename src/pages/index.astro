@@ -3,17 +3,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero2026 from '../components/Hero2026';
 import StudioLab from '../components/StudioLab';
-import TrustBar from '../components/TrustBar';
 import ProblemAwareness2026 from '../components/ProblemAwareness2026';
-import Solution from '../components/Solution';
 import Pricing2026 from '../components/Pricing2026';
+import ProjectProcess from '../components/ProjectProcess';
 import LeadDiagnostic from '../components/LeadDiagnostic.astro';
 import FAQ2026 from '../components/FAQ2026';
 import Contact2026 from '../components/Contact2026';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar2026 from '../components/MobileStickyBar2026';
-import StickyDesktopCTA2026 from '../components/StickyDesktopCTA2026.astro';
-const structuredData={'@context':'https://schema.org','@type':'ProfessionalService','name':'Levente Studio - AI-native digitális növekedési rendszerek','description':'Weboldal, SEO, mérés, automatizálás és ügyfélszerző rendszerek szolgáltató vállalkozásoknak.','image':'https://leventestudio.app/android-chrome-512x512.png','logo':{'@type':'ImageObject','url':'https://leventestudio.app/android-chrome-512x512.png','width':512,'height':512},'provider':{'@type':'Person','name':'Tarnóczi Levente','jobTitle':'Digitális rendszerépítő','email':'hello@leventestudio.app','url':'https://leventestudio.app','image':'https://leventestudio.app/levente_studio_portrait_final.webp'},'areaServed':'HU','serviceType':['Ügyfélszerző weboldal','SEO optimalizálás','Konverziómérés','Lead rendszer','Üzleti automatizálás','AI workflow'],'address':{'@type':'PostalAddress','addressCountry':'HU'},'priceRange':'$$'};
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Levente Studio',
+  description: 'Weboldalkészítés szolgáltató vállalkozásoknak. Tervezés, fejlesztés, mérés és weboldalgondozás.',
+  url: 'https://leventestudio.app/', image: 'https://leventestudio.app/levente_studio_portrait_final.webp',
+  logo: 'https://leventestudio.app/android-chrome-512x512.png', areaServed: 'HU',
+  provider: { '@type': 'Person', name: 'Tarnóczi Levente', email: 'hello@leventestudio.app' },
+  serviceType: ['Weboldalkészítés', 'Weboldalgondozás', 'Konverziómérés', 'Üzleti automatizálás'],
+};
 ---
-<BaseLayout title="AI-native ügyfélszerző rendszerek vállalkozásoknak | Levente Studio" description="Weboldal, SEO, mérés és automatizálás egy rendszerben. AI-native digitális ügyfélszerzés szolgáltató vállalkozásoknak, saját éles projekteken tesztelt módszerekkel." canonical="/" structuredData={structuredData}><CookieBanner client:load/><MobileStickyBar2026/><StickyDesktopCTA2026/><div class="min-h-screen bg-graphite-950"><HeaderAstro/><Hero2026/><TrustBar/><ProblemAwareness2026/><Solution/><StudioLab/><Pricing2026/><LeadDiagnostic/><FAQ2026/><Contact2026/><Footer/></div></BaseLayout>
+<BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
+  <CookieBanner client:load /><HeaderAstro /><MobileStickyBar2026 />
+  <main><Hero2026 /><StudioLab /><ProblemAwareness2026 /><Pricing2026 /><ProjectProcess /><FAQ2026 /><LeadDiagnostic /><Contact2026 /></main>
+  <Footer />
+</BaseLayout>

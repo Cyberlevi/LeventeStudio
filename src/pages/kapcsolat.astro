@@ -2,55 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import LeadDiagnostic from '../components/LeadDiagnostic.astro';
-import Contact from '../components/Contact';
+import Contact2026 from '../components/Contact2026';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
-import SubpageHero from '../components/SubpageHero.astro';
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  'name': 'Kapcsolat - Levente Studio',
-  'description': 'Rendszertervezési egyeztetés weboldal, SEO, mérés, leadkezelés és automatizálás témában.',
-  'url': 'https://leventestudio.app/kapcsolat/',
-  'provider': {
-    '@type': 'Person',
-    'name': 'Tarnóczi Levente',
-    'jobTitle': 'Digitális rendszerépítő',
-    'telephone': '+36202826843',
-    'email': 'hello@leventestudio.app',
-    'url': 'https://leventestudio.app/rolam/'
-  }
-};
+import MobileStickyBar2026 from '../components/MobileStickyBar2026';
 ---
-
-<BaseLayout
-  title="Kapcsolat – Rendszertervezés | Levente Studio"
-  description="Töltsd ki a 2 perces rendszerdiagnózist, vagy keress WhatsAppon, emailben vagy telefonon. Weboldal, SEO, mérés, leadkezelés és automatizálás."
-  canonical="/kapcsolat/"
-  structuredData={structuredData}
->
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
-  <HeaderAstro />
-
-  <main class="min-h-screen bg-cream-50">
-    <SubpageHero
-      eyebrow="Start a system conversation"
-      title="Ne általánosságokról beszéljünk."
-      accent="Induljunk a valódi elakadásból."
-      description="A 2 perces diagnózis megmutatja, milyen helyzetből indulunk. Ha gyorsabb, WhatsAppon, emailben vagy telefonon is elérsz."
-      primaryHref="#diagnosztika"
-      primaryLabel="Diagnózis indítása"
-      secondaryHref="#kapcsolat"
-      secondaryLabel="Direkt kapcsolat"
-      meta={['2 min diagnostic', 'Human review', 'No sales bot', 'Direct contact']}
-    />
-
-    <LeadDiagnostic />
-    <Contact client:visible />
-  </main>
-
+<BaseLayout title="Ajánlatkérés és kapcsolat | Levente Studio" description="Írd meg, milyen weboldalra vagy fejlesztésre van szükséged. Személyesen egyeztetünk a feladatról és az ajánlatról." canonical="/kapcsolat/">
+  <CookieBanner client:load /><HeaderAstro /><MobileStickyBar2026 />
+  <main class="bg-graphite-950 pt-28"><div class="mx-auto max-w-6xl px-5 pb-8 sm:px-6"><h1 class="text-sm text-ivory-400">Ajánlatkérés és kapcsolat</h1></div><LeadDiagnostic /><Contact2026 /></main>
   <Footer />
 </BaseLayout>

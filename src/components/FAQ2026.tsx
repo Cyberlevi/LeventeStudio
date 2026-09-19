@@ -1,14 +1,14 @@
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
-  { question: 'Ez weboldalkészítés vagy marketing?', answer: 'A kettő közötti falat bontjuk le. A weboldalt, a keresési struktúrát, a mérést, a leadkezelést és szükség esetén az automatizálást egy közös ügyfélút részeként tervezzük meg.' },
-  { question: 'Mit jelent nálatok az AI-native működés?', answer: 'Az AI-t nem dísznek tesszük az oldalra. Elemzésre, fejlesztési gyorsításra, tartalmi munkára, riport-előkészítésre és automatizálható adminisztrációra használjuk. Az üzleti döntéseket továbbra is valós adatok és emberi kontroll vezetik.' },
-  { question: 'Mennyi idő alatt készül el?', answer: 'A rendszer méretétől függ. Egy fókuszált landing és mérési alap néhány munkanap alatt elkészülhet, egy többoldalas, CRM-et vagy automatizálást is tartalmazó rendszer ennél hosszabb projekt. Az ütemezést a rendszerterv után rögzítjük.' },
-  { question: 'Kell mindenkinek CRM és automatizálás?', answer: 'Nem. Csak azt építjük be, ami az adott vállalkozás működését ténylegesen egyszerűsíti. Egy helyi szolgáltatónak sokszor a jó landing, helyi jelenlét és tiszta mérés fontosabb, mint egy nagy CRM.' },
-  { question: 'WordPress-szel is dolgoztok?', answer: 'Meglévő WordPress rendszert auditálni, migrálni vagy szükség esetén továbbfejleszteni is lehet. Új rendszereknél általában modern, gyors és jól skálázható technológiát választunk az üzleti igény alapján.' },
-  { question: 'Honnan tudom, hogy működik-e?', answer: 'Már a tervezéskor meghatározzuk, mi számít konverziónak. A cél az, hogy ne csak látogatottságot láss, hanem követhető legyen a keresésből vagy kampányból érkező valódi érdeklődés útja is.' },
-  { question: 'Van egyszeri projekt és folyamatos együttműködés is?', answer: 'Igen. Lehet egyszeri rendszerépítés, de a legerősebb eredmény akkor jön, amikor az éles adatok alapján később is tudjuk javítani a landingeket, mérést, ajánlatot és automatizálást.' },
-  { question: 'Mennyibe kerül?', answer: 'A főoldalon START, GROW és SCALE szinteket mutatunk irányadó induló árakkal. A pontos ajánlatot a cél, a meglévő rendszer és a szükséges integrációk alapján adjuk meg.' }
+  { question: 'Melyik csomagot válasszam?', answer: 'Egyszerű bemutatkozáshoz a PRESENCE, több szolgáltatás bemutatásához a START lehet jó kiindulópont. A GROW a weboldalt, a kampányoldalakat és a mérést kapcsolja össze. A SCALE az ügyfélkezelés és az adminisztráció egyszerűsítésére is kiterjed. Az egyeztetésen pontosítjuk, mire van szükséged.' },
+  { question: 'Mit kell nekem adnom a weboldalhoz?', answer: 'A vállalkozásod és a szolgáltatásaid adatait, a használható fotókat és az elérhetőségeket. A szövegírás, képelőkészítés és egyéb tartalmi munka körét előre rögzítjük az ajánlatban.' },
+  { question: 'Mennyi idő alatt készül el?', answer: 'A határidő az oldalak számától, a funkcióktól és a rendelkezésre álló tartalomtól függ. Az ütemezést az ajánlatban rögzítjük, az első változatot pedig előnézetben tudod átnézni.' },
+  { question: 'Hány módosítás fér bele?', answer: 'A módosítási körök számát és tartalmát az ajánlat tartalmazza. Ha közben új oldalra vagy funkcióra lenne szükség, előbb megbeszéljük a többletmunkát és a díját.' },
+  { question: 'WordPressben készül az oldal?', answer: 'Új weboldalainkat Astro vagy React alapokon készítjük. Az önálló tartalomszerkesztés igényét külön egyeztetjük, és ha szükséges, megfelelő szerkesztőfelületet tervezünk hozzá.' },
+  { question: 'Kié lesz a domain és a tárhely?', answer: 'A domain és a tárhely a te nevedre kerül. Az átadáskor egyeztetjük a hozzáféréseket, a használatot és az esetleges további gondozást.' },
+  { question: 'Mi történik az átadás után?', answer: 'Az ajánlatban rögzített támogatással segítünk az indulásban. A saját készítésű oldalakhoz havi gondozás is kérhető, előre egyeztetett feladatokkal, módosítási idővel és díjjal.' },
+  { question: 'Mire használjátok az AI-t?', answer: 'Kutatás, szövegvázlatok, fejlesztés és ismétlődő feladatok előkészítésére. Az elkészült tartalmat és működést ellenőrizzük, az árról és a vállalásokról személyesen egyeztetünk.' }
 ];
 
 export default function FAQ2026() {
@@ -18,10 +18,10 @@ export default function FAQ2026() {
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-12 grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:items-end md:mb-16">
           <div>
-            <div className="signal-kicker mb-5"><span className="signal-dot" />FAQ / system clarity</div>
-            <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">Amit rendszerépítés előtt <span className="text-signal-400">érdemes tisztázni.</span></h2>
+            <div className="signal-kicker mb-5"><span className="signal-dot" />Gyakori kérdések</div>
+            <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">Amit indulás előtt <span className="text-signal-400">érdemes tisztázni.</span></h2>
           </div>
-          <p className="max-w-xl text-base font-light leading-relaxed text-white/45 lg:justify-self-end">Kevesebb homályos ígéret, több konkrét működési válasz. Itt vannak a kérdések, amelyek tényleg számítanak indulás előtt.</p>
+          <p className="max-w-xl text-base font-light leading-relaxed text-white/45 lg:justify-self-end">Tartalom, határidő, módosítások és átadás. Ezeket már az elején tisztázzuk.</p>
         </div>
 
         <div className="border-y border-white/10">
