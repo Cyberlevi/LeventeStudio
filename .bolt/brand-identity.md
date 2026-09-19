@@ -25,6 +25,7 @@ A kommunikáció legyen egyszerű: mit készítünk, mennyibe kerülhet, milyen 
 ## BIZONYÍTÉK
 
 Valós saját vagy családi szolgáltatói projektek:
+- KlímaTiszták – elsődleges kirakatprojekt;
 - Klíma18ker;
 - FuratMester;
 - Bundavarázs.
