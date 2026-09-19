@@ -2,158 +2,122 @@
 
 ## MÁRKAPOZÍCIÓ
 
-**Kategória:** AI-native digitális rendszerépítő stúdió
+**Kategória:** weboldalkészítő stúdió szolgáltató vállalkozásoknak.
 
-**Mit építünk:** összekötött ügyfélszerző és működési rendszereket szolgáltató vállalkozásoknak.
+**Mit adunk el elsőként:** átlátható, gyors és vállalható weboldalt, amely bemutatja a szolgáltatást, segít választani és egyszerűvé teszi az ajánlatkérést.
 
-**A rendszer tipikus elemei:**
-- konverziós weboldal és landing page;
-- SEO és keresési struktúra;
-- Google Ads-ready mérés;
-- GA4 / GTM / konverziókövetés;
-- leadkezelés és CRM-alapok;
-- automatizálható adminisztráció;
-- AI-assisted elemzés és workflow.
+**A magasabb csomagokban ehhez kapcsolódhat:**
+- szolgáltatási és kampányoldal;
+- technikai SEO és keresési struktúra;
+- GA4 / GTM / kapcsolatfelvétel-mérés;
+- ügyfélszerzési folyamat finomítása;
+- leadkezelés, CRM és automatizálás;
+- AI-támogatott elemzés és belső workflow.
 
-**Alapígéret:** Nem különálló digitális eszközöket adunk át. A kereséstől vagy hirdetéstől a lead beérkezéséig és kezeléséig egy mérhető folyamatot építünk.
+Az AI és az automatizálás háttérképesség. Nem ezekkel kezdjük a kommunikációt, ha az ügyfél valójában jó weboldalt szeretne.
 
-**Bizonyíték:** A Levente Studio saját éles szolgáltatói projekteken is használja és finomítja a módszereit (Levente Studio Lab).
+## FŐ ÍGÉRET
 
-## MIT NEM KOMMUNIKÁLUNK
+> Weboldal, amire büszkén küldöd az ügyfeled.
 
-- Nem az AI a termék. Az AI a háttérben gyorsítja a munkát.
-- Nem ígérünk garantált Google-helyezést vagy garantált bevételt.
-- Nem állítjuk, hogy egy technológia minden esetben jobb egy másiknál.
-- Nem a funkciók számát adjuk el, hanem az üzleti folyamat egyszerűsítését és mérhetőségét.
-- Nem használunk üres „full service agency” vagy „forradalmi AI” marketingnyelvet.
+A kommunikáció legyen egyszerű: mit készítünk, mennyibe kerülhet, milyen saját munkáink vannak, és hogyan lehet ajánlatot kérni.
 
-## HANGNEM
+## BIZONYÍTÉK
 
-**Legyen:**
-- világos;
-- emberi;
-- szakértői;
-- üzleti;
-- mérhető;
-- tárgyilagos;
-- magabiztos, de nem nagyzoló.
+Valós saját vagy családi szolgáltatói projektek:
+- Klíma18ker;
+- FuratMester;
+- Bundavarázs.
 
-**Kerüljük:**
-- túlzó garanciákat;
-- felesleges angol zsargont;
-- konkurencia lenézését;
-- technológiai öncélúságot;
-- hosszú, általános marketingrizsát.
-
-## ÜZENET-HIERARCHIA
-
-1. **Eredmény:** működőbb ügyfélszerzés és kevesebb kézi munka.
-2. **Rendszer:** web + SEO + mérés + leadkezelés + automatizálás.
-3. **Bizonyíték:** saját éles projektekből származó tapasztalat.
-4. **Technológia:** modern stack és AI-assisted fejlesztés.
-
-A technológia soha ne előzze meg az üzleti problémát.
-
-## FŐ ÜZENETEK
-
-**Primary:**
-> Nem csak weboldalt. Ügyfélszerző rendszert.
-
-**Supporting:**
-> Web + SEO + hirdetés + mérés + automatizálás egy rendszerben.
-
-**Proof:**
-> Amit ügyfélnek adunk, azt lehetőség szerint előbb saját éles rendszerben teszteljük.
+Csak ellenőrzött eredményt vagy egyértelműen bemutatott folyamatot állítunk tényként. Demonstrációs vagy kitalált teljesítményszám nem jelenhet meg valós eredményként.
 
 ## SZOLGÁLTATÁSI SZINTEK
 
+A csomagok egyetlen forrása: `src/data/studio-offers.ts`.
+
+### PRESENCE
+Profi online jelenlét – **149 000 Ft-tól**.
+
 ### START
-Fókuszált ügyfélszerző jelenlét.
-Landing vagy kisebb web, SEO-alapok, mérés és kapcsolatfelvételi út.
+Weboldal a szolgáltatásaidhoz – **250 000 Ft-tól**.
 
 ### GROW
-Összekötött ügyfélszerző rendszer.
-Web, landingek, mérés, kampány-ready struktúra és leadkezelés.
+Weboldal és ügyfélszerzés – **450–650 000 Ft**.
 
 ### SCALE
-Digitális működési rendszer.
-CRM, automatizálás, dashboardok, integrációk és folyamatos optimalizálás.
+Rendezett ügyfélkezelés – **750 000 Ft-tól**.
 
-## LEVENTE STUDIO LAB
+A nyilvános ár- és csomagszöveget ne duplikáljuk más fájlokban, ha az közös adatból renderelhető.
 
-A Lab nem klasszikus portfólió. Olyan saját vagy közvetlenül működtetett projektek gyűjteménye, amelyekből valós üzleti visszajelzés érkezik.
+## KONVERZIÓS ÚT
 
-Jelenlegi fő példák:
-- Klima18ker – web, SEO, technikai optimalizálás;
-- FuratMester – landing, Ads, lead funnel, mérés;
-- Bundavarázs – helyi jelenlét, Google, analitika.
+**Elsődleges CTA:** Ajánlatot kérek.
+
+Az ajánlatkérő célja nem egy technikai „diagnosztikai” élmény eladása, hanem hogy az érdeklődő röviden leírja a vállalkozását és a feladatot, majd személyes egyeztetés következzen.
+
+**Másodlagos csatornák:** e-mail és telefon.
+
+A WhatsApp lehet kiegészítő csatorna, de ne legyen route-onként eltérő elsődleges CTA.
+
+## HANGNEM
+
+Legyen:
+- emberi;
+- világos;
+- szakértői;
+- konkrét;
+- nyugodt és prémium;
+- magyarul természetes.
+
+Kerüljük:
+- felesleges angol zsargont;
+- „system / diagnostic / signal / operator / lab” UI-nyelvet, ha magyarul egyszerűbben elmondható;
+- túlzó garanciákat;
+- technológiai öncélúságot;
+- konkurencia lenézését;
+- hosszú marketingrizsát.
 
 ## VIZUÁLIS IDENTITÁS
 
-### Primary Wordmark
-Használat: fejléc, lábléc, weboldalak, prezentációk.
+### Színek
+- Graphite: `#0b0d0c`
+- Graphite soft: `#151816`
+- Warm ivory: `#f4f0e8`
+- Ivory muted: `#c9c3b8`
+- Signal lime: `#d8ff78`
 
-Fájlok:
-- `logo-primary-light.svg`
-- `logo-primary-dark.svg`
+A régi taupe/cream paletta legacy. Új felületen ne ez legyen az alap.
 
-### Monogram
-Használat: favicon, social profil, kompakt felület.
+### Tipográfia
+- **Inter:** navigáció, törzsszöveg, UI és fő értékajánlat.
+- **Cormorant Garamond:** editorial kiemelések és szekciócímek.
 
-Fájlok:
-- `logo-monogram-light.svg`
-- `logo-monogram-dark.svg`
+### Layout
+- `site-shell`: széles marketing- és portfóliófelületek.
+- `content-shell`: olvasási és részletes tartalmi felületek.
+- Mobilon az elsődleges konverziós út legyen könnyen elérhető.
+- Ne építsünk párhuzamos Header / Contact / Sticky CTA design-generációkat.
 
-## TIPOGRÁFIA
+## LOGÓ ÉS NÉVHASZNÁLAT
 
-### Display
-**Cormorant Garamond** – kiemelt címek és márkajelleg.
+**Márkanév:** Levente Studio  
+**Személy:** Tarnóczi Levente  
+**Szerep:** weboldalkészítő és digitális rendszerépítő
 
-### Interface / Body
-**Inter** – szövegtörzs, navigáció, UI.
+A fejléc és a lábléc ugyanazt a márka-lockupot és névlogikát kövesse.
 
-## SZÍNPALETTA
+## TECHNIKAI ELVEK
 
-### Taupe
-- 50 `#f7f5f4`
-- 100 `#ebe7e4`
-- 200 `#d7cec8`
-- 300 `#b9aca3`
-- 400 `#9d8c7f`
-- 500 `#887568`
-- 600 `#72645a`
-- 700 `#5d534c`
-- 800 `#4d4641`
-- 900 `#423c38`
-
-### Cream
-- 50 `#faf8f5`
-- 100 `#f5f1eb`
-- 200 `#ebe3d7`
-- 300 `#ddd0bd`
-- 400 `#cbb89f`
-- 500 `#b9a089`
-
-## VIZUÁLIS ELVEK
-
-- Nyugodt, prémium, tárgyilagos.
-- Sok whitespace.
-- Kevés, erős CTA.
-- A valódi rendszereket és folyamatokat részesítjük előnyben generikus stock vizuálok helyett.
-- Animáció csak akkor, ha használhatóságot vagy megértést javít.
-- Mobilon a konverziós út legyen elsődleges.
-
-## ENTITY / NÉVHASZNÁLAT
-
-**Márkanév:** Levente Studio
-
-**Személy:** Tarnóczi Levente
-
-**Szerep:** digitális rendszerépítő
-
-A schema, alt szövegek, Rólam oldal és meta adatok ezt a névhasználatot kövessék egységesen.
+- Astro-first, statikus render ahol lehet.
+- React csak valós interakcióhoz.
+- Analitikai kattintásméréshez a közös `data-track-*` rendszer használata.
+- Csomagadatok: `src/data/studio-offers.ts`.
+- Cookie/consent felület globális.
+- Egyetlen mobil CTA komponens.
+- A jogi dokumentumoknak saját, olvasható tipográfiai rendszere van.
+- 320–430 px között is ellenőrizhető, kényelmes mobilélmény.
 
 ---
 
-**Verzió:** 2.0
-**Frissítve:** 2026-09-14
+**Verzió:** 3.0  
+**Frissítve:** 2026-09-19
