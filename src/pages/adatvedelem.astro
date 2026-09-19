@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
 
 const currentDate = new Date().toISOString().split('T')[0];
 ---
@@ -13,8 +11,6 @@ const currentDate = new Date().toISOString().split('T')[0];
   description="Tájékoztatás a leventestudio.app weboldal adatkezeléséről, kapcsolatfelvételi csatornáiról, analitikájáról és a látogatók jogairól."
   canonical="/adatvedelem/"
 >
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
   <HeaderAstro />
 
   <main class="pt-32 pb-20 bg-cream-50">
@@ -36,15 +32,15 @@ const currentDate = new Date().toISOString().split('T')[0];
           <p><strong class="text-taupe-900">Weboldal:</strong> leventestudio.app</p>
         </div>
 
-        <h2>2. Kapcsolatfelvétel és rendszerdiagnózis során kezelt adatok</h2>
+        <h2>2. Kapcsolatfelvétel és ajánlatkérés során kezelt adatok</h2>
         <p>
           Ha e-mailben, telefonon vagy WhatsAppon keresel meg, az általad megadott adatokat kezeljük. Ilyen lehet különösen a neved, e-mail címed, telefonszámod, a vállalkozásodra vagy projektedre vonatkozó információ és a kommunikáció tartalma.
         </p>
         <p>
-          A weboldalon elérhető rendszerdiagnosztikai űrlap beküldésekor a megadott név, e-mail cím, weboldalcím, vállalkozástípus, érdeklődési vagy üzleti helyzetre vonatkozó válaszok és opcionális megjegyzés mellett a megkeresés forrásának megértéséhez technikai kampányadatokat is rögzíthetünk. Ilyen lehet a forrásoldal, az UTM-paraméterek és – ha a látogatás hirdetésből érkezett és rendelkezésre áll – a Google Click ID (gclid). Ezeket az adatokat az érdeklődés feldolgozására, a kapcsolatfelvétel forrásának megértésére és a marketingfolyamat mérésére használjuk.
+          A weboldalon elérhető ajánlatkérő űrlap beküldésekor a megadott név, e-mail cím, weboldalcím, vállalkozástípus, érdeklődési vagy üzleti helyzetre vonatkozó válaszok és opcionális megjegyzés mellett a megkeresés forrásának megértéséhez technikai kampányadatokat is rögzíthetünk. Ilyen lehet a forrásoldal, az UTM-paraméterek és – ha a látogatás hirdetésből érkezett és rendelkezésre áll – a Google Click ID (gclid). Ezeket az adatokat az érdeklődés feldolgozására, a kapcsolatfelvétel forrásának megértésére és a marketingfolyamat mérésére használjuk.
         </p>
         <p>
-          A rendszerdiagnosztikai űrlap technikai beküldését a Netlify Forms infrastruktúra kezeli, ezért a beküldött űrlapadatok a Netlify rendszerein keresztül kerülhetnek feldolgozásra.
+          A ajánlatkérő űrlap technikai beküldését a Netlify Forms infrastruktúra kezeli, ezért a beküldött űrlapadatok a Netlify rendszerein keresztül kerülhetnek feldolgozásra.
         </p>
         <p>
           Ezeket az adatokat a megkeresés megválaszolására, ajánlat készítésére, a kért szolgáltatás előkészítésére és – ha létrejön együttműködés – a kapcsolattartásra használjuk. A konkrét jogalap az adott helyzettől függhet, például szerződéskötést megelőző lépés, szerződés teljesítése, hozzájárulás vagy jogos érdek lehet.
@@ -74,7 +70,7 @@ const currentDate = new Date().toISOString().split('T')[0];
 
         <h3>Netlify</h3>
         <p>
-          A weboldal kiszolgálásához és a rendszerdiagnosztikai űrlap technikai feldolgozásához Netlify infrastruktúrát használunk. A tárhely-, hálózati és űrlapfeldolgozási szolgáltatás működése során technikai naplóadatok és a beküldött űrlap adatai kerülhetnek feldolgozásra.
+          A weboldal kiszolgálásához és a ajánlatkérő űrlap technikai feldolgozásához Netlify infrastruktúrát használunk. A tárhely-, hálózati és űrlapfeldolgozási szolgáltatás működése során technikai naplóadatok és a beküldött űrlap adatai kerülhetnek feldolgozásra.
         </p>
 
         <h3>WhatsApp / Meta</h3>
