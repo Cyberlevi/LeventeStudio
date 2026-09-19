@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="px-5 sm:px-6 lg:px-8 py-12 sm:py-14 pb-24 md:pb-14 bg-graphite-950 border-t border-white/10 text-white relative overflow-hidden">
       <div className="absolute inset-0 subpage-signal-grid opacity-20 pointer-events-none" aria-hidden="true" />
-      <div className="max-w-6xl mx-auto relative">
+      <div className="max-w-[86rem] mx-auto relative">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-end border-b border-white/10 pb-10 sm:pb-12">
           <div>
             <Logo variant="primary" theme="dark" className="h-8 mb-6" />
@@ -17,7 +17,7 @@ export default function Footer() {
             <div>
               <div className="text-[10px] uppercase tracking-[0.18em] text-white/50 mb-3">Navigáció</div>
               <div className="space-y-2 text-white/70">
-                <a href="/ai-webfejlesztes/" className="block hover:text-signal-400 transition-colors">Megoldások</a>
+                <a href="/megoldasok/" className="block hover:text-signal-400 transition-colors">Megoldások</a>
                 <a href="/esettanulmanyok/" className="block hover:text-signal-400 transition-colors">Munkáink</a>
                 <a href="/blog/" className="block hover:text-signal-400 transition-colors">Tudástár</a>
               </div>
