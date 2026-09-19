@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Shield, X } from 'lucide-react';
 import { getConsentState, setConsentState, updateGoogleConsent, hasConsent } from '../utils/consent';
 
@@ -7,6 +7,8 @@ export default function CookieBannerDark() {
   const [details, setDetails] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [prefs, setPrefs] = useState({ necessary: true, analytics: false, marketing: false });
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const state = window as Window & { __lsConsentBannerMounted?: boolean };
@@ -25,6 +27,33 @@ export default function CookieBannerDark() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!visible || !isOwner) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        save({ necessary: true, analytics: false, marketing: false });
+        return;
+      }
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    const oldOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.documentElement.style.overflow = oldOverflow;
+      previous?.focus();
+    };
+  }, [visible, isOwner]);
+
   const save = (state: typeof prefs) => {
     setConsentState(state);
     updateGoogleConsent({ ...state, timestamp: Date.now() });
@@ -35,7 +64,7 @@ export default function CookieBannerDark() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/45 p-3 sm:p-4" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-      <div role="dialog" aria-modal="true" aria-labelledby="cookie-dialog-title" className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto overscroll-contain border border-white/10 bg-graphite-950 text-white shadow-2xl shadow-black/50">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="cookie-dialog-title" className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto overscroll-contain border border-white/10 bg-graphite-950 text-white shadow-2xl shadow-black/50">
         <div className="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
         <div className="relative p-5 sm:p-6">
           <div className="mb-5 flex items-start justify-between gap-5 border-b border-white/10 pb-5">
@@ -43,7 +72,7 @@ export default function CookieBannerDark() {
               <div className="flex h-10 w-10 items-center justify-center border border-white/10 text-signal-400"><Shield size={20} /></div>
               <div><div className="text-[10px] uppercase tracking-[.18em] text-signal-400">Adatvédelmi beállítások</div><h3 id="cookie-dialog-title" className="mt-1 text-xl font-medium">Süti beállítások</h3></div>
             </div>
-            <button onClick={() => save({ necessary: true, analytics: false, marketing: false })} className="inline-flex h-11 w-11 items-center justify-center text-white/55 hover:text-white" aria-label="Bezárás"><X size={20} /></button>
+            <button ref={closeRef} onClick={() => save({ necessary: true, analytics: false, marketing: false })} className="inline-flex h-11 w-11 items-center justify-center text-white/55 hover:text-white" aria-label="Bezárás"><X size={20} /></button>
           </div>
 
           {!details ? (
