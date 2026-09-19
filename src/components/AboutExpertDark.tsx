@@ -1,6 +1,6 @@
 export default function AboutExpertDark() {
   const stats = [
-    ['PROJEKTEK', '3+', 'saját éles rendszer'],
+    ['PROJEKTEK', '4', 'saját vagy családi projekt'],
     ['ÜGYFÉLSZERZÉS', 'Web + Ads', 'egy közös folyamatban'],
     ['MÉRÉS', 'SEO + mérés', 'kereséstől a megkeresésig'],
     ['MÓDSZER', 'AI-val támogatva', 'gyorsabb kivitelezés']
@@ -17,10 +17,10 @@ export default function AboutExpertDark() {
             <p className="subpage-lead">Saját szolgáltatói vállalkozásokon építem, mérem és finomítom ugyanazokat a webes, SEO-, Ads- és automatizálási folyamatokat, amelyeket ügyfélprojektekben is használok.</p>
           </div>
           <div className="relative border border-white/10 bg-graphite-900 p-2">
-            <img src="/levente_studio_portrait_final.webp" className="aspect-[4/5] w-full object-cover grayscale" alt="Tarnóczi Levente – digitális rendszerépítő" />
+            <img src="/levente_studio_portrait_final.webp" className="aspect-[4/5] w-full object-cover grayscale" alt="Tarnóczi Levente – weboldalkészítő" />
             <div className="absolute inset-x-2 bottom-2 bg-gradient-to-t from-graphite-950 via-graphite-950/80 to-transparent p-5">
               <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-[.18em] text-signal-400"><span className="signal-dot" />Közvetlen kapcsolat</div>
-              <div className="text-xl">Tarnóczi Levente</div><div className="text-sm text-white/45">digitális rendszerépítő</div>
+              <div className="text-xl">Tarnóczi Levente</div><div className="text-sm text-white/60">weboldalkészítő · Levente Studio</div>
             </div>
           </div>
         </div>
@@ -30,10 +30,10 @@ export default function AboutExpertDark() {
         <div className="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
         <div className="hightech-container relative">
           <div className="mb-16 grid grid-cols-2 border-y border-white/10 lg:grid-cols-4">
-            {stats.map(([code, value, label], i) => <div key={code} className={`p-5 sm:p-7 ${i < 3 ? 'lg:border-r lg:border-white/10' : ''}`}><div className="text-[10px] uppercase tracking-[.18em] text-signal-400">{code}</div><div className="mt-3 font-serif text-3xl font-light tracking-editorial sm:text-4xl">{value}</div><div className="mt-1 text-sm text-white/45">{label}</div></div>)}
+            {stats.map(([code, value, label], i) => <div key={code} className={`p-5 sm:p-7 ${i < 3 ? 'lg:border-r lg:border-white/10' : ''}`}><div className="text-[10px] uppercase tracking-[.18em] text-signal-400">{code}</div><div className="mt-3 font-serif text-3xl font-light tracking-editorial sm:text-4xl">{value}</div><div className="mt-1 text-sm text-white/60">{label}</div></div>)}
           </div>
           <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-16">
-            <div><div className="mb-4 text-xs uppercase tracking-[.18em] text-white/30">Miért így dolgozom</div><h2 className="font-serif text-4xl font-light leading-[.94] tracking-editorial sm:text-5xl md:text-6xl">Nem még egy <span className="text-signal-400">ügynökséget</span> akartam.</h2></div>
+            <div><div className="mb-4 text-xs uppercase tracking-[.18em] text-white/55">Miért így dolgozom</div><h2 className="font-serif text-4xl font-light leading-[.94] tracking-editorial sm:text-5xl md:text-6xl">Nem még egy <span className="text-signal-400">ügynökséget</span> akartam.</h2></div>
             <div className="space-y-7 text-base font-light leading-relaxed text-white/55 sm:text-lg">
               <p>Saját szolgáltatói vállalkozásoknál kellett megoldanom ugyanazokat a problémákat: hogyan találjanak meg, hogyan legyen érthető az ajánlat, hogyan mérjem a leadet és hogyan legyen kevesebb kézi adminisztráció.</p>
               <p>A weboldalt, SEO-t, Ads mérést, analitikát és leadkezelést ezért egyetlen folyamat részeként kezelem.</p>
