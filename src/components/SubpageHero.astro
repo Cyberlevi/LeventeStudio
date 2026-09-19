@@ -46,13 +46,13 @@ const {
         {(primaryHref || secondaryHref) && (
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
             {primaryHref && primaryLabel && (
-              <a href={primaryHref} class="signal-button-primary">
+              <a href={primaryHref} class="signal-button-primary" data-track-cta={primaryLabel} data-track-location="subpage_hero_primary">
                 {primaryLabel}
                 <span aria-hidden="true">↗</span>
               </a>
             )}
             {secondaryHref && secondaryLabel && (
-              <a href={secondaryHref} class="signal-button-secondary">
+              <a href={secondaryHref} class="signal-button-secondary" data-track-cta={secondaryLabel} data-track-location="subpage_hero_secondary">
                 {secondaryLabel}
               </a>
             )}
@@ -62,10 +62,10 @@ const {
 
       <aside class="tech-status-panel hidden sm:block">
         <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4 mb-5">
-          <span class="text-xs uppercase tracking-[0.18em] text-white/55">Rendszerállapot</span>
+          <span class="text-xs uppercase tracking-[0.18em] text-white/55">Fókusz</span>
           <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-signal-400">
             <span class="signal-dot"></span>
-            aktív
+            áttekintés
           </span>
         </div>
 
