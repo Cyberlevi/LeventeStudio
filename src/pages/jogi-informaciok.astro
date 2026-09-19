@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
 
 const currentDate = new Date().toISOString().split('T')[0];
 ---
@@ -13,8 +11,6 @@ const currentDate = new Date().toISOString().split('T')[0];
   description="A leventestudio.app weboldal üzemeltetésével, szolgáltatásaival, elérhetőségeivel, szellemi tulajdonával és felelősségi kereteivel kapcsolatos tájékoztatás."
   canonical="/jogi-informaciok/"
 >
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
   <HeaderAstro />
 
   <main class="pt-32 pb-20 bg-cream-50">
@@ -43,11 +39,11 @@ const currentDate = new Date().toISOString().split('T')[0];
 
         <h2>2. A Levente Studio tevékenysége</h2>
         <p>
-          A Levente Studio digitális ügyfélszerző és működési rendszereket tervez, fejleszt és optimalizál szolgáltató vállalkozások számára. A konkrét projekt tartalma minden esetben az elfogadott ajánlat és megállapodás szerint alakul.
+          A Levente Studio weboldalakat és kapcsolódó ügyfélszerzési, mérési és automatizálási megoldásokat tervez és fejleszt szolgáltató vállalkozások számára. A konkrét projekt tartalma minden esetben az elfogadott ajánlat és megállapodás szerint alakul.
         </p>
         <ul>
           <li>weboldal- és landingrendszerek tervezése és fejlesztése,</li>
-          <li>technikai SEO és keresési rendszerdiagnózis,</li>
+          <li>technikai SEO és keresési struktúra,</li>
           <li>konverzió- és felhasználói út optimalizálás,</li>
           <li>GA4/GTM és leadmérési infrastruktúra kialakítása,</li>
           <li>leadkezelési, CRM- és workflow-folyamatok,</li>
