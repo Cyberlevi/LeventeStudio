@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
-import CookieBanner from '../../components/CookieBanner';
 import MobileStickyBar from '../../components/MobileStickyBar';
 import SubpageHero from '../../components/SubpageHero.astro';
 
@@ -18,7 +17,6 @@ const blogPosts = [
 ---
 
 <BaseLayout title={title} description={description} canonical="/blog/">
-  <CookieBanner client:load />
   <MobileStickyBar />
   <HeaderAstro />
   <main class="bg-graphite-950 text-white">
