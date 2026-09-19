@@ -36,4 +36,10 @@ Az első ügyfeleknél mérni kell a teljes ráfordítást. A csomag gazdaságos
 
 A helyi `npm run typecheck`, `npm run lint` és `npm run build` sikeres; 46 oldal épült. A négy csomag, a kézi választás elsőbbsége, az ismeretlen/gondozási cél, a kampányadatok továbbvitele és a letiltott böngészőtárhely külön funkcionális ellenőrzést kapott.
 
-Az élő Netlify űrlapkézbesítés és az e-mail-értesítés nem tekinthető igazoltnak a helyi ellenőrzéstől. Élesítés előtt a céltelepítésben ellenőrizni kell az új űrlapmezők felismerését és egy engedélyezett próbaküldés kézbesítését. A repo jelenlegi GTM- és gtag-beállításait ez a változat nem tervezi át; a fiókszintű mérési duplikáció külön ellenőrzendő.
+A Netlify-előnézet elkészült: https://deploy-preview-15--leventestudio.netlify.app/ (PR #15). Böngészőben ellenőriztük az asztali főoldalt, a referencia-kártyákat és az ajánlatkérőt. A GROW csomag és a FuratMester referencia helyesen előre kiválasztva jelenik meg az űrlapon; az üres kötelező mező megakadályozza a beküldést. A Netlify Forms felismerte a csomag-, referencia-, kampány- és hozzájárulási mezőket.
+
+A Netlify mobil Lighthouse-mérése: teljesítmény 97, akadálymentesség 100, bevált gyakorlatok 92, SEO 100. Ez automatikus mérés, nem kézi telefonos átvételi teszt.
+
+A GitHub Actions `quality` feladata nem indult el: a GitHub a fiók számlázási korlátozását jelezte. Nem kódellenőrzési hibát jelentett; futási lépés és tesztnapló nem készült. A helyi ellenőrzések és a Netlify buildje sikeresek. Az ellenőrzési szabályokat nem kapcsoltuk ki.
+
+Az élő Netlify űrlapkézbesítés és az e-mail-értesítés még nincs igazolva. Élesítés előtt egy engedélyezett próbaküldés kézbesítését, valamint telefonon a megjelenést is ellenőrizni kell. A repo jelenlegi GTM- és gtag-beállításait ez a változat nem tervezi át; a fiókszintű mérési duplikáció külön ellenőrzendő.
