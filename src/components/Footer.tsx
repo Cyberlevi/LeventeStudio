@@ -16,6 +16,7 @@ export default function Footer() {
               <div className="text-[10px] uppercase tracking-[0.18em] text-white/50 mb-3">Navigáció</div>
               <div className="space-y-2 text-white/70">
                 <a href="/megoldasok/" className="block hover:text-signal-400 transition-colors">Megoldások</a>
+                <a href="/#csomagok" className="block hover:text-signal-400 transition-colors">Csomagok</a>
                 <a href="/esettanulmanyok/" className="block hover:text-signal-400 transition-colors">Munkáink</a>
                 <a href="/blog/" className="block hover:text-signal-400 transition-colors">Tudástár</a>
               </div>
