@@ -19,7 +19,7 @@ const blogPosts = [
 
 <BaseLayout title={title} description={description} canonical="/blog/">
   <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
   <main class="bg-graphite-950 text-white">
     <SubpageHero eyebrow="Levente Studio · Tudástár" title="Kevesebb marketing-zaj." accent="Több használható rendszerlogika." description="SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni." primaryHref="#cikkek" primaryLabel="Cikkek megnyitása" secondaryHref="/kapcsolat/#diagnosztika" secondaryLabel="Saját rendszerem" meta={['SEO','Konverzió','Mérés','Folyamatok']} />
@@ -53,7 +53,7 @@ const blogPosts = [
       <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none" aria-hidden="true"></div>
       <div class="hightech-container relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-9 lg:gap-14">
         <div class="max-w-3xl"><div class="signal-kicker mb-5"><span class="signal-dot"></span>Nem csak olvasnál?</div><h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] text-balance">Nézzük meg a <span class="text-signal-400">saját rendszeredet.</span></h2><p class="text-white/65 font-light text-base sm:text-lg mt-6 max-w-2xl">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p></div>
-        <a href="/kapcsolat/#diagnosztika" class="signal-button-primary whitespace-nowrap">2 perces diagnózis ↗</a>
+        <a href="/kapcsolat/#diagnosztika" class="signal-button-primary whitespace-nowrap">Ajánlatot kérek ↗</a>
       </div>
     </section>
   </main>
