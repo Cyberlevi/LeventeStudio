@@ -5,12 +5,24 @@ import { getConsentState, setConsentState, updateGoogleConsent, hasConsent } fro
 export default function CookieBannerDark() {
   const [visible, setVisible] = useState(false);
   const [details, setDetails] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
   const [prefs, setPrefs] = useState({ necessary: true, analytics: false, marketing: false });
 
   useEffect(() => {
-    if (!hasConsent()) { setVisible(true); return; }
-    const current = getConsentState();
-    if (current) updateGoogleConsent(current);
+    const state = window as Window & { __lsConsentBannerMounted?: boolean };
+    if (state.__lsConsentBannerMounted) return;
+    state.__lsConsentBannerMounted = true;
+    setIsOwner(true);
+
+    if (!hasConsent()) setVisible(true);
+    else {
+      const current = getConsentState();
+      if (current) updateGoogleConsent(current);
+    }
+
+    return () => {
+      state.__lsConsentBannerMounted = false;
+    };
   }, []);
 
   const save = (state: typeof prefs) => {
@@ -19,19 +31,19 @@ export default function CookieBannerDark() {
     setVisible(false);
   };
 
-  if (!visible) return null;
+  if (!isOwner || !visible) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] flex items-end justify-center p-3 sm:p-4">
-      <div className="pointer-events-auto relative w-full max-w-2xl overflow-hidden border border-white/10 bg-graphite-950 text-white shadow-2xl shadow-black/50">
+    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/45 p-3 sm:p-4" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+      <div role="dialog" aria-modal="true" aria-labelledby="cookie-dialog-title" className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto overscroll-contain border border-white/10 bg-graphite-950 text-white shadow-2xl shadow-black/50">
         <div className="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
         <div className="relative p-5 sm:p-6">
           <div className="mb-5 flex items-start justify-between gap-5 border-b border-white/10 pb-5">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center border border-white/10 text-signal-400"><Shield size={20} /></div>
-              <div><div className="text-[10px] uppercase tracking-[.18em] text-signal-400">Consent console</div><h3 className="mt-1 text-xl font-medium">Süti beállítások</h3></div>
+              <div><div className="text-[10px] uppercase tracking-[.18em] text-signal-400">Adatvédelmi beállítások</div><h3 id="cookie-dialog-title" className="mt-1 text-xl font-medium">Süti beállítások</h3></div>
             </div>
-            <button onClick={() => save({ necessary: true, analytics: false, marketing: false })} className="text-white/35 hover:text-white" aria-label="Bezárás"><X size={20} /></button>
+            <button onClick={() => save({ necessary: true, analytics: false, marketing: false })} className="inline-flex h-11 w-11 items-center justify-center text-white/55 hover:text-white" aria-label="Bezárás"><X size={20} /></button>
           </div>
 
           {!details ? (
