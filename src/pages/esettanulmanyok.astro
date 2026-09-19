@@ -7,9 +7,10 @@ import MobileStickyBar from '../components/MobileStickyBar';
 import SubpageHero from '../components/SubpageHero.astro';
 
 const projects = [
-  { category: 'Klímatechnika', title: 'Klima18ker', subtitle: 'Web + SEO + technikai optimalizálás', description: 'Egy helyi klímaszolgáltatás digitális jelenlétének gyorsítása, keresőbarát struktúrája és mérhetőbb működése.', href: '/esettanulmanyok/klima18ker-weboldal-audit/', tags: ['SEO', 'performance', 'local service'], code: '01' },
-  { category: 'Építőipari szolgáltatás', title: 'FuratMester', subtitle: 'Landing + Google Ads + lead funnel', description: 'Speciális faláttörési szolgáltatásra épített rendszer, ahol a keresési szándék, az ajánlat, a hirdetés és a leadmérés egy láncot alkot.', href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/', tags: ['landing', 'Ads', 'GA4/GTM'], code: '02' },
-  { category: 'Helyi szolgáltatás', title: 'Bundavarázs', subtitle: 'Local presence + mérési alapok', description: 'Kutyakozmetikai jelenlét, ahol a mobil ügyfélút, a helyi Google-jelenlét és az analitika dolgozik együtt.', href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/', tags: ['local SEO', 'Google Business', 'GA4'], code: '03' }
+  { category: 'Klímatisztítás', title: 'KlímaTiszták', subtitle: 'Kalkulátor + árazás + ajánlatkérés', description: 'Mobilra tervezett szolgáltatási ügyfélút, ahol a kalkulátor, az árkommunikáció és az ajánlatkérés egyetlen folyamatba rendeződik.', href: '/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/', tags: ['Astro', 'calculator', 'CRO'], code: '01' },
+  { category: 'Klímatechnika', title: 'Klima18ker', subtitle: 'Web + SEO + technikai optimalizálás', description: 'Egy helyi klímaszolgáltatás digitális jelenlétének gyorsítása, keresőbarát struktúrája és mérhetőbb működése.', href: '/esettanulmanyok/klima18ker-weboldal-audit/', tags: ['SEO', 'performance', 'local service'], code: '02' },
+  { category: 'Építőipari szolgáltatás', title: 'FuratMester', subtitle: 'Landing + Google Ads + lead funnel', description: 'Speciális faláttörési szolgáltatásra épített rendszer, ahol a keresési szándék, az ajánlat, a hirdetés és a leadmérés egy láncot alkot.', href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/', tags: ['landing', 'Ads', 'GA4/GTM'], code: '03' },
+  { category: 'Helyi szolgáltatás', title: 'Bundavarázs', subtitle: 'Local presence + mérési alapok', description: 'Kutyakozmetikai jelenlét, ahol a mobil ügyfélút, a helyi Google-jelenlét és az analitika dolgozik együtt.', href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/', tags: ['local SEO', 'Google Business', 'GA4'], code: '04' }
 ];
 
 const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Levente Studio Lab – valós digitális rendszerek', 'description': 'Valós szolgáltatói projektek webfejlesztési, SEO, mérési és ügyfélszerzési tapasztalatokkal.', 'url': 'https://leventestudio.app/esettanulmanyok/' };
@@ -17,7 +18,7 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
 
 <BaseLayout
   title="Levente Studio Lab – valós ügyfélszerző rendszerek és esettanulmányok"
-  description="Klíma, faláttörés és helyi szolgáltatás: valós projektek, amelyeken webet, SEO-t, mérést, Ads funnel-t és digitális működést építünk és tesztelünk."
+  description="Klímatisztítás, klímaszerelés, faláttörés és helyi szolgáltatás: valós saját projektek, amelyeken weboldalt, ügyfélutat, SEO-t és mérést építünk és tesztelünk."
   canonical="/esettanulmanyok/"
   structuredData={structuredData}
 >
@@ -34,7 +35,7 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
       primaryLabel="Rendszerek megnyitása"
       secondaryHref="/kapcsolat/#diagnosztika"
       secondaryLabel="Saját rendszerem"
-      meta={['3 saját projekt', 'Web + SEO', 'Ads + mérés', 'Folyamatos fejlesztés']}
+      meta={['4 saját projekt', 'Web + UX', 'SEO + mérés', 'Folyamatos fejlesztés']}
     />
 
     <section id="projektek" class="hightech-section bg-graphite-900 text-white relative overflow-hidden">
