@@ -1,14 +1,3 @@
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (
-      command: 'consent' | 'event' | 'config',
-      action: string,
-      params?: Record<string, unknown>
-    ) => void;
-  }
-}
-
 export function pushToDataLayer(eventData: Record<string, unknown>): void {
   if (typeof window === 'undefined') return;
 

@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <Logo variant="primary" theme="dark" className="h-8 mb-6" />
             <p className="max-w-xl text-white/70 text-sm sm:text-base font-light leading-relaxed">
-              AI-native digitális ügyfélszerző rendszerek szolgáltató vállalkozásoknak — web, SEO, mérés, leadkezelés és automatizálás egy rendszerben.
+              Weboldalak szolgáltató vállalkozásoknak. Tervezés, fejlesztés és gondozás, saját projektekből szerzett tapasztalattal.
             </p>
           </div>
 
@@ -18,7 +18,7 @@ export default function Footer() {
               <div className="text-[10px] uppercase tracking-[0.18em] text-white/50 mb-3">Navigáció</div>
               <div className="space-y-2 text-white/70">
                 <a href="/ai-webfejlesztes/" className="block hover:text-signal-400 transition-colors">Megoldások</a>
-                <a href="/esettanulmanyok/" className="block hover:text-signal-400 transition-colors">Esettanulmányok</a>
+                <a href="/esettanulmanyok/" className="block hover:text-signal-400 transition-colors">Munkáink</a>
                 <a href="/blog/" className="block hover:text-signal-400 transition-colors">Tudástár</a>
               </div>
             </div>
@@ -27,7 +27,7 @@ export default function Footer() {
               <div className="space-y-2 text-white/70">
                 <a href="/rolam/" className="block hover:text-signal-400 transition-colors">Rólam</a>
                 <a href="/kapcsolat/" className="block hover:text-signal-400 transition-colors">Kapcsolat</a>
-                <a href="/kapcsolat/#diagnosztika" className="block hover:text-signal-400 transition-colors">Diagnózis</a>
+                <a href="/kapcsolat/#diagnosztika" className="block hover:text-signal-400 transition-colors">Ajánlatkérés</a>
               </div>
             </div>
             <div className="col-span-2 sm:col-span-1">
@@ -44,7 +44,7 @@ export default function Footer() {
 
         <div className="pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/50">
           <span>© {new Date().getFullYear()} Levente Studio</span>
-          <span className="inline-flex items-center gap-2 text-signal-400"><span className="signal-dot" />rendszer online</span>
+          <span className="inline-flex items-center gap-2 text-signal-400"><span className="signal-dot" />Levente Studio</span>
         </div>
       </div>
     </footer>

@@ -1,22 +1,35 @@
-import { ArrowRight, ArrowUpRight, BarChart3, CheckCircle2, Search, Target, Workflow } from 'lucide-react';
+import { ArrowUpRight, PawPrint } from 'lucide-react';
+import { referenceProjects } from '../data/studio-offers';
 
-const projects = [
-  {number:'01',name:'Klima18ker',category:'Klímatechnika / saját éles rendszer',description:'Valós szolgáltatói környezet: weboldal, technikai SEO, mérési infrastruktúra és konverziófókusz egy rendszerben.',capabilities:['Web + SEO','GA4 / GTM','Konverzió'],status:'ÉLŐ RENDSZER',href:'/esettanulmanyok/klima18ker-weboldal-audit/',icon:Search},
-  {number:'02',name:'FuratMester',category:'Faláttörés / saját éles rendszer',description:'Leadközpontú működés landingekkel, Ads-kompatibilis méréssel és ajánlatkérési folyamattal.',capabilities:['Landing','Tracking','Lead funnel'],status:'ÉLŐ RENDSZER',href:'/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/',icon:Target},
-  {number:'03',name:'Bundavarázs',category:'Helyi szolgáltatás / saját éles rendszer',description:'Lokális ügyfélszerzési modell keresési jelenléttel, mérhető kampánylogikával és konverziós alappal.',capabilities:['Local growth','Mérés','Kampány'],status:'ÉLŐ RENDSZER',href:'/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/',icon:BarChart3},
-];
-
-const demoFunnel=[['1 240','látogató'],['86','érdeklődő'],['31','minősített lead'],['12','ügyfél']];
-const proofPrinciples=[['Valós projekt','A projekt és a rendszer ténylegesen működik.'],['Mérhető út','A forrástól a megkeresésig felépítjük a mérési láncot.'],['Csak igazolt KPI','Konkrét eredményszám csak akkor kerül ki, ha már visszamérhető.']];
-
-export default function StudioLab(){return <section id="lab" className="relative overflow-hidden bg-graphite-950 px-6 py-24 text-ivory-100 scroll-mt-24 md:py-32"><div className="absolute inset-0 studio-grid-dark opacity-45" aria-hidden="true"/><div className="relative mx-auto max-w-[86rem]">
-<div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end"><div><div className="studio-kicker mb-5 text-signal-300"><Workflow size={15}/> Levente Studio / Proof Lab</div><h2 className="max-w-3xl text-5xl font-light leading-[0.94] tracking-[-0.045em] md:text-7xl">Nem mockup.<span className="block font-serif-display italic text-ivory-400">Működő üzleti labor.</span></h2></div><div className="max-w-2xl lg:justify-self-end"><p className="text-lg font-light leading-relaxed text-ivory-400 md:text-xl">A rendszereket saját szolgáltató vállalkozásokon is használjuk. A projekt valós, a működés valós — eredményszámot pedig csak akkor állítunk tényként, amikor már mérésből igazolható.</p><p className="mt-5 text-sm leading-relaxed text-ivory-300">Addig inkább megmutatjuk, hogyan néz ki a mérhető ügyfélút. Így a technológia helyett az üzleti logika látszik.</p></div></div>
-
-<div className="mt-8 grid gap-px border border-white/10 bg-white/10 md:grid-cols-3">{proofPrinciples.map(([title,detail],i)=><div key={title} className="bg-graphite-950 p-5 sm:p-6"><div className="flex items-center gap-2 text-[10px] uppercase tracking-[.18em] text-signal-300"><CheckCircle2 size={13}/> PROOF/0{i+1}</div><div className="mt-3 text-sm font-medium text-ivory-100">{title}</div><div className="mt-1 text-xs leading-relaxed text-ivory-400">{detail}</div></div>)}</div>
-
-<div className="mt-8 border border-signal-300/20 bg-signal-300/[0.035] p-6 md:p-8"><div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between"><div><div className="text-[10px] uppercase tracking-[.2em] text-signal-300">Szemléltető példa / nem teljesítményállítás</div><h3 className="mt-3 text-3xl font-light tracking-[-.035em] md:text-4xl">Így olvassuk az ügyfélszerző rendszert.</h3></div><p className="max-w-lg text-sm leading-relaxed text-ivory-400">Az alábbi számok kizárólag demonstrációs adatok. Azt mutatják, milyen tölcsért és döntési pontokat mérünk majd a valós rendszerben.</p></div><div className="mt-6 grid gap-3 md:grid-cols-4">{demoFunnel.map(([value,label],i)=><div key={label} className="relative border border-white/10 bg-graphite-950/70 p-5"><div className="text-3xl font-light tracking-[-.04em] text-signal-300">{value}</div><div className="mt-1 text-xs uppercase tracking-[.14em] text-ivory-400">{label}</div>{i<demoFunnel.length-1&&<ArrowRight className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-signal-300 md:block" size={18}/>}</div>)}</div><div className="mt-5 text-[11px] leading-relaxed text-ivory-400"><strong className="font-medium text-ivory-200">Fontos:</strong> 1 240 / 86 / 31 / 12 nem a Levente Studio vagy a bemutatott vállalkozások tényleges eredménye. Ezek helyére kerülnek majd az igazolt GA4, Ads és leadadatok.</div></div>
-
-<div className="mt-8 grid gap-4 lg:grid-cols-12">{projects.map((project,index)=>{const Icon=project.icon,span=index===0?'lg:col-span-6':'lg:col-span-3';return <a key={project.name} href={project.href} className={`group relative min-h-[25rem] overflow-hidden border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:border-signal-300/35 hover:bg-white/[0.045] ${span}`}><div className="absolute right-4 top-2 select-none text-[7rem] font-light leading-none tracking-[-.08em] text-white/[0.035] md:text-[9rem]">{project.number}</div><div className="relative flex h-full flex-col"><div className="flex items-start justify-between"><div><div className="flex h-11 w-11 items-center justify-center border border-white/10 text-signal-300"><Icon size={19}/></div><div className="mt-3 inline-flex items-center gap-2 text-[9px] uppercase tracking-[.16em] text-signal-300"><span className="h-1.5 w-1.5 rounded-full bg-signal-300"/>{project.status}</div></div><ArrowUpRight size={20} className="text-ivory-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-signal-300"/></div><div className="mt-auto pt-12"><div className="text-[10px] uppercase tracking-[.18em] text-ivory-400">{project.category}</div><h3 className={`mt-3 font-medium tracking-[-.035em] ${index===0?'text-4xl md:text-5xl':'text-3xl'}`}>{project.name}</h3><p className="mt-4 max-w-xl text-sm font-light leading-relaxed text-ivory-400">{project.description}</p><div className="mt-6 flex flex-wrap gap-2">{project.capabilities.map(cap=><span key={cap} className="border border-white/10 px-2.5 py-1.5 text-[10px] uppercase tracking-[.12em] text-ivory-400">{cap}</span>)}</div><div className="mt-6 text-xs font-medium text-signal-300">Valós projekt megnyitása ↗</div></div></div></a>})}</div>
-
-<div className="mt-12 grid border-t border-white/10 pt-8 md:grid-cols-3">{[['Build','Gyorsan piacra visszük.'],['Measure','Mérjük, miből lesz megkeresés.'],['Prove','Csak a visszamért eredményt állítjuk tényként.']].map(([title,text],index)=><div key={title} className="py-4 md:border-r md:border-white/10 md:px-7 first:pl-0 last:border-r-0"><div className="text-[10px] uppercase tracking-[.18em] text-signal-300">0{index+1}</div><div className="mt-2 text-2xl font-medium tracking-[-.03em]">{title}</div><div className="mt-1 text-sm text-ivory-400">{text}</div></div>)}</div>
-</div></section>}
+export default function StudioLab() {
+  return (
+    <section id="lab" className="scroll-mt-20 bg-ivory-100 px-5 py-20 text-graphite-950 sm:px-6 md:py-24 lg:px-8">
+      <div className="mx-auto max-w-[86rem]">
+        <div className="mb-10 grid gap-6 lg:grid-cols-2 lg:items-end">
+          <div><p className="mb-4 text-xs uppercase tracking-[.2em] text-graphite-500">Válogatott munkák</p><h2 className="font-serif text-5xl font-light leading-[1.02] tracking-editorial sm:text-6xl">Nézd meg, mit építünk.</h2></div>
+          <p className="max-w-xl text-base leading-relaxed text-graphite-600 lg:justify-self-end">Három saját vagy családi szolgáltatás, három különböző feladat. Ezeken keresztül mutatjuk meg a munkánkat és a megoldásainkat.</p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {referenceProjects.map((project, index) => (
+            <article key={project.id} className={`overflow-hidden rounded-xl border border-graphite-950/10 bg-white ${index === 2 ? 'md:col-span-2 md:grid md:grid-cols-[.65fr_1.35fr]' : ''}`}>
+              <a href={project.href} className="group block overflow-hidden border-b border-graphite-950/10" aria-label={`${project.name} projektbemutatás`}>
+                {project.image ? <img src={project.image} width="1348" height="926" loading="lazy" decoding="async" alt={`${project.name} – képernyőkép a weboldalról`} className="aspect-[1.456] w-full object-cover object-top transition duration-500 group-hover:scale-[1.025]" /> : <div className="flex h-full min-h-60 flex-col items-center justify-center gap-4 bg-[#eee5de] px-6 py-12 text-[#655248]"><PawPrint size={40} strokeWidth={1.2} aria-hidden="true" /><span className="font-serif text-4xl">Bundavarázs</span><span className="text-xs uppercase tracking-[.2em]">Kutyakozmetika · projektbemutatás</span></div>}
+              </a>
+              <div className="flex flex-col p-6 sm:p-8">
+                <p className="text-[11px] uppercase tracking-[.15em] text-graphite-500">{project.category}</p>
+                <h3 className="mt-3 text-3xl font-medium tracking-tight">{project.name}</h3>
+                <p className="mt-4 text-base leading-relaxed text-graphite-700">{project.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-graphite-500">{project.detail}</p>
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-graphite-950/10 pt-5 text-sm">
+                  <a href={project.href} className="inline-flex items-center gap-2 font-medium hover:underline">Projekt bemutatása <ArrowUpRight size={15} aria-hidden="true" /></a>
+                  {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-graphite-500 hover:text-graphite-950">Élő weboldal <span className="sr-only">(új lapon)</span> ↗</a>}
+                </div>
+                <a href={`/kapcsolat/?projekt=${project.id}#diagnosztika`} data-track-cta={`Hasonlót szeretnék - ${project.name}`} data-track-location="portfolio" className="mt-5 inline-flex w-fit items-center gap-2 text-sm text-graphite-600 underline decoration-graphite-300 underline-offset-4 hover:text-graphite-950">Hasonlót szeretnék a vállalkozásomnak <ArrowUpRight size={15} aria-hidden="true" /></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
