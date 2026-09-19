@@ -4,11 +4,10 @@ import HeaderAstro from '../components/HeaderAstro.astro';
 import LeadDiagnostic from '../components/LeadDiagnostic.astro';
 import Contact2026 from '../components/Contact2026';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar2026 from '../components/MobileStickyBar2026';
 ---
 <BaseLayout title="Ajánlatkérés és kapcsolat | Levente Studio" description="Írd meg, milyen weboldalra vagy fejlesztésre van szükséged. Személyesen egyeztetünk a feladatról és az ajánlatról." canonical="/kapcsolat/">
-  <CookieBanner client:load /><HeaderAstro /><MobileStickyBar2026 />
-  <main class="bg-graphite-950 pt-28"><div class="mx-auto max-w-6xl px-5 pb-8 sm:px-6"><h1 class="text-sm text-ivory-400">Ajánlatkérés és kapcsolat</h1></div><LeadDiagnostic /><Contact2026 /></main>
+  <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
+  <main class="bg-graphite-950 pt-28"><div class="mx-auto max-w-6xl px-5 pb-8 sm:px-6"><p class="text-sm text-ivory-400">Ajánlatkérés és kapcsolat</p></div><LeadDiagnostic headingLevel="h1" /><Contact2026 /></main>
   <Footer />
 </BaseLayout>
