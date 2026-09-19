@@ -35,6 +35,11 @@ export function findOffer(value: string | null | undefined) {
 }
 
 export const referenceProjects = [
+  { id: 'klimatisztak', name: 'KlímaTiszták', category: 'Klímatisztítás · saját digitális projekt',
+    description: 'Kalkulátorral támogatott szolgáltatási oldal, világos ajánlatkérési úttal és mobilra tervezett folyamattal.',
+    detail: 'A projekt azt mutatja meg, hogyan lehet a szolgáltatásválasztást, az árazási logikát és a kapcsolatfelvételt egyetlen ügyfélútba rendezni.',
+    image: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp', liveUrl: 'https://klimatisztak.hu/',
+    href: null },
   { id: 'klima18ker', name: 'Klíma18ker', category: 'Klímaszerelés · saját vállalkozás',
     description: 'Szolgáltatások, saját munkafotók és műszaki ajánlatkérés egy átlátható oldalon.',
     detail: 'Az érdeklődő megismerheti a munkát, majd elindíthatja a helyszínhez illő ajánlatkérést.',
