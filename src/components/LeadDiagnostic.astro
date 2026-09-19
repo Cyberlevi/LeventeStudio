@@ -1,12 +1,15 @@
 ---
 import { studioOffers, referenceProjects } from '../data/studio-offers';
+interface Props { headingLevel?: 'h1' | 'h2'; }
+const { headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel === 'h1' ? 'h1' : 'h2';
 const fieldClass = 'w-full rounded-sm border border-white/20 bg-graphite-900 px-4 py-3.5 text-white outline-none focus:border-signal-400';
 ---
 <section id="diagnosztika" class="hightech-section scroll-mt-20 text-white">
   <div class="hightech-container grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
     <div>
       <p class="mb-5 text-xs uppercase tracking-[.2em] text-signal-300">Beszéljünk a weboldaladról</p>
-      <h2 class="font-serif text-5xl font-light leading-[1.02] tracking-editorial sm:text-6xl">Mire lenne<br />szükséged?</h2>
+      <Heading class="font-serif text-5xl font-light leading-[1.02] tracking-editorial sm:text-6xl">Mire lenne<br />szükséged?</Heading>
       <p class="mt-6 max-w-lg text-base leading-relaxed text-ivory-300">Írd meg néhány mondatban, mivel foglalkozol és mit szeretnél megvalósítani. Személyesen átnézem, és e-mailben egyeztetünk a következő lépésről.</p>
       <ol class="mt-8 space-y-4 text-sm text-ivory-300">
         <li class="border-t border-white/15 pt-4"><span class="mr-3 text-signal-400">01</span>Röviden bemutatod a vállalkozásodat.</li>
