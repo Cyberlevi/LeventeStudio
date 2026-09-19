@@ -2,11 +2,11 @@
 
 ## Cél
 
-A főoldal a saját munkákat, a megvásárolható szolgáltatásokat és az együttműködés menetét mutatja be. A három projekt saját vagy családi vállalkozásként szerepel; nem külső ügyfélreferenciaként. A demonstrációs teljesítményszámok kikerültek a főoldalról.
+A főoldal a saját munkákat, a megvásárolható szolgáltatásokat és az együttműködés menetét mutatja be. A négy projekt saját vagy családi vállalkozásként szerepel; nem külső ügyfélreferenciaként. A demonstrációs teljesítményszámok kikerültek a főoldalról.
 
 ## Megvalósítás
 
-- Valódi böngészőképek a KlímaTiszták, Klíma18ker és FuratMester oldalairól (2026-09-19), WebP formátumban.
+- Valódi képernyőképek a KlímaTiszták, Klíma18ker és FuratMester oldalairól; a KlímaTiszták képe a konkrét production Netlify deployhoz kötött WebP screenshot.
 - A Bundavarázs projektbemutató kártyát kapott. Az ellenőrzött élő cím kétszer 502 választ adott a távoli böngészőben, ezért nem készült róla képernyőkép. A következő frissítéskor ellenőrzött képpel pótolható.
 - Közös csomagadatok: `src/data/studio-offers.ts`. Az árak a kiinduló main árait követik: PRESENCE 149 000 Ft-tól, START 250 000 Ft-tól, GROW 450–650 000 Ft, SCALE 750 000 Ft-tól.
 - Csomag, referencia vagy gondozási igény átadása az ajánlatkérő oldalnak.
