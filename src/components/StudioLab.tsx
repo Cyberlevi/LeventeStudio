@@ -12,7 +12,7 @@ export default function StudioLab() {
         <div className="grid gap-6 md:grid-cols-2">
           {referenceProjects.map((project, index) => (
             <article key={project.id} className={`overflow-hidden rounded-xl border border-graphite-950/10 bg-white ${index === 2 ? 'md:col-span-2 md:grid md:grid-cols-[.65fr_1.35fr]' : ''}`}>
-              <a href={project.href} className="group block overflow-hidden border-b border-graphite-950/10" aria-label={`${project.name} projektbemutatás`}>
+              <a href={project.href} className={`group block overflow-hidden border-b border-graphite-950/10 ${index === 2 ? 'md:border-b-0 md:border-r' : ''}`} aria-label={`${project.name} projektbemutatás`}>
                 {project.image ? <img src={project.image} width="1348" height="926" loading="lazy" decoding="async" alt={`${project.name} – képernyőkép a weboldalról`} className="aspect-[1.456] w-full object-cover object-top transition duration-500 group-hover:scale-[1.025]" /> : <div className="flex h-full min-h-60 flex-col items-center justify-center gap-4 bg-[#eee5de] px-6 py-12 text-[#655248]"><PawPrint size={40} strokeWidth={1.2} aria-hidden="true" /><span className="font-serif text-4xl">Bundavarázs</span><span className="text-xs uppercase tracking-[.2em]">Kutyakozmetika · projektbemutatás</span></div>}
               </a>
               <div className="flex flex-col p-6 sm:p-8">
