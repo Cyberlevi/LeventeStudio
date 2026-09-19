@@ -23,7 +23,7 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
   structuredData={structuredData}
 >
   <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
 
   <main class="bg-graphite-950">
@@ -36,7 +36,7 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
       primaryLabel="Rendszerek megnyitása"
       secondaryHref="/kapcsolat/#diagnosztika"
       secondaryLabel="Saját rendszerem"
-      meta={['3 live systems', 'Web + SEO', 'Ads + measurement', 'Continuous iteration']}
+      meta={['3 saját projekt', 'Web + SEO', 'Ads + mérés', 'Folyamatos fejlesztés']}
     />
 
     <section id="projektek" class="hightech-section bg-graphite-900 text-white relative overflow-hidden">
@@ -65,7 +65,7 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
     <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
       <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
       <div class="hightech-container relative grid lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-16">
-        <div><div class="signal-kicker mb-5"><span class="signal-dot"></span>Why the lab matters</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A saját kockázat <span class="text-signal-400">másfajta fegyelmet ad.</span></h2></div>
+        <div><div class="signal-kicker mb-5"><span class="signal-dot"></span>Miért fontosak a saját projektek</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A saját kockázat <span class="text-signal-400">másfajta fegyelmet ad.</span></h2></div>
         <div class="grid sm:grid-cols-3 gap-4">
           {[['01','Saját kockázat','A rossz döntés itt nem prezentációs hiba, hanem üzleti következmény.'],['02','Valós visszajelzés','Leadek, keresési adatok és ügyfélkérdések mutatják meg, hol súrlódik a rendszer.'],['03','Folyamatos iteráció','Mérjük, javítjuk, egyszerűsítjük, majd újra mérjük.']].map(([number,title,text]) => <div class="tech-card-dark p-6"><div class="text-xs text-signal-400 tracking-[0.18em] mb-8">{number}</div><h3 class="text-xl text-white mb-3">{title}</h3><p class="text-sm text-white/55 font-light leading-relaxed">{text}</p></div>)}
         </div>
