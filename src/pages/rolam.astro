@@ -3,14 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import AboutExpertDark from '../components/AboutExpertDark';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   'name': 'Tarnóczi Levente',
-  'jobTitle': 'Digitális rendszerépítő',
+  'jobTitle': 'Weboldalkészítő és digitális rendszerépítő',
   'email': 'hello@leventestudio.app',
   'url': 'https://leventestudio.app/rolam/',
   'image': 'https://leventestudio.app/levente_studio_portrait_final.webp',
@@ -20,12 +19,11 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Rólam – Tarnóczi Levente, digitális rendszerépítő | Levente Studio"
-  description="A Levente Studio mögötti rendszerépítő szemlélet: web, SEO, Ads mérés, leadkezelés és AI-assisted működés saját éles projekteken tesztelve."
+  title="Rólam – Tarnóczi Levente | Levente Studio"
+  description="Tarnóczi Levente, a Levente Studio mögött. Weboldalkészítés, mérés és ügyfélszerzési tapasztalat saját éles szolgáltatói projektekből."
   canonical="/rolam/"
   structuredData={structuredData}
 >
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <div class="min-h-screen bg-graphite-950"><HeaderAstro /><AboutExpertDark /><Footer /></div>
 </BaseLayout>
