@@ -50,6 +50,19 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'Service', '
       </div>
     </section>
 
+    {industry.caseStudySlug && (
+      <section class="hightech-section bg-signal-400 text-graphite-950">
+        <div class="hightech-container flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-3xl">
+            <div class="mb-4 text-xs uppercase tracking-[.18em] opacity-60">Kapcsolódó saját projekt</div>
+            <h2 class="font-serif text-4xl font-light leading-[.95] tracking-editorial sm:text-5xl">Nézd meg, hogyan dolgozunk <span class="opacity-60">valós szolgáltatói helyzetben.</span></h2>
+            <p class="mt-5 max-w-2xl leading-relaxed opacity-70">Nem iparági ígéretet mutatunk, hanem egy tényleges saját vagy családi projektet, ahol a weboldal, az ügyfélút és a mérés valós működésből tanul.</p>
+          </div>
+          <a href={`/esettanulmanyok/${industry.caseStudySlug}/`} data-track-cta="Kapcsolódó esettanulmány" data-track-location="industry_audit_proof" class="inline-flex min-h-12 items-center justify-center bg-graphite-950 px-6 py-3 text-white">Esettanulmány megnyitása →</a>
+        </div>
+      </section>
+    )}
+
     <Contact />
   </main>
   <Footer />
