@@ -1,28 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SystemCaseStudy from '../../components/SystemCaseStudy.astro';
-const structuredData={'@context':'https://schema.org','@type':'Article','headline':'FuratMester – digitális ügyfélszerző rendszer esettanulmány','description':'Landing page, Google Ads mérés, lead funnel és konverzióoptimalizálás egy speciális építőipari szolgáltatáshoz.','author':{'@type':'Organization','name':'Levente Studio'}};
+const structuredData={'@context':'https://schema.org','@type':'Article','headline':'FuratMester – digitális ügyfélszerzés esettanulmány','description':'Landing page, Google Ads mérés, követhető ügyfélút és konverzióoptimalizálás egy speciális építőipari szolgáltatáshoz.','author':{'@type':'Organization','name':'Levente Studio'}};
 ---
-<BaseLayout title="FuratMester esettanulmány – landing, Ads és lead funnel | Levente Studio" description="Valós saját projekt: hogyan kapcsolódik össze a keresési szándék, landing, Google Ads, GA4 mérés és ajánlatkérés egy speciális helyi szolgáltatás ügyfélszerző rendszerében." canonical="/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/" structuredData={structuredData}>
+<BaseLayout title="FuratMester esettanulmány – landing, Ads és leadmérés | Levente Studio" description="Valós saját projekt: hogyan kapcsolódik össze a keresési szándék, landing, Google Ads, GA4 mérés és ajánlatkérés egy speciális helyi szolgáltatás ügyfélszerzési folyamatában." canonical="/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/" structuredData={structuredData}>
 <SystemCaseStudy
- eyebrow="Levente Studio Lab · saját, élő rendszer"
+ eyebrow="Saját projekt · éles szolgáltatás"
  title="FuratMester: nem weboldal. Mérhető út a kereséstől az ajánlatkérésig."
  lead="A FuratMester saját üzleti projekt, ezért nem egy ügyfélnek készített kirakat-referencia. Ugyanabban a környezetben építjük, mérjük és javítjuk, ahol a valódi érdeklődők, hirdetési költségek, ajánlatok és kivitelezések találkoznak."
  stack={['Astro','Google Ads','GA4','GTM','SEO','lead tracking']}
- proofLabel="Valós rendszer · igazolható réteg"
+ proofLabel="Valós projekt · igazolható működés"
  proofNote="Itt szándékosan nem írunk ki becsült CPL-t, konverziós arányt vagy bevételt. A projekt éles, a mérési infrastruktúra működik; a publikus KPI-kat akkor tesszük ide, amikor azonos időszakból, tiszta definícióval visszaigazolhatók."
  proofMetrics={[
   {value:'LIVE',label:'Éles szolgáltatás',detail:'Valós keresésekre és valós ajánlatkérésekre épülő saját projekt.'},
   {value:'GA4 + GTM',label:'Leadmérés',detail:'A digitális ügyfélút eseményszinten mérhető.'},
-  {value:'ADS → LEAD',label:'Összekötött funnel',detail:'A keresletfogás nem különálló kampány, hanem a landing és az ajánlatkérés része.'}
+  {value:'ADS → LEAD',label:'Összekötött ügyfélút',detail:'A keresletfogás nem különálló kampány, hanem a landing és az ajánlatkérés része.'}
  ]}
  proofFlow={['Google keresés / Ads','szolgáltatás-specifikus landing','ajánlat és bizalmi elemek','ajánlatkérés / lead','visszamérés és javítás']}
  sections={[
-  {title:'01. A kereslet már létezett',body:'A faláttörés és páraelszívó-kivezetés tipikusan problématudatos keresés. Az érdeklődő nem inspirációt keres: konkrét munkát akar megoldani. A rendszer első feladata ezért nem a cég hosszú bemutatása, hanem a keresési szándék gyors és pontos kiszolgálása.'},
+  {title:'01. A kereslet már létezett',body:'A faláttörés és páraelszívó-kivezetés tipikusan problématudatos keresés. Az érdeklődő nem inspirációt keres: konkrét munkát akar megoldani. A weboldal első feladata ezért nem a cég hosszú bemutatása, hanem a keresési szándék gyors és pontos kiszolgálása.'},
   {title:'02. Termékké tettük a szolgáltatást',body:'A furat önmagában nehezen összehasonlítható ajánlat. A kommunikáció ezért a komplett megoldás felé épül: furat, falátvezetés, visszacsapás, külső lezárás és a szükséges kapcsolódó elemek. Így az ár mögött láthatóvá válik az érték és csökken a puszta árverseny.'},
   {title:'03. A landing és a hirdetés ugyanazt az ígéretet viszi tovább',body:'A keresési kulcsszó, a hirdetési üzenet és a céloldal nem három külön projekt. Egy ügyfélút részei. A látogató azt kapja a landingen, amit a keresés és a hirdetés alapján várt, majd egyértelmű ajánlatkérési útvonalon tud továbbmenni.'},
-  {title:'04. A lead visszakerül a rendszerbe',body:'GA4 és GTM eseményekkel elkülöníthető a puszta látogatás az üzletileg fontos műveletektől. Így nem a kattintás a végpont: azt akarjuk látni, melyik forrás, landing és CTA hoz tényleges megkeresést.'},
-  {title:'05. Az éles működésből tanulunk',body:'Az ajánlatok, árstruktúra, kizáró kulcsszavak, landing szövegek és konverziós pontok nem véglegesek. A valós érdeklődésekből származó tapasztalat visszakerül a rendszerbe. Ez az a működési ciklus, amit a Levente Studio más szolgáltató vállalkozásoknál is alkalmaz.'}
+  {title:'04. A lead visszakerül a mérésbe',body:'GA4 és GTM eseményekkel elkülöníthető a puszta látogatás az üzletileg fontos műveletektől. Így nem a kattintás a végpont: azt akarjuk látni, melyik forrás, landing és CTA hoz tényleges megkeresést.'},
+  {title:'05. Az éles működésből tanulunk',body:'Az ajánlatok, árstruktúra, kizáró kulcsszavak, landing szövegek és konverziós pontok nem véglegesek. A valós érdeklődésekből származó tapasztalat visszakerül a fejlesztési folyamatba. Ez az a működési ciklus, amit a Levente Studio más szolgáltató vállalkozásoknál is alkalmaz.'}
  ]}
  built={['keresési szándékra épített szolgáltatási landingek','komplett ajánlat- és értékstruktúra','SEO + Google Ads keresletfogás','GA4 / GTM lead események','forrás → landing → CTA → lead mérési logika','ár- és konkurencia-visszamérés','folyamatos CRO iteráció']}
  lessons={['Niche szolgáltatásnál a konkrét probléma és ajánlat gyorsabb bizalmat épít, mint az általános céges bemutatkozás.','A kattintás nem üzleti eredmény. A leadig kell követni az ügyfélutat.','A komplett megoldás kommunikációja csökkenti annak esélyét, hogy az érdeklődő csak a furat egységárát hasonlítsa össze.','A saját projekt előnye, hogy a webes döntések és a tényleges ajánlatadási tapasztalat ugyanabba az optimalizálási körbe kerülnek.']}
