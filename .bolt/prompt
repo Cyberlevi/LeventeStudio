@@ -11,3 +11,5 @@ The current visual system is graphite + warm ivory + signal lime, with Inter for
 This project uses Astro, React, TypeScript, Tailwind CSS and lucide-react. Prefer server-rendered/static content and existing dependencies. Hydrate client components only for real interactivity; tracking alone should use the shared data attributes/global handler.
 
 Keep entity naming consistent: brand `Levente Studio`, person `Tarnóczi Levente`, role `weboldalkészítő és digitális rendszerépítő`.
+
+Do not reintroduce legacy parallel Header, Contact, sticky CTA or diagnostic-console styles after this unification.
