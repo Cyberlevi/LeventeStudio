@@ -1,13 +1,11 @@
-import Logo from './Logo';
-
 export default function Footer() {
   return (
-    <footer className="px-5 sm:px-6 lg:px-8 py-12 sm:py-14 pb-24 md:pb-14 bg-graphite-950 border-t border-white/10 text-white relative overflow-hidden">
+    <footer className="site-footer px-5 sm:px-6 lg:px-8 py-12 sm:py-14 pb-14 bg-graphite-950 border-t border-white/10 text-white relative overflow-hidden">
       <div className="absolute inset-0 subpage-signal-grid opacity-20 pointer-events-none" aria-hidden="true" />
       <div className="max-w-[86rem] mx-auto relative">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-end border-b border-white/10 pb-10 sm:pb-12">
           <div>
-            <Logo variant="primary" theme="dark" className="h-8 mb-6" />
+            <a href="/" className="mb-6 inline-flex items-center gap-3" aria-label="Levente Studio főoldal"><img src="/brand-mark.svg" width="36" height="36" alt="" className="h-9 w-9 shrink-0" aria-hidden="true" /><span className="leading-none"><span className="block text-sm font-medium tracking-[0.14em]">LEVENTE</span><span className="mt-1 block text-[9px] uppercase tracking-[0.28em] text-ivory-400">weboldalak</span></span></a>
             <p className="max-w-xl text-white/70 text-sm sm:text-base font-light leading-relaxed">
               Weboldalak szolgáltató vállalkozásoknak. Tervezés, fejlesztés és gondozás, saját projektekből szerzett tapasztalattal.
             </p>
