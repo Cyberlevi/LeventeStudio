@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
 import Contact from '../components/Contact';
 import SubpageHero from '../components/SubpageHero.astro';
@@ -14,45 +13,44 @@ export async function getStaticPaths() {
 
 interface Props { industry: Industry; }
 const { industry } = Astro.props;
-const title = `Weboldal audit és ügyfélszerzési rendszer ${industry.namePlural} számára | Levente Studio`;
-const description = `${industry.namePlural} digitális rendszerdiagnózisa: weboldal, SEO, konverzió, mérés és kapcsolatfelvételi folyamat egyben.`;
+const title = `Weboldal audit és ügyfélszerzés ${industry.namePlural} számára | Levente Studio`;
+const description = `${industry.namePlural} weboldal-auditja: weboldal, SEO, konverzió, mérés és kapcsolatfelvételi folyamat egyben.`;
 const canonical = `/weboldal-audit-${industry.slug}/`;
-const structuredData = { '@context': 'https://schema.org', '@type': 'Service', 'name': `Weboldal audit és digitális rendszerdiagnózis ${industry.namePlural} számára`, 'description': description, 'provider': { '@type': 'ProfessionalService', 'name': 'Levente Studio', 'url': 'https://leventestudio.app' }, 'areaServed': 'HU' };
+const structuredData = { '@context': 'https://schema.org', '@type': 'Service', 'name': `Weboldal audit ${industry.namePlural} számára`, 'description': description, 'provider': { '@type': 'ProfessionalService', 'name': 'Levente Studio', 'url': 'https://leventestudio.app' }, 'areaServed': 'HU' };
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical} structuredData={structuredData}>
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
 
   <main class="bg-graphite-950 text-white">
-    <SubpageHero eyebrow="Industry diagnostic · 2026" title="Weboldal audit és ügyfélszerző rendszer" accent={`${industry.namePlural} számára.`} description={`Nem általános hibajegyzéket készítünk. A ${industry.name.toLowerCase()} vállalkozás teljes ügyfélszerzési útját nézzük végig: hogyan találnak rád, mit látnak az oldalon, hol lépnek kapcsolatba és mit tudsz ebből mérni.`} primaryHref="#surlodasok" primaryLabel="Tipikus súrlódások" secondaryHref="/esettanulmanyok/" secondaryLabel="Valós rendszereink" meta={['Industry signal','Search intent','Conversion path','Measurement']} />
+    <SubpageHero eyebrow="Iparági weboldal-audit" title="Weboldal audit" accent={`${industry.namePlural} számára.`} description={`Nem általános hibajegyzéket készítünk. A ${industry.name.toLowerCase()} vállalkozás teljes ügyfélszerzési útját nézzük végig: hogyan találnak rád, mit látnak az oldalon, hol lépnek kapcsolatba és mit tudsz ebből mérni.`} primaryHref="#surlodasok" primaryLabel="Mit érdemes javítani?" secondaryHref="/kapcsolat/#diagnosztika" secondaryLabel="Ajánlatot kérek" meta={['Iparági szempontok','Keresési szándék','Kapcsolatfelvétel','Mérés']} />
 
     <section id="surlodasok" class="hightech-section bg-graphite-900 relative overflow-hidden">
       <div class="absolute inset-0 studio-grid-dark opacity-20 pointer-events-none"></div>
       <div class="hightech-container relative grid lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-16 items-start">
-        <div class="lg:sticky lg:top-28"><div class="text-xs uppercase tracking-[0.18em] text-signal-400 mb-4">Industry signals</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">Ezeket a pontokat érdemes <span class="text-signal-400">először ellenőrizni.</span></h2></div>
-        <div class="grid sm:grid-cols-2 gap-4 md:gap-5">{industry.painPoints.map((painPoint,index) => <div class="tech-card-dark p-6 min-h-[150px] flex flex-col"><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-8">SIG/{String(index+1).padStart(2,'0')}</div><p class="text-white/65 font-light leading-relaxed mt-auto">{painPoint}</p></div>)}</div>
+        <div class="lg:sticky lg:top-28"><div class="text-xs uppercase tracking-[0.18em] text-signal-400 mb-4">Tipikus problémák</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">Ezeket a pontokat érdemes <span class="text-signal-400">először ellenőrizni.</span></h2></div>
+        <div class="grid sm:grid-cols-2 gap-4 md:gap-5">{industry.painPoints.map((painPoint,index) => <div class="tech-card-dark p-6 min-h-[150px] flex flex-col"><div class="text-[10px] uppercase tracking-[0.18em] text-signal-400 mb-8">{String(index+1).padStart(2,'0')}</div><p class="text-white/65 font-light leading-relaxed mt-auto">{painPoint}</p></div>)}</div>
       </div>
     </section>
 
     <section class="hightech-section bg-graphite-950">
       <div class="hightech-container">
-        <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-10 lg:gap-16 mb-10 md:mb-14"><div><div class="text-xs uppercase tracking-[0.18em] text-signal-400 mb-4">Diagnostic scope</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A weboldalt nem külön kezeljük <span class="text-signal-400">az ügyfélszerzéstől.</span></h2></div><p class="text-lg text-white/55 font-light leading-relaxed lg:pt-6">Az iparági sajátosságok mellett mindig megnézzük a keresési jelenlétet, a mobil élményt, az ajánlatot, a CTA-kat és a mérési rendszert is.</p></div>
-        <div class="grid md:grid-cols-2 gap-4 md:gap-5">{industry.benefits.map((benefit,index) => <div class="tech-card-dark p-6 sm:p-7 flex items-start gap-5"><span class="text-xs text-signal-400 tracking-[0.18em] pt-1">CHK/{String(index+1).padStart(2,'0')}</span><p class="text-white/65 font-light leading-relaxed">{benefit}</p></div>)}</div>
+        <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-10 lg:gap-16 mb-10 md:mb-14"><div><div class="text-xs uppercase tracking-[0.18em] text-signal-400 mb-4">Mit vizsgálunk</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A weboldalt nem külön kezeljük <span class="text-signal-400">az ügyfélszerzéstől.</span></h2></div><p class="text-lg text-white/55 font-light leading-relaxed lg:pt-6">Az iparági sajátosságok mellett mindig megnézzük a keresési jelenlétet, a mobil élményt, az ajánlatot, a CTA-kat és a mérési rendszert is.</p></div>
+        <div class="grid md:grid-cols-2 gap-4 md:gap-5">{industry.benefits.map((benefit,index) => <div class="tech-card-dark p-6 sm:p-7 flex items-start gap-5"><span class="text-xs text-signal-400 tracking-[0.18em] pt-1">{String(index+1).padStart(2,'0')}</span><p class="text-white/65 font-light leading-relaxed">{benefit}</p></div>)}</div>
       </div>
     </section>
 
     <section class="hightech-section bg-graphite-900 relative overflow-hidden">
       <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none"></div>
       <div class="hightech-container relative">
-        <div class="signal-kicker mb-5"><span class="signal-dot"></span>Operating loop</div>
-        <h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] max-w-4xl mb-12 md:mb-16 text-balance">Diagnózis → prioritás → <span class="text-signal-400">megvalósítás + mérés.</span></h2>
-        <div class="grid md:grid-cols-3 gap-4 md:gap-5">{[['01','Diagnózis','Megkeressük, hol van a legnagyobb üzleti és technikai súrlódás.'],['02','Prioritás','Nem mindent javítunk egyszerre. A várható hatás alapján sorrendet rakunk.'],['03','Megvalósítás + mérés','A fontos javításokat megépítjük, majd visszamérjük, mi változott.']].map(([number,heading,text]) => <div class="tech-card-dark p-6 sm:p-7 min-h-[220px] flex flex-col"><div class="text-xs text-signal-400 tracking-[0.18em] mb-10">{number}</div><h3 class="text-xl text-white mb-3">{heading}</h3><p class="text-sm text-white/55 font-light leading-relaxed mt-auto">{text}</p></div>)}</div>
+        <div class="signal-kicker mb-5"><span class="signal-dot"></span>Hogyan dolgozunk</div>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] max-w-4xl mb-12 md:mb-16 text-balance">Audit → prioritás → <span class="text-signal-400">megvalósítás + mérés.</span></h2>
+        <div class="grid md:grid-cols-3 gap-4 md:gap-5">{[['01','Audit','Megkeressük, hol van a legnagyobb üzleti és technikai súrlódás.'],['02','Prioritás','Nem mindent javítunk egyszerre. A várható hatás alapján sorrendet rakunk.'],['03','Megvalósítás + mérés','A fontos javításokat megépítjük, majd visszamérjük, mi változott.']].map(([number,heading,text]) => <div class="tech-card-dark p-6 sm:p-7 min-h-[220px] flex flex-col"><div class="text-xs text-signal-400 tracking-[0.18em] mb-10">{number}</div><h3 class="text-xl text-white mb-3">{heading}</h3><p class="text-sm text-white/55 font-light leading-relaxed mt-auto">{text}</p></div>)}</div>
       </div>
     </section>
 
-    <Contact client:visible />
+    <Contact />
   </main>
   <Footer />
-  <CookieBanner client:load />
 </BaseLayout>
