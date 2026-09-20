@@ -19,9 +19,29 @@ export default function Hero2026() {
             </ul>
           </div>
           <div className="min-w-0">
-            <a href="/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/" className="group block overflow-hidden rounded-xl border border-white/15 bg-ivory-100 shadow-2xl shadow-black/40" aria-label="KlímaTiszták projektbemutatás">
-              <div className="flex items-center justify-between border-b border-graphite-950/10 px-4 py-3 text-graphite-600"><span className="flex gap-1.5" aria-hidden="true">{[1,2,3].map(dot => <span key={dot} className="h-2 w-2 rounded-full bg-graphite-300" />)}</span><span className="text-xs">klimatisztak.hu</span><ArrowUpRight size={16} aria-hidden="true" /></div>
-              <img src="https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp" width="1348" height="926" alt="A KlímaTiszták éles weboldalának főoldala kalkulátorral és ajánlatkérési folyamattal" fetchPriority="high" className="aspect-[1.456] w-full object-cover object-top" />
+            <a
+              href="/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/"
+              className="group relative block overflow-hidden rounded-2xl border border-white/15 bg-graphite-900 shadow-2xl shadow-black/40"
+              aria-label="KlímaTiszták projektbemutatás"
+            >
+              <img
+                src="/projects/showcase-klimatisztak.webp"
+                width="960"
+                height="720"
+                alt="KlímaTiszták prémium projektbemutatás desktop, tablet és mobil nézettel"
+                fetchPriority="high"
+                className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transform-none motion-reduce:transition-none"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" aria-hidden="true" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 sm:bottom-5 sm:left-5 sm:right-5">
+                <div className="rounded-xl border border-white/15 bg-graphite-950/75 px-4 py-3 text-white backdrop-blur-md">
+                  <p className="text-[9px] uppercase tracking-[.18em] text-signal-300">LS / CASE 01</p>
+                  <p className="mt-1 text-sm font-medium">KlímaTiszták · saját digitális projekt</p>
+                </div>
+                <span className="hidden rounded-full border border-white/15 bg-black/40 px-3 py-1.5 text-[9px] uppercase tracking-[.16em] text-white/80 backdrop-blur sm:inline-flex">
+                  Desktop · Tablet · Mobil
+                </span>
+              </div>
             </a>
             <div className="mt-5 flex items-center justify-between gap-4 text-xs text-ivory-400"><span><a href="https://klimatisztak.hu/" target="_blank" rel="noopener noreferrer" className="hover:text-signal-300">KlímaTiszták · éles weboldal ↗</a></span><a href="#lab" className="inline-flex items-center gap-2 text-signal-300 hover:underline">Mind a négy munka <ArrowDown size={14} aria-hidden="true" /></a></div>
           </div>

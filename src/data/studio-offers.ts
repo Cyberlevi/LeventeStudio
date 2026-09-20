@@ -53,7 +53,7 @@ export const referenceProjects = [
   { id: 'bundavarazs', name: 'Bundavarázs', category: 'Kutyakozmetika · családi vállalkozás',
     description: 'Egy személyes szolgáltatás online bemutatása, helyi ügyfelekre szabva.',
     detail: 'A projektbemutatásban a bizalomépítést és a kapcsolatfelvétel felépítését mutatjuk meg.',
-    image: null, showcaseImage: '/projects/showcase-bundavarazs.webp', liveUrl: null,
+    image: null, showcaseImage: null, liveUrl: null,
     href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/' },
 ] as const;
 
