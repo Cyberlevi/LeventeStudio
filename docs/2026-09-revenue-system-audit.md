@@ -134,10 +134,12 @@ A legutóbbi teljes preview build 47 generált oldalt épített. A főoldali mob
 
 ## Telegram tulajdonosi értesítés
 
-A sikeres Netlify leadmentés után a kliens meghívja a `/api/telegram-lead` szerveroldali Netlify Functiont. A funkció a lead összefoglalóját elküldi a privát Telegram chatbe.
+A sikeres Netlify leadmentés után a kliens meghívja a Netlify által, ellenőrzött formbeküldés után meghívott szerveroldali Functiont. A funkció a lead összefoglalóját elküldi a privát Telegram chatbe.
 
 Biztonsági szabályok:
 - token és chat ID csak Function secretből olvasható;
 - Telegram-hiba nem fordíthat sikeres leadet sikertelen leaddé;
 - a funkció nem tartalmaz hardcode-olt BotFather credentialt;
 - a KlímaTiszták régi, forráskódba égetett Telegram tokenjét rotálni kell, mielőtt ugyanazt a botot productionben használjuk tovább.
+
+A deployban a Function `submission_created` eseményre regisztrálódik; nincs publikus Telegram-küldő endpoint.
