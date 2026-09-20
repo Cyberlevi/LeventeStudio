@@ -40,3 +40,17 @@ A Levente Studio jelenleg már Netlify-on fut és GitHubhoz van kötve.
 A Netlify Forms form neve jelenleg `system-diagnostic`. A név technikai kompatibilitás miatt marad, miközben a publikus UI mindenhol ajánlatkérésként kommunikálja.
 
 A form sikerét csak sikeres HTTP válasz után tekintjük leadnek.
+
+
+## Telegram lead értesítés
+
+A Levente Studio a sikeres Netlify Form mentés után a `/api/telegram-lead` Netlify Functionön keresztül tud Telegram értesítést küldeni.
+
+Szükséges Netlify Function secret-ek:
+
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
+
+A bot token soha nem kerülhet GitHub-kódba, kliensoldali JavaScriptbe vagy publikus build-time változóba.
+
+A Telegram csak másodlagos tulajdonosi értesítés. Ha a Telegram API nem elérhető, a már sikeresen eltárolt Netlify lead akkor sem veszhet el.
