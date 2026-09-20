@@ -1,78 +1,42 @@
-function escapeHtml(value: unknown): string {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+function safe(value: unknown): string {
+  return String(value ?? '').trim().slice(0, 240);
 }
 
-function line(label: string, value: unknown): string {
-  const text = String(value ?? '').trim();
-  return text ? `<b>${escapeHtml(label)}:</b> ${escapeHtml(text)}` : '';
-}
+export default {
+  async formSubmitted(event: { data: Record<string, string> }) {
+    const token = Netlify.env.get('TELEGRAM_BOT_TOKEN');
+    const chatId = Netlify.env.get('TELEGRAM_CHAT_ID');
 
-export default async (req: Request) => {
-  if (req.method === 'GET') {
-    return Response.json({
-      ok: true,
-      configured: Boolean(Netlify.env.get('TELEGRAM_BOT_TOKEN') && Netlify.env.get('TELEGRAM_CHAT_ID')),
-    });
-  }
-
-  if (req.method !== 'POST') {
-    return Response.json({ ok: false, error: 'method_not_allowed' }, { status: 405 });
-  }
-
-  const secFetchSite = req.headers.get('sec-fetch-site');
-  if (secFetchSite && secFetchSite !== 'same-origin' && secFetchSite !== 'same-site') {
-    return Response.json({ ok: false, error: 'forbidden' }, { status: 403 });
-  }
-
-  const token = Netlify.env.get('TELEGRAM_BOT_TOKEN');
-  const chatId = Netlify.env.get('TELEGRAM_CHAT_ID');
-  if (!token || !chatId) {
-    console.error('Telegram lead notification is not configured.');
-    return Response.json({ ok: false, error: 'telegram_not_configured' }, { status: 503 });
-  }
-
-  try {
-    const data = await req.json() as Record<string, unknown>;
-    const name = String(data.name ?? '').trim();
-    const email = String(data.email ?? '').trim();
-
-    if (name.length < 2 || !email.includes('@')) {
-      return Response.json({ ok: false, error: 'invalid_payload' }, { status: 400 });
+    if (!token || !chatId) {
+      console.error('Telegram lead notification is not configured.');
+      return;
     }
 
-    const packageValue = String(data.selected_package ?? '').trim();
-    const reference = String(data.reference_project ?? '').trim();
-    const sourcePage = String(data.source_page ?? '').trim();
-    const entryPage = String(data.entry_page ?? '').trim();
+    const data = event.data ?? {};
+    if (safe(data['form-name']) && safe(data['form-name']) !== 'system-diagnostic') return;
+
+    const goal = safe(data.primary_goal);
+    const selectedPackage = safe(data.selected_package);
+    const sourcePage = safe(data.source_page);
+    const entryPage = safe(data.entry_page);
     const campaign = [data.utm_source, data.utm_medium, data.utm_campaign]
-      .map(value => String(value ?? '').trim())
+      .map(safe)
       .filter(Boolean)
       .join(' / ');
 
     const message = [
-      '🔥 <b>ÚJ LEVENTE STUDIO AJÁNLATKÉRÉS</b>',
+      '🔥 <b>ÚJ LEVENTE STUDIO LEAD</b>',
       '',
-      line('Név', name),
-      line('E-mail', email),
-      line('Vállalkozás', data.business_type),
-      line('Weboldal', data.website),
-      line('Igény', data.primary_goal),
-      packageValue ? line('Csomag', packageValue) : '',
-      reference ? line('Referencia', reference) : '',
+      goal ? `<b>Igény:</b> ${goal}` : '',
+      selectedPackage ? `<b>Csomag:</b> ${selectedPackage}` : '',
+      sourcePage ? `<b>Forrás:</b> ${sourcePage}` : '',
+      entryPage && entryPage !== sourcePage ? `<b>Belépőoldal:</b> ${entryPage}` : '',
+      campaign ? `<b>Kampány:</b> ${campaign}` : '',
       '',
-      line('Forrásoldal', sourcePage),
-      entryPage && entryPage !== sourcePage ? line('Belépőoldal', entryPage) : '',
-      campaign ? line('Kampány', campaign) : '',
-      data.gclid ? line('GCLID', data.gclid) : '',
-      '',
-      data.note ? `<b>Megjegyzés:</b>\n${escapeHtml(data.note)}` : '',
+      'A kapcsolati adatok a Netlify Formsban vannak.',
     ].filter(Boolean).join('\n');
 
-    const telegramResponse = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -83,19 +47,8 @@ export default async (req: Request) => {
       }),
     });
 
-    if (!telegramResponse.ok) {
-      const error = await telegramResponse.text();
-      console.error(`Telegram notification failed: ${telegramResponse.status} ${error}`);
-      return Response.json({ ok: false, error: 'telegram_failed' }, { status: 502 });
+    if (!response.ok) {
+      console.error(`Telegram notification failed: ${response.status}`);
     }
-
-    return Response.json({ ok: true });
-  } catch (error) {
-    console.error('Telegram lead notification exception:', error);
-    return Response.json({ ok: false, error: 'server_error' }, { status: 500 });
-  }
-};
-
-export const config = {
-  path: '/api/telegram-lead',
+  },
 };
