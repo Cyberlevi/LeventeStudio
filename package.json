@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "npm run showcase:assets && astro dev",
-    "build": "npm run showcase:assets && astro build",
+    "build": "npm run showcase:assets && npm run showcase:responsive && astro build",
     "lint": "eslint .",
     "preview": "astro preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "showcase:assets": "node scripts/materialize-showcase.mjs"
+    "showcase:assets": "node scripts/materialize-showcase.mjs",
+    "showcase:responsive": "node scripts/capture-responsive-showcase.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
