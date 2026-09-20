@@ -1,7 +1,7 @@
 export default function AboutExpertDark() {
   const stats = [
     ['PROJEKTEK', '4', 'saját vagy családi projekt'],
-    ['ÜGYFÉLSZERZÉS', 'Web + Ads', 'egy közös folyamatban'],
+    ['ÜGYFÉLSZERZÉS', 'Web + hirdetés', 'egy közös folyamatban'],
     ['MÉRÉS', 'SEO + mérés', 'kereséstől a megkeresésig'],
     ['MÓDSZER', 'AI-val támogatva', 'gyorsabb kivitelezés']
   ];
@@ -35,8 +35,8 @@ export default function AboutExpertDark() {
           <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-16">
             <div><div className="mb-4 text-xs uppercase tracking-[.18em] text-white/55">Miért így dolgozom</div><h2 className="font-serif text-4xl font-light leading-[.94] tracking-editorial sm:text-5xl md:text-6xl">Nem még egy <span className="text-signal-400">ügynökséget</span> akartam.</h2></div>
             <div className="space-y-7 text-base font-light leading-relaxed text-white/55 sm:text-lg">
-              <p>Saját szolgáltatói vállalkozásoknál kellett megoldanom ugyanazokat a problémákat: hogyan találjanak meg, hogyan legyen érthető az ajánlat, hogyan mérjem a leadet és hogyan legyen kevesebb kézi adminisztráció.</p>
-              <p>A weboldalt, SEO-t, Ads mérést, analitikát és leadkezelést ezért egyetlen folyamat részeként kezelem.</p>
+              <p>Saját szolgáltatói vállalkozásoknál kellett megoldanom ugyanazokat a problémákat: hogyan találjanak meg, hogyan legyen érthető az ajánlat, hogyan mérjem a megkeresést és hogyan legyen kevesebb kézi adminisztráció.</p>
+              <p>A weboldalt, SEO-t, hirdetési mérést, analitikát és megkeresés-kezelést ezért egyetlen folyamat részeként kezelem.</p>
               <p>AI-val dolgozom, mert gyorsítja az elemzést és a kivitelezést. Nem az AI-t adom el, hanem a tisztább és mérhetőbb működést.</p>
               <p className="border-l-2 border-signal-400 py-1 pl-5 font-medium text-white">Amit ügyfélnek javaslok, azt lehetőség szerint előbb saját éles rendszerben tesztelem.</p>
             </div>
