@@ -11,11 +11,10 @@ export default function StudioLab() {
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {referenceProjects.map((project) => {
-            const primaryUrl = project.href ?? project.liveUrl ?? '#lab';
-            const primaryIsExternal = !project.href && Boolean(project.liveUrl);
+            const primaryUrl = project.href;
             return (
               <article key={project.id} className="overflow-hidden rounded-xl border border-graphite-950/10 bg-white">
-                <a href={primaryUrl} target={primaryIsExternal ? '_blank' : undefined} rel={primaryIsExternal ? 'noopener noreferrer' : undefined} className="group block overflow-hidden border-b border-graphite-950/10" aria-label={primaryIsExternal ? `${project.name} élő weboldal` : `${project.name} projektbemutatás`}>
+                <a href={primaryUrl} className="group block overflow-hidden border-b border-graphite-950/10" aria-label={`${project.name} projektbemutatás`}>
                   {project.image ? <img src={project.image} width="1348" height="926" loading="lazy" decoding="async" alt={`${project.name} – képernyőkép a weboldalról`} className="aspect-[1.456] w-full object-cover object-top transition duration-500 group-hover:scale-[1.025]" /> : <div className="flex h-full min-h-60 flex-col items-center justify-center gap-4 bg-[#eee5de] px-6 py-12 text-[#655248]"><PawPrint size={40} strokeWidth={1.2} aria-hidden="true" /><span className="font-serif text-4xl">Bundavarázs</span><span className="text-xs uppercase tracking-[.2em]">Kutyakozmetika · projektbemutatás</span></div>}
                 </a>
                 <div className="flex flex-col p-6 sm:p-8">
@@ -24,8 +23,8 @@ export default function StudioLab() {
                   <p className="mt-4 text-base leading-relaxed text-graphite-700">{project.description}</p>
                   <p className="mt-3 text-sm leading-relaxed text-graphite-500">{project.detail}</p>
                   <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-graphite-950/10 pt-5 text-sm">
-                    <a href={primaryUrl} target={primaryIsExternal ? '_blank' : undefined} rel={primaryIsExternal ? 'noopener noreferrer' : undefined} className="inline-flex items-center gap-2 font-medium hover:underline">{primaryIsExternal ? 'Élő weboldal' : 'Projekt bemutatása'} <ArrowUpRight size={15} aria-hidden="true" /></a>
-                    {project.href && project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-graphite-500 hover:text-graphite-950">Élő weboldal <span className="sr-only">(új lapon)</span> ↗</a>}
+                    <a href={primaryUrl} className="inline-flex items-center gap-2 font-medium hover:underline">Projekt bemutatása <ArrowUpRight size={15} aria-hidden="true" /></a>
+                    {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-graphite-500 hover:text-graphite-950">Élő weboldal <span className="sr-only">(új lapon)</span> ↗</a>}
                   </div>
                   <a href={`/kapcsolat/?projekt=${project.id}#diagnosztika`} data-track-cta={`Hasonlót szeretnék - ${project.name}`} data-track-location="portfolio" className="mt-5 inline-flex w-fit items-center gap-2 text-sm text-graphite-600 underline decoration-graphite-300 underline-offset-4 hover:text-graphite-950">Hasonlót szeretnék a vállalkozásomnak <ArrowUpRight size={15} aria-hidden="true" /></a>
                 </div>

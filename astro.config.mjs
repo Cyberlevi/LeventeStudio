@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import staticCsp from './scripts/static-csp.mjs';
 
 export default defineConfig({
   site: 'https://leventestudio.app',
@@ -14,6 +15,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.includes('/admin') && !page.endsWith('/404/') && !page.endsWith('/koszonjuk/'),
     }),
+    staticCsp(),
   ],
   output: 'static',
   build: {
