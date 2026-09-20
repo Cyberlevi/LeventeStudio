@@ -44,7 +44,7 @@ A form sikerét csak sikeres HTTP válasz után tekintjük leadnek.
 
 ## Telegram lead értesítés
 
-A Levente Studio a sikeres Netlify Form mentés után a `/api/telegram-lead` Netlify Functionön keresztül tud Telegram értesítést küldeni.
+A Levente Studio a sikeres Netlify Form mentés után a Netlify `formSubmitted` eseményre regisztrált Functionön keresztül tud Telegram értesítést küldeni.
 
 Szükséges Netlify Function secret-ek:
 
@@ -53,4 +53,6 @@ Szükséges Netlify Function secret-ek:
 
 A bot token soha nem kerülhet GitHub-kódba, kliensoldali JavaScriptbe vagy publikus build-time változóba.
 
-A Telegram csak másodlagos tulajdonosi értesítés. Ha a Telegram API nem elérhető, a már sikeresen eltárolt Netlify lead akkor sem veszhet el.
+A Telegram csak másodlagos tulajdonosi értesítés. A lead előbb Netlify Formsba kerül; Telegram-hiba esetén a már eltárolt lead nem veszhet el.
+
+A deployban a Function `submission_created` eseményre regisztrálódik; nincs publikus Telegram-küldő endpoint.
