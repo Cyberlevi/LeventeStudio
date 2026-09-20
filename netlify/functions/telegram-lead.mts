@@ -15,6 +15,30 @@ function row(label: string, value: unknown, max = 1200): string {
   return text ? `<b>${label}:</b> ${text}` : '';
 }
 
+const allowedGoals = new Set([
+  'audit',
+  'presence',
+  'rebuild',
+  'more-leads',
+  'measurement',
+  'automation',
+  'maintenance',
+  'unknown',
+]);
+
+function isValidLead(data: Record<string, string>): boolean {
+  const email = safe(data.email, 254);
+  const hasRequiredFields =
+    Boolean(safe(data.name, 120)) &&
+    Boolean(email) &&
+    Boolean(safe(data.business_type, 200)) &&
+    allowedGoals.has(safe(data.primary_goal, 80)) &&
+    safe(data.privacy_acknowledged, 16) === 'yes';
+
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return hasRequiredFields && emailLooksValid && !safe(data['bot-field'], 32);
+}
+
 function splitTelegramMessage(text: string, maxLength = 3900): string[] {
   const lines = text.split('\n');
   const chunks: string[] = [];
@@ -67,6 +91,10 @@ export default {
 
     const data = event.data ?? {};
     if (safe(data['form-name']) && safe(data['form-name']) !== 'system-diagnostic') return;
+    if (!isValidLead(data)) {
+      console.warn('Incomplete or invalid lead submission skipped for Telegram notification.');
+      return;
+    }
 
     const receivedAt = new Intl.DateTimeFormat('hu-HU', {
       timeZone: 'Europe/Budapest',
