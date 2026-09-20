@@ -57,27 +57,8 @@ if (form instanceof HTMLFormElement) {
     try {
       const body = new URLSearchParams();
       new FormData(form).forEach((value,key) => { if (typeof value === 'string') body.append(key,value); });
-      const response = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body, signal: controller.signal });
+      const response = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString(), signal: controller.signal });
       if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
-
-      // Telegram is a secondary owner notification. A Telegram failure must never
-      // turn a successfully stored Netlify Form submission into a failed lead.
-      try {
-        const telegramController = new AbortController();
-        const telegramTimer = window.setTimeout(() => telegramController.abort(), 4500);
-        try {
-          await fetch('/api/telegram-lead', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(Object.fromEntries(body.entries())),
-            signal: telegramController.signal,
-          });
-        } finally {
-          window.clearTimeout(telegramTimer);
-        }
-      } catch (telegramError) {
-        console.warn('Telegram lead notification was not confirmed.', telegramError);
-      }
 
       // Save only non-personal context, and only after the form endpoint acknowledges the POST.
       try {
