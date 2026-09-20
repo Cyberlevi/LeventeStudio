@@ -11,12 +11,14 @@ if (form instanceof HTMLFormElement) {
   const goalSelect = form.querySelector<HTMLSelectElement>('[name="primary_goal"]');
   const preferred = findOffer(params.get('csomag'));
   const reference = findReference(params.get('projekt'));
+  const requestedGoal = params.get('cel');
   if (preferred && packageSelect) {
     packageSelect.value = preferred.id;
     if (goalSelect) goalSelect.value = ({ PRESENCE: 'presence', START: 'rebuild', GROW: 'more-leads', SCALE: 'automation' })[preferred.id];
   }
   if (reference && referenceSelect) referenceSelect.value = reference.id;
   if (params.get('igeny') === 'gondozas' && goalSelect) goalSelect.value = 'maintenance';
+  if (requestedGoal && goalSelect && Array.from(goalSelect.options).some(option => option.value === requestedGoal)) goalSelect.value = requestedGoal;
   const preferences = document.getElementById('inquiry-preferences');
   if ((preferred || reference) && preferences instanceof HTMLDetailsElement) preferences.open = true;
 
@@ -24,7 +26,12 @@ if (form instanceof HTMLFormElement) {
     const field = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
     if (field) field.value = value;
   };
-  setHidden('source_page', window.location.pathname);
+  let inquirySource = params.get('from') || '';
+  try {
+    inquirySource = inquirySource || sessionStorage.getItem('ls_quote_source_page_v1') || '';
+    sessionStorage.removeItem('ls_quote_source_page_v1');
+  } catch { /* Fall back to the current route. */ }
+  setHidden('source_page', inquirySource || window.location.pathname);
   const { entry, campaign } = captureInquiryAttribution();
   setHidden('entry_page', entry);
   for (const name of campaignFields) setHidden(name, campaign[name]);
@@ -54,7 +61,7 @@ if (form instanceof HTMLFormElement) {
       if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
       // Save only non-personal context, and only after the form endpoint acknowledges the POST.
       try {
-        sessionStorage.setItem('ls_inquiry_receipt_v2', JSON.stringify({ goal, selected, project, source: window.location.pathname, entry, createdAt: Date.now() }));
+        sessionStorage.setItem('ls_inquiry_receipt_v2', JSON.stringify({ goal, selected, project, source: inquirySource || window.location.pathname, entry, createdAt: Date.now() }));
       } catch { /* A successful submission still navigates without browser storage. */ }
       window.location.assign('/koszonjuk/');
     } catch {
