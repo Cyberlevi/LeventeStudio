@@ -21,7 +21,7 @@ export default function FAQ2026() {
             <div className="signal-kicker mb-5"><span className="signal-dot" />Gyakori kérdések</div>
             <h2 className="font-serif text-4xl font-light leading-[0.94] tracking-editorial text-balance sm:text-5xl md:text-6xl">Amit indulás előtt <span className="text-signal-400">érdemes tisztázni.</span></h2>
           </div>
-          <p className="max-w-xl text-base font-light leading-relaxed text-white/45 lg:justify-self-end">Tartalom, határidő, módosítások és átadás. Ezeket már az elején tisztázzuk.</p>
+          <p className="max-w-xl text-base font-light leading-relaxed text-white/60 lg:justify-self-end">Tartalom, határidő, módosítások és átadás. Ezeket már az elején tisztázzuk.</p>
         </div>
 
         <div className="border-y border-white/10">

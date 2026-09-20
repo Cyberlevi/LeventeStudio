@@ -10,7 +10,6 @@ import LeadDiagnostic from '../components/LeadDiagnostic.astro';
 import FAQ2026 from '../components/FAQ2026';
 import Contact2026 from '../components/Contact2026';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar2026 from '../components/MobileStickyBar2026';
 const structuredData = {
   '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Levente Studio',
@@ -22,7 +21,7 @@ const structuredData = {
 };
 ---
 <BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
-  <CookieBanner client:load /><HeaderAstro /><MobileStickyBar2026 />
+  <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
   <main><Hero2026 /><StudioLab /><ProblemAwareness2026 /><Pricing2026 /><ProjectProcess /><FAQ2026 /><LeadDiagnostic /><Contact2026 /></main>
   <Footer />
 </BaseLayout>

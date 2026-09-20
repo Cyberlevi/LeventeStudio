@@ -2,14 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
-import CookieBanner from '../../components/CookieBanner';
 import MobileStickyBar from '../../components/MobileStickyBar';
 import SubpageHero from '../../components/SubpageHero.astro';
 
 const title = 'Tudástár – SEO, konverzió, teljesítmény és mérés | Levente Studio';
-const description = 'Gyakorlati útmutatók szolgáltató vállalkozások digitális ügyfélszerzéséhez: SEO, Search Console, konverzió, weboldal teljesítmény és rendszerdiagnózis.';
+const description = 'Gyakorlati útmutatók szolgáltató vállalkozásoknak: SEO, Search Console, konverzió, weboldal teljesítmény, audit és mérés.';
 const blogPosts = [
-  { title: 'Mikor érdemes weboldal auditot kérni – és mikor felesleges?', description: 'Mikor csökkenti valóban a bizonytalanságot egy audit vagy rendszerdiagnózis, és mikor jobb rögtön javítani vagy építeni?', url: '/blog/mikor-erdemes-weboldal-auditot-kerni/', date: '2025. január 31.', readTime: '7 perc', tags: ['Diagnózis','Weboldal','Döntés'] },
+  { title: 'Mikor érdemes weboldal auditot kérni – és mikor felesleges?', description: 'Mikor csökkenti valóban a bizonytalanságot egy weboldal-audit, és mikor jobb rögtön javítani vagy építeni?', url: '/blog/mikor-erdemes-weboldal-auditot-kerni/', date: '2025. január 31.', readTime: '7 perc', tags: ['Audit','Weboldal','Döntés'] },
   { title: 'Weboldal konverzió optimalizálás – mit nézz meg hirdetés előtt?', description: 'Ajánlat, message match, mobilélmény, bizalom, CTA, űrlap és valódi leadmérés egy fizetett kampány előtt.', url: '/blog/weboldal-konverzio-optimalizalas/', date: '2025. január 31.', readTime: '9 perc', tags: ['Konverzió','Landing','Hirdetés'] },
   { title: 'Google Search Console hibák – mit jelentenek, és mit érdemes javítani?', description: 'Indexelési, crawl és canonical problémák értelmezése anélkül, hogy minden kizárt URL-t hibának néznél.', url: '/blog/google-search-console-hibak/', date: '2025. január 31.', readTime: '9 perc', tags: ['SEO','Search Console','Indexelés'] },
   { title: 'Miért lassú a WordPress oldalam? 7 ok, amit sorrendben ellenőrizz', description: 'Képek, pluginok, JavaScript, fontok, cache, hosting és külső scriptek diagnózisa mérés alapján.', url: '/blog/miert-lassu-a-wordpress-oldalam/', date: '2025. január 31.', readTime: '10 perc', tags: ['WordPress','Sebesség','Core Web Vitals'] },
@@ -18,11 +17,10 @@ const blogPosts = [
 ---
 
 <BaseLayout title={title} description={description} canonical="/blog/">
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
   <main class="bg-graphite-950 text-white">
-    <SubpageHero eyebrow="Levente Studio · Tudástár" title="Kevesebb marketing-zaj." accent="Több használható rendszerlogika." description="SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni." primaryHref="#cikkek" primaryLabel="Cikkek megnyitása" secondaryHref="/kapcsolat/#diagnosztika" secondaryLabel="Saját rendszerem" meta={['SEO','Konverzió','Mérés','Folyamatok']} />
+    <SubpageHero eyebrow="Levente Studio · Tudástár" title="Kevesebb marketing-zaj." accent="Több használható válasz." description="SEO, konverzió, teljesítmény és mérés szolgáltató vállalkozásoknak. Olyan témák, amelyekből jobb döntést lehet hozni – nem csak több szakzsargont megtanulni." primaryHref="#cikkek" primaryLabel="Cikkek megnyitása" secondaryHref="/kapcsolat/#diagnosztika" secondaryLabel="Ajánlatot kérek" meta={['SEO','Konverzió','Mérés','Folyamatok']} />
 
     <section id="cikkek" class="hightech-section bg-ivory-100 text-graphite-950 relative overflow-hidden">
       <div class="absolute inset-0 studio-grid opacity-35 pointer-events-none" aria-hidden="true"></div>
@@ -30,7 +28,7 @@ const blogPosts = [
         <div class="mb-9 sm:mb-11 max-w-3xl">
           <div class="text-[11px] uppercase tracking-[0.2em] text-graphite-500 mb-3">5 gyakorlati útmutató</div>
           <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.96] text-balance">Válassz problémát, ne kulcsszót.</h2>
-          <p class="mt-4 text-base sm:text-lg leading-relaxed text-graphite-600 max-w-2xl">Rövid, konkrét anyagok arról, hogyan derítsd ki, mi fogja vissza a weboldalt vagy az ügyfélszerző rendszert.</p>
+          <p class="mt-4 text-base sm:text-lg leading-relaxed text-graphite-600 max-w-2xl">Rövid, konkrét anyagok arról, hogyan derítsd ki, mi fogja vissza a weboldalt vagy az ügyfélszerzést.</p>
         </div>
 
         <div class="grid lg:grid-cols-12 gap-5 md:gap-6">
@@ -52,8 +50,8 @@ const blogPosts = [
     <section class="hightech-section bg-graphite-950 relative overflow-hidden">
       <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none" aria-hidden="true"></div>
       <div class="hightech-container relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-9 lg:gap-14">
-        <div class="max-w-3xl"><div class="signal-kicker mb-5"><span class="signal-dot"></span>Nem csak olvasnál?</div><h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] text-balance">Nézzük meg a <span class="text-signal-400">saját rendszeredet.</span></h2><p class="text-white/65 font-light text-base sm:text-lg mt-6 max-w-2xl">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p></div>
-        <a href="/kapcsolat/#diagnosztika" class="signal-button-primary whitespace-nowrap">2 perces diagnózis ↗</a>
+        <div class="max-w-3xl"><div class="signal-kicker mb-5"><span class="signal-dot"></span>Nem csak olvasnál?</div><h2 class="font-serif text-4xl sm:text-5xl md:text-7xl font-light tracking-editorial leading-[0.92] text-balance">Nézzük meg a <span class="text-signal-400">saját weboldaladat.</span></h2><p class="text-white/65 font-light text-base sm:text-lg mt-6 max-w-2xl">Ha valamelyik probléma ismerős, nem kell még tíz cikket elolvasni. Megkeressük, nálad hol van a legnagyobb súrlódás.</p></div>
+        <a href="/kapcsolat/#diagnosztika" data-track-cta="Ajánlatot kérek" data-track-location="blog_index_bottom" class="signal-button-primary whitespace-nowrap">Ajánlatot kérek ↗</a>
       </div>
     </section>
   </main>

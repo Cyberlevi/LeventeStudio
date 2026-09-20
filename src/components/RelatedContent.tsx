@@ -28,7 +28,7 @@ export default function RelatedContent({ items, title = 'Kapcsolódó tartalmak'
         <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-graphite-500">Kapcsolódó olvasnivaló</div>
         <h2 className="font-serif text-3xl font-light tracking-editorial text-graphite-950 sm:text-4xl">{title}</h2>
       </div>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className={`grid gap-4 md:grid-cols-2 ${items.length >= 3 ? 'xl:grid-cols-3' : ''}`}>
         {items.map((item, index) => (
           <a key={index} href={item.url} className="group block border border-graphite-950/10 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-graphite-950/20 hover:shadow-lg hover:shadow-graphite-950/5">
             <div className="mb-3 flex items-center justify-between gap-4">

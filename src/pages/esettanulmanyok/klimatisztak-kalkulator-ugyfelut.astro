@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SystemCaseStudy from '../../components/SystemCaseStudy.astro';
+
+const screenshot = 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'KlímaTiszták – kalkulátoros szolgáltatási oldal esettanulmány',
+  description: 'Valós saját projekt: mobilra tervezett szolgáltatási oldal kalkulátorral, árazási logikával és ajánlatkérési folyamattal.',
+  author: { '@type': 'Organization', name: 'Levente Studio' },
+  mainEntityOfPage: 'https://leventestudio.app/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/',
+};
+---
+
+<BaseLayout
+  title="KlímaTiszták esettanulmány – kalkulátor és ügyfélút | Levente Studio"
+  description="Valós saját projekt: hogyan rendeztük egy klímatisztítási szolgáltatás választását, árazási logikáját és ajánlatkérését egy mobilra tervezett digitális ügyfélútba."
+  canonical="/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/"
+  ogType="article"
+  ogImage={screenshot}
+  ogImageAlt="A KlímaTiszták éles weboldalának főoldala"
+  structuredData={structuredData}
+>
+  <SystemCaseStudy
+    eyebrow="Levente Studio · saját, éles szolgáltatási projekt"
+    title="KlímaTiszták: amikor a weboldal segít választani, nem csak bemutatkozik."
+    lead="A KlímaTisztákon azt építettük meg, amit egy szolgáltatói weboldaltól üzletileg várunk: az érdeklődő gyorsan megérti a lehetőségeket, végig tud menni egy irányított választási folyamaton, majd egyértelműen eljut az ajánlatkérésig. Nem kirakatként kezeljük, hanem folyamatosan alakítható ügyfélútként."
+    stack={['Astro','kalkulátor','mobil UX','ajánlatkérés','árazási logika','Netlify']}
+    proofLabel="Valós projekt · production környezet"
+    proofNote="A projekt éles oldalon fut. Nem írunk ki becsült konverziós arányt vagy bevételt: azt mutatjuk meg, ami közvetlenül ellenőrizhető a működő weboldalon és a production felépítésben."
+    proofMetrics={[
+      {value:'LIVE',label:'Éles szolgáltatási oldal',detail:'A klimatisztak.hu production környezetben működik, nem demó vagy látványterv.'},
+      {value:'4 LÉPÉS',label:'Irányított választási folyamat',detail:'A kalkulátoros logika lépésenként szűkíti az érdeklődő számára releváns lehetőségeket.'},
+      {value:'ASTRO',label:'Gyors, statikus frontend',detail:'A jelenlegi production deploy Astro alapú és Netlify környezetben fut.'}
+    ]}
+    proofFlow={['szolgáltatási igény','irányított kalkulátor','ár / csomag megértése','ajánlatkérés','visszamérés és finomítás']}
+    sections={[
+      {title:'01. Nem minden érdeklődő ugyanazt akarja',body:'Klímatisztításnál más a helyzet egyetlen lakossági split készüléknél, több berendezésnél vagy összetettebb igénynél. Ahelyett, hogy minden információt egyszerre öntenénk a látogatóra, a felület lépésekben segíti a választást.'},
+      {title:'02. A kalkulátor nem dísz, hanem döntési segítség',body:'A több lépéses folyamat feladata, hogy a látogató a saját helyzetéről gondolkodjon. Ez csökkenti a bizonytalanságot, és közelebb viszi ahhoz, hogy konkrét igényt tudjon megfogalmazni az ajánlatkérésben.'},
+      {title:'03. Az árazási logikát érthetővé kell tenni',body:'Egy szolgáltatás ára önmagában kevés információ. A felületen az a fontos, hogy látszódjon: milyen tényezők befolyásolják a választást és mit kap az érdeklődő. Így az ár nem elszigetelt számként jelenik meg, hanem a szolgáltatás részeként.'},
+      {title:'04. Mobilon kell igazán egyszerűnek lennie',body:'A kalkulátor, a választási pontok és az ajánlatkérés mobilról is végigjárható ügyfélutat alkotnak. A cél, hogy kis képernyőn se kelljen keresni a következő lépést vagy hosszú blokkok között elveszni.'},
+      {title:'05. Az oldal tovább fejleszthető marad',body:'A projekt nem egy lezárt designfájl. A szolgáltatási logika, a kalkulátor, az árkommunikáció és az ajánlatkérési pontok külön-külön finomíthatók a későbbi valós használat és mérési adatok alapján.'}
+    ]}
+    built={[
+      'Astro alapú, mobilra tervezett szolgáltatási oldal',
+      'többlépéses kalkulátoros ügyfélút',
+      'szolgáltatás- és árazási döntési logika',
+      'egyértelmű ajánlatkérési útvonal',
+      'reszponzív felület kis képernyőre is',
+      'production Netlify deploy saját domainnel',
+      'továbbfejleszthető mérési és CRO alap'
+    ]}
+    lessons={[
+      'A kalkulátor akkor értékes, ha az ügyfél döntését egyszerűsíti, nem akkor, ha csak technikailag látványos.',
+      'Az árkommunikáció erősebb, ha az érdeklődő érti, milyen szolgáltatási tartalomhoz kapcsolódik.',
+      'Szolgáltatói oldalon a mobil folyamatot külön kell tervezni; nem elég a desktopot összenyomni.',
+      'A jó ügyfélút nem egyetlen CTA: a tartalom, a választás, az ár és az ajánlatkérés egymásra épül.'
+    ]}
+    liveUrl="https://klimatisztak.hu/"
+    coverImage={screenshot}
+    coverAlt="A KlímaTiszták production weboldalának főoldala kalkulátoros szolgáltatási folyamattal"
+  />
+</BaseLayout>

@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
-import MobileStickyBar from '../components/MobileStickyBar';
 
 const currentDate = new Date().toISOString().split('T')[0];
 ---
@@ -13,8 +11,6 @@ const currentDate = new Date().toISOString().split('T')[0];
   description="Tájékoztatás a leventestudio.app oldalon használt szükséges, analitikai és marketing célú tárolásról, valamint a Google Consent Mode beállításairól."
   canonical="/suti-szabalyzat/"
 >
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
   <HeaderAstro />
 
   <main class="pt-32 pb-20 bg-cream-50">

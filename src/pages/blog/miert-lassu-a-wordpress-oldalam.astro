@@ -2,13 +2,13 @@
 import BlogLayout from '../../components/BlogLayout.astro';
 
 const title = 'Miért lassú a WordPress oldalam? 7 ok, amit érdemes sorrendben ellenőrizni';
-const description = 'WordPress sebességproblémák diagnózisa: képek, pluginok, JavaScript, fontok, cache, hosting és külső scriptek – mérés alapján.';
+const description = 'WordPress sebességproblémák feltárása: képek, pluginok, JavaScript, fontok, cache, hosting és külső scriptek – mérés alapján.';
 const publishDate = '2025-01-31';
 
 const relatedContent = [
   {
     title: 'Lassú weboldal?',
-    description: 'Teljesítménydiagnózis, ha először az okot szeretnéd biztosan megtalálni.',
+    description: 'Teljesítményaudit, ha először az okot szeretnéd biztosan megtalálni.',
     url: '/lassu-weboldal/',
     type: 'service' as const,
   },
@@ -17,6 +17,12 @@ const relatedContent = [
     description: 'Mért szűk keresztmetszetek javítása és visszamérése.',
     url: '/szolgaltatas/weboldal-gyorsitas/',
     type: 'service' as const,
+  },
+  {
+    title: 'Klíma18ker esettanulmány',
+    description: 'Gyors frontend és technikai keresési alap valós szolgáltatói környezetben.',
+    url: '/esettanulmanyok/klima18ker-weboldal-audit/',
+    type: 'case-study' as const,
   },
 ];
 ---
@@ -78,6 +84,6 @@ const relatedContent = [
 
   <h2>Ne a 100-as pontszám legyen a cél</h2>
   <p>
-    A laborpontszám hasznos diagnosztikai jel, de nem üzleti KPI. Egy 95 pontos oldal is lehet rossz ügyfélszerző, és egy alacsonyabb pontszámú oldal is lehet használható. A cél az, hogy a valódi látogató gyorsan megkapja a fontos tartalmat, stabil legyen az oldal és ne legyen felesleges súrlódás.
+    A laborpontszám hasznos technikai jel, de nem üzleti KPI. Egy 95 pontos oldal is lehet rossz ügyfélszerző, és egy alacsonyabb pontszámú oldal is lehet használható. A cél az, hogy a valódi látogató gyorsan megkapja a fontos tartalmat, stabil legyen az oldal és ne legyen felesleges súrlódás.
   </p>
 </BlogLayout>

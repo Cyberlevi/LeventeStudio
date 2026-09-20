@@ -25,7 +25,7 @@
     @apply font-sans;
   }
 
-  a, button, input, textarea, select {
+  a, button, input, textarea, select, summary {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-400 focus-visible:ring-offset-2;
   }
 
@@ -36,6 +36,14 @@
 }
 
 @layer components {
+  .site-shell {
+    @apply mx-auto w-full max-w-[86rem] px-5 sm:px-6 lg:px-8;
+  }
+
+  .content-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
   .studio-kicker {
     @apply inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em];
   }
@@ -336,6 +344,93 @@
   .hightech-prose {
     font-size: 1rem;
     line-height: 1.75;
+  }
+}
+
+@media (max-width: 380px) {
+  .subpage-title {
+    font-size: clamp(2.65rem, 12vw, 3.35rem);
+    max-width: 13ch;
+    line-height: .92;
+  }
+}
+
+
+#diagnosztika {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(216,255,120,.10), transparent 24%),
+    radial-gradient(circle at 86% 72%, rgba(255,255,255,.055), transparent 28%),
+    linear-gradient(180deg, var(--ls-graphite) 0%, var(--ls-graphite-soft) 100%);
+  color: var(--ls-ivory);
+  border-top: 1px solid rgba(244,240,232,.08);
+  border-bottom: 1px solid rgba(244,240,232,.08);
+}
+
+#diagnosztika::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 0%, rgba(216,255,120,.025) 46%, transparent 70%);
+  z-index: 0;
+}
+
+#diagnosztika .hightech-container {
+  position: relative;
+  z-index: 1;
+}
+
+#diagnosztika form {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(216,255,120,.10), transparent 22%),
+    linear-gradient(180deg, rgba(21,24,22,.98), rgba(8,10,9,.99));
+  border-color: rgba(244,240,232,.13);
+  box-shadow:
+    inset 0 0 0 1px rgba(244,240,232,.025),
+    0 36px 100px rgba(0,0,0,.38);
+}
+
+#diagnosztika form::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(216,255,120,.72), transparent);
+  opacity: .7;
+}
+
+@media (max-width: 1023px) {
+  #diagnosztika .hightech-container {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  #diagnosztika {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  #diagnosztika form {
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .studio-card:hover,
+  .tech-card-light:hover,
+  .tech-card-dark:hover,
+  .signal-button-primary:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  body:has(.mobile-sticky-cta) .site-footer {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   }
 }
 

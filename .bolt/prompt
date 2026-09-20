@@ -1,9 +1,23 @@
-Before changing product positioning, copy, information architecture, SEO entities, pricing language, or visual direction, read `.bolt/brand-identity.md` and preserve its 2026 positioning.
+Before changing product positioning, copy, information architecture, SEO entities, pricing language, or visual direction, read `.bolt/brand-identity.md` and preserve its current positioning.
 
-Build production-ready pages, not generic templates. The Levente Studio product is an AI-native digital customer-acquisition and operating system for service businesses; AI is an enabling technology, not the headline product by itself.
+Build production-ready pages, not generic templates. Levente Studio sells clear, professional websites and related growth/automation services for service businesses. Start with the customer's business problem and the website or workflow they need; measurement, automation and AI are supporting capabilities, not the headline.
 
-Prefer clear business outcomes, measurable customer journeys, real project proof and restrained premium design. Avoid unsupported performance guarantees, invented metrics, competitor-bashing and generic agency language.
+Prefer human Hungarian copy, clear offers, real project proof, restrained premium design and a simple path to request a quote. Avoid unsupported guarantees, invented metrics, competitor-bashing, generic agency language and unnecessary English system jargon.
 
-This project uses Astro, React, TypeScript, Tailwind CSS and lucide-react. Prefer existing dependencies and server-render static content where client-side hydration is not required. Use client directives only for actual interactivity or tracking.
+Use the shared offer data in `src/data/studio-offers.ts` instead of duplicating package names, prices or descriptions.
 
-Keep entity naming consistent: brand `Levente Studio`, person `Tarnóczi Levente`, role `digitális rendszerépítő`.
+The current visual system is graphite + warm ivory + signal lime, with Inter for interface/body and Cormorant Garamond for editorial emphasis. Reuse the existing shared shell, CTA and card patterns instead of introducing parallel design generations.
+
+This project uses Astro, React, TypeScript, Tailwind CSS and lucide-react. Prefer server-rendered/static content and existing dependencies. Hydrate client components only for real interactivity; tracking alone should use the shared data attributes/global handler.
+
+Keep entity naming consistent: brand `Levente Studio`, person `Tarnóczi Levente`, role `weboldalkészítő és digitális rendszerépítő`.
+
+Do not reintroduce legacy parallel Header, Contact, sticky CTA or diagnostic-console styles after this unification.
+
+
+Revenue funnel rules:
+- Every sales/content route must have a clear next step toward a relevant service, real proof, or the quote form.
+- Preserve the true originating page when navigating to /kapcsolat/ so source_page remains useful for optimization.
+- Audit/problem intent must not be automatically forced into a package. Inspect first, then recommend repair or rebuild.
+- Prefer verified own-project proof before generic marketing claims. Never invent performance metrics.
+- Keep the public primary CTA "Ajánlatot kérek"; phone and email are secondary channels.

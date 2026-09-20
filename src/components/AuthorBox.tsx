@@ -17,10 +17,10 @@ export default function AuthorBox() {
           </div>
         </div>
         <div className="flex-1">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-graphite-500">Szerző · rendszerépítő</div>
+          <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-graphite-500">Szerző · weboldalkészítő</div>
           <h3 className="mb-3 font-serif text-3xl font-light tracking-editorial text-graphite-950">Tarnóczi Levente</h3>
           <p className="mb-5 max-w-2xl leading-relaxed text-graphite-600">
-            A Levente Studio digitális rendszerépítője. Webet, SEO-t, mérést, leadkezelést és AI-assisted folyamatokat kötök össze úgy, hogy a rendszer üzletileg is követhető legyen. A módszereket saját éles szolgáltatói projekteken is tesztelem.
+            A Levente Studio mögött dolgozom. Weboldalt, SEO-t, mérést és ügyfélutakat építek úgy, hogy a technika az üzleti célt szolgálja. A módszereket saját és családi szolgáltatói projekteken is kipróbálom.
           </p>
           <div className="flex flex-wrap items-center gap-5 text-sm">
             <a href="/rolam/" className="border-b-2 border-signal-500 pb-1 font-medium text-graphite-950 hover:border-graphite-950">Bővebben rólam</a>

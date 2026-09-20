@@ -3,40 +3,39 @@ import { ArrowRight } from 'lucide-react';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
-import CookieBanner from '../components/CookieBanner';
 import MobileStickyBar from '../components/MobileStickyBar';
 import SubpageHero from '../components/SubpageHero.astro';
 
 const projects = [
-  { category: 'Klímatechnika', title: 'Klima18ker', subtitle: 'Web + SEO + technikai optimalizálás', description: 'Egy helyi klímaszolgáltatás digitális jelenlétének gyorsítása, keresőbarát struktúrája és mérhetőbb működése.', href: '/esettanulmanyok/klima18ker-weboldal-audit/', tags: ['SEO', 'performance', 'local service'], code: '01' },
-  { category: 'Építőipari szolgáltatás', title: 'FuratMester', subtitle: 'Landing + Google Ads + lead funnel', description: 'Speciális faláttörési szolgáltatásra épített rendszer, ahol a keresési szándék, az ajánlat, a hirdetés és a leadmérés egy láncot alkot.', href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/', tags: ['landing', 'Ads', 'GA4/GTM'], code: '02' },
-  { category: 'Helyi szolgáltatás', title: 'Bundavarázs', subtitle: 'Local presence + mérési alapok', description: 'Kutyakozmetikai jelenlét, ahol a mobil ügyfélút, a helyi Google-jelenlét és az analitika dolgozik együtt.', href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/', tags: ['local SEO', 'Google Business', 'GA4'], code: '03' }
+  { category: 'Klímatisztítás', title: 'KlímaTiszták', subtitle: 'Kalkulátor + árazás + ajánlatkérés', description: 'Mobilra tervezett szolgáltatási ügyfélút, ahol a kalkulátor, az árkommunikáció és az ajánlatkérés egyetlen folyamatba rendeződik.', href: '/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/', tags: ['Astro', 'calculator', 'CRO'], code: '01' },
+  { category: 'Klímatechnika', title: 'Klima18ker', subtitle: 'Web + SEO + technikai optimalizálás', description: 'Egy helyi klímaszolgáltatás digitális jelenlétének gyorsítása, keresőbarát struktúrája és mérhetőbb működése.', href: '/esettanulmanyok/klima18ker-weboldal-audit/', tags: ['SEO', 'performance', 'local service'], code: '02' },
+  { category: 'Építőipari szolgáltatás', title: 'FuratMester', subtitle: 'Landing + Google Ads + leadmérés', description: 'Speciális faláttörési szolgáltatásra épített rendszer, ahol a keresési szándék, az ajánlat, a hirdetés és a leadmérés egy láncot alkot.', href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/', tags: ['landing', 'Ads', 'GA4/GTM'], code: '03' },
+  { category: 'Helyi szolgáltatás', title: 'Bundavarázs', subtitle: 'Local presence + mérési alapok', description: 'Kutyakozmetikai jelenlét, ahol a mobil ügyfélút, a helyi Google-jelenlét és az analitika dolgozik együtt.', href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/', tags: ['local SEO', 'Google Business', 'GA4'], code: '04' }
 ];
 
-const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Levente Studio Lab – valós digitális rendszerek', 'description': 'Valós szolgáltatói projektek webfejlesztési, SEO, mérési és ügyfélszerzési tapasztalatokkal.', 'url': 'https://leventestudio.app/esettanulmanyok/' };
+const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Levente Studio – valós szolgáltatói projektek', 'description': 'Valós szolgáltatói projektek webfejlesztési, SEO, mérési és ügyfélszerzési tapasztalatokkal.', 'url': 'https://leventestudio.app/esettanulmanyok/' };
 ---
 
 <BaseLayout
-  title="Levente Studio Lab – valós ügyfélszerző rendszerek és esettanulmányok"
-  description="Klíma, faláttörés és helyi szolgáltatás: valós projektek, amelyeken webet, SEO-t, mérést, Ads funnel-t és digitális működést építünk és tesztelünk."
+  title="Esettanulmányok – valós szolgáltatói projektek | Levente Studio"
+  description="Klímatisztítás, klímaszerelés, faláttörés és helyi szolgáltatás: valós saját projektek, amelyeken weboldalt, ügyfélutat, SEO-t és mérést építünk és tesztelünk."
   canonical="/esettanulmanyok/"
   structuredData={structuredData}
 >
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
 
   <main class="bg-graphite-950">
     <SubpageHero
-      eyebrow="Levente Studio Lab"
-      title="Nem portfóliót mutatunk."
-      accent="Működő rendszereket."
-      description="Valós keresések, kampányok, ajánlatkérések és üzleti döntések futnak rajtuk. Itt teszteljük azt, amit később más vállalkozások rendszerébe is beépítünk."
+      eyebrow="Munkáink · esettanulmányok"
+      title="Nem látványterveket mutatunk."
+      accent="Valós projekteket és tanulságokat."
+      description="Saját vagy családi szolgáltatói projekteken mutatjuk meg, hogyan épül fel a weboldal, az ügyfélút és a mérés. Csak azt állítjuk eredményként, amit ténylegesen vissza tudunk igazolni."
       primaryHref="#projektek"
-      primaryLabel="Rendszerek megnyitása"
+      primaryLabel="Projektek megnyitása"
       secondaryHref="/kapcsolat/#diagnosztika"
-      secondaryLabel="Saját rendszerem"
-      meta={['3 live systems', 'Web + SEO', 'Ads + measurement', 'Continuous iteration']}
+      secondaryLabel="Ajánlatot kérek"
+      meta={['4 saját projekt', 'Web + UX', 'SEO + mérés', 'Folyamatos fejlesztés']}
     />
 
     <section id="projektek" class="hightech-section bg-graphite-900 text-white relative overflow-hidden">
@@ -47,14 +46,14 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
             <article class:list={['tech-card-dark group overflow-hidden', index === 0 ? 'lg:col-span-7' : 'lg:col-span-5']}>
               <a href={project.href} class="block h-full p-6 sm:p-7 md:p-8 lg:p-9">
                 <div class="flex items-start justify-between gap-5 mb-10 sm:mb-14">
-                  <div class="text-[10px] uppercase tracking-[0.2em] text-white/30">SYS/{project.code}</div>
-                  <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-white/45"><span class="w-2 h-2 rounded-full bg-signal-400 shadow-[0_0_18px_rgba(216,255,120,.55)]"></span>{project.category}</div>
+                  <div class="text-[10px] uppercase tracking-[0.2em] text-white/50">SYS/{project.code}</div>
+                  <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-white/60"><span class="w-2 h-2 rounded-full bg-signal-400 shadow-[0_0_18px_rgba(216,255,120,.55)]"></span>{project.category}</div>
                 </div>
                 <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial text-white leading-[0.94] mb-3 group-hover:text-signal-400 transition-colors">{project.title}</h2>
-                <p class="text-sm uppercase tracking-[0.12em] text-white/35 mb-6">{project.subtitle}</p>
+                <p class="text-sm uppercase tracking-[0.12em] text-white/55 mb-6">{project.subtitle}</p>
                 <p class="text-base sm:text-lg text-white/55 font-light leading-relaxed mb-8 max-w-2xl">{project.description}</p>
                 <div class="flex flex-wrap gap-2 mb-10">{project.tags.map((tag) => <span class="signal-tag-dark">{tag}</span>)}</div>
-                <div class="flex items-center justify-between border-t border-white/10 pt-5"><span class="text-sm text-white/45">Rendszertérkép</span><span class="inline-flex items-center gap-2 text-sm text-white group-hover:translate-x-1 transition-transform">Megnyitás <ArrowRight className="w-4 h-4 text-signal-400" /></span></div>
+                <div class="flex items-center justify-between border-t border-white/10 pt-5"><span class="text-sm text-white/60">Projekt részletei</span><span class="inline-flex items-center gap-2 text-sm text-white group-hover:translate-x-1 transition-transform">Megnyitás <ArrowRight className="w-4 h-4 text-signal-400" /></span></div>
               </a>
             </article>
           ))}
@@ -65,9 +64,9 @@ const structuredData = { '@context': 'https://schema.org', '@type': 'CollectionP
     <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
       <div class="absolute inset-0 subpage-signal-grid opacity-30 pointer-events-none"></div>
       <div class="hightech-container relative grid lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-16">
-        <div><div class="signal-kicker mb-5"><span class="signal-dot"></span>Why the lab matters</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A saját kockázat <span class="text-signal-400">másfajta fegyelmet ad.</span></h2></div>
+        <div><div class="signal-kicker mb-5"><span class="signal-dot"></span>Miért fontosak a saját projektek</div><h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.94] text-balance">A saját kockázat <span class="text-signal-400">másfajta fegyelmet ad.</span></h2></div>
         <div class="grid sm:grid-cols-3 gap-4">
-          {[['01','Saját kockázat','A rossz döntés itt nem prezentációs hiba, hanem üzleti következmény.'],['02','Valós visszajelzés','Leadek, keresési adatok és ügyfélkérdések mutatják meg, hol súrlódik a rendszer.'],['03','Folyamatos iteráció','Mérjük, javítjuk, egyszerűsítjük, majd újra mérjük.']].map(([number,title,text]) => <div class="tech-card-dark p-6"><div class="text-xs text-signal-400 tracking-[0.18em] mb-8">{number}</div><h3 class="text-xl text-white mb-3">{title}</h3><p class="text-sm text-white/55 font-light leading-relaxed">{text}</p></div>)}
+          {[['01','Saját kockázat','A rossz döntés itt nem prezentációs hiba, hanem üzleti következmény.'],['02','Valós visszajelzés','Ahol a mérés aktív, az adatok és az ügyfélkérdések segítenek megmutatni, hol súrlódik az ügyfélút.'],['03','Folyamatos iteráció','Mérjük, javítjuk, egyszerűsítjük, majd újra mérjük.']].map(([number,title,text]) => <div class="tech-card-dark p-6"><div class="text-xs text-signal-400 tracking-[0.18em] mb-8">{number}</div><h3 class="text-xl text-white mb-3">{title}</h3><p class="text-sm text-white/55 font-light leading-relaxed">{text}</p></div>)}
         </div>
       </div>
     </section>

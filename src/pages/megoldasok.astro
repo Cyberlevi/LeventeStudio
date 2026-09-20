@@ -4,59 +4,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Footer from '../components/Footer';
 import SubpageHero from '../components/SubpageHero.astro';
+import MobileStickyBar2026 from '../components/MobileStickyBar2026';
+import { studioOffers } from '../data/studio-offers';
 
-const offers = [
-  {
-    icon: Globe2,
-    eyebrow: 'LS/01 · PRESENCE',
-    title: 'Profi online jelenlét',
-    text: 'Ha először csak egy gyors, hiteles és kereshető online alap kell — felesleges túlépítés nélkül.',
-    price: '149 000 Ft-tól',
-    href: '/online-jelenlet/'
-  },
-  {
-    icon: Gauge,
-    eyebrow: 'LS/02 · START',
-    title: 'Mérhető ügyfélszerző weboldal',
-    text: 'Ha az online alapnak már ajánlatkérést, mérhető konverziót és bővíthető SEO-struktúrát is kell adnia.',
-    price: '250 000 Ft-tól',
-    href: '/weboldal-keszites/'
-  },
-  {
-    icon: Target,
-    eyebrow: 'LS/03 · GROW',
-    title: 'Komplett ügyfélszerzés',
-    text: 'Ha már nem csak jelenlét kell, hanem keresletkutatás, landingek, mérés és kampányra kész lead funnel.',
-    price: '450–650 000 Ft',
-    href: '/ugyfelszerzes/'
-  },
-  {
-    icon: Workflow,
-    eyebrow: 'LS/04 · SCALE',
-    title: 'Automatizálás + CRM',
-    text: 'Ha a növekedéssel együtt már a leadkezelés, az utánkövetés és a kézi adminisztráció lett a szűk keresztmetszet.',
-    price: '750 000 Ft-tól',
-    href: '/ai-automatizalas/'
-  }
-];
+const iconById = { PRESENCE: Globe2, START: Gauge, GROW: Target, SCALE: Workflow } as const;
+const offers = studioOffers.map(offer => ({
+  ...offer,
+  icon: iconById[offer.id],
+  eyebrow: `${offer.code} · ${offer.id}`,
+  text: offer.description,
+}));
 ---
 
 <BaseLayout
-  title="Digitális ügyfélszerző rendszerek és csomagok | Levente Studio"
-  description="Presence, Start, Grow és Scale digitális rendszerek szolgáltató vállalkozásoknak: online jelenlét, ügyfélszerző weboldal, leadgenerálás, CRM és automatizálás."
+  title="Weboldalcsomagok és ügyfélszerzés | Levente Studio"
+  description="Presence, Start, Grow és Scale csomagok szolgáltató vállalkozásoknak: online jelenlét, weboldal, ügyfélszerzés és rendezettebb ügyfélkezelés."
   canonical="/megoldasok/"
 >
   <HeaderAstro />
+  <MobileStickyBar2026 />
   <main class="bg-graphite-950 text-white">
     <SubpageHero
       eyebrow="Levente Studio · megoldások"
-      title="Négy termék."
-      accent="Egy növekedési logika."
-      description="Nem ugyanazt a rendszert adjuk mindenkinek. A vállalkozásod jelenlegi helyzete dönti el, hogy profi jelenlétre, mérhető weboldalra, komplett ügyfélszerzésre vagy automatizált működésre van szükség."
+      title="Négy csomag."
+      accent="Egy logikus út."
+      description="Nem ugyanarra van szüksége minden vállalkozásnak. A vállalkozásod jelenlegi helyzete dönti el, hogy profi jelenlétre, jó weboldalra, tudatosabb ügyfélszerzésre vagy rendezettebb ügyfélkezelésre van szükség."
       primaryHref="#megoldasok"
-      primaryLabel="Termékek"
+      primaryLabel="Csomagok"
       secondaryHref="/kapcsolat/#diagnosztika"
-      secondaryLabel="2 perces diagnózis"
+      secondaryLabel="Ajánlatot kérek"
       meta={['Presence', 'Start', 'Grow', 'Scale']}
     />
 
@@ -64,9 +40,9 @@ const offers = [
       <div class="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true"></div>
       <div class="hightech-container relative">
         <div class="max-w-4xl mb-12 sm:mb-14">
-          <div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-4">Termékpaletta</div>
-          <h2 class="font-serif text-4xl sm:text-6xl font-light leading-[.94]">A legkisebb szükséges rendszerrel kezdünk. <span class="text-signal-400">Nem a legdrágábbal.</span></h2>
-          <p class="mt-6 text-base sm:text-lg text-white/60 leading-relaxed max-w-3xl">A négy szint egymásra épül, de nem kell végiglépkedni rajtuk. Ha már működő webed van, indulhatunk GROW vagy SCALE szintről is.</p>
+          <div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-4">Csomagok</div>
+          <h2 class="font-serif text-4xl sm:text-6xl font-light leading-[.94]">A legkisebb szükséges megoldással kezdünk. <span class="text-signal-400">Nem a legdrágábbal.</span></h2>
+          <p class="mt-6 text-base sm:text-lg text-white/60 leading-relaxed max-w-3xl">A négy szint egymásra épül, de nem kell végiglépkedni rajtuk. Ha már működő weboldalad van, indulhatunk GROW vagy SCALE szintről is.</p>
         </div>
 
         <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
@@ -79,7 +55,7 @@ const offers = [
                 <span class="text-[10px] uppercase tracking-[.18em] text-signal-400">{eyebrow}</span>
                 <Icon className="w-5 h-5 text-signal-400" />
               </div>
-              {index === 2 && <div class="mt-6 inline-flex self-start border border-signal-400/25 px-2.5 py-1 text-[10px] uppercase tracking-[.16em] text-signal-400">Leggyakoribb választás</div>}
+              {index === 2 && <div class="mt-6 inline-flex self-start border border-signal-400/25 px-2.5 py-1 text-[10px] uppercase tracking-[.16em] text-signal-400">Növekedési csomag</div>}
               <h3 class="font-serif text-4xl font-light leading-[.95] mt-10">{title}</h3>
               <p class="text-white/60 leading-relaxed mt-5">{text}</p>
               <div class="mt-auto pt-10">
@@ -94,9 +70,9 @@ const offers = [
           <div>
             <div class="text-xs uppercase tracking-[.18em] text-signal-400 mb-2">Nem tudod, melyik kell?</div>
             <h2 class="font-serif text-3xl md:text-4xl font-light">Nem neked kell kitalálnod.</h2>
-            <p class="text-white/55 mt-3">A rövid rendszerdiagnózis alapján megkeressük, hol érdemes kezdeni — és ha a Presence elég, nem fogunk Scale-t eladni.</p>
+            <p class="text-white/55 mt-3">A rövid ajánlatkérés alapján megkeressük, hol érdemes kezdeni — és ha a Presence elég, nem fogunk Scale-t eladni.</p>
           </div>
-          <a href="/kapcsolat/#diagnosztika" class="signal-button-primary inline-flex shrink-0">Kérem a rendszerdiagnózist <ArrowRight className="w-4 h-4" /></a>
+          <a href="/kapcsolat/#diagnosztika" data-track-cta="Ajánlatot kérek" data-track-location="solutions_bottom" class="signal-button-primary inline-flex shrink-0">Ajánlatot kérek <ArrowRight className="w-4 h-4" /></a>
         </div>
       </div>
     </section>

@@ -2,26 +2,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
-import CookieBanner from '../../components/CookieBanner';
 import MobileStickyBar from '../../components/MobileStickyBar';
 import ProblemLandingPageV2 from '../../components/ProblemLandingPageV2';
 
-const pageTitle = 'Weboldal audit és rendszerdiagnózis | Levente Studio';
-const pageDescription = 'Technikai SEO, teljesítmény, UX, ajánlat és analitika egy átfogó weboldal-diagnózisban. Prioritásos javítási terv és megvalósítási lehetőség.';
+const pageTitle = 'Weboldal audit és javítási terv | Levente Studio';
+const pageDescription = 'Technikai SEO, teljesítmény, UX, ajánlat és analitika egy átfogó weboldal-auditban. Prioritásos javítási terv és megvalósítási lehetőség.';
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   '@id': 'https://leventestudio.app/szolgaltatas/weboldal-audit/#service',
-  'name': 'Weboldal audit és rendszerdiagnózis',
-  'description': 'Technikai, SEO-, UX-, konverziós és analitikai diagnózis szolgáltató vállalkozásoknak.',
+  'name': 'Weboldal audit és javítási terv',
+  'description': 'Technikai, SEO-, UX-, konverziós és analitikai audit szolgáltató vállalkozásoknak.',
   'provider': {
     '@type': 'ProfessionalService',
     'name': 'Levente Studio',
     'url': 'https://leventestudio.app',
   },
   'areaServed': 'HU',
-  'serviceType': ['Weboldal audit', 'Konverziódiagnózis', 'Digitális rendszerterv'],
+  'serviceType': ['Weboldal audit', 'Konverzióaudit', 'Prioritásos javítási terv'],
 };
 
 const problemData = {
@@ -58,7 +57,7 @@ const problemData = {
   deliverables: {
     title: 'Mit kapsz',
     items: [
-      'Prioritásos diagnózis üzleti hatás szerint',
+      'Prioritásos javítási lista üzleti hatás szerint',
       'Konkrét javítási sorrend',
       'Technikai és SEO teendők',
       'Konverziós és CTA-javaslatok',
@@ -73,7 +72,7 @@ const problemData = {
     },
     {
       question: 'Meg is csináljátok a javításokat?',
-      answer: 'Igen. A diagnózis külön is kérhető, de ha van értelme, a javításból komplett ügyfélszerző rendszert is tudunk építeni.',
+      answer: 'Igen. Az audit külön is kérhető, de ha van értelme, a javításból teljesebb webes és ügyfélszerzési megoldást is tudunk építeni.',
     },
     {
       question: 'Milyen hozzáférések kellenek?',
@@ -85,7 +84,7 @@ const problemData = {
     },
     {
       question: 'Mennyibe kerül?',
-      answer: 'A diagnózis mélysége az oldal és a rendszer összetettségétől függ. Első egyeztetés után konkrét, tételes ajánlatot adunk.',
+      answer: 'Az audit mélysége az oldal és a rendszer összetettségétől függ. Első egyeztetés után konkrét, tételes ajánlatot adunk.',
     },
   ],
   cta: {
@@ -101,7 +100,7 @@ const problemData = {
     {
       title: 'Lassú weboldal',
       url: '/lassu-weboldal/',
-      description: 'Teljesítmény és Core Web Vitals diagnózis',
+      description: 'Teljesítmény- és Core Web Vitals audit',
     },
   ],
 };
@@ -113,9 +112,9 @@ const problemData = {
   canonical="/szolgaltatas/weboldal-audit/"
   structuredData={structuredData}
 >
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
   <ProblemLandingPageV2 {...problemData} />
   <Footer />
-  <CookieBanner client:load />
+  
 </BaseLayout>

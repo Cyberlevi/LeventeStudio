@@ -6,6 +6,9 @@ import Footer from '../components/Footer';
 import MobileStickyBar from '../components/MobileStickyBar';
 import Contact from '../components/Contact';
 import SubpageHero from '../components/SubpageHero.astro';
+import { studioOffers } from '../data/studio-offers';
+
+const offer = studioOffers.find((item) => item.id === 'PRESENCE')!;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -25,11 +28,11 @@ const blocks = [
 
 <BaseLayout
   title="Profi online jelenlét 149 000 Ft-tól | Presence | Levente Studio"
-  description="Egyszerű, gyors és vállalható online jelenlét szolgáltató vállalkozásoknak: egyoldalas mobil-first weboldal, alap SEO, Google Business Profile alapok és analitika."
+  description="Egyszerű, gyors és vállalható online jelenlét szolgáltató vállalkozásoknak: egyoldalas mobil-first weboldal, ajánlatkérés, keresési és mérési alapok."
   canonical="/online-jelenlet/"
   structuredData={structuredData}
 >
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
   <main class="bg-graphite-950 text-white">
     <SubpageHero
@@ -39,9 +42,9 @@ const blocks = [
       description="Gyors, tiszta és vállalható online alap olyan szolgáltató vállalkozásoknak, akiknek most először az a fontos, hogy megtalálhatók, érthetők és könnyen elérhetők legyenek."
       primaryHref="#presence"
       primaryLabel="Mit tartalmaz?"
-      secondaryHref="/kapcsolat/#diagnosztika"
-      secondaryLabel="2 perces diagnózis"
-      meta={['149 000 Ft-tól', '1 oldalas', 'Mobil-first', 'Alap SEO']}
+      secondaryHref="/kapcsolat/?csomag=PRESENCE#diagnosztika"
+      secondaryLabel="Ajánlatot kérek"
+      meta={[offer.price, '1 oldalas', 'Mobil-first', 'Ajánlatkérés']}
     />
 
     <section id="presence" class="hightech-section bg-graphite-900 relative overflow-hidden">
@@ -50,7 +53,7 @@ const blocks = [
         <div class="max-w-4xl mb-14">
           <Globe2 className="w-6 h-6 text-signal-400 mb-5" />
           <h2 class="font-serif text-4xl sm:text-6xl font-light leading-[.94]">A Presence nem mini-GROW. <span class="text-signal-400">Pont annyit építünk, amennyi most kell.</span></h2>
-          <p class="mt-6 text-lg text-white/60 font-light leading-relaxed">Nem minden vállalkozásnak kell rögtön teljes funnel, kampányrendszer vagy automatizálás. Ha a probléma egyszerűen az, hogy nincs jó online alap, ezt oldjuk meg először.</p>
+          <p class="mt-6 text-lg text-white/60 font-light leading-relaxed">Nem minden vállalkozásnak kell rögtön összetett kampányrendszer vagy automatizálás. Ha a probléma egyszerűen az, hogy nincs jó online alap, ezt oldjuk meg először.</p>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -70,31 +73,24 @@ const blocks = [
         <div>
           <Gauge className="w-6 h-6 mb-5" />
           <div class="text-[10px] uppercase tracking-[.2em] text-graphite-500 mb-3">LS/01 · PRESENCE</div>
-          <h2 class="font-serif text-4xl sm:text-5xl font-light leading-[.96]">Profi online jelenlét <span class="text-graphite-500">149 000 Ft-tól.</span></h2>
+          <h2 class="font-serif text-4xl sm:text-5xl font-light leading-[.96]">Profi online jelenlét <span class="text-graphite-500">{offer.price}.</span></h2>
           <p class="mt-6 text-graphite-600 leading-relaxed">Belépő termék, nem kompromisszumos sablon. Akkor jó választás, ha még nincs szükség teljes ügyfélszerző rendszerre, de az online megjelenésednek már üzletileg vállalhatónak kell lennie.</p>
           <p class="mt-4 text-sm text-graphite-500">Ha több aloldal, komolyabb ajánlatkérési út és részletes konverziómérés kell, a START csomag a következő szint.</p>
         </div>
 
         <div class="border border-graphite-950/10 bg-white p-7 md:p-8">
-          {[
-            'Egyoldalas, mobil-first weboldal',
-            'Gyors technikai felépítés',
-            'Alap technikai SEO',
-            'Kapcsolati és ajánlatkérési út',
-            'Google Business Profile alapok',
-            'Alap analitika'
-          ].map((item) => (
+          {offer.features.map((item) => (
             <div class="flex gap-3 border-b border-graphite-950/10 py-3 text-graphite-600">
               <Check className="w-4 h-4 text-graphite-950 shrink-0 mt-0.5" />
               <span>{item}</span>
             </div>
           ))}
-          <a href="/kapcsolat/#diagnosztika" data-track-cta="Presence diagnózis" data-track-location="presence_package" class="signal-button-primary mt-7 inline-flex">Megnézem, elég-e a Presence <ArrowRight className="w-4 h-4" /></a>
+          <a href="/kapcsolat/?csomag=PRESENCE#diagnosztika" data-track-cta="Ajánlatot kérek - PRESENCE" data-track-location="presence_package" class="signal-button-primary mt-7 inline-flex">Erre kérek ajánlatot <ArrowRight className="w-4 h-4" /></a>
         </div>
       </div>
     </section>
 
-    <div id="kapcsolat"><Contact client:visible /></div>
+    <div id="kapcsolat"><Contact /></div>
   </main>
   <Footer />
 </BaseLayout>

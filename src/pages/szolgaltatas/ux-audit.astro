@@ -2,18 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderAstro from '../../components/HeaderAstro.astro';
 import Footer from '../../components/Footer';
-import CookieBanner from '../../components/CookieBanner';
 import MobileStickyBar from '../../components/MobileStickyBar';
 import ProblemLandingPageV2 from '../../components/ProblemLandingPageV2';
 
-const pageTitle = 'UX audit és konverziós rendszerdiagnózis | Levente Studio';
+const pageTitle = 'UX audit és konverziós áttekintés | Levente Studio';
 const pageDescription = 'UX audit szolgáltató weboldalakhoz: első képernyő, ajánlat, CTA, mobilélmény, kapcsolatfelvétel és konverziós út elemzése, prioritásos javítási tervvel.';
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   '@id': 'https://leventestudio.app/szolgaltatas/ux-audit/#service',
-  'name': 'UX audit és konverziós rendszerdiagnózis',
+  'name': 'UX audit és konverziós áttekintés',
   'description': 'Felhasználói út, ajánlat, CTA és kapcsolatfelvételi folyamat elemzése szolgáltató vállalkozásoknak.',
   'provider': {
     '@type': 'ProfessionalService',
@@ -21,7 +20,7 @@ const structuredData = {
     'url': 'https://leventestudio.app',
   },
   'areaServed': 'HU',
-  'serviceType': ['UX audit', 'Konverzióoptimalizálás', 'Landing diagnózis'],
+  'serviceType': ['UX audit', 'Konverzióoptimalizálás', 'Landing audit'],
 };
 
 const problemData = {
@@ -96,7 +95,7 @@ const problemData = {
     {
       title: 'Weboldal nem hoz ügyfelet',
       url: '/weboldal-nem-hoz-ugyfelet/',
-      description: 'Teljes ügyfélszerzési rendszerdiagnózis',
+      description: 'Átfogó ügyfélszerzési audit',
     },
     {
       title: 'Weboldal audit',
@@ -113,9 +112,9 @@ const problemData = {
   canonical="/szolgaltatas/ux-audit/"
   structuredData={structuredData}
 >
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
   <ProblemLandingPageV2 {...problemData} />
   <Footer />
-  <CookieBanner client:load />
+  
 </BaseLayout>

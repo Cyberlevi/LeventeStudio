@@ -49,15 +49,7 @@ export function setConsentState(state: Omit<ConsentState, 'timestamp'>): void {
       sessionStorage.setItem(CONSENT_KEY, serialized);
       console.info('Consent state saved to sessionStorage (will expire on browser close)');
     } catch (sessionStorageError) {
-      console.error('Both localStorage and sessionStorage failed:', sessionStorageError);
-
-      if (confirm(
-        'A böngésző nem engedélyezi a sütik tárolását. Kérjük engedélyezd a sütiket a beállításokban, ' +
-        'különben minden oldal újratöltésnél újra el kell fogadnod a sütiket.\n\n' +
-        'Tovább folytatod süti tárolás nélkül?'
-      )) {
-        console.info('User acknowledged storage limitation');
-      }
+      console.warn('Consent preference could not be persisted; it will be requested again on a later page load.', sessionStorageError);
     }
   }
 }

@@ -3,7 +3,6 @@ import '../styles/article-prose.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from './HeaderAstro.astro';
 import Footer from './Footer';
-import CookieBanner from './CookieBanner';
 import MobileStickyBar from './MobileStickyBar';
 import AuthorBox from './AuthorBox';
 import RelatedContent from './RelatedContent';
@@ -34,8 +33,7 @@ const structuredData = {
 ---
 
 <BaseLayout title={title} description={description} canonical={Astro.url.pathname} ogType="article" structuredData={structuredData}>
-  <CookieBanner client:load />
-  <MobileStickyBar client:idle />
+  <MobileStickyBar />
   <HeaderAstro />
 
   <main class="bg-graphite-950">
@@ -102,8 +100,8 @@ const structuredData = {
         <div class="max-w-3xl">
           <div class="signal-kicker mb-4"><span class="signal-dot"></span>Következő lépés</div>
           <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-editorial leading-[0.95] text-balance">A saját rendszeredben is van egy szűk keresztmetszet?</h2>
-          <p class="text-white/70 mt-5 mb-7 font-light leading-relaxed text-base sm:text-lg max-w-2xl">Nem kell találgatni. A 2 perces diagnózis megmutatja, honnan érdemes elindulni.</p>
-          <a href="/kapcsolat/#diagnosztika" class="signal-button-primary">Rendszerdiagnózis <span aria-hidden="true">→</span></a>
+          <p class="text-white/70 mt-5 mb-7 font-light leading-relaxed text-base sm:text-lg max-w-2xl">Nem kell találgatni. Írd meg röviden, hol akadt el a weboldalad vagy az ügyfélszerzésed, és megnézzük, honnan érdemes elindulni.</p>
+          <a href="/kapcsolat/#diagnosztika" data-track-cta="Ajánlatot kérek" data-track-location="blog_bottom" class="signal-button-primary">Ajánlatot kérek <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

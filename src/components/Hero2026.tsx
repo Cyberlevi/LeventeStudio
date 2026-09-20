@@ -19,11 +19,11 @@ export default function Hero2026() {
             </ul>
           </div>
           <div className="min-w-0">
-            <a href="/esettanulmanyok/klima18ker-weboldal-audit/" className="group block overflow-hidden rounded-xl border border-white/15 bg-ivory-100 shadow-2xl shadow-black/40" aria-label="Klíma18ker projektbemutatás">
-              <div className="flex items-center justify-between border-b border-graphite-950/10 px-4 py-3 text-graphite-600"><span className="flex gap-1.5" aria-hidden="true">{[1,2,3].map(dot => <span key={dot} className="h-2 w-2 rounded-full bg-graphite-300" />)}</span><span className="text-xs">klima18ker.hu</span><ArrowUpRight size={16} aria-hidden="true" /></div>
-              <img src="/projects/klima18ker.webp" width="1348" height="926" alt="A Klíma18ker weboldala saját szerelési fotóval és jól látható ajánlatkéréssel" fetchPriority="high" className="block h-auto w-full" />
+            <a href="/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/" className="group block overflow-hidden rounded-xl border border-white/15 bg-ivory-100 shadow-2xl shadow-black/40" aria-label="KlímaTiszták projektbemutatás">
+              <div className="flex items-center justify-between border-b border-graphite-950/10 px-4 py-3 text-graphite-600"><span className="flex gap-1.5" aria-hidden="true">{[1,2,3].map(dot => <span key={dot} className="h-2 w-2 rounded-full bg-graphite-300" />)}</span><span className="text-xs">klimatisztak.hu</span><ArrowUpRight size={16} aria-hidden="true" /></div>
+              <img src="https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp" width="1348" height="926" alt="A KlímaTiszták éles weboldalának főoldala kalkulátorral és ajánlatkérési folyamattal" fetchPriority="high" className="aspect-[1.456] w-full object-cover object-top" />
             </a>
-            <div className="mt-5 flex items-center justify-between gap-4 text-xs text-ivory-400"><span>Saját projekt. Valódi szolgáltatás.</span><a href="#lab" className="inline-flex items-center gap-2 text-signal-300 hover:underline">Mindhárom munka <ArrowDown size={14} aria-hidden="true" /></a></div>
+            <div className="mt-5 flex items-center justify-between gap-4 text-xs text-ivory-400"><span><a href="https://klimatisztak.hu/" target="_blank" rel="noopener noreferrer" className="hover:text-signal-300">KlímaTiszták · éles weboldal ↗</a></span><a href="#lab" className="inline-flex items-center gap-2 text-signal-300 hover:underline">Mind a négy munka <ArrowDown size={14} aria-hidden="true" /></a></div>
           </div>
         </div>
         <div className="mt-14 flex flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
