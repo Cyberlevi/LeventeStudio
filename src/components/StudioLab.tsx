@@ -178,7 +178,7 @@ export default function StudioLab() {
                     <p className="mt-3 text-sm leading-relaxed text-graphite-500">{project.detail}</p>
 
                     <div className="mt-7">
-                      <p className="mb-3 text-[9px] uppercase tracking-[.18em] text-graphite-400">Nézet fókusz</p>
+                      <p className="mb-3 text-[9px] uppercase tracking-[.18em] text-graphite-500">Nézet fókusz</p>
                       <div className="flex flex-wrap gap-2" role="group" aria-label={`${project.name} eszköznézet`}>
                         {deviceOptions.map((option) => {
                           const Icon = option.icon;
@@ -194,7 +194,7 @@ export default function StudioLab() {
                                   [project.id]: option.id,
                                 }))
                               }
-                              className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 py-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-400 focus-visible:ring-offset-2 ${
+                              className={`inline-flex min-h-12 items-center gap-2 rounded-full border px-3.5 py-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-400 focus-visible:ring-offset-2 ${
                                 active
                                   ? 'border-graphite-950 bg-graphite-950 text-white'
                                   : 'border-graphite-950/10 bg-ivory-100 text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950'
