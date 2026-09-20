@@ -9,16 +9,16 @@ import SubpageHero from '../components/SubpageHero.astro';
 import { referenceProjects } from '../data/studio-offers';
 
 const systems = [
-  { icon: Gauge, code: '01', title: 'Konverziós web és landing rendszer', description: 'Gyors, keresőbarát oldal világos ajánlattal, mérhető CTA-kkal és olyan struktúrával, amely az érdeklődőt a kapcsolatfelvétel felé vezeti.', items: ['Astro frontend', 'mobil-first UX', 'technikai SEO', 'konverziómérés'] },
-  { icon: Search, code: '02', title: 'Kereslet és ügyfélszerzés', description: 'SEO- és hirdetés-ready rendszer. Nem különálló marketingelemeket építünk, hanem egy közös útvonalat a kereséstől a leadig.', items: ['SEO struktúra', 'landing page-ek', 'Ads mérési alap', 'Search Console + GA4'] },
-  { icon: Database, code: '03', title: 'Lead és CRM infrastruktúra', description: 'A beérkező érdeklődő ne vesszen el e-mailben vagy jegyzetekben. A lead útja követhető, szűrhető és később automatizálható.', items: ['lead adatbázis', 'státuszok', 'jegyzetek', 'dashboard'] },
-  { icon: Workflow, code: '04', title: 'AI és automatizálás', description: 'Az AI nem dísz a weboldalon. Ott használjuk, ahol időt takarít meg: elemzésben, tartalmi munkában, adminisztrációban és döntéstámogatásban.', items: ['AI-assisted workflow', 'értesítések', 'riport-előkészítés', 'folyamat-egyszerűsítés'] }
+  { icon: Gauge, code: '01', title: 'Konverziós web és landing rendszer', description: 'Gyors, keresőbarát oldal világos ajánlattal, mérhető CTA-kkal és olyan struktúrával, amely az érdeklődőt a kapcsolatfelvétel felé vezeti.', items: ['Astro frontend', 'mobilra tervezett UX', 'technikai SEO', 'konverziómérés'] },
+  { icon: Search, code: '02', title: 'Kereslet és ügyfélszerzés', description: 'SEO-hoz és hirdetésekhez előkészített rendszer. Nem különálló marketingelemeket építünk, hanem egy közös útvonalat a kereséstől a leadig.', items: ['SEO struktúra', 'landing oldalak', 'hirdetési mérés', 'Search Console + GA4'] },
+  { icon: Database, code: '03', title: 'Lead és CRM infrastruktúra', description: 'A beérkező érdeklődő ne vesszen el e-mailben vagy jegyzetekben. A lead útja követhető, szűrhető és később automatizálható.', items: ['érdeklődői adatbázis', 'státuszok', 'jegyzetek', 'áttekintő felület'] },
+  { icon: Workflow, code: '04', title: 'AI és automatizálás', description: 'Az AI nem dísz a weboldalon. Ott használjuk, ahol időt takarít meg: elemzésben, tartalmi munkában, adminisztrációban és döntéstámogatásban.', items: ['AI-val támogatott munkafolyamat', 'értesítések', 'riport-előkészítés', 'folyamat-egyszerűsítés'] }
 ];
 const steps = [
   ['01', 'Üzleti cél', 'Először azt tisztázzuk, miből lesz bevétel és mi számít valódi konverziónak.'],
   ['02', 'Rendszerterv', 'Megtervezzük a kereséstől vagy hirdetéstől a lead beérkezéséig vezető teljes utat.'],
   ['03', 'Építés', 'Modern stackkel elkészül a web, a mérés, az adatkezelés és a szükséges automatizálás.'],
-  ['04', 'Mérés és javítás', 'Az éles működésből származó adatok alapján finomítjuk az ajánlatot, az oldalt és a ügyfélút pontjait.']
+  ['04', 'Mérés és javítás', 'Az éles működésből származó adatok alapján finomítjuk az ajánlatot, az oldalt és az ügyfélút pontjait.']
 ];
 const structuredData = { '@context': 'https://schema.org', '@type': 'Service', 'name': 'Weboldal, mérés és automatizálás szolgáltató vállalkozásoknak', 'provider': { '@type': 'ProfessionalService', 'name': 'Levente Studio', 'url': 'https://leventestudio.app' }, 'areaServed': 'HU' };
 ---
