@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ArrowUpRight, Monitor, PawPrint, Smartphone, Tablet } from 'lucide-react';
+import { ArrowUpRight, Monitor, PawPrint, Smartphone, Sparkles, Tablet } from 'lucide-react';
 import { referenceProjects } from '../data/studio-offers';
 
 type DeviceMode = 'all' | 'desktop' | 'tablet' | 'mobile';
+type ShowcaseView = 'presentation' | 'page';
 type ReferenceProject = (typeof referenceProjects)[number];
 
 const deviceOptions: Array<{ id: DeviceMode; label: string; icon: typeof Monitor }> = [
@@ -126,21 +127,56 @@ function DeviceStage({ project, mode }: { project: ReferenceProject; mode: Devic
   );
 }
 
+function PresentationStage({ project }: { project: ReferenceProject }) {
+  return (
+    <div className="relative overflow-hidden bg-graphite-950">
+      <img
+        src={project.showcaseImage}
+        width="512"
+        height="384"
+        loading="lazy"
+        decoding="async"
+        alt={`${project.name} – vizuális projektbemutató desktop, tablet és mobil kompozícióval`}
+        className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transition-none"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-graphite-950/55 via-transparent to-transparent"
+      />
+      <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-wrap items-end justify-between gap-3 sm:bottom-6 sm:left-6 sm:right-6">
+        <div className="max-w-lg rounded-xl border border-white/15 bg-graphite-950/75 px-4 py-3 text-white shadow-xl backdrop-blur-md">
+          <div className="flex items-center gap-2 text-[9px] uppercase tracking-[.18em] text-signal-300">
+            <Sparkles size={13} aria-hidden="true" />
+            Vizuális projektbemutató
+          </div>
+          <p className="mt-1.5 text-xs leading-relaxed text-white/70">
+            Prémium prezentációs kompozíció. A tényleges oldal külön megnyitható és az Oldalnézetben is ellenőrizhető.
+          </p>
+        </div>
+        <span className="rounded-full border border-white/15 bg-black/45 px-3 py-1.5 text-[9px] uppercase tracking-[.16em] text-white/75 backdrop-blur-md">
+          Concept visual
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function StudioLab() {
   const [focusedDevices, setFocusedDevices] = useState<Record<string, DeviceMode>>({});
+  const [showcaseViews, setShowcaseViews] = useState<Record<string, ShowcaseView>>({});
 
   return (
     <section id="lab" className="scroll-mt-20 bg-ivory-100 px-5 py-20 text-graphite-950 sm:px-6 md:py-24 lg:px-8">
       <div className="mx-auto max-w-[86rem]">
         <div className="mb-12 grid gap-6 lg:grid-cols-2 lg:items-end">
           <div>
-            <p className="mb-4 text-xs uppercase tracking-[.2em] text-graphite-500">Válogatott munkák · responsive showcase</p>
+            <p className="mb-4 text-xs uppercase tracking-[.2em] text-graphite-500">Válogatott munkák · prémium bemutató</p>
             <h2 className="font-serif text-5xl font-light leading-[1.02] tracking-editorial sm:text-6xl">
-              Nem csak egy képernyőre építünk.
+              A munka, amit látni is lehet.
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed text-graphite-600 lg:justify-self-end">
-            Valós saját és családi projektek. Nézd meg ugyanazt a munkát desktop, tablet és mobil nézetben — mert az ügyfélút minden kijelzőn számít.
+            Először a projekt vizuális történetét mutatjuk meg, utána egy kattintással megnézheted az oldal tényleges képernyőnézetét is. Látvány és ellenőrizhető munka, egymás mellett.
           </p>
         </div>
 
@@ -148,19 +184,24 @@ export default function StudioLab() {
           {referenceProjects.map((project, index) => {
             const primaryUrl = project.href;
             const mode = focusedDevices[project.id] ?? 'all';
+            const showcaseView = showcaseViews[project.id] ?? 'presentation';
 
             return (
               <article
                 key={project.id}
-                className="group overflow-hidden rounded-2xl border border-graphite-950/10 bg-white shadow-[0_14px_45px_rgba(18,20,17,.05)]"
+                className="group overflow-hidden rounded-2xl border border-graphite-950/10 bg-white shadow-[0_18px_70px_rgba(18,20,17,.07)]"
               >
-                <div className="grid lg:grid-cols-[1.32fr_.68fr]">
+                <div className="grid lg:grid-cols-[1.42fr_.58fr]">
                   <div className="relative border-b border-graphite-950/10 lg:border-b-0 lg:border-r">
-                    <div className="absolute left-5 top-5 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-graphite-950/75 px-3 py-1.5 text-[9px] uppercase tracking-[.16em] text-white backdrop-blur-md sm:left-7 sm:top-7">
+                    <div className="absolute left-5 top-5 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-graphite-950/80 px-3 py-1.5 text-[9px] uppercase tracking-[.16em] text-white shadow-lg backdrop-blur-md sm:left-7 sm:top-7">
                       <span className="h-1.5 w-1.5 rounded-full bg-signal-400 shadow-[0_0_12px_rgba(216,255,120,.8)]" />
                       LS / CASE {String(index + 1).padStart(2, '0')}
                     </div>
-                    <DeviceStage project={project} mode={mode} />
+                    {showcaseView === 'presentation' ? (
+                      <PresentationStage project={project} />
+                    ) : (
+                      <DeviceStage project={project} mode={mode} />
+                    )}
                   </div>
 
                   <div className="flex flex-col p-6 sm:p-8 lg:p-9 xl:p-10">
@@ -170,7 +211,7 @@ export default function StudioLab() {
                         <h3 className="mt-3 font-serif text-4xl font-light tracking-tight sm:text-[2.7rem]">{project.name}</h3>
                       </div>
                       <span className="hidden rounded-full border border-graphite-950/10 px-3 py-1 text-[9px] uppercase tracking-[.16em] text-graphite-500 sm:inline-flex">
-                        Responsive
+                        Case study
                       </span>
                     </div>
 
@@ -178,35 +219,73 @@ export default function StudioLab() {
                     <p className="mt-3 text-sm leading-relaxed text-graphite-500">{project.detail}</p>
 
                     <div className="mt-7">
-                      <p className="mb-3 text-[9px] uppercase tracking-[.18em] text-graphite-500">Nézet fókusz</p>
-                      <div className="flex flex-wrap gap-2" role="group" aria-label={`${project.name} eszköznézet`}>
-                        {deviceOptions.map((option) => {
-                          const Icon = option.icon;
-                          const active = mode === option.id;
-                          return (
-                            <button
-                              key={option.id}
-                              type="button"
-                              aria-pressed={active}
-                              onClick={() =>
-                                setFocusedDevices((current) => ({
-                                  ...current,
-                                  [project.id]: option.id,
-                                }))
-                              }
-                              className={`inline-flex min-h-12 items-center gap-2 rounded-full border px-3.5 py-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal-400 focus-visible:ring-offset-2 ${
-                                active
-                                  ? 'border-graphite-950 bg-graphite-950 text-white'
-                                  : 'border-graphite-950/10 bg-ivory-100 text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950'
-                              }`}
-                            >
-                              <Icon size={14} strokeWidth={1.7} aria-hidden="true" />
-                              {option.label}
-                            </button>
-                          );
-                        })}
+                      <p className="mb-3 text-[9px] uppercase tracking-[.18em] text-graphite-500">Projekt megjelenítése</p>
+                      <div className="grid grid-cols-2 gap-2" role="group" aria-label={`${project.name} megjelenítési mód`}>
+                        <button
+                          type="button"
+                          aria-pressed={showcaseView === 'presentation'}
+                          onClick={() =>
+                            setShowcaseViews((current) => ({ ...current, [project.id]: 'presentation' }))
+                          }
+                          className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${
+                            showcaseView === 'presentation'
+                              ? 'border-graphite-950 bg-graphite-950 text-white'
+                              : 'border-graphite-950/10 bg-ivory-100 text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950'
+                          }`}
+                        >
+                          <Sparkles size={14} aria-hidden="true" />
+                          Prezentáció
+                        </button>
+                        <button
+                          type="button"
+                          aria-pressed={showcaseView === 'page'}
+                          onClick={() =>
+                            setShowcaseViews((current) => ({ ...current, [project.id]: 'page' }))
+                          }
+                          className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${
+                            showcaseView === 'page'
+                              ? 'border-graphite-950 bg-graphite-950 text-white'
+                              : 'border-graphite-950/10 bg-ivory-100 text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950'
+                          }`}
+                        >
+                          <Monitor size={14} aria-hidden="true" />
+                          Oldalnézet
+                        </button>
                       </div>
                     </div>
+
+                    {showcaseView === 'page' && (
+                      <div className="mt-5">
+                        <p className="mb-3 text-[9px] uppercase tracking-[.18em] text-graphite-500">Eszköz fókusz</p>
+                        <div className="flex flex-wrap gap-2" role="group" aria-label={`${project.name} eszköznézet`}>
+                          {deviceOptions.map((option) => {
+                            const Icon = option.icon;
+                            const active = mode === option.id;
+                            return (
+                              <button
+                                key={option.id}
+                                type="button"
+                                aria-pressed={active}
+                                onClick={() =>
+                                  setFocusedDevices((current) => ({
+                                    ...current,
+                                    [project.id]: option.id,
+                                  }))
+                                }
+                                className={`inline-flex min-h-12 items-center gap-2 rounded-full border px-3.5 py-2 text-xs transition-colors ${
+                                  active
+                                    ? 'border-graphite-950 bg-graphite-950 text-white'
+                                    : 'border-graphite-950/10 bg-ivory-100 text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950'
+                                }`}
+                              >
+                                <Icon size={14} strokeWidth={1.7} aria-hidden="true" />
+                                {option.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="mt-auto pt-8">
                       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-graphite-950/10 pt-5 text-sm">
