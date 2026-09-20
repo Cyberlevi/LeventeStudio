@@ -13,3 +13,11 @@ This project uses Astro, React, TypeScript, Tailwind CSS and lucide-react. Prefe
 Keep entity naming consistent: brand `Levente Studio`, person `Tarnóczi Levente`, role `weboldalkészítő és digitális rendszerépítő`.
 
 Do not reintroduce legacy parallel Header, Contact, sticky CTA or diagnostic-console styles after this unification.
+
+
+Revenue funnel rules:
+- Every sales/content route must have a clear next step toward a relevant service, real proof, or the quote form.
+- Preserve the true originating page when navigating to /kapcsolat/ so source_page remains useful for optimization.
+- Audit/problem intent must not be automatically forced into a package. Inspect first, then recommend repair or rebuild.
+- Prefer verified own-project proof before generic marketing claims. Never invent performance metrics.
+- Keep the public primary CTA "Ajánlatot kérek"; phone and email are secondary channels.
