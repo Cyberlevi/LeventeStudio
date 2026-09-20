@@ -12,7 +12,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     sitemap({
-      filter: (page) => !page.includes('/admin') && !page.endsWith('/404/'),
+      filter: (page) => !page.includes('/admin') && !page.endsWith('/404/') && !page.endsWith('/koszonjuk/'),
     }),
   ],
   output: 'static',
