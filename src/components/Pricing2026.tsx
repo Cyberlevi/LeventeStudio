@@ -91,7 +91,7 @@ export default function Pricing2026() {
                 <div className={`mt-6 rounded-xl border p-4 ${
                   featured ? 'border-white/10 bg-white/[.045]' : 'border-graphite-950/8 bg-ivory-100'
                 }`}>
-                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-400'}`}>Projektár</p>
+                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-500'}`}>Projektár</p>
                   <p className={`mt-1.5 text-2xl font-semibold tracking-tight ${featured ? 'text-signal-300' : 'text-graphite-950'}`}>{offer.price}</p>
                 </div>
 
@@ -109,7 +109,7 @@ export default function Pricing2026() {
                 </ul>
 
                 <div className={`mt-auto border-t pt-5 ${featured ? 'border-white/15' : 'border-graphite-950/10'}`}>
-                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-400'}`}>Neked való, ha</p>
+                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-500'}`}>Neked való, ha</p>
                   <p className={`mt-2 text-sm leading-relaxed ${featured ? 'text-ivory-400' : 'text-graphite-500'}`}>{offer.suitableFor}</p>
                   <a
                     href={`/kapcsolat/?csomag=${offer.id}#diagnosztika`}
