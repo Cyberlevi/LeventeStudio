@@ -9,6 +9,15 @@ if (form instanceof HTMLFormElement) {
   const packageSelect = form.querySelector<HTMLSelectElement>('[name="selected_package"]');
   const referenceSelect = form.querySelector<HTMLSelectElement>('[name="reference_project"]');
   const goalSelect = form.querySelector<HTMLSelectElement>('[name="primary_goal"]');
+
+  const normalizeWebsite = (value: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return '';
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (/^\/\//.test(trimmed)) return `https:${trimmed}`;
+    return `https://${trimmed}`;
+  };
+
   const preferred = findOffer(params.get('csomag'));
   const reference = findReference(params.get('projekt'));
   const requestedGoal = params.get('cel');
@@ -56,7 +65,10 @@ if (form instanceof HTMLFormElement) {
     const timer = window.setTimeout(() => controller.abort(), 20000);
     try {
       const body = new URLSearchParams();
-      new FormData(form).forEach((value,key) => { if (typeof value === 'string') body.append(key,value); });
+      new FormData(form).forEach((value,key) => {
+        if (typeof value !== 'string') return;
+        body.append(key, key === 'website' ? normalizeWebsite(value) : value);
+      });
       const response = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString(), signal: controller.signal });
       if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
 
