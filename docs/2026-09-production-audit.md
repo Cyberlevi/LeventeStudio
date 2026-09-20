@@ -1,164 +1,216 @@
-# Levente Studio – production audit hardening
+# Levente Studio – production audit status
 
 Date: 2026-09-20  
-Branch: `production-audit-hardening-2026-09-20`  
-Base: `main@436ac117550440fa6187cc60b5784a554706d3d6`
+Production branch: `main`  
+Verified production commit: `204238551017bee5916c20ab44d91ecd0705ecec`  
+Verified Netlify production deploy: `6aafea6b812cd80009c212a2` (`ready`)
 
 ## A. Executive summary
 
-The current production system has a strong foundation: Astro static output, a focused inquiry path, Netlify Forms as the lead store, server-side Telegram notifications from the Netlify submission event, attribution fields, case studies and dedicated service / industry routes.
+The Levente Studio production stack is now materially hardened compared with the original audit handoff.
 
-The Bolt audit reported a clean local build and identified several low-risk hardening items. A follow-up check against the actual GitHub `main` showed that some fixes Bolt believed were already present were not in fact committed to `main`. This branch therefore contains only changes that were independently verified against the real repository and are safe to review in isolation.
+Current production uses Astro static output, Netlify Forms as the authoritative lead store, a `submission_created` Netlify Function for Telegram owner notification, campaign attribution fields, service / industry landings, case studies, a knowledge base, and a conversion-oriented inquiry path.
 
-## B. Critical issues
+The September hardening sequence was shipped incrementally through isolated pull requests and Netlify Deploy Preview gates. The main remaining measurement risk is not a known runtime failure: it is the still-unverified ownership overlap between direct GA4 calls and the published Google Tag Manager container.
 
-### 1. Duplicate `gtag()` definition
-`src/layouts/BaseLayout.astro` defined `gtag()` in two separate inline scripts. The second definition was redundant and could make analytics maintenance harder.
+## B. Shipped hardening
 
-**Fix in this branch:** keep the initial dataLayer / gtag bootstrap once, then use only `gtag('config', ...)` in the second block.
+### Analytics bootstrap and sitemap
+Completed in PR #17:
+- removed the duplicate second `gtag()` definition;
+- excluded `/koszonjuk/` from sitemap generation;
+- added the first production audit record.
 
-### 2. Thank-you route in sitemap
-`/koszonjuk/` is a post-conversion page and should not be promoted as an organic landing page.
+### CI trigger and Telegram message size
+Completed in PR #22:
+- CI workflow also triggers on `main` pushes;
+- long Telegram lead notifications are safely split below Telegram's message limit.
 
-**Fix in this branch:** exclude `/koszonjuk/` from Astro sitemap generation.
+GitHub Actions can still fail before any workflow step starts because of the account-level runner / billing lock observed during this audit. This is not evidence of an application build failure. Netlify remains the release build gate until that account issue is resolved.
 
-## C. High-impact opportunities
+### CSP and type safety
+Completed in PR #23:
+- removed generic script `unsafe-inline` from CSP;
+- generated exact SHA-256 hashes for built inline scripts;
+- removed the unused Supabase origin exception;
+- blocked object embedding and unsafe base / inline-event behavior;
+- fixed the StudioLab portfolio fallback type errors.
 
-The following remain follow-up work and are intentionally not mixed into this hardening PR:
+PR #23 validation reported:
+- typecheck: success;
+- build: success;
+- lint: 0 errors, 1 pre-existing CookieBannerDark hook warning;
+- 47 generated HTML pages;
+- 373 inline script occurrences checked;
+- 47 unique allowed script hashes.
 
-- tighten Content Security Policy after validating all required third-party origins;
-- review CI trigger / runner policy separately;
-- expand structured data where it materially improves service and industry pages;
-- verify analytics event ownership between direct gtag and GTM to avoid duplicate reporting;
-- review the remaining unused analytics exports and dependencies only after repository-wide import verification.
+### Lead payload hardening
+Completed in PR #24:
+- added server-side minimum lead validation before Telegram notification;
+- normalized bare website domains such as `cegem.hu` to a valid HTTPS URL at submission time.
 
-## D. Page-by-page / route audit
+Netlify Forms remains authoritative. Telegram failure must not convert an already stored lead into a failed lead.
 
-Bolt reported the local project builds **46 generated pages**: 31 static routes plus 15 industry landings. The earlier “47” figure was reported by Bolt as a counting error.
+### Verified dead-code cleanup
+Completed in PR #25:
+- removed seven repository files proven to have no active consumers.
 
-Bolt also reported:
-- 4 service pages;
-- 3 case studies;
-- 5 blog articles;
-- 15 industry landings;
-- 3 legal pages;
-- all major routes present.
+### Analytics helper cleanup
+Completed in PR #26:
+- repository-wide reference verification covered 67 active Astro / TS / TSX source files;
+- `src/utils/gtm.ts` was reduced to the two helpers with real consumers:
+  - `pushToDataLayer`;
+  - `trackScroll`.
+- 15 unused helper exports were removed.
 
-These counts are recorded here as audit evidence from the local Bolt workspace and must be re-verified by the Netlify preview build before merge.
+### Dependency and package metadata cleanup
+Completed in PR #27:
+- removed unused direct declarations:
+  - `@supabase/supabase-js`;
+  - `astro-seo`;
+  - `react-router-dom`;
+  - root-level `@vitejs/plugin-react`.
+- package-lock v3 graph was pruned from 736 to 647 reachable package entries;
+- 89 entries that became unreachable from the remaining dependency graph were removed;
+- `@vitejs/plugin-react` remains in the lockfile transitively because `@astrojs/react` still needs it;
+- package metadata was renamed from the generic `vite-react-typescript-starter` to `levente-studio`.
 
-## E. CRO funnel
+The PR #27 Netlify Deploy Preview completed successfully, which validated dependency installation and the Astro production build after pruning.
 
-Target flow:
+## C. Current production release evidence
+
+Netlify production deploy `6aafea6b812cd80009c212a2`:
+- state: `ready`;
+- context: `production`;
+- branch: `main`;
+- commit: `204238551017bee5916c20ab44d91ecd0705ecec`;
+- Astro framework detected;
+- 2 redirect rules processed without errors;
+- 14 header rules processed without errors;
+- 1 `telegram-lead` function deployed;
+- function event binding: `submission_created`;
+- no edge functions;
+- no deploy error message.
+
+## D. Lead path
+
+Target production flow:
 
 `traffic → landing → proof → offer → /kapcsolat/ → Netlify Forms → submission_created → Telegram → /koszonjuk/`
 
-Current architecture keeps the form submission authoritative in Netlify Forms. Telegram is a secondary owner notification and must never determine whether a lead is considered successfully stored.
+Verified structurally:
+- form submission remains the authoritative persistence step;
+- Telegram runs from the Netlify submission event;
+- Telegram credentials are server-side;
+- UTM / GCLID attribution remains in the inquiry flow;
+- website input normalization is live in the current code;
+- minimum Telegram-notification payload validation is server-side.
 
-Regression gate for this PR:
-- no changes to form field names;
-- no changes to Netlify form submission mechanics;
-- no changes to Telegram credentials or event binding;
-- no changes to UTM / GCLID attribution;
-- no changes to thank-you redirect logic.
+Still worth doing as an explicit manual production smoke test:
+- submit one clearly labelled synthetic inquiry;
+- confirm it appears in Netlify Forms;
+- confirm the Telegram notification arrives once;
+- confirm the browser reaches the thank-you state;
+- then remove / archive the synthetic submission as appropriate.
 
-## F. SEO map
+This audit did not generate a fake customer lead, so the manual end-to-end smoke test is not claimed as completed here.
 
-Current SEO foundation includes dedicated service, problem, article, case-study and industry routes.
+## E. Measurement status
 
-Hardening in this PR:
-- remove the post-conversion `/koszonjuk/` route from the sitemap.
+Current code intentionally contains both:
+- direct GA4 setup for measurement ID `G-LNDL3K56Q2`;
+- Google Tag Manager container `GTM-WZHLTWBD`.
 
-Follow-up:
-- validate intent overlap / cannibalization before creating more landing pages;
-- add or extend schema only where the page content supports it;
-- maintain one clear search intent per landing page.
+The source also uses a helper that can push an event to `dataLayer` and call direct `gtag('event', ...)`.
 
-## G. Design audit
+What is known:
+- duplicate bootstrap code was removed;
+- event helper usage was reduced to active consumers;
+- the current Supermetrics team does not expose a Levente Studio GA4 property;
+- the public GTM container's exact published tag ownership could not be independently verified from the available connectors.
 
-Bolt reported that the RelatedContent light-theme mismatch, SubpageHero Hungarian labels and the industry case-study reference had already been corrected in the working copy.
+Therefore the following remains open:
 
-A direct GitHub check confirmed these specific fixes are already present on `main`, so this branch does not touch them again.
+**Do not remove either GA4 or GTM by assumption.**  
+Use GTM admin / Preview plus GA4 DebugView or an equivalent real-event inspection to determine whether the same business event is sent twice to the same property.
 
-## H. Mobile audit
+## F. Structured data status
 
-No mobile redesign is included in this PR.
+Current source already uses content-supported structured data instead of broad schema inflation:
+- home: `ProfessionalService`;
+- core commercial pages: `Service`;
+- industry audit routes: `Service`;
+- knowledge-base articles: `Article`;
+- case studies: `Article`.
 
-Release checks should still cover:
-- 320 / 375 / 390 / 430 px form usability;
-- navigation open / close / focus behavior;
-- sticky CTA overlap;
-- website input behavior;
-- form success and error states.
+No blanket schema expansion is recommended without page content that supports it. Future additions should be tied to a real search-result or entity-clarity use case.
 
-## I. Technical audit
+## G. SEO and route status
 
-Verified against GitHub `main` before creating this branch:
+Current foundation includes:
+- service pages;
+- problem-aware landings;
+- industry-specific audit routes;
+- case studies;
+- knowledge-base articles;
+- legal pages;
+- post-conversion thank-you route excluded from sitemap generation.
 
-Already present:
-- corrected RelatedContent light styling;
-- corrected industry case-study reference;
-- Hungarian SubpageHero status labels;
-- cleaned Tailwind content pattern.
+Before adding more SEO landings:
+- verify search-intent separation;
+- avoid cannibalizing existing commercial pages;
+- prefer stronger content and internal linking over route count.
 
-Not present on `main` at audit handoff:
-- production audit document;
-- thank-you sitemap exclusion;
-- duplicate second `gtag()` cleanup.
+## H. Mobile / CRO release checks
 
-Also observed: `src/utils/gtm.ts` and `package.json` still contain cleanup candidates that Bolt described as already removed. These are deliberately left unchanged here until usage is exhaustively verified.
+The September design-system work unified the public customer path. Continue to protect these behaviors during future changes:
+- mobile navigation open / close / focus handling;
+- sticky CTA not covering controls;
+- usable inquiry form at 320 / 375 / 390 / 430 px;
+- package / goal preselection from query parameters;
+- campaign attribution surviving navigation to the inquiry page;
+- clear proof near commercial CTAs;
+- no fake KPI claims in case studies.
 
-## J. Prioritized backlog
+## I. Current prioritized backlog
 
-### P0 – release safety
-- verify Netlify preview is green;
-- verify production lead path remains intact;
-- verify Telegram still fires only after accepted form submission.
+### P0 – manual production verification
+- one labelled synthetic end-to-end inquiry smoke test;
+- verify one stored Netlify submission produces one Telegram notification.
 
-### P1 – high business / data quality impact
-- analytics duplication audit: GTM versus direct gtag;
-- CSP hardening without breaking fonts, analytics, Netlify or form flow;
-- structured data review for service and industry routes.
+### P1 – measurement correctness
+- inspect the published GTM container in GTM admin / Preview;
+- inspect Levente Studio GA4 DebugView;
+- decide one owner for each business event and eliminate any proven duplicate delivery.
 
-### P2 – maintainability
-- repository-wide verification of unused exports in `src/utils/gtm.ts`;
-- verify and remove genuinely unused npm dependencies with lockfile regenerated;
-- review old audit / migration documents for stale guidance.
+### P2 – repository maintenance
+- continue reviewing historical top-level audit / migration documents for stale guidance;
+- keep new technical decisions in the current `docs/` records rather than creating parallel contradictory handoffs.
 
-### P3 – optimization
-- additional design polish only where it improves clarity or conversion;
-- deeper content pruning after real Search Console / GA4 evidence.
+### P3 – data-led optimization
+- use Search Console and GA4 evidence before pruning or expanding landing-page content;
+- publish case-study KPI values only when the source, time period and definition are verifiable.
 
-## Top 10 conversion risks to keep monitoring
+## J. Risks to keep monitoring
 
-1. unclear first-screen value proposition on high-intent landing pages;
-2. insufficient proof close to the first strong CTA;
-3. overlap between similar service / audit landing intents;
-4. excessive form friction on mobile;
-5. analytics duplication causing false conversion conclusions;
-6. attribution loss between entry page and inquiry page;
-7. Telegram notification failure being mistaken for lead failure;
-8. thin or repetitive industry landing content;
-9. weak internal linking from informational articles to commercial next steps;
-10. technical SEO pages such as thank-you / utility routes leaking into indexable discovery surfaces.
+1. analytics duplication producing false conversion conclusions;
+2. landing-page intent overlap / SEO cannibalization;
+3. mobile form friction;
+4. attribution loss between entry page and inquiry page;
+5. Telegram notification failure being mistaken for lead persistence failure;
+6. weak proof near the first strong CTA;
+7. repetitive industry landing content;
+8. utility / post-conversion routes leaking into search discovery;
+9. stale audit documents contradicting current production architecture;
+10. publishing business KPI claims without a verified measurement source.
 
-## Validation reported by Bolt local workspace
+## K. Release discipline
 
-The Bolt handoff reported:
+For code or dependency changes:
+1. isolate the change on a branch;
+2. open a focused PR;
+3. require a green Netlify Deploy Preview;
+4. merge only after the preview matches the intended commit;
+5. verify the resulting production deploy reaches `ready`.
 
-- `npm ci`: success
-- typecheck: 0 errors
-- lint: 0 errors, 1 pre-existing CookieBannerDark warning
-- build: success
-- generated pages: 46
-- sitemap URLs after local fix: 44
-
-These are **reported local results**, not GitHub/Netlify CI evidence. The PR preview remains the release gate.
-
-## PR scope
-
-This PR intentionally contains only:
-1. duplicate `gtag()` cleanup;
-2. `/koszonjuk/` sitemap exclusion;
-3. this audit record.
-
-No merge should happen until the Netlify preview is green and the diff has been reviewed.
+This sequence was followed for the September P1/P2 hardening work through PR #27.
