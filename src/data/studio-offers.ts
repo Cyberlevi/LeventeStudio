@@ -43,7 +43,7 @@ export const referenceProjects = [
   { id: 'klima18ker', name: 'Klíma18ker', category: 'Klímaszerelés · saját vállalkozás',
     description: 'Szolgáltatások, saját munkafotók és műszaki ajánlatkérés egy átlátható oldalon.',
     detail: 'Az érdeklődő megismerheti a munkát, majd elindíthatja a helyszínhez illő ajánlatkérést.',
-    image: '/projects/klima18ker.webp', liveUrl: 'https://klima18ker.hu/',
+    image: '/projects/showcase-klima18ker.webp', liveUrl: 'https://klima18ker.hu/',
     href: '/esettanulmanyok/klima18ker-weboldal-audit/' },
   { id: 'furatmester', name: 'FuratMester', category: 'Faláttörés · saját szolgáltatás',
     description: 'Konkrét munkatípusok, árakat segítő információk és közvetlen ajánlatkérés.',
@@ -53,7 +53,7 @@ export const referenceProjects = [
   { id: 'bundavarazs', name: 'Bundavarázs', category: 'Kutyakozmetika · családi vállalkozás',
     description: 'Egy személyes szolgáltatás online bemutatása, helyi ügyfelekre szabva.',
     detail: 'A projektbemutatásban a bizalomépítést és a kapcsolatfelvétel felépítését mutatjuk meg.',
-    image: null, liveUrl: null,
+    image: '/projects/showcase-bundavarazs.webp', liveUrl: null,
     href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/' },
 ] as const;
 
