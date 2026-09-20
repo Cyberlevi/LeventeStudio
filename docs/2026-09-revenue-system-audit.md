@@ -130,3 +130,14 @@ Ezt nem szabad vakon egyszerűsíteni, amíg a GTM konténer tényleges GA4/Ads 
 ## Jelenlegi preview
 
 A legutóbbi teljes preview build 47 generált oldalt épített. A főoldali mobil Lighthouse eredmény: Performance 97, Accessibility 100, Best Practices 92, SEO 100.
+
+
+## Telegram tulajdonosi értesítés
+
+A sikeres Netlify leadmentés után a kliens meghívja a `/api/telegram-lead` szerveroldali Netlify Functiont. A funkció a lead összefoglalóját elküldi a privát Telegram chatbe.
+
+Biztonsági szabályok:
+- token és chat ID csak Function secretből olvasható;
+- Telegram-hiba nem fordíthat sikeres leadet sikertelen leaddé;
+- a funkció nem tartalmaz hardcode-olt BotFather credentialt;
+- a KlímaTiszták régi, forráskódba égetett Telegram tokenjét rotálni kell, mielőtt ugyanazt a botot productionben használjuk tovább.
