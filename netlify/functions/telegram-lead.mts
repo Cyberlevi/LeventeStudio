@@ -15,20 +15,43 @@ function row(label: string, value: unknown, max = 1200): string {
   return text ? `<b>${label}:</b> ${text}` : '';
 }
 
-async function sendTelegram(token: string, chatId: string, text: string) {
-  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: 'HTML',
-      disable_web_page_preview: true,
-    }),
-  });
+function splitTelegramMessage(text: string, maxLength = 3900): string[] {
+  const lines = text.split('\n');
+  const chunks: string[] = [];
+  let current = '';
 
-  if (!response.ok) {
-    console.error(`Telegram notification failed: ${response.status}`);
+  for (const line of lines) {
+    const candidate = current ? `${current}\n${line}` : line;
+    if (candidate.length <= maxLength) {
+      current = candidate;
+      continue;
+    }
+
+    if (current) chunks.push(current);
+    current = line;
+  }
+
+  if (current) chunks.push(current);
+  return chunks;
+}
+
+async function sendTelegram(token: string, chatId: string, text: string) {
+  for (const chunk of splitTelegramMessage(text)) {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: chunk,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Telegram notification failed: ${response.status}`);
+      return;
+    }
   }
 }
 
