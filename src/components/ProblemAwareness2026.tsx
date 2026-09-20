@@ -65,7 +65,7 @@ export default function ProblemAwareness2026() {
             {stages.map(({ code, icon: Icon, eyebrow, title, text, signal }, index) => (
               <article
                 key={code}
-                className={`relative ml-16 overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-5 shadow-[0_20px_60px_rgba(0,0,0,.16)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none sm:ml-20 sm:p-6 lg:p-7 ${
+                className={`relative ml-16 overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-5 shadow-[0_20px_60px_rgba(0,0,0,.16)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none sm:ml-20 sm:p-6 lg:p-7 ${
                   index === 1 ? 'lg:ml-28' : ''
                 }`}
               >
