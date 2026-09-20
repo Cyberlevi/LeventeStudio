@@ -67,7 +67,7 @@ export const industries: Industry[] = [
       'Versenytársak előrébb vannak a Google-ben',
       'Weboldal nem közvetít szakértelmet',
       'Kapcsolatfelvételi űrlap nem konvertál',
-      'Nincs organikus ügyfélszerzés a weboldallal'
+      'A weboldal nem hoz organikus megkereséseket'
     ],
     benefits: [
       'Bizalmi elemek audit (credentials, publikációk)',
@@ -155,7 +155,7 @@ export const industries: Industry[] = [
       'Projekt portfólió nem látható',
       'B2B ügyfelek nem találják meg',
       'Weboldal nem közvetít szakértelmet',
-      'Nincs organikus megkeresések'
+      'Nem érkeznek organikus megkeresések'
     ],
     benefits: [
       'Ajánlatkérési űrlap konverzió audit',
@@ -222,7 +222,7 @@ export const industries: Industry[] = [
       'Ajánlatkérő űrlap nem konvertál',
       'Ingatlanok nem jelennek meg Google-ben',
       'Weboldal lassú (sok kép)',
-      'Nincs organikus megkeresések'
+      'Nem érkeznek organikus megkeresések'
     ],
     benefits: [
       'Ingatlankereső UX audit',
@@ -244,7 +244,7 @@ export const industries: Industry[] = [
       'Szolgáltatások nem érthetők',
       'Weboldal nem közvetíti a wellness élményt',
       'Lassú betöltés (sok kép)',
-      'Nincs jó konverzió foglalásból'
+      'Kevés látogatóból lesz foglalás'
     ],
     benefits: [
       'Időpontfoglalási rendszer audit',
@@ -328,17 +328,17 @@ export const industries: Industry[] = [
     namePlural: 'Webfejlesztő Ügynökségek',
     description: 'Weboldal audit webfejlesztő ügynökségeknek. B2B ajánlatkérések, portfólió és szakértői pozicionálás.',
     painPoints: [
-      'Portfólió nem demonstrálja szakértőséget',
+      'A portfólió nem mutatja meg elég jól a szakértelmet',
       'B2B ügyfelek nem konvertálnak',
-      'Nincs gondolati vezetőség (szakértői tartalom)',
+      'Nincs következetes szakértői tartalom',
       'Versenytársak előrébb vannak',
       'Megkeresések minősége alacsony'
     ],
     benefits: [
       'Portfólió struktúra és case study audit',
-      'B2B ajánlatkéréseki stratégia',
-      'Szakértői tartalom tartalom audit',
-      'Technikai SEO audit (gyakorolj amit hirdetsz)',
+      'B2B ajánlatkérési stratégia',
+      'Szakértői tartalom audit',
+      'Technikai SEO audit',
       'Szolgáltatási oldal konverzió optimalizálás'
     ],
     price: '200 000 Ft',
