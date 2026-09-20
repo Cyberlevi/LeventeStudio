@@ -145,19 +145,19 @@ function BundavarazsPresentation() {
           <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
           <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
           <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
-          <span className="ml-auto text-[8px] uppercase tracking-[.16em] text-[#7a6259] sm:text-[9px]">Bundavarázs</span>
+          <span className="ml-auto text-[8px] uppercase tracking-[.16em] text-[#5a433b] sm:text-[9px]">Bundavarázs</span>
         </div>
 
         <div className="grid min-h-[215px] grid-cols-[1.15fr_.85fr] gap-4 p-5 sm:min-h-[275px] sm:gap-7 sm:p-7">
           <div className="flex flex-col justify-center">
-            <div className="mb-3 flex items-center gap-2 text-[8px] uppercase tracking-[.17em] text-[#9a6e61] sm:text-[9px]">
+            <div className="mb-3 flex items-center gap-2 text-[8px] uppercase tracking-[.17em] text-[#6b4c43] sm:text-[9px]">
               <PawPrint size={13} strokeWidth={1.5} aria-hidden="true" />
               Kutyakozmetika
             </div>
             <div className="font-serif text-[clamp(1.5rem,3vw,3rem)] leading-[.96] tracking-tight text-[#5a433b]">
               Ápolt bunda.<br />Nyugodt gazdi.
             </div>
-            <p className="mt-3 max-w-xs text-[8px] leading-relaxed text-[#7d6961] sm:text-[10px]">
+            <p className="mt-3 max-w-xs text-[8px] leading-relaxed text-[#5f4a43] sm:text-[10px]">
               Személyes, barátságos megjelenés helyi ügyfelekre és egyszerű időpontkérésre építve.
             </p>
             <div className="mt-4 flex gap-2">
@@ -198,7 +198,7 @@ function BundavarazsPresentation() {
 
       <div className="absolute bottom-4 left-4 z-20 rounded-xl border border-white/15 bg-black/35 px-4 py-3 text-white backdrop-blur-md sm:bottom-6 sm:left-6">
         <p className="text-[9px] uppercase tracking-[.18em] text-[#f1c9b9]">Bundavarázs · vizuális irány</p>
-        <p className="mt-1 text-xs text-white/65">Fotók nélkül is saját, felismerhető projektmegjelenés.</p>
+        <p className="mt-1 text-xs text-white/85">Fotók nélkül is saját, felismerhető projektmegjelenés.</p>
       </div>
     </div>
   );
