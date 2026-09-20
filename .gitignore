@@ -26,3 +26,6 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Generated portfolio showcase assets
+/public/projects/showcase-*.webp

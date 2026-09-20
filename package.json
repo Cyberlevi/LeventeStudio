@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "npm run showcase:assets && astro dev",
+    "build": "npm run showcase:assets && astro build",
     "lint": "eslint .",
     "preview": "astro preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "showcase:assets": "node scripts/materialize-showcase.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
