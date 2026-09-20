@@ -72,6 +72,7 @@ function ProjectScreen({
         src={project.image}
         loading="lazy"
         decoding="async"
+        fetchPriority="low"
         alt={decorative ? '' : `${project.name} – képernyőkép a weboldalról`}
         aria-hidden={decorative ? 'true' : undefined}
         className={`h-full w-full object-cover object-top ${className}`}
@@ -204,7 +205,7 @@ export default function StudioLab() {
   const [showcaseViews, setShowcaseViews] = useState<Record<string, ShowcaseView>>({});
 
   return (
-    <section id="lab" className="scroll-mt-20 bg-ivory-100 px-5 py-20 text-graphite-950 sm:px-6 md:py-24 lg:px-8">
+    <section id="lab" className="scroll-mt-20 bg-ivory-100 px-5 py-20 text-graphite-950 sm:px-6 md:py-24 lg:px-8" style={{ contentVisibility: 'auto', containIntrinsicSize: '1400px' }}>
       <div className="mx-auto max-w-[86rem]">
         <div className="mb-12 grid gap-6 lg:grid-cols-2 lg:items-end">
           <div>
