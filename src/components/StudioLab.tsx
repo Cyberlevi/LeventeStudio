@@ -127,7 +127,88 @@ function DeviceStage({ project, mode }: { project: ReferenceProject; mode: Devic
   );
 }
 
+function BundavarazsPresentation() {
+  return (
+    <div className="relative aspect-[4/3] overflow-hidden bg-[#211c1b]">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-70"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 20% 18%, rgba(232,194,177,.24), transparent 30%), radial-gradient(circle at 82% 76%, rgba(196,151,137,.18), transparent 34%), linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px)',
+          backgroundSize: 'auto, auto, 30px 30px, 30px 30px',
+        }}
+      />
+
+      <div className="absolute left-[8%] top-[12%] w-[72%] overflow-hidden rounded-[18px] border border-white/15 bg-[#f5eee9] shadow-[0_28px_80px_rgba(0,0,0,.4)] sm:rounded-[24px]">
+        <div className="flex h-8 items-center gap-1.5 border-b border-[#6a5148]/10 bg-[#eadfd8] px-3 sm:h-10 sm:px-4">
+          <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
+          <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
+          <span className="h-2 w-2 rounded-full bg-[#c9b4aa]" />
+          <span className="ml-auto text-[8px] uppercase tracking-[.16em] text-[#7a6259] sm:text-[9px]">Bundavarázs</span>
+        </div>
+
+        <div className="grid min-h-[215px] grid-cols-[1.15fr_.85fr] gap-4 p-5 sm:min-h-[275px] sm:gap-7 sm:p-7">
+          <div className="flex flex-col justify-center">
+            <div className="mb-3 flex items-center gap-2 text-[8px] uppercase tracking-[.17em] text-[#9a6e61] sm:text-[9px]">
+              <PawPrint size={13} strokeWidth={1.5} aria-hidden="true" />
+              Kutyakozmetika
+            </div>
+            <div className="font-serif text-[clamp(1.5rem,3vw,3rem)] leading-[.96] tracking-tight text-[#5a433b]">
+              Ápolt bunda.<br />Nyugodt gazdi.
+            </div>
+            <p className="mt-3 max-w-xs text-[8px] leading-relaxed text-[#7d6961] sm:text-[10px]">
+              Személyes, barátságos megjelenés helyi ügyfelekre és egyszerű időpontkérésre építve.
+            </p>
+            <div className="mt-4 flex gap-2">
+              <span className="rounded-full bg-[#6b4c43] px-3 py-1.5 text-[7px] font-medium uppercase tracking-[.12em] text-white sm:text-[8px]">
+                Időpontot kérek
+              </span>
+              <span className="rounded-full border border-[#6b4c43]/15 px-3 py-1.5 text-[7px] uppercase tracking-[.12em] text-[#6b4c43] sm:text-[8px]">
+                Szolgáltatások
+              </span>
+            </div>
+          </div>
+
+          <div className="relative flex items-center justify-center">
+            <div className="absolute h-[72%] w-[72%] rounded-full bg-[#d9beb1]/35 blur-2xl" aria-hidden="true" />
+            <div className="relative flex aspect-square w-[78%] items-center justify-center rounded-[32%] border border-[#9a6e61]/15 bg-[#eadbd3] shadow-inner">
+              <PawPrint className="text-[#8a6258]" size={58} strokeWidth={1.05} aria-hidden="true" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-[7%] right-[8%] w-[24%] min-w-[82px] max-w-[155px] rotate-[3deg] rounded-[20px] border border-white/20 bg-[#332927] p-[5px] shadow-[0_24px_55px_rgba(0,0,0,.5)] sm:rounded-[28px] sm:p-[6px]">
+        <div className="relative aspect-[9/19.5] overflow-hidden rounded-[15px] bg-[#f8f1ed] p-3 sm:rounded-[21px] sm:p-4">
+          <div className="mx-auto h-1.5 w-[34%] rounded-full bg-[#332927]/80" />
+          <div className="mt-5 flex justify-center">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#eadbd3]">
+              <PawPrint size={18} className="text-[#7b574d]" aria-hidden="true" />
+            </div>
+          </div>
+          <p className="mt-4 text-center font-serif text-[12px] leading-tight text-[#5a433b] sm:text-base">Bundavarázs</p>
+          <div className="mt-4 space-y-2">
+            <div className="h-2 rounded-full bg-[#ddcec7]" />
+            <div className="h-2 w-4/5 rounded-full bg-[#e7dbd5]" />
+            <div className="mt-4 h-7 rounded-lg bg-[#6b4c43]" />
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-4 left-4 z-20 rounded-xl border border-white/15 bg-black/35 px-4 py-3 text-white backdrop-blur-md sm:bottom-6 sm:left-6">
+        <p className="text-[9px] uppercase tracking-[.18em] text-[#f1c9b9]">Bundavarázs · vizuális irány</p>
+        <p className="mt-1 text-xs text-white/65">Fotók nélkül is saját, felismerhető projektmegjelenés.</p>
+      </div>
+    </div>
+  );
+}
+
 function PresentationStage({ project }: { project: ReferenceProject }) {
+  if (!project.showcaseImage) {
+    return <BundavarazsPresentation />;
+  }
+
   return (
     <div className="relative overflow-hidden bg-graphite-950">
       <img
@@ -137,7 +218,7 @@ function PresentationStage({ project }: { project: ReferenceProject }) {
         loading="lazy"
         decoding="async"
         alt={`${project.name} – vizuális projektbemutató desktop, tablet és mobil kompozícióval`}
-        className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transition-none"
+        className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transform-none motion-reduce:transition-none"
       />
       <div
         aria-hidden="true"
