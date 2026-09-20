@@ -32,6 +32,27 @@ async function sendTelegram(token: string, chatId: string, text: string) {
   }
 }
 
+async function sendTelegramLines(token: string, chatId: string, lines: string[], maxLength = 3900) {
+  const chunks: string[] = [];
+  let current = '';
+
+  for (const line of lines) {
+    const next = current ? `${current}\n${line}` : line;
+    if (next.length > maxLength && current) {
+      chunks.push(current);
+      current = line;
+    } else {
+      current = next;
+    }
+  }
+
+  if (current) chunks.push(current);
+
+  for (const chunk of chunks) {
+    await sendTelegram(token, chatId, chunk);
+  }
+}
+
 export default {
   async formSubmitted(event: { data: Record<string, string> }) {
     const token = Netlify.env.get('TELEGRAM_BOT_TOKEN');
@@ -54,7 +75,7 @@ export default {
       minute: '2-digit',
     }).format(new Date());
 
-    const mainMessage = [
+    const mainLines = [
       '🔥 <b>ÚJ LEVENTE STUDIO AJÁNLATKÉRÉS</b>',
       `🕒 <b>Érkezett:</b> ${escapeHtml(receivedAt)}`,
       '',
@@ -81,9 +102,9 @@ export default {
       row('GCLID', data.gclid),
       '',
       '✅ <b>Hozzájárulás:</b> ' + (safe(data.privacy_acknowledged) ? 'igen' : 'nincs jelölve'),
-    ].filter(Boolean).join('\n');
+    ].filter(Boolean);
 
-    await sendTelegram(token, chatId, mainMessage);
+    await sendTelegramLines(token, chatId, mainLines);
 
     const note = escapeHtml(data.note, 3000);
     if (note) {

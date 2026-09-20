@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: ["main"]
   push:
-    branches: ["revamp-2026-growth-system"]
+    branches: ["main", "revamp-2026-growth-system"]
 
 permissions:
   contents: read
