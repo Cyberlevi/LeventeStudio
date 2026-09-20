@@ -25,7 +25,7 @@ export default function Hero2026() {
               aria-label="KlímaTiszták projektbemutatás"
             >
               <img
-                src="/projects/showcase-klimatisztak.webp"
+                src="https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp"
                 width="960"
                 height="720"
                 alt="KlímaTiszták prémium projektbemutatás desktop, tablet és mobil nézettel"
