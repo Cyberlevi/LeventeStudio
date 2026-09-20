@@ -5,6 +5,7 @@ import { referenceProjects } from '../data/studio-offers';
 type DeviceMode = 'all' | 'desktop' | 'tablet' | 'mobile';
 type ShowcaseView = 'presentation' | 'page';
 type ReferenceProject = (typeof referenceProjects)[number];
+type ProjectDevice = 'desktop' | 'tablet' | 'mobile';
 
 const deviceOptions: Array<{ id: DeviceMode; label: string; icon: typeof Monitor }> = [
   { id: 'all', label: 'Összkép', icon: Monitor },
@@ -57,24 +58,38 @@ function BundavarazsScreen({ compact = false }: { compact?: boolean }) {
 
 function ProjectScreen({
   project,
+  device = 'desktop',
   decorative = false,
   className = '',
   compact = false,
 }: {
   project: ReferenceProject;
+  device?: ProjectDevice;
   decorative?: boolean;
   className?: string;
   compact?: boolean;
 }) {
-  if (project.image) {
+  const source =
+    device === 'tablet'
+      ? project.tabletImage
+      : device === 'mobile'
+        ? project.mobileImage
+        : project.image;
+
+  if (source) {
     return (
       <img
-        src={project.image}
+        src={source}
         loading="lazy"
         decoding="async"
         fetchPriority="low"
-        alt={decorative ? '' : `${project.name} – képernyőkép a weboldalról`}
+        alt={decorative ? '' : `${project.name} – ${device} nézet a weboldalról`}
         aria-hidden={decorative ? 'true' : undefined}
+        onError={(event) => {
+          if (event.currentTarget.src !== project.image) {
+            event.currentTarget.src = project.image;
+          }
+        }}
         className={`h-full w-full object-cover object-top ${className}`}
       />
     );
@@ -82,7 +97,6 @@ function ProjectScreen({
 
   return <BundavarazsScreen compact={compact} />;
 }
-
 function PageStage({ project }: { project: ReferenceProject }) {
   return (
     <div className="relative min-h-[330px] overflow-hidden bg-graphite-950 p-5 sm:min-h-[430px] sm:p-8 lg:min-h-[520px] lg:p-10">
@@ -168,8 +182,8 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         }`}
       >
         <div className="rounded-[18px] border border-white/20 bg-[#20211f] p-[5px] shadow-[0_22px_55px_rgba(0,0,0,.45)] sm:rounded-[24px] sm:p-[7px]">
-          <div className="aspect-[4/5] overflow-hidden rounded-[13px] bg-white sm:rounded-[18px]">
-            <ProjectScreen project={project} decorative compact className="object-cover object-top" />
+          <div className="overflow-hidden rounded-[13px] bg-white sm:rounded-[18px]" style={{ aspectRatio: "834 / 1194" }}>
+            <ProjectScreen project={project} device="tablet" decorative compact className="object-cover object-top" />
           </div>
         </div>
       </div>
@@ -186,7 +200,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         <div className="rounded-[18px] border border-white/20 bg-[#161715] p-[4px] shadow-[0_22px_55px_rgba(0,0,0,.52)] sm:rounded-[24px] sm:p-[5px]">
           <div className="relative aspect-[9/19.5] overflow-hidden rounded-[14px] bg-white sm:rounded-[19px]">
             <div className="absolute left-1/2 top-1.5 z-10 h-1.5 w-[34%] -translate-x-1/2 rounded-full bg-black/75" aria-hidden="true" />
-            <ProjectScreen project={project} decorative compact className="object-cover object-top" />
+            <ProjectScreen project={project} device="mobile" decorative compact className="object-cover object-top" />
           </div>
         </div>
       </div>
@@ -194,7 +208,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
       <div className="absolute bottom-3 left-1/2 z-0 h-16 w-[72%] -translate-x-1/2 rounded-[50%] bg-black/40 blur-2xl" aria-hidden="true" />
 
       <div className="absolute bottom-4 left-4 z-40 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-[8px] uppercase tracking-[.16em] text-white/60 backdrop-blur sm:bottom-6 sm:left-6 sm:text-[9px]">
-        Ugyanaz a projektforrás · több eszközkeret
+        Valódi reszponzív nézet · desktop / tablet / mobil
       </div>
     </div>
   );
@@ -215,7 +229,7 @@ export default function StudioLab() {
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed text-graphite-600 lg:justify-self-end">
-            Ugyanazt a projektet kétféleképpen mutatjuk: tiszta oldalnézetben és eszközökre rendezett prezentációban. A vizuális forrás mindkettőnél ugyanaz.
+            Ugyanazt az élő projektet kétféleképpen mutatjuk: tiszta oldalnézetben és valódi desktop, tablet és mobil viewportból készített prezentációban.
           </p>
         </div>
 
