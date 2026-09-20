@@ -35,8 +35,20 @@ import Footer from '../components/Footer';
           const message = document.getElementById('receipt-message');
           if (title) title.textContent = 'Megérkezett az ajánlatkérésed.';
           if (message) message.textContent = 'Köszönöm! Személyesen átnézem, amit írtál, és a megadott e-mail-címen egyeztetünk a következő lépésről.';
-          const route = getDiagnosticRoute(typeof receipt.goal === 'string' ? receipt.goal : '', typeof receipt.selected === 'string' ? receipt.selected : '');
-          if (route) {
+          const goal = typeof receipt.goal === 'string' ? receipt.goal : '';
+          const route = getDiagnosticRoute(goal, typeof receipt.selected === 'string' ? receipt.selected : '');
+          if (goal === 'audit') {
+            const box = document.getElementById('route-result');
+            if (box) box.hidden = false;
+            for (const [id,value] of Object.entries({
+              'route-code': 'ÁTVIZSGÁLÁS',
+              'route-name': 'Először a meglévő weboldalt nézzük át.',
+              'route-price': 'A pontos feladatot az egyeztetés után árazom.',
+              'route-reason': 'Nem döntjük el előre, hogy javítás vagy új weboldal kell. Előbb megnézzük, hol van a valódi probléma és mi éri meg üzletileg.'
+            })) { const node=document.getElementById(id); if(node) node.textContent=value; }
+            const link = document.getElementById('route-link');
+            if (link instanceof HTMLAnchorElement) { link.href='/szolgaltatas/weboldal-audit/'; link.textContent='Mit nézünk át? ↗'; }
+          } else if (route) {
             const box = document.getElementById('route-result');
             if (box) box.hidden = false;
             for (const [id,value] of Object.entries({ 'route-code': route.id, 'route-name': route.name, 'route-price': route.price, 'route-reason': route.reason })) { const node=document.getElementById(id); if(node) node.textContent=value; }
