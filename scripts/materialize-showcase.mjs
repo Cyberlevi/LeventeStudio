@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const sourceDir = path.resolve('assets/showcase-base64');
 const outputDir = path.resolve('public/projects');
-const projects = ['klimatisztak', 'klima18ker', 'furatmester', 'bundavarazs'];
+// KlímaTiszták and Bundavarázs use tracked high-quality WebP assets.\n// Only the remaining legacy showcase assets are materialized from Base64 chunks.\nconst projects = ['klima18ker', 'furatmester'];
 
 await mkdir(outputDir, { recursive: true });
 
