@@ -63,10 +63,10 @@ export default function ProjectProcess() {
 
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className={`text-[10px] tracking-[.2em] ${index === 2 ? 'text-signal-400' : 'text-white/35'}`}>{number}</span>
+                  <span className={`text-[10px] tracking-[.2em] ${index === 2 ? 'text-signal-400' : 'text-white/55'}`}>{number}</span>
                   <span className="mt-2 block text-[9px] uppercase tracking-[.18em] text-ivory-500">{label}</span>
                 </div>
-                <Icon size={18} strokeWidth={1.45} className={index === 2 ? 'text-signal-400' : 'text-white/35'} aria-hidden="true" />
+                <Icon size={18} strokeWidth={1.45} className={index === 2 ? 'text-signal-400' : 'text-white/55'} aria-hidden="true" />
               </div>
 
               <div className="mt-10">
