@@ -29,19 +29,27 @@ function appendGoogleScript(id: string, src: string): void {
   document.head.appendChild(script);
 }
 
-export function loadGoogleTags(): void {
-  if (typeof window === 'undefined' || window.__lsGoogleTagsLoaded) return;
+export function loadGoogleAnalytics(): void {
+  if (typeof window === 'undefined' || window.__lsGoogleAnalyticsLoaded) return;
 
-  window.__lsGoogleTagsLoaded = true;
+  window.__lsGoogleAnalyticsLoaded = true;
   ensureGoogleQueue();
   window.gtag?.('js', new Date());
   window.gtag?.('config', GOOGLE_ANALYTICS_ID);
-  window.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
 
   appendGoogleScript(
     'ls-google-analytics',
     `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
   );
+}
+
+export function loadGoogleTagManager(): void {
+  if (typeof window === 'undefined' || window.__lsGoogleTagManagerLoaded) return;
+
+  window.__lsGoogleTagManagerLoaded = true;
+  ensureGoogleQueue();
+  window.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
   appendGoogleScript(
     'ls-google-tag-manager',
     `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`,
@@ -96,8 +104,12 @@ export function setConsentState(state: Omit<ConsentState, 'timestamp'>): void {
 }
 
 export function hasConsent(): boolean {
+  return getConsentState() !== null;
+}
+
+export function hasMeasurementConsent(): boolean {
   const state = getConsentState();
-  return state !== null;
+  return Boolean(state?.analytics || state?.marketing);
 }
 
 export function updateGoogleConsent(state: ConsentState): void {
@@ -112,5 +124,6 @@ export function updateGoogleConsent(state: ConsentState): void {
     ad_personalization: state.marketing ? 'granted' : 'denied',
   });
 
-  if (state.analytics || state.marketing) loadGoogleTags();
+  if (state.analytics) loadGoogleAnalytics();
+  if (state.marketing) loadGoogleTagManager();
 }
