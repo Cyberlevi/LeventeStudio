@@ -1,0 +1,207 @@
+---
+interface Props {
+  variant?: 'split' | 'flow' | 'converge';
+  label?: string;
+}
+
+const { variant = 'flow', label = 'SIGNAL / SYSTEM' } = Astro.props;
+---
+
+<div class:list={['signal-bridge', `signal-bridge--${variant}`]} aria-hidden="true">
+  <div class="signal-bridge__inner">
+    <span class="signal-bridge__label">{label}</span>
+    <div class="signal-bridge__rail signal-bridge__rail--a"></div>
+    <div class="signal-bridge__rail signal-bridge__rail--b"></div>
+    <div class="signal-bridge__rail signal-bridge__rail--c"></div>
+    <span class="signal-bridge__node signal-bridge__node--a"></span>
+    <span class="signal-bridge__node signal-bridge__node--b"></span>
+  </div>
+</div>
+
+<style>
+  .signal-bridge {
+    position: relative;
+    height: clamp(4rem, 8vw, 7rem);
+    overflow: hidden;
+    background: #0b0d0c;
+    pointer-events: none;
+  }
+
+  .signal-bridge__inner {
+    position: absolute;
+    inset: 0;
+    max-width: 86rem;
+    margin: 0 auto;
+  }
+
+  .signal-bridge__label {
+    position: absolute;
+    left: clamp(1.25rem, 5vw, 4rem);
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(244,240,232,.27);
+    font-size: .56rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+  }
+
+  .signal-bridge__rail {
+    position: absolute;
+    height: 1px;
+    transform-origin: left center;
+    background: linear-gradient(90deg, transparent, rgba(216,255,120,.12), rgba(216,255,120,.74), rgba(216,255,120,.08), transparent);
+    background-size: 220% 100%;
+    animation: bridge-scan 9s linear infinite;
+    box-shadow: 0 0 16px rgba(216,255,120,.05);
+  }
+
+  .signal-bridge__node {
+    position: absolute;
+    width: .34rem;
+    height: .34rem;
+    margin: -.17rem 0 0 -.17rem;
+    border-radius: 999px;
+    background: #d8ff78;
+    box-shadow: 0 0 0 5px rgba(216,255,120,.035), 0 0 24px rgba(216,255,120,.28);
+  }
+
+  .signal-bridge--flow .signal-bridge__rail--a {
+    left: 25%;
+    right: 9%;
+    top: 52%;
+    transform: rotate(-1.5deg);
+  }
+
+  .signal-bridge--flow .signal-bridge__rail--b,
+  .signal-bridge--flow .signal-bridge__rail--c {
+    display: none;
+  }
+
+  .signal-bridge--flow .signal-bridge__node--a {
+    left: 63%;
+    top: 51%;
+  }
+
+  .signal-bridge--flow .signal-bridge__node--b {
+    display: none;
+  }
+
+  .signal-bridge--split .signal-bridge__rail--a {
+    left: 28%;
+    width: 46%;
+    top: 50%;
+  }
+
+  .signal-bridge--split .signal-bridge__rail--b {
+    left: 58%;
+    width: 30%;
+    top: 50%;
+    transform: rotate(-10deg);
+  }
+
+  .signal-bridge--split .signal-bridge__rail--c {
+    left: 58%;
+    width: 27%;
+    top: 50%;
+    transform: rotate(9deg);
+  }
+
+  .signal-bridge--split .signal-bridge__node--a {
+    left: 58%;
+    top: 50%;
+  }
+
+  .signal-bridge--split .signal-bridge__node--b {
+    left: 82%;
+    top: 67%;
+    opacity: .55;
+  }
+
+  .signal-bridge--converge .signal-bridge__rail--a {
+    left: 26%;
+    width: 34%;
+    top: 34%;
+    transform: rotate(8deg);
+  }
+
+  .signal-bridge--converge .signal-bridge__rail--b {
+    left: 29%;
+    width: 31%;
+    top: 70%;
+    transform: rotate(-9deg);
+  }
+
+  .signal-bridge--converge .signal-bridge__rail--c {
+    left: 59%;
+    right: 7%;
+    top: 52%;
+  }
+
+  .signal-bridge--converge .signal-bridge__node--a {
+    left: 59%;
+    top: 52%;
+  }
+
+  .signal-bridge--converge .signal-bridge__node--b {
+    left: 80%;
+    top: 52%;
+    opacity: .45;
+  }
+
+  @keyframes bridge-scan {
+    from { background-position: 220% 0; }
+    to { background-position: -120% 0; }
+  }
+
+  @media (max-width: 767px) {
+    .signal-bridge {
+      height: 4.25rem;
+    }
+
+    .signal-bridge__label {
+      left: 1.25rem;
+      top: 1rem;
+      transform: none;
+      font-size: .48rem;
+      letter-spacing: .20em;
+    }
+
+    .signal-bridge__rail {
+      opacity: .78;
+    }
+
+    .signal-bridge--split .signal-bridge__rail--a,
+    .signal-bridge--flow .signal-bridge__rail--a,
+    .signal-bridge--converge .signal-bridge__rail--c {
+      left: 12%;
+      right: 10%;
+      width: auto;
+      top: 62%;
+      transform: none;
+    }
+
+    .signal-bridge--split .signal-bridge__rail--b,
+    .signal-bridge--split .signal-bridge__rail--c,
+    .signal-bridge--converge .signal-bridge__rail--a,
+    .signal-bridge--converge .signal-bridge__rail--b {
+      display: none;
+    }
+
+    .signal-bridge--split .signal-bridge__node--a,
+    .signal-bridge--flow .signal-bridge__node--a,
+    .signal-bridge--converge .signal-bridge__node--a {
+      left: 72%;
+      top: 62%;
+    }
+
+    .signal-bridge__node--b {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signal-bridge__rail {
+      animation: none;
+    }
+  }
+</style>
