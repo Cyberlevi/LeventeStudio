@@ -55,6 +55,29 @@ try {
   process.exit(0);
 }
 
+if (data?.ok === false) {
+  const stage = safeId(data?.stage || 'unknown-stage', 48);
+  await emit(`lhcap-error-${stage}`, {
+    ok: data?.ok,
+    stage: data?.stage,
+    error: data?.error,
+    reportPath: data?.reportPath,
+    publishDir: data?.publishDir,
+    markers: data?.markers,
+    bytes: data?.bytes,
+  });
+
+  if (data?.error) {
+    await emit(`lhcap-error-msg-${safeId(data.error, 80)}`, { error: data.error });
+  }
+
+  if (data?.markers) {
+    await emit(`lhcap-markers-w${data.markers.windowMarker ? 1 : 0}-g${data.markers.genericMarker ? 1 : 0}-v${data.markers.versionMarker ? 1 : 0}`, data.markers);
+  }
+
+  process.exit(0);
+}
+
 const a = Math.round((data?.scores?.accessibility ?? 0) * 100);
 const b = Math.round((data?.scores?.bestPractices ?? 0) * 100);
 
