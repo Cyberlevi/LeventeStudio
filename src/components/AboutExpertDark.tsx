@@ -25,6 +25,8 @@ export default function AboutExpertDark() {
               <img
                 data-portrait-image
                 src="/levente_studio_portrait_final.webp"
+                width={800}
+                height={533}
                 className="h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.008] group-hover:grayscale-[.9]"
                 alt="Tarnóczi Levente – weboldalkészítő"
                 decoding="async"
