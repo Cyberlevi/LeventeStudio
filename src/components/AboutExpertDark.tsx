@@ -16,9 +16,37 @@ export default function AboutExpertDark() {
             <h1 className="subpage-title">Nem kívülről nézem a rendszereket.<span className="block text-signal-400">Benne dolgozom.</span></h1>
             <p className="subpage-lead">Saját szolgáltatói vállalkozásokon építem, mérem és finomítom ugyanazokat a webes, SEO-, Ads- és automatizálási folyamatokat, amelyeket ügyfélprojektekben is használok.</p>
           </div>
-          <div className="relative border border-white/10 bg-graphite-900 p-2">
-            <img src="/levente_studio_portrait_final.webp" className="aspect-[4/5] w-full object-cover grayscale" alt="Tarnóczi Levente – weboldalkészítő" />
-            <div className="absolute inset-x-2 bottom-2 bg-gradient-to-t from-graphite-950 via-graphite-950/80 to-transparent p-5">
+          <div
+            data-portrait-signal
+            className="group relative overflow-hidden border border-white/10 bg-graphite-900 p-2"
+          >
+            <div className="pointer-events-none absolute inset-0 z-[1] opacity-55 studio-grid-dark" aria-hidden="true" />
+            <div className="relative aspect-[4/5] overflow-hidden bg-graphite-950">
+              <img
+                data-portrait-image
+                src="/levente_studio_portrait_final.webp"
+                className="h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.008] group-hover:grayscale-[.9]"
+                alt="Tarnóczi Levente – weboldalkészítő"
+                decoding="async"
+                fetchPriority="high"
+              />
+              <canvas
+                data-portrait-canvas
+                className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-signal-400/70 to-transparent opacity-70"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute right-3 top-3 z-10 border border-white/10 bg-graphite-950/65 px-2.5 py-1.5 text-[8px] uppercase tracking-[.18em] text-white/45 backdrop-blur-sm"
+                aria-hidden="true"
+              >
+                LS / HUMAN SIGNAL
+              </div>
+            </div>
+            <div className="absolute inset-x-2 bottom-2 z-20 bg-gradient-to-t from-graphite-950 via-graphite-950/80 to-transparent p-5">
               <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-[.18em] text-signal-400"><span className="signal-dot" />Közvetlen kapcsolat</div>
               <div className="text-xl">Tarnóczi Levente</div><div className="text-sm text-white/60">weboldalkészítő · Levente Studio</div>
             </div>
