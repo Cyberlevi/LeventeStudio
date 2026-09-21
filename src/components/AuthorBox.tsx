@@ -6,6 +6,8 @@ export default function AuthorBox() {
           <div className="relative">
             <img
               src="/levente_studio_portrait_final.webp"
+              width={800}
+              height={533}
               alt="Tarnóczi Levente"
               className="h-24 w-24 rounded-full border border-graphite-950/10 object-cover grayscale"
               loading="lazy"
