@@ -1,109 +1,50 @@
 ---
-let raw = '';
-let parsed: any = null;
-let error = '';
-
-try {
-  const response = await fetch('https://leventestudio.app/diagnosztika-lighthouse/', {
-    headers: { accept: 'text/html' },
-  });
-  raw = await response.text();
-
-  const match = raw.match(/<pre>([\s\S]*?)<\/pre>/i);
-  if (!match) {
-    error = `No <pre> payload. HTTP ${response.status}. Body: ${raw.slice(0, 1200)}`;
-  } else {
-    const decoded = match[1]
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&amp;/g, '&');
-
-    parsed = JSON.parse(decoded);
-  }
-} catch (err) {
-  error = err instanceof Error ? err.message : String(err);
-}
-
-const accessibility = parsed?.accessibility ?? [];
-const bestPractices = parsed?.bestPractices ?? [];
-
-if (parsed) {
-  const compact = {
-    scores: parsed?.scores,
-    accessibility: accessibility.map((audit:any) => ({
-      id: audit.id,
-      title: audit.title,
-      score: audit.score,
-      items: (audit.items ?? []).slice(0, 3).map((item:any) => ({
-        selector: item?.node?.selector,
-        snippet: item?.node?.snippet,
-        url: item?.url,
-        source: item?.source,
-      })),
-    })),
-    bestPractices: bestPractices.map((audit:any) => ({
-      id: audit.id,
-      title: audit.title,
-      score: audit.score,
-      items: (audit.items ?? []).slice(0, 3).map((item:any) => ({
-        selector: item?.node?.selector,
-        snippet: item?.node?.snippet,
-        url: item?.url,
-        source: item?.source,
-      })),
-    })),
-  };
-
-  throw new Error('LH_DIAG::' + JSON.stringify(compact));
-}
-
-throw new Error('LH_DIAG_FETCH_ERROR::' + (error || raw.slice(0, 1200)));
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderAstro from '../components/HeaderAstro.astro';
+import Hero2026 from '../components/Hero2026';
+import SignalField from '../components/SignalField.astro';
+import SignalBridge from '../components/SignalBridge.astro';
+import SignalIdentity from '../components/SignalIdentity.astro';
+import StudioLab from '../components/StudioLab';
+import ProblemAwareness2026 from '../components/ProblemAwareness2026';
+import Pricing2026 from '../components/Pricing2026';
+import ProjectProcess from '../components/ProjectProcess';
+import LeadDiagnostic from '../components/LeadDiagnostic.astro';
+import FAQ2026 from '../components/FAQ2026';
+import Contact2026 from '../components/Contact2026';
+import Footer from '../components/Footer';
+import MobileStickyBar2026 from '../components/MobileStickyBar2026';
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Levente Studio',
+  description: 'Weboldalkészítés szolgáltató vállalkozásoknak. Tervezés, fejlesztés, mérés és weboldalgondozás.',
+  url: 'https://leventestudio.app/', image: 'https://leventestudio.app/levente_studio_portrait_final.webp',
+  logo: 'https://leventestudio.app/android-chrome-512x512.png', areaServed: 'HU',
+  provider: { '@type': 'Person', name: 'Tarnóczi Levente', email: 'hello@leventestudio.app' },
+  serviceType: ['Weboldalkészítés', 'Weboldalgondozás', 'Konverziómérés', 'Üzleti automatizálás'],
+};
 ---
-<html lang="hu">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="robots" content="noindex,nofollow" />
-    <title>Lighthouse screenshot diagnostic</title>
-    <style>
-      body { margin:0; padding:32px; background:#0b0d0c; color:#f4f0e8; font-family:Arial,sans-serif; }
-      h1 { color:#d8ff78; font-size:40px; margin:0 0 24px; }
-      h2 { color:#d8ff78; font-size:28px; margin:28px 0 10px; }
-      .score { font-size:24px; margin-bottom:16px; }
-      .audit { border:1px solid #394038; padding:16px; margin:12px 0; }
-      .title { font-size:22px; font-weight:700; }
-      .id { color:#aab0a8; font-family:monospace; margin-top:4px; }
-      .item { margin-top:10px; padding-top:10px; border-top:1px solid #2b302b; font-family:monospace; font-size:15px; white-space:pre-wrap; }
-      .error { color:#ffb4b4; white-space:pre-wrap; font-size:18px; }
-    </style>
-  </head>
-  <body>
-    <h1>Lighthouse diagnosztika</h1>
-    {parsed ? (
-      <>
-        <div class="score">Accessibility: {parsed?.scores?.accessibility} · Best Practices: {parsed?.scores?.bestPractices}</div>
-        <h2>Accessibility bukások</h2>
-        {accessibility.length === 0 ? <p>Nincs súlyozott bukó audit.</p> : accessibility.map((audit:any) => (
-          <div class="audit">
-            <div class="title">{audit.title}</div>
-            <div class="id">{audit.id} · score {audit.score}</div>
-            {(audit.items ?? []).slice(0,4).map((item:any) => (
-              <div class="item">{item?.node?.selector || item?.node?.snippet || item?.url || item?.source || JSON.stringify(item)}</div>
-            ))}
-          </div>
-        ))}
-        <h2>Best Practices bukások</h2>
-        {bestPractices.length === 0 ? <p>Nincs súlyozott bukó audit.</p> : bestPractices.map((audit:any) => (
-          <div class="audit">
-            <div class="title">{audit.title}</div>
-            <div class="id">{audit.id} · score {audit.score}</div>
-            {(audit.items ?? []).slice(0,4).map((item:any) => (
-              <div class="item">{item?.node?.selector || item?.node?.snippet || item?.url || item?.source || JSON.stringify(item)}</div>
-            ))}
-          </div>
-        ))}
-      </>
-    ) : <div class="error">{error || raw.slice(0,2000)}</div>}
-  </body>
-</html>
+<BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
+  <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
+  <main>
+    <section data-sticky-threshold class="relative isolate overflow-hidden bg-graphite-950">
+      <SignalField />
+      <Hero2026 />
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-b from-transparent to-graphite-950/95" aria-hidden="true"></div>
+    </section>
+    <StudioLab client:visible />
+    <SignalBridge variant="split" label="WORK → SYSTEM" />
+    <ProblemAwareness2026 />
+    <Pricing2026 />
+    <SignalBridge variant="flow" label="OFFER → PROCESS" />
+    <ProjectProcess />
+    <SignalIdentity />
+    <FAQ2026 />
+    <SignalBridge variant="converge" label="SIGNAL → LEAD" />
+    <LeadDiagnostic />
+    <Contact2026 />
+  </main>
+  <Footer />
+  <script>
+    import '../scripts/mobile-sticky-visibility';
+  </script>
+</BaseLayout>
