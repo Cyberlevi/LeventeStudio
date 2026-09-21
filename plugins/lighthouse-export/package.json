@@ -2,5 +2,8 @@
   "name": "netlify-plugin-lighthouse-export-local",
   "private": true,
   "type": "module",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "@netlify/blobs": "11.1.0"
+  }
 }
