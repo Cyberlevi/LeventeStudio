@@ -116,8 +116,13 @@ import { Shield, X } from 'lucide-react';
     const setOpen = (open: boolean) => {
       root.hidden = !open;
       document.documentElement.style.overflow = open ? 'hidden' : previousOverflow;
-      if (open) requestAnimationFrame(() => closeButton.focus());
-      else previousFocus?.focus();
+      if (open) {
+        document.addEventListener('keydown', onKeyDown);
+        requestAnimationFrame(() => closeButton.focus());
+      } else {
+        document.removeEventListener('keydown', onKeyDown);
+        previousFocus?.focus();
+      }
     };
 
     const save = (analytics: boolean, marketing: boolean) => {
@@ -126,7 +131,6 @@ import { Shield, X } from 'lucide-react';
       updateGoogleConsent({ ...state, timestamp: Date.now() });
       window.dispatchEvent(new CustomEvent('ls:consent-updated', { detail: state }));
       setOpen(false);
-      document.removeEventListener('keydown', onKeyDown);
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -167,7 +171,6 @@ import { Shield, X } from 'lucide-react';
       customiseButton.focus();
     });
     saveButton.addEventListener('click', () => save(analyticsInput.checked, marketingInput.checked));
-    document.addEventListener('keydown', onKeyDown);
 
     if (!hasConsent()) setOpen(true);
     else {
