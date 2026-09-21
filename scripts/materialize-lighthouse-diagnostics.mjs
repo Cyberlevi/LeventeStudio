@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const target = 'https://leventestudio.app/reports/lighthouse.html';
+const target = 'https://leventestudio.app/';
 const outDir = path.resolve('netlify/functions');
 
 await mkdir(outDir, { recursive: true });
@@ -17,83 +17,15 @@ function safeId(value) {
 async function emit(name, payload) {
   const source = `export default async () => Response.json(${JSON.stringify(payload)});\n`;
   await writeFile(path.join(outDir, `${name}.mts`), source);
-  console.log('[lh-diag-function]', name);
+  console.log('[psdiag-function]', name);
 }
 
-function extractBalancedJson(source, start) {
-  let depth = 0;
-  let inString = false;
-  let escaped = false;
-  let begun = false;
-  let jsonStart = start;
+function failingAudits(lhr, categoryId) {
+  const refs = lhr?.categories?.[categoryId]?.auditRefs ?? [];
 
-  for (let i = start; i < source.length; i += 1) {
-    const char = source[i];
-
-    if (!begun) {
-      if (char !== '{') continue;
-      begun = true;
-      depth = 1;
-      jsonStart = i;
-      continue;
-    }
-
-    if (inString) {
-      if (escaped) escaped = false;
-      else if (char === '\\') escaped = true;
-      else if (char === '"') inString = false;
-      continue;
-    }
-
-    if (char === '"') {
-      inString = true;
-      continue;
-    }
-
-    if (char === '{') depth += 1;
-    if (char === '}') {
-      depth -= 1;
-      if (depth === 0) return source.slice(jsonStart, i + 1);
-    }
-  }
-
-  return null;
-}
-
-function extractLighthouseJson(html) {
-  const markers = [
-    'window.__LIGHTHOUSE_JSON__',
-    '__LIGHTHOUSE_JSON__',
-    '"lighthouseVersion"',
-  ];
-
-  for (const marker of markers) {
-    const markerIndex = html.indexOf(marker);
-    if (markerIndex < 0) continue;
-
-    const searchStart = marker === '"lighthouseVersion"'
-      ? Math.max(0, html.lastIndexOf('{', markerIndex))
-      : markerIndex + marker.length;
-
-    const jsonText = extractBalancedJson(html, searchStart);
-    if (!jsonText) continue;
-
-    try {
-      const parsed = JSON.parse(jsonText);
-      if (parsed?.audits && parsed?.categories) return parsed;
-    } catch {
-      // continue
-    }
-  }
-
-  return null;
-}
-
-function failingAuditIds(lhr, categoryId) {
-  const refs = lhr.categories?.[categoryId]?.auditRefs ?? [];
   return refs
     .filter((ref) => (ref.weight ?? 0) > 0)
-    .map((ref) => lhr.audits?.[ref.id])
+    .map((ref) => lhr?.audits?.[ref.id])
     .filter((audit) => {
       if (!audit) return false;
       if (['notApplicable', 'manual', 'informative'].includes(audit.scoreDisplayMode)) return false;
@@ -101,56 +33,80 @@ function failingAuditIds(lhr, categoryId) {
     });
 }
 
-let response;
-let html;
+async function runCategory(label, apiCategory, lighthouseCategoryId) {
+  const url = new URL('https://www.googleapis.com/pagespeedonline/v5/runPagespeed');
+  url.searchParams.set('url', target);
+  url.searchParams.set('strategy', 'MOBILE');
+  url.searchParams.set('category', apiCategory);
 
-try {
-  response = await fetch(target, {
-    headers: { accept: 'text/html' },
-    signal: AbortSignal.timeout(20_000),
+  let response;
+  let body;
+
+  try {
+    response = await fetch(url, {
+      headers: { accept: 'application/json' },
+      signal: AbortSignal.timeout(90_000),
+    });
+    body = await response.text();
+  } catch (error) {
+    await emit(`psdiag-${label}-fetch-exception`, {
+      message: error instanceof Error ? error.message : String(error),
+    });
+    return;
+  }
+
+  if (!response.ok) {
+    await emit(`psdiag-${label}-http-${response.status}`, {
+      status: response.status,
+      preview: body.slice(0, 300),
+    });
+    return;
+  }
+
+  let json;
+  try {
+    json = JSON.parse(body);
+  } catch (error) {
+    await emit(`psdiag-${label}-json-parse-failed`, {
+      message: error instanceof Error ? error.message : String(error),
+      preview: body.slice(0, 300),
+    });
+    return;
+  }
+
+  const lhr = json?.lighthouseResult;
+  if (!lhr?.categories?.[lighthouseCategoryId]) {
+    await emit(`psdiag-${label}-category-missing`, {
+      availableCategories: Object.keys(lhr?.categories ?? {}),
+    });
+    return;
+  }
+
+  const score = Math.round((lhr.categories[lighthouseCategoryId].score ?? 0) * 100);
+  await emit(`psdiag-${label}-score-${score}`, {
+    score,
+    fetchTime: lhr.fetchTime,
+    lighthouseVersion: lhr.lighthouseVersion,
   });
-  html = await response.text();
-} catch (error) {
-  await emit('lhdiag-report-fetch-exception', { message: error instanceof Error ? error.message : String(error) });
-  process.exit(0);
+
+  const failures = failingAudits(lhr, lighthouseCategoryId);
+
+  if (failures.length === 0) {
+    await emit(`psdiag-${label}-no-failures`, { score });
+    return;
+  }
+
+  for (const audit of failures) {
+    await emit(`psdiag-${label}-${safeId(audit.id)}`, {
+      id: audit.id,
+      title: audit.title,
+      score: audit.score,
+      displayValue: audit.displayValue,
+    });
+  }
 }
 
-if (!response.ok) {
-  await emit(`lhdiag-report-http-${response.status}`, { status: response.status, preview: html.slice(0, 300) });
-  process.exit(0);
-}
+await runCategory('a11y', 'ACCESSIBILITY', 'accessibility');
+await runCategory('bp', 'BEST_PRACTICES', 'best-practices');
 
-const lhr = extractLighthouseJson(html);
-
-if (!lhr) {
-  await emit('lhdiag-report-json-not-found', {
-    bytes: html.length,
-    hasWindowMarker: html.includes('window.__LIGHTHOUSE_JSON__'),
-    hasGenericMarker: html.includes('__LIGHTHOUSE_JSON__'),
-    hasVersionMarker: html.includes('"lighthouseVersion"'),
-  });
-  process.exit(0);
-}
-
-const a11yScore = Math.round((lhr.categories?.accessibility?.score ?? 0) * 100);
-const bpScore = Math.round((lhr.categories?.['best-practices']?.score ?? 0) * 100);
-
-await emit(`lhdiag-score-a${a11yScore}-b${bpScore}`, { a11yScore, bpScore });
-
-for (const audit of failingAuditIds(lhr, 'accessibility')) {
-  await emit(`lhdiag-a11y-${safeId(audit.id)}`, {
-    id: audit.id,
-    title: audit.title,
-    score: audit.score,
-  });
-}
-
-for (const audit of failingAuditIds(lhr, 'best-practices')) {
-  await emit(`lhdiag-bp-${safeId(audit.id)}`, {
-    id: audit.id,
-    title: audit.title,
-    score: audit.score,
-  });
-}
-
-console.log('[lh-diag] materialized audit IDs from Lighthouse HTML');
+console.log('[psdiag] PageSpeed audit IDs materialized');
