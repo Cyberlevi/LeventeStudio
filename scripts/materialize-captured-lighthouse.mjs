@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import vm from 'node:vm';
 
 const sourceUrl = 'https://deploy-preview-63--leventestudio.netlify.app/reports/lighthouse.html';
 const outDir = path.resolve('netlify/functions');
@@ -61,45 +62,52 @@ function extractBalancedJson(source, start) {
 }
 
 function extractLighthouseJson(html) {
-  // Lighthouse standalone reports embed the LHR exactly like:
-  // window.__LIGHTHOUSE_JSON__ = {...};</script>
-  const startMarker = '__LIGHTHOUSE_JSON__ = ';
-  const markerIndex = html.indexOf(startMarker);
+  const assignmentMarker = 'window.__LIGHTHOUSE_JSON__';
+  const markerIndex = html.indexOf(assignmentMarker);
+  if (markerIndex < 0) return null;
 
-  if (markerIndex >= 0) {
-    const jsonStart = markerIndex + startMarker.length;
-    const jsonEnd = html.indexOf(';</script>', jsonStart);
+  const scriptStart = html.lastIndexOf('<script', markerIndex);
+  const scriptOpenEnd = html.indexOf('>', scriptStart);
+  const scriptEnd = html.indexOf('</script>', markerIndex);
 
-    if (jsonEnd > jsonStart) {
-      const jsonText = html.slice(jsonStart, jsonEnd).trim();
+  if (scriptStart < 0 || scriptOpenEnd < 0 || scriptEnd < 0) return null;
 
-      try {
-        const parsed = JSON.parse(jsonText);
-        if (parsed?.audits && parsed?.categories) return parsed;
-      } catch {
-        // Fall through to balanced JSON fallback below.
-      }
-    }
+  const scriptBody = html.slice(scriptOpenEnd + 1, scriptEnd);
+
+  try {
+    const sandbox = { window: {} };
+    vm.runInNewContext(scriptBody, sandbox, {
+      timeout: 1000,
+      contextCodeGeneration: { strings: false, wasm: false },
+    });
+
+    const lhr = sandbox.window?.__LIGHTHOUSE_JSON__;
+    if (lhr?.audits && lhr?.categories) return lhr;
+  } catch {
+    // Fall through to data-only balanced object extraction below.
   }
 
-  const fallbackMarkers = [
-    'window.__LIGHTHOUSE_JSON__',
-    '__LIGHTHOUSE_JSON__',
-  ];
+  const equalsIndex = html.indexOf('=', markerIndex + assignmentMarker.length);
+  if (equalsIndex < 0) return null;
 
-  for (const marker of fallbackMarkers) {
-    const fallbackIndex = html.indexOf(marker);
-    if (fallbackIndex < 0) continue;
+  const jsonText = extractBalancedJson(html, equalsIndex + 1);
+  if (!jsonText) return null;
 
-    const jsonText = extractBalancedJson(html, fallbackIndex + marker.length);
-    if (!jsonText) continue;
+  try {
+    const parsed = JSON.parse(jsonText);
+    if (parsed?.audits && parsed?.categories) return parsed;
+  } catch {
+    // Old standalone reports can contain JavaScript-safe object syntax.
+  }
 
-    try {
-      const parsed = JSON.parse(jsonText);
-      if (parsed?.audits && parsed?.categories) return parsed;
-    } catch {
-      // Try the next marker.
-    }
+  try {
+    const parsed = vm.runInNewContext(`(${jsonText})`, {}, {
+      timeout: 1000,
+      contextCodeGeneration: { strings: false, wasm: false },
+    });
+    if (parsed?.audits && parsed?.categories) return parsed;
+  } catch {
+    // Nothing else to try.
   }
 
   return null;
