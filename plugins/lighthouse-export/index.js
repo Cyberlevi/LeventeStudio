@@ -164,7 +164,7 @@ async function findCandidateReports(root, maxDepth = 5) {
   return matches;
 }
 
-export const onSuccess = async ({ constants, utils }) => {
+export const onEnd = async ({ constants, utils }) => {
   const cwd = process.cwd();
   const preferred = [
     path.join(constants.PUBLISH_DIR, 'reports', 'lighthouse.html'),
