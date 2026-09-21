@@ -446,3 +446,262 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* Award layer — SIGNAL / SYSTEM */
+.award-hero-shell {
+  min-height: min(100svh, 980px);
+  background:
+    radial-gradient(circle at 78% 22%, rgba(216,255,120,.055), transparent 24%),
+    var(--ls-graphite);
+}
+
+.award-hero-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(11,13,12,.18) 0%, transparent 24%, transparent 72%, rgba(11,13,12,.82) 100%),
+    radial-gradient(circle at 50% 50%, transparent 34%, rgba(5,7,6,.34) 100%);
+}
+
+.signal-field-host {
+  z-index: 0;
+  min-height: 100%;
+  background: var(--ls-graphite);
+}
+
+.signal-field-host canvas {
+  display: block;
+  min-height: 100%;
+}
+
+.signal-field-fallback {
+  opacity: 1;
+  transition: opacity .7s ease;
+  background:
+    radial-gradient(ellipse at 74% 56%, rgba(216,255,120,.22), transparent 17%),
+    radial-gradient(ellipse at 60% 49%, rgba(216,255,120,.08), transparent 31%),
+    linear-gradient(158deg, transparent 0 37%, rgba(216,255,120,.08) 48%, transparent 58%),
+    var(--ls-graphite);
+}
+
+[data-signal-ready='true'] .signal-field-fallback {
+  opacity: 0;
+}
+
+.award-hero-copy {
+  text-shadow: 0 2px 30px rgba(0,0,0,.25);
+}
+
+.award-word-trace {
+  position: absolute;
+  left: 4%;
+  right: -6%;
+  bottom: -.15em;
+  height: 1px;
+  opacity: .8;
+  background: linear-gradient(90deg, transparent, var(--ls-signal) 18%, var(--ls-signal) 72%, transparent);
+  transform-origin: left center;
+  animation: award-trace-in 1.2s cubic-bezier(.2,.75,.2,1) .2s both;
+}
+
+.award-media-frame {
+  position: relative;
+}
+
+.award-media-frame::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 1.05rem;
+  pointer-events: none;
+  z-index: 3;
+  box-shadow:
+    0 0 0 1px rgba(216,255,120,.06),
+    0 34px 100px rgba(0,0,0,.30);
+}
+
+.award-media-frame::after {
+  content: '';
+  position: absolute;
+  width: 34%;
+  height: 1px;
+  right: 6%;
+  top: -8px;
+  background: linear-gradient(90deg, transparent, rgba(216,255,120,.78));
+  box-shadow: 0 0 18px rgba(216,255,120,.24);
+  pointer-events: none;
+}
+
+.signal-manifesto {
+  isolation: isolate;
+}
+
+.signal-manifesto-glow {
+  background:
+    radial-gradient(circle at 20% 55%, rgba(216,255,120,.08), transparent 30%),
+    radial-gradient(circle at 78% 36%, rgba(255,255,255,.045), transparent 24%);
+}
+
+.signal-manifesto-title {
+  font-size: clamp(4.6rem, 12vw, 10.8rem);
+}
+
+.signal-word {
+  transform-origin: left center;
+}
+
+.signal-orbit {
+  position: relative;
+  height: 4.5rem;
+}
+
+.signal-orbit-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(216,255,120,.18) 10%, rgba(216,255,120,.78) 48%, rgba(244,240,232,.16) 86%, transparent 100%);
+  box-shadow: 0 0 24px rgba(216,255,120,.10);
+  transform-origin: left center;
+}
+
+.signal-orbit-node {
+  position: absolute;
+  top: 50%;
+  width: .62rem;
+  height: .62rem;
+  border-radius: 999px;
+  margin-top: -.31rem;
+  background: var(--ls-signal);
+  box-shadow: 0 0 0 5px rgba(216,255,120,.06), 0 0 28px rgba(216,255,120,.34);
+}
+
+.signal-orbit-node-a { left: 12%; }
+.signal-orbit-node-b { left: 49%; }
+.signal-orbit-node-c { left: 84%; }
+
+.award-project-card {
+  position: relative;
+  transition:
+    transform .45s cubic-bezier(.2,.7,.2,1),
+    box-shadow .45s ease,
+    border-color .45s ease;
+}
+
+.award-project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  z-index: 50;
+  opacity: 0;
+  background: linear-gradient(to bottom, transparent, rgba(216,255,120,.9), transparent);
+  transition: opacity .35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .award-project-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(11,13,12,.18);
+    box-shadow: 0 26px 90px rgba(18,20,17,.10);
+  }
+
+  .award-project-card:hover::before {
+    opacity: 1;
+  }
+}
+
+@keyframes award-trace-in {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: .8; }
+}
+
+@supports (animation-timeline: view()) {
+  .signal-manifesto-title .signal-word {
+    animation: award-word-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 42%;
+  }
+
+  .signal-manifesto-title .signal-word:nth-child(2) {
+    animation-range: entry 10% cover 48%;
+  }
+
+  .signal-manifesto-title .signal-word:nth-child(3) {
+    animation-range: entry 15% cover 54%;
+  }
+
+  .signal-orbit-line {
+    animation: award-line-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 44%;
+  }
+
+  .award-project-card {
+    animation: award-card-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 6% cover 26%;
+  }
+}
+
+@keyframes award-word-rise {
+  from { opacity: .18; transform: translateY(.22em); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes award-line-draw {
+  from { transform: scaleX(0); opacity: .15; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes award-card-reveal {
+  from { opacity: .65; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .award-hero-shell {
+    min-height: auto;
+  }
+
+  .signal-field-host {
+    opacity: .78;
+  }
+
+  .signal-field-host::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11,13,12,.08), rgba(11,13,12,.22) 60%, rgba(11,13,12,.68));
+  }
+
+  .signal-manifesto-title {
+    font-size: clamp(4.15rem, 21vw, 7rem);
+    line-height: .83;
+  }
+
+  .signal-orbit {
+    height: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .award-word-trace,
+  .signal-manifesto-title .signal-word,
+  .signal-orbit-line,
+  .award-project-card {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .signal-field-host {
+    opacity: .72;
+  }
+}
