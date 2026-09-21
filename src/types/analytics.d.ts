@@ -4,6 +4,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
-    __lsGoogleTagsLoaded?: boolean;
+    __lsGoogleAnalyticsLoaded?: boolean;
+    __lsGoogleTagManagerLoaded?: boolean;
   }
 }
