@@ -29,7 +29,7 @@ const stages = [
 
 export default function ProblemAwareness2026() {
   return (
-    <section className="relative overflow-hidden bg-graphite-950 px-5 py-20 text-ivory-100 sm:px-6 md:py-24 lg:px-8">
+    <section className="award-system-map relative overflow-hidden bg-graphite-950 px-5 py-20 text-ivory-100 sm:px-6 md:py-24 lg:px-8">
       <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-signal-400/10 blur-3xl" aria-hidden="true" />
 
@@ -65,7 +65,7 @@ export default function ProblemAwareness2026() {
             {stages.map(({ code, icon: Icon, eyebrow, title, text, signal }, index) => (
               <article
                 key={code}
-                className={`relative ml-16 overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-5 shadow-[0_20px_60px_rgba(0,0,0,.16)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none sm:ml-20 sm:p-6 lg:p-7 ${
+                className={`award-system-stage relative ml-16 overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-5 shadow-[0_20px_60px_rgba(0,0,0,.16)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none sm:ml-20 sm:p-6 lg:p-7 ${
                   index === 1 ? 'lg:ml-28' : ''
                 }`}
               >
