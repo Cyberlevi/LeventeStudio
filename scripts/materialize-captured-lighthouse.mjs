@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const sourceUrl = 'https://deploy-preview-63--leventestudio.netlify.app/lh-diagnostic.txt';
+const sourceUrl = 'https://deploy-preview-63--leventestudio.netlify.app/reports/lighthouse.html';
 const outDir = path.resolve('netlify/functions');
 
 await mkdir(outDir, { recursive: true });
@@ -17,108 +17,200 @@ function safeId(value, max = 64) {
 async function emit(name, payload) {
   const source = `export default async () => Response.json(${JSON.stringify(payload)});\n`;
   await writeFile(path.join(outDir, `${name}.mts`), source);
-  console.log('[lhcap]', name);
+  console.log('[lhreport]', name);
+}
+
+function extractBalancedJson(source, start) {
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  let begun = false;
+  let jsonStart = start;
+
+  for (let i = start; i < source.length; i += 1) {
+    const char = source[i];
+
+    if (!begun) {
+      if (char !== '{') continue;
+      begun = true;
+      depth = 1;
+      jsonStart = i;
+      continue;
+    }
+
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (char === '\\') escaped = true;
+      else if (char === '"') inString = false;
+      continue;
+    }
+
+    if (char === '"') {
+      inString = true;
+      continue;
+    }
+
+    if (char === '{') depth += 1;
+    if (char === '}') {
+      depth -= 1;
+      if (depth === 0) return source.slice(jsonStart, i + 1);
+    }
+  }
+
+  return null;
+}
+
+function extractLighthouseJson(html) {
+  const markers = [
+    'window.__LIGHTHOUSE_JSON__',
+    '__LIGHTHOUSE_JSON__',
+    '"lighthouseVersion"',
+  ];
+
+  for (const marker of markers) {
+    const markerIndex = html.indexOf(marker);
+    if (markerIndex < 0) continue;
+
+    const searchStart = marker === '"lighthouseVersion"'
+      ? Math.max(0, html.lastIndexOf('{', markerIndex))
+      : markerIndex + marker.length;
+
+    const jsonText = extractBalancedJson(html, searchStart);
+    if (!jsonText) continue;
+
+    try {
+      const parsed = JSON.parse(jsonText);
+      if (parsed?.audits && parsed?.categories) return parsed;
+    } catch {
+      // Try the next marker.
+    }
+  }
+
+  return null;
+}
+
+function failingAudits(lhr, categoryId) {
+  const refs = lhr.categories?.[categoryId]?.auditRefs ?? [];
+  return refs
+    .filter((ref) => (ref.weight ?? 0) > 0)
+    .map((ref) => lhr.audits?.[ref.id])
+    .filter((audit) => {
+      if (!audit) return false;
+      if (['notApplicable', 'manual', 'informative'].includes(audit.scoreDisplayMode)) return false;
+      return typeof audit.score === 'number' && audit.score < 1;
+    });
 }
 
 let response;
-let text;
+let html;
 
 try {
   response = await fetch(sourceUrl, {
-    headers: { accept: 'application/json,text/plain' },
+    headers: { accept: 'text/html' },
     signal: AbortSignal.timeout(20_000),
   });
-  text = await response.text();
+  html = await response.text();
 } catch (error) {
-  await emit('lhcap-fetch-exception', {
+  await emit('lhreport-fetch-exception', {
     message: error instanceof Error ? error.message : String(error),
   });
   process.exit(0);
 }
 
 if (!response.ok) {
-  await emit(`lhcap-http-${response.status}`, {
+  await emit(`lhreport-http-${response.status}`, {
     status: response.status,
-    preview: text.slice(0, 300),
+    preview: html.slice(0, 300),
   });
   process.exit(0);
 }
 
-let data;
-try {
-  data = JSON.parse(text);
-} catch (error) {
-  await emit('lhcap-json-parse-failed', {
-    message: error instanceof Error ? error.message : String(error),
-    preview: text.slice(0, 300),
+const lhr = extractLighthouseJson(html);
+
+if (!lhr) {
+  await emit('lhreport-json-not-found', {
+    bytes: html.length,
+    windowMarker: html.includes('window.__LIGHTHOUSE_JSON__'),
+    genericMarker: html.includes('__LIGHTHOUSE_JSON__'),
+    versionMarker: html.includes('"lighthouseVersion"'),
   });
   process.exit(0);
 }
 
-if (data?.ok === false) {
-  const stage = safeId(data?.stage || 'unknown-stage', 48);
-  await emit(`lhcap-error-${stage}`, {
-    ok: data?.ok,
-    stage: data?.stage,
-    error: data?.error,
-    reportPath: data?.reportPath,
-    publishDir: data?.publishDir,
-    markers: data?.markers,
-    bytes: data?.bytes,
-  });
+const a11yScore = Math.round((lhr.categories?.accessibility?.score ?? 0) * 100);
+const bpScore = Math.round((lhr.categories?.['best-practices']?.score ?? 0) * 100);
 
-  if (data?.error) {
-    await emit(`lhcap-error-msg-${safeId(data.error, 80)}`, { error: data.error });
-  }
+await emit(`lhreport-score-a${a11yScore}-b${bpScore}`, {
+  a11yScore,
+  bpScore,
+  lighthouseVersion: lhr.lighthouseVersion,
+  fetchTime: lhr.fetchTime,
+});
 
-  if (data?.markers) {
-    await emit(`lhcap-markers-w${data.markers.windowMarker ? 1 : 0}-g${data.markers.genericMarker ? 1 : 0}-v${data.markers.versionMarker ? 1 : 0}`, data.markers);
-  }
-
-  process.exit(0);
-}
-
-const a = Math.round((data?.scores?.accessibility ?? 0) * 100);
-const b = Math.round((data?.scores?.bestPractices ?? 0) * 100);
-
-await emit(`lhcap-score-a${a}-b${b}`, { scores: data?.scores, ok: data?.ok });
-
-for (const audit of data?.accessibility ?? []) {
+for (const audit of failingAudits(lhr, 'accessibility')) {
   const auditId = safeId(audit?.id);
-  await emit(`lhcap-a11y-${auditId}`, {
+  await emit(`lhreport-a11y-${auditId}`, {
     id: audit?.id,
     title: audit?.title,
     score: audit?.score,
     displayValue: audit?.displayValue,
   });
 
-  for (let i = 0; i < Math.min(4, audit?.items?.length ?? 0); i += 1) {
-    const item = audit.items[i] ?? {};
-    const selector = safeId(item?.selector || item?.nodeLabel || item?.url || item?.source || 'item', 44);
-    await emit(`lhcap-a11y-${auditId}-i${i+1}-${selector}`, {
+  for (let i = 0; i < Math.min(4, audit?.details?.items?.length ?? 0); i += 1) {
+    const item = audit.details.items[i] ?? {};
+    const selector = safeId(
+      item?.node?.selector ||
+      item?.node?.nodeLabel ||
+      item?.url ||
+      item?.source ||
+      item?.failureReason ||
+      'item',
+      44,
+    );
+    await emit(`lhreport-a11y-${auditId}-i${i+1}-${selector}`, {
       audit: audit?.id,
-      item,
+      selector: item?.node?.selector,
+      snippet: item?.node?.snippet,
+      nodeLabel: item?.node?.nodeLabel,
+      explanation: item?.node?.explanation,
+      url: item?.url,
+      source: item?.source,
+      failureReason: item?.failureReason,
     });
   }
 }
 
-for (const audit of data?.bestPractices ?? []) {
+for (const audit of failingAudits(lhr, 'best-practices')) {
   const auditId = safeId(audit?.id);
-  await emit(`lhcap-bp-${auditId}`, {
+  await emit(`lhreport-bp-${auditId}`, {
     id: audit?.id,
     title: audit?.title,
     score: audit?.score,
     displayValue: audit?.displayValue,
   });
 
-  for (let i = 0; i < Math.min(4, audit?.items?.length ?? 0); i += 1) {
-    const item = audit.items[i] ?? {};
-    const selector = safeId(item?.selector || item?.nodeLabel || item?.url || item?.source || 'item', 44);
-    await emit(`lhcap-bp-${auditId}-i${i+1}-${selector}`, {
+  for (let i = 0; i < Math.min(4, audit?.details?.items?.length ?? 0); i += 1) {
+    const item = audit.details.items[i] ?? {};
+    const selector = safeId(
+      item?.node?.selector ||
+      item?.node?.nodeLabel ||
+      item?.url ||
+      item?.source ||
+      item?.failureReason ||
+      'item',
+      44,
+    );
+    await emit(`lhreport-bp-${auditId}-i${i+1}-${selector}`, {
       audit: audit?.id,
-      item,
+      selector: item?.node?.selector,
+      snippet: item?.node?.snippet,
+      nodeLabel: item?.node?.nodeLabel,
+      explanation: item?.node?.explanation,
+      url: item?.url,
+      source: item?.source,
+      failureReason: item?.failureReason,
     });
   }
 }
 
-console.log('[lhcap] captured Lighthouse diagnostics materialized');
+console.log('[lhreport] Lighthouse report materialized');
