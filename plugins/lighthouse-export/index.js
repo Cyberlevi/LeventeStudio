@@ -1,5 +1,7 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
+
+const FORM_URL = 'https://leventestudio.app/lh-diagnostic-form.html';
 
 function extractBalancedJson(source, start) {
   let depth = 0;
@@ -99,30 +101,134 @@ function failingAudits(lhr, categoryId) {
     }));
 }
 
-export const onSuccess = async ({ constants, utils }) => {
-  const reportPath = path.join(constants.PUBLISH_DIR, 'reports', 'lighthouse.html');
+async function postDiagnostic(payload) {
+  const body = new URLSearchParams({
+    'form-name': 'lh-diagnostic-export',
+    source: 'netlify-lighthouse',
+    payload: JSON.stringify(payload),
+  });
 
-  let html;
-  try {
-    html = await readFile(reportPath, 'utf8');
-  } catch (error) {
+  const response = await fetch(FORM_URL, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body: body.toString(),
+    signal: AbortSignal.timeout(15_000),
+  });
+
+  return response.status;
+}
+
+async function findCandidateReports(root, maxDepth = 5) {
+  const matches = [];
+
+  async function walk(dir, depth) {
+    if (depth > maxDepth || matches.length >= 40) return;
+
+    let entries;
+    try {
+      entries = await readdir(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+
+    for (const entry of entries) {
+      if (matches.length >= 40) break;
+      if (entry.name === 'node_modules' || entry.name === '.git') continue;
+
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await walk(full, depth + 1);
+        continue;
+      }
+
+      const lower = entry.name.toLowerCase();
+      if (
+        lower.includes('lighthouse') ||
+        lower.includes('report') ||
+        lower.endsWith('.html')
+      ) {
+        let size = null;
+        try {
+          size = (await stat(full)).size;
+        } catch {
+          // ignore
+        }
+        matches.push({ path: full, size });
+      }
+    }
+  }
+
+  await walk(root, 0);
+  return matches;
+}
+
+export const onSuccess = async ({ constants, utils }) => {
+  const cwd = process.cwd();
+  const preferred = [
+    path.join(constants.PUBLISH_DIR, 'reports', 'lighthouse.html'),
+    path.join(cwd, 'dist', 'reports', 'lighthouse.html'),
+    path.join(cwd, 'reports', 'lighthouse.html'),
+  ];
+
+  let reportPath = null;
+  let html = null;
+  let preferredErrors = [];
+
+  for (const candidate of preferred) {
+    try {
+      html = await readFile(candidate, 'utf8');
+      reportPath = candidate;
+      break;
+    } catch (error) {
+      preferredErrors.push({
+        path: candidate,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  if (!html) {
+    const candidates = await findCandidateReports(cwd, 5);
+    await postDiagnostic({
+      status: 'report-missing',
+      cwd,
+      publishDir: constants.PUBLISH_DIR,
+      preferredErrors,
+      candidates,
+    });
+
     utils.status.show({
       title: 'Lighthouse export: report missing',
-      summary: error instanceof Error ? error.message : String(error),
+      summary: 'Diagnostic status submitted to lh-diagnostic-export.',
     });
     return;
   }
 
   const lhr = extractLighthouseJson(html);
   if (!lhr) {
+    await postDiagnostic({
+      status: 'parse-failed',
+      reportPath,
+      bytes: html.length,
+      markers: {
+        windowMarker: html.includes('window.__LIGHTHOUSE_JSON__'),
+        genericMarker: html.includes('__LIGHTHOUSE_JSON__'),
+        versionMarker: html.includes('"lighthouseVersion"'),
+      },
+    });
+
     utils.status.show({
       title: 'Lighthouse export: parse failed',
-      summary: 'The report exists, but embedded Lighthouse JSON was not found.',
+      summary: 'Diagnostic status submitted to lh-diagnostic-export.',
     });
     return;
   }
 
   const payload = {
+    status: 'ok',
+    reportPath,
     fetchTime: lhr.fetchTime,
     lighthouseVersion: lhr.lighthouseVersion,
     scores: {
@@ -135,34 +241,12 @@ export const onSuccess = async ({ constants, utils }) => {
     bestPractices: failingAudits(lhr, 'best-practices'),
   };
 
-  const deployUrl = 'https://leventestudio.app';
+  const status = await postDiagnostic(payload);
 
-  const body = new URLSearchParams({
-    'form-name': 'lh-diagnostic-export',
-    source: 'netlify-lighthouse',
-    payload: JSON.stringify(payload),
+  utils.status.show({
+    title: status >= 200 && status < 300
+      ? 'Lighthouse diagnostic exported'
+      : 'Lighthouse diagnostic POST returned non-success',
+    summary: `HTTP ${status} · A11y ${Math.round((payload.scores.accessibility ?? 0) * 100)} · BP ${Math.round((payload.scores.bestPractices ?? 0) * 100)}`,
   });
-
-  try {
-    const response = await fetch(`${deployUrl}/lh-diagnostic-form.html`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      body: body.toString(),
-      signal: AbortSignal.timeout(15_000),
-    });
-
-    utils.status.show({
-      title: response.ok ? 'Lighthouse diagnostic exported' : 'Lighthouse export POST failed',
-      summary: response.ok
-        ? `A11y ${Math.round((payload.scores.accessibility ?? 0) * 100)} · BP ${Math.round((payload.scores.bestPractices ?? 0) * 100)}`
-        : `HTTP ${response.status}`,
-    });
-  } catch (error) {
-    utils.status.show({
-      title: 'Lighthouse export request failed',
-      summary: error instanceof Error ? error.message : String(error),
-    });
-  }
 };
