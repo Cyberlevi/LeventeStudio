@@ -170,7 +170,9 @@ await writeFile(
   join(outputDir, 'capture-report.json'),
   JSON.stringify(
     {
+      reportVersion: 1,
       generatedAt: new Date().toISOString(),
+      source: 'pageshot.site',
       results: report,
       failures: report.filter((item) => !item.ok),
     },
