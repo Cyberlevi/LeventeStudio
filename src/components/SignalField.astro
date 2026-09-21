@@ -62,7 +62,7 @@ const { class: className = '' } = Astro.props;
       vec2 p = uv * 2.0 - 1.0;
       p.x *= u_resolution.x / u_resolution.y;
 
-      float mobile = smoothstep(1.25, 0.72, u_resolution.x / u_resolution.y);
+      float mobile = 1.0 - smoothstep(0.72, 1.25, u_resolution.x / u_resolution.y);
       float t = u_time * 0.07;
 
       vec2 pointer = (u_pointer * 2.0 - 1.0);
@@ -203,6 +203,7 @@ const { class: className = '' } = Astro.props;
     let targetEnergy = 0.0;
     let raf = 0;
     let visible = true;
+    let lastFrame = 0;
     const startedAt = performance.now();
 
     const resize = () => {
@@ -235,6 +236,13 @@ const { class: className = '' } = Astro.props;
 
     const render = (now) => {
       if (!visible) return;
+
+      const minFrameMs = coarsePointer.matches ? 33 : 16;
+      if (!reducedMotion.matches && now - lastFrame < minFrameMs) {
+        raf = requestAnimationFrame(render);
+        return;
+      }
+      lastFrame = now;
 
       resize();
 
@@ -277,8 +285,8 @@ const { class: className = '' } = Astro.props;
       }
     };
 
-    root.addEventListener('pointermove', onPointerMove, { passive: true });
-    root.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('blur', onPointerLeave);
     document.addEventListener('visibilitychange', onVisibilityChange);
     observer.observe(root);
 
@@ -288,8 +296,8 @@ const { class: className = '' } = Astro.props;
     const cleanup = () => {
       cancelAnimationFrame(raf);
       observer.disconnect();
-      root.removeEventListener('pointermove', onPointerMove);
-      root.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('blur', onPointerLeave);
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
 
