@@ -136,7 +136,7 @@ export default function Pricing2026() {
                   <h3 className="mt-3 max-w-[12ch] text-[clamp(1.65rem,2.3vw,2.35rem)] font-medium leading-[1.02] tracking-[-.035em] text-white">
                     {offer.title}
                   </h3>
-                  <p className="mt-4 max-w-[31rem] text-sm font-light leading-relaxed text-white/50">{meta.note}</p>
+                  <p className="mt-4 max-w-[31rem] text-sm font-light leading-relaxed text-white/60">{meta.note}</p>
                 </div>
 
                 <div className="mt-6 border-y border-white/10 py-5">
@@ -205,14 +205,14 @@ export default function Pricing2026() {
         <div className="grid border-x border-b border-white/10 lg:grid-cols-[1fr_1fr]">
           <div className="border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r">
             <div className="text-[9px] uppercase tracking-[.18em] text-white/60">SCOPE / ELŐRE TISZTÁZZUK</div>
-            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
+            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/60">
               Az oldalak és funkciók számát, a szövegek és képek előkészítését, a módosítási köröket,
               a határidőt és az átadás utáni támogatás keretét.
             </p>
           </div>
           <div className="p-5 sm:p-7">
             <div className="text-[9px] uppercase tracking-[.18em] text-white/60">COST / KÜLSŐ TÉTELEK</div>
-            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
+            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/60">
               A feltüntetett összegek irányadó projektárak. A hirdetési költés, domain, tárhely és külső
               szoftverek díja csak külön feltüntetés esetén része az ajánlatnak.
             </p>
@@ -232,7 +232,7 @@ export default function Pricing2026() {
             <h3 className="max-w-[12ch] font-serif text-4xl font-light leading-[.95] tracking-[-.045em] text-white sm:text-5xl">
               Legyen, aki gondozza az oldalad.
             </h3>
-            <p className="mt-5 max-w-xl text-sm font-light leading-relaxed text-white/50">
+            <p className="mt-5 max-w-xl text-sm font-light leading-relaxed text-white/60">
               A saját készítésű weboldalakhoz folyamatos gondozás is kérhető. A feladatokat, havi
               módosítási időt, válaszidőt és díjat külön ajánlatban rögzítjük.
             </p>
