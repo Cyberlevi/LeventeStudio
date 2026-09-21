@@ -128,12 +128,22 @@ if (!response.ok) {
 const lhr = extractLighthouseJson(html);
 
 if (!lhr) {
-  await emit('lhreport-json-not-found', {
-    bytes: html.length,
-    windowMarker: html.includes('window.__LIGHTHOUSE_JSON__'),
-    genericMarker: html.includes('__LIGHTHOUSE_JSON__'),
-    versionMarker: html.includes('"lighthouseVersion"'),
-  });
+  const windowMarker = html.includes('window.__LIGHTHOUSE_JSON__');
+  const genericMarker = html.includes('__LIGHTHOUSE_JSON__');
+  const versionMarker = html.includes('"lighthouseVersion"');
+  const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+  const title = safeId(titleMatch?.[1] || 'no-title', 44);
+  await emit(
+    `lhreport-json-not-found-w${windowMarker ? 1 : 0}-g${genericMarker ? 1 : 0}-v${versionMarker ? 1 : 0}-${title}`,
+    {
+      bytes: html.length,
+      windowMarker,
+      genericMarker,
+      versionMarker,
+      title: titleMatch?.[1],
+      preview: html.slice(0, 500),
+    },
+  );
   process.exit(0);
 }
 
