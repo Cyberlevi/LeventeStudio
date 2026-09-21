@@ -1,7 +1,7 @@
 type PreviewDevice = 'tablet' | 'mobile';
 
 const responsiveScreenshot = (project: string, device: PreviewDevice) =>
-  `https://leventestudio.app/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921-4`;
+  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921-5`;
 
 export const studioOffers = [
   {
