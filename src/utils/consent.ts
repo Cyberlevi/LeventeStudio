@@ -6,6 +6,55 @@ export type ConsentState = {
 };
 
 const CONSENT_KEY = 'ls_consent_v1';
+const GOOGLE_ANALYTICS_ID = 'G-LNDL3K56Q2';
+const GOOGLE_TAG_MANAGER_ID = 'GTM-WZHLTWBD';
+
+function ensureGoogleQueue(): void {
+  window.dataLayer = window.dataLayer || [];
+
+  if (!window.gtag) {
+    window.gtag = (...args: unknown[]) => {
+      window.dataLayer?.push(args);
+    };
+  }
+}
+
+function appendGoogleScript(id: string, src: string): void {
+  if (document.getElementById(id)) return;
+
+  const script = document.createElement('script');
+  script.id = id;
+  script.async = true;
+  script.src = src;
+  document.head.appendChild(script);
+}
+
+export function loadGoogleAnalytics(): void {
+  if (typeof window === 'undefined' || window.__lsGoogleAnalyticsLoaded) return;
+
+  window.__lsGoogleAnalyticsLoaded = true;
+  ensureGoogleQueue();
+  window.gtag?.('js', new Date());
+  window.gtag?.('config', GOOGLE_ANALYTICS_ID);
+
+  appendGoogleScript(
+    'ls-google-analytics',
+    `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
+  );
+}
+
+export function loadGoogleTagManager(): void {
+  if (typeof window === 'undefined' || window.__lsGoogleTagManagerLoaded) return;
+
+  window.__lsGoogleTagManagerLoaded = true;
+  ensureGoogleQueue();
+  window.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
+  appendGoogleScript(
+    'ls-google-tag-manager',
+    `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`,
+  );
+}
 
 export function getConsentState(): ConsentState | null {
   if (typeof window === 'undefined') return null;
@@ -55,17 +104,26 @@ export function setConsentState(state: Omit<ConsentState, 'timestamp'>): void {
 }
 
 export function hasConsent(): boolean {
+  return getConsentState() !== null;
+}
+
+export function hasMeasurementConsent(): boolean {
   const state = getConsentState();
-  return state !== null;
+  return Boolean(state?.analytics || state?.marketing);
 }
 
 export function updateGoogleConsent(state: ConsentState): void {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  if (typeof window === 'undefined') return;
 
-  window.gtag('consent', 'update', {
+  ensureGoogleQueue();
+
+  window.gtag?.('consent', 'update', {
     analytics_storage: state.analytics ? 'granted' : 'denied',
     ad_storage: state.marketing ? 'granted' : 'denied',
     ad_user_data: state.marketing ? 'granted' : 'denied',
     ad_personalization: state.marketing ? 'granted' : 'denied',
   });
+
+  if (state.analytics) loadGoogleAnalytics();
+  if (state.marketing) loadGoogleTagManager();
 }

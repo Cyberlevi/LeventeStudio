@@ -1,0 +1,144 @@
+---
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['signal-field', className]} aria-hidden="true">
+  <canvas class="signal-field__canvas"></canvas>
+  <div class="signal-field__fallback"></div>
+  <div class="signal-field__veil"></div>
+</div>
+
+<script>
+  const desktopFinePointer =
+    window.innerWidth >= 768 &&
+    window.matchMedia('(pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (desktopFinePointer) {
+    const start = async () => {
+      const { initSignalFields } = await import('../scripts/signal-field');
+      initSignalFields();
+    };
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => void start(), { timeout: 1500 });
+    } else {
+      window.setTimeout(() => void start(), 900);
+    }
+  }
+</script>
+
+<style>
+  .signal-field {
+    position: absolute;
+    contain: layout paint style;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #0b0d0c;
+  }
+
+  .signal-field__canvas,
+  .signal-field__fallback,
+  .signal-field__veil {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .signal-field__canvas {
+    display: block;
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+
+  .signal-field__fallback {
+    opacity: 1;
+    transition: opacity 700ms ease;
+    background:
+      radial-gradient(ellipse at 86% 74%, rgba(216,255,120,.29), transparent 25%),
+      radial-gradient(ellipse at 72% 48%, rgba(102,135,46,.21), transparent 35%),
+      linear-gradient(118deg, #0b0d0c 0%, #0b0d0c 44%, #101510 100%);
+  }
+
+  .signal-field__fallback::before,
+  .signal-field__fallback::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1px solid rgba(216,255,120,.10);
+    transform: rotate(-18deg);
+  }
+
+  .signal-field__fallback::before {
+    width: 72%;
+    height: 30%;
+    right: -12%;
+    bottom: 8%;
+    box-shadow: 0 0 38px rgba(216,255,120,.05);
+  }
+
+  .signal-field__fallback::after {
+    width: 52%;
+    height: 18%;
+    right: 2%;
+    bottom: 21%;
+    opacity: .58;
+  }
+
+  .signal-field[data-signal-webgl='true'] .signal-field__canvas {
+    opacity: .92;
+  }
+
+  .signal-field[data-signal-webgl='true'] .signal-field__fallback {
+    opacity: .16;
+  }
+
+  .signal-field__veil {
+    background:
+      linear-gradient(90deg, rgba(11,13,12,.90) 0%, rgba(11,13,12,.61) 38%, rgba(11,13,12,.035) 72%, rgba(11,13,12,.19) 100%),
+      linear-gradient(180deg, rgba(11,13,12,.08), transparent 55%, rgba(11,13,12,.34));
+  }
+
+  @media (max-width: 767px) {
+    .signal-field__canvas {
+      display: none;
+    }
+
+    .signal-field__fallback {
+      background:
+        radial-gradient(ellipse at 88% 76%, rgba(216,255,120,.18), transparent 23%),
+        radial-gradient(ellipse at 68% 48%, rgba(102,135,46,.12), transparent 32%),
+        linear-gradient(155deg, #0b0d0c 0%, #0b0d0c 50%, #101510 100%);
+    }
+
+    .signal-field__fallback::before {
+      width: 92%;
+      height: 24%;
+      right: -28%;
+      bottom: 17%;
+    }
+
+    .signal-field__fallback::after {
+      width: 66%;
+      height: 14%;
+      right: -8%;
+      bottom: 28%;
+    }
+
+    .signal-field__veil {
+      background:
+        linear-gradient(180deg, rgba(11,13,12,.78) 0%, rgba(11,13,12,.54) 40%, rgba(11,13,12,.18) 69%, rgba(11,13,12,.70) 100%),
+        linear-gradient(90deg, rgba(11,13,12,.84) 0%, rgba(11,13,12,.32) 62%, rgba(11,13,12,.52) 100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signal-field__canvas,
+    .signal-field__fallback {
+      transition: none;
+    }
+  }
+</style>

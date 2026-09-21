@@ -1,11 +1,14 @@
-function trackScroll(percentage: number) {
-  if (typeof window === 'undefined') return;
+import { hasMeasurementConsent } from '../utils/consent';
+
+function trackScroll(percentage: number): boolean {
+  if (typeof window === 'undefined' || !hasMeasurementConsent()) return false;
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: `scroll_${percentage}`,
     scroll_percentage: percentage,
   });
+  return true;
 }
 
 let tracked50 = false;
@@ -20,14 +23,12 @@ function handleScroll() {
 
   const scrollPercentage = (window.scrollY / scrollableHeight) * 100;
 
-  if (scrollPercentage >= 50 && !tracked50) {
+  if (scrollPercentage >= 50 && !tracked50 && trackScroll(50)) {
     tracked50 = true;
-    trackScroll(50);
   }
 
-  if (scrollPercentage >= 90 && !tracked90) {
+  if (scrollPercentage >= 90 && !tracked90 && trackScroll(90)) {
     tracked90 = true;
-    trackScroll(90);
     window.removeEventListener('scroll', throttledScroll);
   }
 }
@@ -43,5 +44,6 @@ function throttledScroll() {
 
 if (typeof window !== 'undefined') {
   window.addEventListener('scroll', throttledScroll, { passive: true });
+  window.addEventListener('ls:consent-updated', () => requestAnimationFrame(handleScroll));
   requestAnimationFrame(handleScroll);
 }

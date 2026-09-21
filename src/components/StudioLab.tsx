@@ -117,7 +117,7 @@ function PageStage({ project }: { project: ReferenceProject }) {
             <span className="h-2 w-2 rounded-full bg-graphite-300" />
             <span className="h-2 w-2 rounded-full bg-graphite-300" />
             <div className="ml-3 min-w-0 flex-1 truncate rounded-md bg-white px-3 py-1 text-[9px] text-graphite-500 sm:text-[10px]">
-              {project.liveUrl ? new URL(project.liveUrl).hostname : project.name.toLowerCase()}
+              {new URL(project.liveUrl).hostname}
             </div>
           </div>
           <div className="aspect-[1.55] overflow-hidden bg-ivory-100">
@@ -163,7 +163,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
             <span className="h-2 w-2 rounded-full bg-graphite-300" />
             <span className="h-2 w-2 rounded-full bg-graphite-300" />
             <div className="ml-3 min-w-0 flex-1 truncate rounded-md bg-white px-3 py-1 text-[9px] text-graphite-500 sm:text-[10px]">
-              {project.liveUrl ? new URL(project.liveUrl).hostname : project.name.toLowerCase()}
+              {new URL(project.liveUrl).hostname}
             </div>
           </div>
           <div className="aspect-[1.55] overflow-hidden bg-ivory-100">

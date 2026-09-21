@@ -1,0 +1,181 @@
+---
+import { Shield, X } from 'lucide-react';
+---
+
+<div
+  id="ls-cookie-consent"
+  class="fixed inset-0 z-[100] flex items-end justify-center bg-black/45 p-3 sm:p-4"
+  style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));"
+  hidden
+>
+  <div
+    id="ls-cookie-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cookie-dialog-title"
+    aria-describedby="cookie-dialog-description"
+    class="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto overscroll-contain border border-white/10 bg-graphite-950 text-white shadow-2xl shadow-black/50"
+  >
+    <div class="absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true"></div>
+    <div class="relative p-5 sm:p-6">
+      <div class="mb-5 flex items-start justify-between gap-5 border-b border-white/10 pb-5">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center border border-white/10 text-signal-400">
+            <Shield size={20} aria-hidden="true" />
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-[.18em] text-signal-400">Adatvédelmi beállítások</div>
+            <h2 id="cookie-dialog-title" class="mt-1 text-xl font-medium">Süti beállítások</h2>
+          </div>
+        </div>
+        <button id="ls-cookie-close" type="button" class="inline-flex h-11 w-11 items-center justify-center text-white/65 hover:text-white" aria-label="Bezárás">
+          <X size={20} aria-hidden="true" />
+        </button>
+      </div>
+
+      <div id="ls-cookie-summary">
+        <p id="cookie-dialog-description" class="mb-5 font-light leading-relaxed text-white/65">
+          Ez az oldal sütiket használ a működéshez, a méréshez és – ha engedélyezed – a marketing teljesítményének követéséhez.
+        </p>
+        <div class="mb-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-white/60">
+          <a href="/adatvedelem/" class="border-b border-signal-400 text-white">Adatvédelem</a>
+          <a href="/suti-szabalyzat/" class="border-b border-signal-400 text-white">Süti szabályzat</a>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button id="ls-cookie-accept" type="button" class="bg-signal-400 px-6 py-3 text-sm font-medium text-graphite-950 hover:bg-signal-300">Összes elfogadása</button>
+          <button id="ls-cookie-necessary" type="button" class="border border-white/15 px-6 py-3 text-sm text-white/70 hover:border-white/30 hover:text-white">Csak szükségesek</button>
+          <button id="ls-cookie-customise" type="button" class="px-4 py-3 text-sm text-white/60 underline decoration-signal-400 underline-offset-4 hover:text-white">Testreszabás</button>
+        </div>
+      </div>
+
+      <div id="ls-cookie-details" hidden>
+        <div class="mb-6 space-y-3">
+          <label class="flex items-start justify-between gap-5 border border-white/10 bg-white/[0.035] p-4">
+            <span><strong class="block font-normal text-white">Szükséges sütik</strong><span class="mt-1 block text-sm font-light text-white/60">Az oldal működéséhez elengedhetetlenek.</span></span>
+            <input type="checkbox" checked disabled class="mt-1 h-5 w-5 accent-[#d8ff78]" />
+          </label>
+          <label class="flex items-start justify-between gap-5 border border-white/10 bg-white/[0.035] p-4">
+            <span><strong class="block font-normal text-white">Analitikai sütik</strong><span class="mt-1 block text-sm font-light text-white/60">A használat és a konverziós út mérésére szolgálnak.</span></span>
+            <input id="ls-cookie-analytics" type="checkbox" class="mt-1 h-5 w-5 accent-[#d8ff78]" />
+          </label>
+          <label class="flex items-start justify-between gap-5 border border-white/10 bg-white/[0.035] p-4">
+            <span><strong class="block font-normal text-white">Marketing sütik</strong><span class="mt-1 block text-sm font-light text-white/60">Hirdetési konverziómérésre és remarketingre szolgálnak.</span></span>
+            <input id="ls-cookie-marketing" type="checkbox" class="mt-1 h-5 w-5 accent-[#d8ff78]" />
+          </label>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button id="ls-cookie-save" type="button" class="bg-signal-400 px-6 py-3 text-sm font-medium text-graphite-950">Mentés</button>
+          <button id="ls-cookie-back" type="button" class="border border-white/15 px-6 py-3 text-sm text-white/70">Vissza</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #ls-cookie-consent[hidden] {
+    display: none;
+  }
+</style>
+
+<script>
+  import { getConsentState, hasConsent, setConsentState, updateGoogleConsent } from '../utils/consent';
+
+  const root = document.getElementById('ls-cookie-consent');
+  const dialog = document.getElementById('ls-cookie-dialog');
+  const summary = document.getElementById('ls-cookie-summary');
+  const details = document.getElementById('ls-cookie-details');
+  const closeButton = document.getElementById('ls-cookie-close');
+  const acceptButton = document.getElementById('ls-cookie-accept');
+  const necessaryButton = document.getElementById('ls-cookie-necessary');
+  const customiseButton = document.getElementById('ls-cookie-customise');
+  const saveButton = document.getElementById('ls-cookie-save');
+  const backButton = document.getElementById('ls-cookie-back');
+  const analyticsInput = document.getElementById('ls-cookie-analytics');
+  const marketingInput = document.getElementById('ls-cookie-marketing');
+
+  if (
+    root instanceof HTMLElement &&
+    dialog instanceof HTMLElement &&
+    summary instanceof HTMLElement &&
+    details instanceof HTMLElement &&
+    closeButton instanceof HTMLButtonElement &&
+    acceptButton instanceof HTMLButtonElement &&
+    necessaryButton instanceof HTMLButtonElement &&
+    customiseButton instanceof HTMLButtonElement &&
+    saveButton instanceof HTMLButtonElement &&
+    backButton instanceof HTMLButtonElement &&
+    analyticsInput instanceof HTMLInputElement &&
+    marketingInput instanceof HTMLInputElement &&
+    root.dataset.ready !== 'true'
+  ) {
+    root.dataset.ready = 'true';
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.documentElement.style.overflow;
+
+    const setOpen = (open: boolean) => {
+      root.hidden = !open;
+      document.documentElement.style.overflow = open ? 'hidden' : previousOverflow;
+      if (open) {
+        document.addEventListener('keydown', onKeyDown);
+        requestAnimationFrame(() => closeButton.focus());
+      } else {
+        document.removeEventListener('keydown', onKeyDown);
+        previousFocus?.focus();
+      }
+    };
+
+    const save = (analytics: boolean, marketing: boolean) => {
+      const state = { necessary: true, analytics, marketing };
+      setConsentState(state);
+      updateGoogleConsent({ ...state, timestamp: Date.now() });
+      window.dispatchEvent(new CustomEvent('ls:consent-updated', { detail: state }));
+      setOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (root.hidden) return;
+
+      if (event.key === 'Escape') {
+        save(false, false);
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      ).filter((element) => !element.closest('[hidden]'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    closeButton.addEventListener('click', () => save(false, false));
+    necessaryButton.addEventListener('click', () => save(false, false));
+    acceptButton.addEventListener('click', () => save(true, true));
+    customiseButton.addEventListener('click', () => {
+      summary.hidden = true;
+      details.hidden = false;
+      saveButton.focus();
+    });
+    backButton.addEventListener('click', () => {
+      details.hidden = true;
+      summary.hidden = false;
+      customiseButton.focus();
+    });
+    saveButton.addEventListener('click', () => save(analyticsInput.checked, marketingInput.checked));
+
+    if (!hasConsent()) setOpen(true);
+    else {
+      const current = getConsentState();
+      if (current) updateGoogleConsent(current);
+    }
+  }
+</script>

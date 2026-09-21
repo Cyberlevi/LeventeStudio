@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero2026 from '../components/Hero2026';
+import SignalField from '../components/SignalField.astro';
+import SignalBridge from '../components/SignalBridge.astro';
+import SignalIdentity from '../components/SignalIdentity.astro';
 import StudioLab from '../components/StudioLab';
 import ProblemAwareness2026 from '../components/ProblemAwareness2026';
 import Pricing2026 from '../components/Pricing2026';
@@ -22,6 +25,23 @@ const structuredData = {
 ---
 <BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
   <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
-  <main><Hero2026 /><StudioLab client:visible /><ProblemAwareness2026 /><Pricing2026 /><ProjectProcess /><FAQ2026 /><LeadDiagnostic /><Contact2026 /></main>
+  <main>
+    <section class="relative isolate overflow-hidden bg-graphite-950">
+      <SignalField />
+      <Hero2026 />
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-b from-transparent to-graphite-950/95" aria-hidden="true"></div>
+    </section>
+    <StudioLab client:visible />
+    <SignalBridge variant="split" label="WORK → SYSTEM" />
+    <ProblemAwareness2026 />
+    <Pricing2026 />
+    <SignalBridge variant="flow" label="OFFER → PROCESS" />
+    <ProjectProcess />
+    <SignalIdentity />
+    <FAQ2026 />
+    <SignalBridge variant="converge" label="SIGNAL → LEAD" />
+    <LeadDiagnostic />
+    <Contact2026 />
+  </main>
   <Footer />
 </BaseLayout>
