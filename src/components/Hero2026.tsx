@@ -46,6 +46,7 @@ export default function Hero2026() {
                 sizes="(min-width: 1024px) 52vw, 100vw"
                 alt="A KlímaTiszták weboldal desktop, tablet és mobil bemutatója"
                 fetchPriority="high"
+                loading="eager"
                 decoding="async"
                 className="aspect-[4/3] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.018] motion-reduce:transform-none motion-reduce:transition-none"
               />
