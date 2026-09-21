@@ -1,0 +1,59 @@
+---
+import { ArrowUpRight } from 'lucide-react';
+---
+
+<section class="signal-manifesto relative overflow-hidden bg-graphite-950 px-5 py-20 text-ivory-100 sm:px-6 md:py-28 lg:px-8">
+  <div class="pointer-events-none absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true"></div>
+  <div class="signal-manifesto-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-[86rem]">
+    <div class="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+      <div class="flex items-center gap-3 text-[10px] uppercase tracking-[.2em] text-signal-300">
+        <span class="signal-dot"></span>
+        LS / SIGNAL SYSTEM
+      </div>
+      <div class="text-[10px] uppercase tracking-[.18em] text-white/35">Jel → rendszer → ügyfél</div>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-[1.35fr_.65fr] lg:items-end lg:gap-16">
+      <div>
+        <p class="mb-5 text-xs uppercase tracking-[.2em] text-white/40">A Levente Studio vizuális logikája</p>
+        <h2 class="signal-manifesto-title font-serif font-light leading-[.84] tracking-[-.055em]">
+          <span class="signal-word block">JEL.</span>
+          <span class="signal-word block text-signal-400">RENDSZER.</span>
+          <span class="signal-word block">ÜGYFÉL.</span>
+        </h2>
+      </div>
+
+      <div class="max-w-xl lg:justify-self-end">
+        <p class="text-base leading-relaxed text-ivory-300 sm:text-lg">
+          Nem külön weboldalt, SEO-t, mérést és automatizálást építünk. Egyetlen, követhető rendszert készítünk abból a pillanatból, amikor valaki rád talál, addig, amíg kapcsolatba lép veled.
+        </p>
+        <div class="mt-7 grid grid-cols-3 border-y border-white/10 py-4 text-center">
+          <div>
+            <div class="text-[9px] uppercase tracking-[.16em] text-white/35">01</div>
+            <div class="mt-1 text-sm text-white/80">Figyelem</div>
+          </div>
+          <div class="border-x border-white/10">
+            <div class="text-[9px] uppercase tracking-[.16em] text-white/35">02</div>
+            <div class="mt-1 text-sm text-white/80">Bizalom</div>
+          </div>
+          <div>
+            <div class="text-[9px] uppercase tracking-[.16em] text-white/35">03</div>
+            <div class="mt-1 text-sm text-white/80">Kapcsolat</div>
+          </div>
+        </div>
+        <a href="/rolam/" class="mt-7 inline-flex items-center gap-2 text-sm text-signal-300 underline decoration-signal-400/40 underline-offset-4 hover:text-signal-400">
+          Mi van a rendszer mögött? <ArrowUpRight size={15} aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <div class="signal-orbit mt-14 md:mt-20" aria-hidden="true">
+      <div class="signal-orbit-line"></div>
+      <div class="signal-orbit-node signal-orbit-node-a"></div>
+      <div class="signal-orbit-node signal-orbit-node-b"></div>
+      <div class="signal-orbit-node signal-orbit-node-c"></div>
+    </div>
+  </div>
+</section>
