@@ -265,6 +265,22 @@ for (const audit of failingAudits(lhr, 'best-practices')) {
       source: item?.source,
       failureReason: item?.failureReason,
     });
+
+    if (item?.url || item?.failureReason || item?.source) {
+      const detail = safeId(
+        [item?.source, item?.failureReason, item?.url].filter(Boolean).join('-'),
+        120,
+      );
+      await emit(
+        `lhreport-bp-detail-i${i+1}-${detail}`,
+        {
+          audit: audit?.id,
+          url: item?.url,
+          source: item?.source,
+          failureReason: item?.failureReason,
+        },
+      );
+    }
   }
 }
 
