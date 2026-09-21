@@ -6,6 +6,47 @@ export type ConsentState = {
 };
 
 const CONSENT_KEY = 'ls_consent_v1';
+const GOOGLE_ANALYTICS_ID = 'G-LNDL3K56Q2';
+const GOOGLE_TAG_MANAGER_ID = 'GTM-WZHLTWBD';
+
+function ensureGoogleQueue(): void {
+  window.dataLayer = window.dataLayer || [];
+
+  if (!window.gtag) {
+    window.gtag = (...args: unknown[]) => {
+      window.dataLayer?.push(args);
+    };
+  }
+}
+
+function appendGoogleScript(id: string, src: string): void {
+  if (document.getElementById(id)) return;
+
+  const script = document.createElement('script');
+  script.id = id;
+  script.async = true;
+  script.src = src;
+  document.head.appendChild(script);
+}
+
+export function loadGoogleTags(): void {
+  if (typeof window === 'undefined' || window.__lsGoogleTagsLoaded) return;
+
+  window.__lsGoogleTagsLoaded = true;
+  ensureGoogleQueue();
+  window.gtag?.('js', new Date());
+  window.gtag?.('config', GOOGLE_ANALYTICS_ID);
+  window.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
+  appendGoogleScript(
+    'ls-google-analytics',
+    `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
+  );
+  appendGoogleScript(
+    'ls-google-tag-manager',
+    `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`,
+  );
+}
 
 export function getConsentState(): ConsentState | null {
   if (typeof window === 'undefined') return null;
@@ -60,12 +101,16 @@ export function hasConsent(): boolean {
 }
 
 export function updateGoogleConsent(state: ConsentState): void {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  if (typeof window === 'undefined') return;
 
-  window.gtag('consent', 'update', {
+  ensureGoogleQueue();
+
+  window.gtag?.('consent', 'update', {
     analytics_storage: state.analytics ? 'granted' : 'denied',
     ad_storage: state.marketing ? 'granted' : 'denied',
     ad_user_data: state.marketing ? 'granted' : 'denied',
     ad_personalization: state.marketing ? 'granted' : 'denied',
   });
+
+  if (state.analytics || state.marketing) loadGoogleTags();
 }

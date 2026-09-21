@@ -525,6 +525,12 @@
     transform: none;
   }
 
+  .award-hero__case-scan {
+    animation: none;
+    opacity: .34;
+    transform: translateY(5rem);
+  }
+
   .award-hero__case-top span:last-child {
     display: none;
   }
