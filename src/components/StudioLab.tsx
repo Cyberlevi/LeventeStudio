@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowUpRight, Monitor, PawPrint, Smartphone, Sparkles, Tablet } from 'lucide-react';
+import { ArrowUpRight, Monitor, Smartphone, Sparkles, Tablet } from 'lucide-react';
 import { referenceProjects } from '../data/studio-offers';
 
 type DeviceMode = 'all' | 'desktop' | 'tablet' | 'mobile';
@@ -14,60 +14,16 @@ const deviceOptions: Array<{ id: DeviceMode; label: string; icon: typeof Monitor
   { id: 'mobile', label: 'Mobil', icon: Smartphone },
 ];
 
-function BundavarazsScreen({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="relative flex h-full w-full overflow-hidden bg-[#f7f0eb] text-[#5a433b]">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-65"
-        aria-hidden="true"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 18% 18%, rgba(208,169,151,.25), transparent 28%), radial-gradient(circle at 82% 72%, rgba(181,137,121,.16), transparent 30%)',
-        }}
-      />
-      <div className="relative z-10 grid h-full w-full grid-cols-[1.08fr_.92fr] items-center gap-3 p-[7%]">
-        <div>
-          <div className="mb-2 flex items-center gap-1.5 text-[7px] uppercase tracking-[.17em] text-[#6b4c43] sm:text-[9px]">
-            <PawPrint size={compact ? 10 : 13} strokeWidth={1.5} aria-hidden="true" />
-            Kutyakozmetika
-          </div>
-          <div className={`font-serif leading-[.98] tracking-tight ${compact ? 'text-[13px]' : 'text-[clamp(1rem,2.4vw,2.25rem)]'}`}>
-            Ápolt bunda.<br />Nyugodt gazdi.
-          </div>
-          {!compact && (
-            <>
-              <p className="mt-2 max-w-xs text-[8px] leading-relaxed text-[#5f4a43] sm:text-[10px]">
-                Személyes, barátságos megjelenés helyi ügyfelekre és egyszerű időpontkérésre építve.
-              </p>
-              <div className="mt-3 inline-flex rounded-full bg-[#6b4c43] px-3 py-1.5 text-[7px] font-medium uppercase tracking-[.12em] text-white sm:text-[8px]">
-                Időpontot kérek
-              </div>
-            </>
-          )}
-        </div>
-        <div className="relative flex items-center justify-center">
-          <div className="absolute h-[72%] w-[72%] rounded-full bg-[#d9beb1]/40 blur-2xl" aria-hidden="true" />
-          <div className="relative flex aspect-square w-[76%] items-center justify-center rounded-[30%] border border-[#9a6e61]/15 bg-[#eadbd3] shadow-inner">
-            <PawPrint className="text-[#7b574d]" size={compact ? 26 : 52} strokeWidth={1.05} aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function ProjectScreen({
   project,
   device = 'desktop',
   decorative = false,
   className = '',
-  compact = false,
 }: {
   project: ReferenceProject;
   device?: ProjectDevice;
   decorative?: boolean;
   className?: string;
-  compact?: boolean;
 }) {
   const source =
     device === 'tablet'
@@ -95,7 +51,11 @@ function ProjectScreen({
     );
   }
 
-  return <BundavarazsScreen compact={compact} />;
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-graphite-900 px-6 text-center text-xs uppercase tracking-[.16em] text-white/55">
+      {project.name}
+    </div>
+  );
 }
 function PageStage({ project }: { project: ReferenceProject }) {
   return (
@@ -120,7 +80,7 @@ function PageStage({ project }: { project: ReferenceProject }) {
               {project.liveUrl ? new URL(project.liveUrl).hostname : project.name.toLowerCase()}
             </div>
           </div>
-          <div className="aspect-[1.55] overflow-hidden bg-ivory-100">
+          <div className="aspect-[1.456] overflow-hidden bg-ivory-100">
             <ProjectScreen project={project} />
           </div>
         </div>
@@ -166,7 +126,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
               {project.liveUrl ? new URL(project.liveUrl).hostname : project.name.toLowerCase()}
             </div>
           </div>
-          <div className="aspect-[1.55] overflow-hidden bg-ivory-100">
+          <div className="aspect-[1.456] overflow-hidden bg-ivory-100">
             <ProjectScreen project={project} />
           </div>
         </div>
@@ -183,7 +143,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
       >
         <div className="rounded-[18px] border border-white/20 bg-[#20211f] p-[5px] shadow-[0_22px_55px_rgba(0,0,0,.45)] sm:rounded-[24px] sm:p-[7px]">
           <div className="overflow-hidden rounded-[13px] bg-white sm:rounded-[18px]" style={{ aspectRatio: "834 / 1194" }}>
-            <ProjectScreen project={project} device="tablet" decorative compact className="object-cover object-top" />
+            <ProjectScreen project={project} device="tablet" decorative className="object-cover object-top" />
           </div>
         </div>
       </div>
@@ -200,7 +160,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         <div className="rounded-[18px] border border-white/20 bg-[#161715] p-[4px] shadow-[0_22px_55px_rgba(0,0,0,.52)] sm:rounded-[24px] sm:p-[5px]">
           <div className="relative aspect-[9/19.5] overflow-hidden rounded-[14px] bg-white sm:rounded-[19px]">
             <div className="absolute left-1/2 top-1.5 z-10 h-1.5 w-[34%] -translate-x-1/2 rounded-full bg-black/75" aria-hidden="true" />
-            <ProjectScreen project={project} device="mobile" decorative compact className="object-cover object-top" />
+            <ProjectScreen project={project} device="mobile" decorative className="object-cover object-top" />
           </div>
         </div>
       </div>
@@ -242,7 +202,7 @@ export default function StudioLab() {
             return (
               <article
                 key={project.id}
-                className="group overflow-hidden rounded-2xl border border-graphite-950/10 bg-white shadow-[0_18px_70px_rgba(18,20,17,.07)]"
+                className="award-project-card group overflow-hidden rounded-2xl border border-graphite-950/10 bg-white shadow-[0_18px_70px_rgba(18,20,17,.07)]"
               >
                 <div className="grid lg:grid-cols-[1.42fr_.58fr]">
                   <div className="relative border-b border-graphite-950/10 lg:border-b-0 lg:border-r">
