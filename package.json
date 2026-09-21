@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run showcase:assets && astro dev",
-    "build": "npm run showcase:assets && astro build",
+    "build": "node scripts/materialize-lighthouse-diagnostics.mjs && npm run showcase:assets && astro build",
     "lint": "eslint .",
     "preview": "astro preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
