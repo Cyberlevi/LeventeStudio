@@ -28,6 +28,38 @@ try {
 
 const accessibility = parsed?.accessibility ?? [];
 const bestPractices = parsed?.bestPractices ?? [];
+
+if (parsed) {
+  const compact = {
+    scores: parsed?.scores,
+    accessibility: accessibility.map((audit:any) => ({
+      id: audit.id,
+      title: audit.title,
+      score: audit.score,
+      items: (audit.items ?? []).slice(0, 3).map((item:any) => ({
+        selector: item?.node?.selector,
+        snippet: item?.node?.snippet,
+        url: item?.url,
+        source: item?.source,
+      })),
+    })),
+    bestPractices: bestPractices.map((audit:any) => ({
+      id: audit.id,
+      title: audit.title,
+      score: audit.score,
+      items: (audit.items ?? []).slice(0, 3).map((item:any) => ({
+        selector: item?.node?.selector,
+        snippet: item?.node?.snippet,
+        url: item?.url,
+        source: item?.source,
+      })),
+    })),
+  };
+
+  throw new Error('LH_DIAG::' + JSON.stringify(compact));
+}
+
+throw new Error('LH_DIAG_FETCH_ERROR::' + (error || raw.slice(0, 1200)));
 ---
 <html lang="hu">
   <head>
