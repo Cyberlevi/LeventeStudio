@@ -1,22 +1,7 @@
 type PreviewDevice = 'tablet' | 'mobile';
 
-const responsiveScreenshot = (project: string, device: PreviewDevice) => {
-  const urls: Record<string, string> = {
-    klimatisztak: 'https://klimatisztak.hu/',
-    klima18ker: 'https://klima18ker.hu/',
-    furatmester: 'https://lyukfurasbudapest.hu/',
-    bundavarazs: 'https://bundavarazskutyakozmetika.hu/',
-  };
-
-  const viewport = device === 'tablet'
-    ? { width: 834, height: 1194 }
-    : { width: 390, height: 844 };
-
-  const source = urls[project];
-  if (!source) return '';
-
-  return `https://pageshot.site/v1/screenshot?url=${encodeURIComponent(source)}&width=${viewport.width}&height=${viewport.height}&format=webp&full_page=false&hide_banners=true&block_ads=true`;
-};
+const responsiveScreenshot = (project: string, device: PreviewDevice) =>
+  `https://leventestudio.app/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921-4`;
 
 export const studioOffers = [
   {
