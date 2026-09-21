@@ -124,6 +124,7 @@ import { Shield, X } from 'lucide-react';
       const state = { necessary: true, analytics, marketing };
       setConsentState(state);
       updateGoogleConsent({ ...state, timestamp: Date.now() });
+      window.dispatchEvent(new CustomEvent('ls:consent-updated', { detail: state }));
       setOpen(false);
       document.removeEventListener('keydown', onKeyDown);
     };
