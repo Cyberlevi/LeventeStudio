@@ -3,8 +3,6 @@
 
   [plugins.inputs]
     fail_deploy_on_score_thresholds = true
-
-  [plugins.inputs.audits]
     output_path = "reports/lighthouse.html"
 
   [plugins.inputs.settings]
