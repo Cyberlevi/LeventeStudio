@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run showcase:assets && astro dev",
-    "build": "npm run showcase:assets && npm run showcase:responsive && astro build",
+    "build": "npm run showcase:assets && astro build",
     "lint": "eslint .",
     "preview": "astro preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",

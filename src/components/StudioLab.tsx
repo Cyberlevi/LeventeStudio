@@ -69,6 +69,7 @@ function ProjectScreen({
   className?: string;
   compact?: boolean;
 }) {
+  const [failed, setFailed] = useState(false);
   const source =
     device === 'tablet'
       ? project.tabletImage
@@ -76,7 +77,7 @@ function ProjectScreen({
         ? project.mobileImage
         : project.image;
 
-  if (source) {
+  if (source && !failed) {
     return (
       <img
         src={source}
@@ -85,17 +86,30 @@ function ProjectScreen({
         fetchPriority="low"
         alt={decorative ? '' : `${project.name} – ${device} nézet a weboldalról`}
         aria-hidden={decorative ? 'true' : undefined}
-        onError={(event) => {
-          if (event.currentTarget.src !== project.image) {
-            event.currentTarget.src = project.image;
-          }
-        }}
+        onError={() => setFailed(true)}
         className={`h-full w-full object-cover object-top ${className}`}
       />
     );
   }
 
-  return <BundavarazsScreen compact={compact} />;
+  if (device === 'desktop' && project.id === 'bundavarazs') {
+    return <BundavarazsScreen compact={compact} />;
+  }
+
+  return (
+    <div
+      className={`flex h-full w-full items-center justify-center bg-graphite-900 p-4 text-center text-white/55 ${className}`}
+      aria-hidden={decorative ? 'true' : undefined}
+    >
+      <div>
+        <div className="text-[8px] uppercase tracking-[.18em] text-signal-400">LS / PREVIEW</div>
+        <div className="mt-2 text-[10px] font-medium text-white/80">{project.name}</div>
+        <div className="mt-1 text-[8px] uppercase tracking-[.12em]">
+          {device} nézet nem tölthető be
+        </div>
+      </div>
+    </div>
+  );
 }
 function PageStage({ project }: { project: ReferenceProject }) {
   return (
