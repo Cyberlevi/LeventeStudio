@@ -70,6 +70,44 @@ function extractLighthouseJson(html) {
   return null;
 }
 
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+async function writeDiagnosticPage(publishDir, payload) {
+  const page = `<!doctype html>
+  <html lang="hu">
+    <head>
+      <meta charset="utf-8">
+      <meta name="robots" content="noindex,nofollow">
+      <title>Lighthouse diagnosztika</title>
+      <style>
+        body{margin:0;padding:32px;background:#0b0d0c;color:#f4f0e8;font-family:Arial,sans-serif}
+        h1{font-size:42px;color:#d8ff78;margin:0 0 24px}
+        h2{font-size:28px;color:#d8ff78;margin:30px 0 12px}
+        .scores{font-size:22px;margin-bottom:28px}
+        .audit{border:1px solid #3b433b;padding:16px;margin:12px 0}
+        .audit strong{font-size:20px}
+        pre{white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.45;color:#d8ddd3}
+      </style>
+    </head>
+    <body>
+      <h1>Lighthouse diagnosztika</h1>
+      <div class="scores">Performance: ${Math.round((payload?.scores?.performance ?? 0)*100)} · Accessibility: ${Math.round((payload?.scores?.accessibility ?? 0)*100)} · Best Practices: ${Math.round((payload?.scores?.bestPractices ?? 0)*100)} · SEO: ${Math.round((payload?.scores?.seo ?? 0)*100)}</div>
+      <h2>Accessibility</h2>
+      ${(payload?.accessibility ?? []).map(a => `<div class="audit"><strong>${escapeHtml(a.id)} — ${escapeHtml(a.title)}</strong><pre>${escapeHtml(JSON.stringify(a.items ?? [], null, 2))}</pre></div>`).join('') || '<p>Nincs bukó audit.</p>'}
+      <h2>Best Practices</h2>
+      ${(payload?.bestPractices ?? []).map(a => `<div class="audit"><strong>${escapeHtml(a.id)} — ${escapeHtml(a.title)}</strong><pre>${escapeHtml(JSON.stringify(a.items ?? [], null, 2))}</pre></div>`).join('') || '<p>Nincs bukó audit.</p>'}
+    </body>
+  </html>`;
+
+  await writeFile(path.join(publishDir, 'index.html'), page);
+}
+
 function compactItem(item) {
   return {
     url: item?.url,
@@ -168,6 +206,7 @@ export const onPostBuild = async ({ constants, utils }) => {
   };
 
   await writeFile(outputPath, JSON.stringify(payload, null, 2));
+  await writeDiagnosticPage(constants.PUBLISH_DIR, payload);
 
   utils.status.show({
     title: 'Lighthouse capture ready',
