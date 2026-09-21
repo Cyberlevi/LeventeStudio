@@ -124,6 +124,17 @@ const { intensity = 1, class: className = '' } = Astro.props;
     if (!(canvas instanceof HTMLCanvasElement)) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lightweightMode =
+      reducedMotion ||
+      window.innerWidth < 900 ||
+      Boolean(navigator.connection && navigator.connection.saveData);
+
+    if (lightweightMode) {
+      host.dataset.signalFallback = 'true';
+      canvas.hidden = true;
+      return;
+    }
+
     const gl = canvas.getContext('webgl', {
       alpha: false,
       antialias: false,
@@ -184,8 +195,7 @@ const { intensity = 1, class: className = '' } = Astro.props;
 
     const resize = () => {
       const rect = host.getBoundingClientRect();
-      const mobile = window.innerWidth < 768;
-      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.15 : 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.35);
       const width = Math.max(1, Math.floor(rect.width * dpr));
       const height = Math.max(1, Math.floor(rect.height * dpr));
       if (canvas.width !== width || canvas.height !== height) {
@@ -202,7 +212,7 @@ const { intensity = 1, class: className = '' } = Astro.props;
     };
 
     const onPointerMove = (event) => {
-      if (window.innerWidth < 768) return;
+      if (window.innerWidth < 900) return;
       const rect = host.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       pointerTarget.x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
@@ -213,8 +223,7 @@ const { intensity = 1, class: className = '' } = Astro.props;
       raf = 0;
       if (!visible && !reducedMotion) return;
 
-      const mobile = window.innerWidth < 768;
-      const minFrameGap = mobile ? 1000 / 30 : 1000 / 50;
+      const minFrameGap = 1000 / 45;
       if (!reducedMotion && now - lastFrame < minFrameGap) {
         raf = requestAnimationFrame(render);
         return;
