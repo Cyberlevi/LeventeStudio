@@ -29,3 +29,4 @@ dist-ssr
 
 # Generated portfolio showcase assets
 /public/projects/showcase-*.webp
+/public/projects/responsive/
