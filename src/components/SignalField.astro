@@ -1,0 +1,369 @@
+---
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['signal-field', className]} aria-hidden="true">
+  <canvas class="signal-field__canvas"></canvas>
+  <div class="signal-field__fallback"></div>
+  <div class="signal-field__veil"></div>
+</div>
+
+<script>
+  const vertexSource = `
+    attribute vec2 a_position;
+    void main() {
+      gl_Position = vec4(a_position, 0.0, 1.0);
+    }
+  `;
+
+  const fragmentSource = `
+    precision highp float;
+
+    uniform vec2 u_resolution;
+    uniform float u_time;
+    uniform vec2 u_pointer;
+    uniform float u_energy;
+
+    float hash(vec2 p) {
+      p = fract(p * vec2(123.34, 345.45));
+      p += dot(p, p + 34.345);
+      return fract(p.x * p.y);
+    }
+
+    float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      f = f * f * (3.0 - 2.0 * f);
+
+      float a = hash(i);
+      float b = hash(i + vec2(1.0, 0.0));
+      float c = hash(i + vec2(0.0, 1.0));
+      float d = hash(i + vec2(1.0, 1.0));
+
+      return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+    }
+
+    float fbm(vec2 p) {
+      float value = 0.0;
+      float amplitude = 0.5;
+      mat2 rotation = mat2(0.80, -0.60, 0.60, 0.80);
+
+      for (int i = 0; i < 5; i++) {
+        value += amplitude * noise(p);
+        p = rotation * p * 2.03 + 17.1;
+        amplitude *= 0.5;
+      }
+
+      return value;
+    }
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+      vec2 p = uv * 2.0 - 1.0;
+      p.x *= u_resolution.x / u_resolution.y;
+
+      float mobile = smoothstep(1.25, 0.72, u_resolution.x / u_resolution.y);
+      float t = u_time * 0.07;
+
+      vec2 pointer = (u_pointer * 2.0 - 1.0);
+      pointer.x *= u_resolution.x / u_resolution.y;
+
+      float distToPointer = length(p - pointer);
+      float pointerPull = exp(-distToPointer * 2.8) * 0.07 * u_energy;
+      p += normalize(p - pointer + vec2(0.001)) * pointerPull;
+
+      vec2 flow = p;
+      flow.x += 0.20 * sin(flow.y * 1.35 + t * 1.4);
+      flow.y += 0.16 * sin(flow.x * 1.1 - t);
+
+      float n1 = fbm(flow * 1.25 + vec2(t, -t * 0.35));
+      float n2 = fbm(flow * 2.1 - vec2(t * 0.45, t * 0.20));
+
+      float ridgeBase = mix(
+        p.y + 0.42 + 0.17 * sin(p.x * 1.7 + n1 * 2.7 + t),
+        p.y + 0.68 + 0.24 * sin(p.x * 1.1 + n1 * 2.5 + t),
+        mobile
+      );
+
+      float ridge = abs(ridgeBase);
+      float ribbon = exp(-ridge * 4.4);
+      float inner = exp(-ridge * 13.0);
+      float filament = smoothstep(0.69, 0.98, sin((p.x * 11.0 + n2 * 5.0 - t * 4.0))) * ribbon;
+
+      float field = ribbon * (0.44 + n1 * 0.52);
+      float signal = field + inner * 0.42 + filament * 0.12;
+
+      float rightBias = smoothstep(-0.35, 1.0, p.x);
+      float bottomBias = smoothstep(0.75, -0.85, p.y);
+      float composition = mix(0.66, 1.0, rightBias * bottomBias);
+      signal *= composition;
+
+      vec3 graphite = vec3(0.043, 0.051, 0.047);
+      vec3 graphiteSoft = vec3(0.073, 0.086, 0.078);
+      vec3 lime = vec3(0.847, 1.0, 0.47);
+      vec3 limeDeep = vec3(0.40, 0.54, 0.18);
+
+      vec3 color = mix(graphite, graphiteSoft, n1 * 0.26);
+      color += limeDeep * signal * 0.20;
+      color += lime * pow(signal, 2.15) * 0.42;
+
+      float gridX = smoothstep(0.985, 1.0, abs(sin((uv.x + n1 * 0.015) * 44.0)));
+      float gridY = smoothstep(0.988, 1.0, abs(sin((uv.y + n2 * 0.010) * 32.0)));
+      float grid = (gridX + gridY) * ribbon * 0.035;
+      color += lime * grid;
+
+      float grain = hash(gl_FragCoord.xy + fract(u_time) * 43.0) - 0.5;
+      color += grain * 0.018;
+
+      float vignette = smoothstep(1.28, 0.28, length((uv - 0.5) * vec2(1.0, 0.82)));
+      color *= mix(0.55, 1.0, vignette);
+
+      float leftQuiet = smoothstep(-1.15, 0.10, p.x);
+      color = mix(graphite, color, mix(0.34, 1.0, leftQuiet));
+
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  function initSignalField(root) {
+    const canvas = root.querySelector('.signal-field__canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+
+    const gl = canvas.getContext('webgl', {
+      antialias: false,
+      alpha: false,
+      powerPreference: 'low-power',
+      preserveDrawingBuffer: false,
+    });
+
+    if (!gl) {
+      root.dataset.signalFallback = 'true';
+      return;
+    }
+
+    const compile = (type, source) => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    };
+
+    const vertexShader = compile(gl.VERTEX_SHADER, vertexSource);
+    const fragmentShader = compile(gl.FRAGMENT_SHADER, fragmentSource);
+
+    if (!vertexShader || !fragmentShader) {
+      root.dataset.signalFallback = 'true';
+      return;
+    }
+
+    const program = gl.createProgram();
+    if (!program) return;
+
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      root.dataset.signalFallback = 'true';
+      return;
+    }
+
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+      gl.STATIC_DRAW,
+    );
+
+    const position = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+    const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+    const timeLocation = gl.getUniformLocation(program, 'u_time');
+    const pointerLocation = gl.getUniformLocation(program, 'u_pointer');
+    const energyLocation = gl.getUniformLocation(program, 'u_energy');
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const coarsePointer = window.matchMedia('(pointer: coarse)');
+
+    let pointerX = 0.72;
+    let pointerY = 0.36;
+    let targetX = pointerX;
+    let targetY = pointerY;
+    let energy = 0.0;
+    let targetEnergy = 0.0;
+    let raf = 0;
+    let visible = true;
+    const startedAt = performance.now();
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      const dprCap = coarsePointer.matches ? 1.15 : 1.45;
+      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+      const width = Math.max(1, Math.round(rect.width * dpr));
+      const height = Math.max(1, Math.round(rect.height * dpr));
+
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0, 0, width, height);
+      }
+    };
+
+    const onPointerMove = (event) => {
+      if (coarsePointer.matches || reducedMotion.matches) return;
+      const rect = root.getBoundingClientRect();
+      targetX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      targetY = Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height));
+      targetEnergy = 1.0;
+    };
+
+    const onPointerLeave = () => {
+      targetX = 0.72;
+      targetY = 0.36;
+      targetEnergy = 0.0;
+    };
+
+    const render = (now) => {
+      if (!visible) return;
+
+      resize();
+
+      pointerX += (targetX - pointerX) * 0.035;
+      pointerY += (targetY - pointerY) * 0.035;
+      energy += (targetEnergy - energy) * 0.04;
+
+      const elapsed = reducedMotion.matches ? 8.0 : (now - startedAt) / 1000;
+
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+      gl.uniform1f(timeLocation, elapsed);
+      gl.uniform2f(pointerLocation, pointerX, pointerY);
+      gl.uniform1f(energyLocation, energy);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      if (!reducedMotion.matches) {
+        raf = requestAnimationFrame(render);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !reducedMotion.matches && !raf) {
+          raf = requestAnimationFrame(render);
+        } else if (!visible && raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
+      { rootMargin: '120px 0px' },
+    );
+
+    const onVisibilityChange = () => {
+      if (document.hidden && raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!document.hidden && visible && !reducedMotion.matches && !raf) {
+        raf = requestAnimationFrame(render);
+      }
+    };
+
+    root.addEventListener('pointermove', onPointerMove, { passive: true });
+    root.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    observer.observe(root);
+
+    resize();
+    render(performance.now());
+
+    const cleanup = () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+      root.removeEventListener('pointermove', onPointerMove);
+      root.removeEventListener('pointerleave', onPointerLeave);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+
+    window.addEventListener('pagehide', cleanup, { once: true });
+  }
+
+  document.querySelectorAll('.signal-field').forEach((root) => {
+    if (root instanceof HTMLElement && !root.dataset.signalReady) {
+      root.dataset.signalReady = 'true';
+      initSignalField(root);
+    }
+  });
+</script>
+
+<style>
+  .signal-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #0b0d0c;
+  }
+
+  .signal-field__canvas,
+  .signal-field__fallback,
+  .signal-field__veil {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .signal-field__canvas {
+    display: block;
+    opacity: 0.92;
+  }
+
+  .signal-field__fallback {
+    opacity: 0;
+    background:
+      radial-gradient(ellipse at 82% 72%, rgba(216,255,120,.18), transparent 30%),
+      radial-gradient(ellipse at 70% 42%, rgba(102,135,46,.14), transparent 36%),
+      linear-gradient(115deg, #0b0d0c 0%, #0b0d0c 42%, #101510 100%);
+  }
+
+  .signal-field[data-signal-fallback='true'] .signal-field__canvas {
+    display: none;
+  }
+
+  .signal-field[data-signal-fallback='true'] .signal-field__fallback {
+    opacity: 1;
+  }
+
+  .signal-field__veil {
+    background:
+      linear-gradient(90deg, rgba(11,13,12,.94) 0%, rgba(11,13,12,.70) 38%, rgba(11,13,12,.06) 72%, rgba(11,13,12,.28) 100%),
+      linear-gradient(180deg, rgba(11,13,12,.10), transparent 55%, rgba(11,13,12,.42));
+  }
+
+  @media (max-width: 767px) {
+    .signal-field__canvas {
+      opacity: 0.78;
+    }
+
+    .signal-field__veil {
+      background:
+        linear-gradient(180deg, rgba(11,13,12,.72) 0%, rgba(11,13,12,.48) 42%, rgba(11,13,12,.16) 70%, rgba(11,13,12,.66) 100%),
+        linear-gradient(90deg, rgba(11,13,12,.82) 0%, rgba(11,13,12,.30) 62%, rgba(11,13,12,.50) 100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signal-field__canvas {
+      opacity: 0.72;
+    }
+  }
+</style>
