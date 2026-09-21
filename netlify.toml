@@ -6,3 +6,6 @@
 
   [plugins.inputs.settings]
     preset = "mobile"
+
+[[plugins]]
+  package = "/plugins/lighthouse-export"
