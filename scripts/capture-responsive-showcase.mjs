@@ -4,26 +4,10 @@ import { join } from 'node:path';
 const outputDir = join(process.cwd(), 'public', 'projects', 'responsive');
 
 const projects = [
-  {
-    id: 'klimatisztak',
-    url: 'https://klimatisztak.hu/',
-    fallback: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp',
-  },
-  {
-    id: 'klima18ker',
-    url: 'https://klima18ker.hu/',
-    fallback: 'https://d33wubrfki0l68.cloudfront.net/6aa805a1031c990008cfc983/screenshot_2026-09-14-14-34-00-0000.webp',
-  },
-  {
-    id: 'furatmester',
-    url: 'https://lyukfurasbudapest.hu/',
-    fallback: 'https://d33wubrfki0l68.cloudfront.net/6aaffa8ab15dfa0008c4789a/screenshot_2026-09-20-15-24-19-0000.webp',
-  },
-  {
-    id: 'bundavarazs',
-    url: 'https://bundavarazskutyakozmetika.hu/',
-    fallback: 'https://d33wubrfki0l68.cloudfront.net/6aafdea445a27fc81c03df56/screenshot_2026-09-20-13-25-31-0000.webp',
-  },
+  { id: 'klimatisztak', url: 'https://klimatisztak.hu/' },
+  { id: 'klima18ker', url: 'https://klima18ker.hu/' },
+  { id: 'furatmester', url: 'https://lyukfurasbudapest.hu/' },
+  { id: 'bundavarazs', url: 'https://bundavarazskutyakozmetika.hu/' },
 ];
 
 const viewports = [
@@ -31,9 +15,62 @@ const viewports = [
   { name: 'mobile', width: 390, height: 844 },
 ];
 
+const ATTEMPTS = 3;
+const RETRY_DELAY_MS = 1_500;
+
+function readWebPDimensions(buffer) {
+  if (
+    buffer.length < 30 ||
+    buffer.toString('ascii', 0, 4) !== 'RIFF' ||
+    buffer.toString('ascii', 8, 12) !== 'WEBP'
+  ) {
+    throw new Error('Screenshot response is not a valid WebP container');
+  }
+
+  let offset = 12;
+
+  while (offset + 8 <= buffer.length) {
+    const chunkType = buffer.toString('ascii', offset, offset + 4);
+    const chunkSize = buffer.readUInt32LE(offset + 4);
+    const dataOffset = offset + 8;
+
+    if (chunkType === 'VP8X' && chunkSize >= 10 && dataOffset + 10 <= buffer.length) {
+      const width = 1 + buffer.readUIntLE(dataOffset + 4, 3);
+      const height = 1 + buffer.readUIntLE(dataOffset + 7, 3);
+      return { width, height };
+    }
+
+    if (chunkType === 'VP8 ' && chunkSize >= 10 && dataOffset + 10 <= buffer.length) {
+      const syncCode =
+        buffer[dataOffset + 3] === 0x9d &&
+        buffer[dataOffset + 4] === 0x01 &&
+        buffer[dataOffset + 5] === 0x2a;
+
+      if (syncCode) {
+        const width = buffer.readUInt16LE(dataOffset + 6) & 0x3fff;
+        const height = buffer.readUInt16LE(dataOffset + 8) & 0x3fff;
+        return { width, height };
+      }
+    }
+
+    if (chunkType === 'VP8L' && chunkSize >= 5 && dataOffset + 5 <= buffer.length) {
+      if (buffer[dataOffset] === 0x2f) {
+        const bits = buffer.readUInt32LE(dataOffset + 1);
+        const width = (bits & 0x3fff) + 1;
+        const height = ((bits >> 14) & 0x3fff) + 1;
+        return { width, height };
+      }
+    }
+
+    offset = dataOffset + chunkSize + (chunkSize % 2);
+  }
+
+  throw new Error('Unable to read WebP dimensions');
+}
+
 async function fetchImage(url, timeoutMs = 25_000) {
   const response = await fetch(url, {
-    headers: { 'user-agent': 'LeventeStudio/1.0 portfolio-preview' },
+    headers: { 'user-agent': 'LeventeStudio/1.0 responsive-portfolio-capture' },
     signal: AbortSignal.timeout(timeoutMs),
   });
 
@@ -47,12 +84,26 @@ async function fetchImage(url, timeoutMs = 25_000) {
   }
 
   const buffer = Buffer.from(await response.arrayBuffer());
-  if (buffer.length < 1_000) {
+  if (buffer.length < 5_000) {
     throw new Error(`Screenshot response too small: ${buffer.length} bytes`);
   }
 
   return buffer;
 }
+
+function assertViewport(image, viewport) {
+  const dimensions = readWebPDimensions(image);
+  const widthDelta = Math.abs(dimensions.width - viewport.width);
+  const heightDelta = Math.abs(dimensions.height - viewport.height);
+
+  if (widthDelta > 2 || heightDelta > 2) {
+    throw new Error(
+      `Wrong screenshot dimensions: expected ${viewport.width}x${viewport.height}, got ${dimensions.width}x${dimensions.height}`,
+    );
+  }
+}
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function capture(project, viewport) {
   const endpoint = new URL('https://pageshot.site/v1/screenshot');
@@ -65,26 +116,41 @@ async function capture(project, viewport) {
   endpoint.searchParams.set('block_ads', 'true');
 
   const outputPath = join(outputDir, `${project.id}-${viewport.name}.webp`);
+  let lastError;
 
-  try {
-    const image = await fetchImage(endpoint.toString());
-    await writeFile(outputPath, image);
-    console.log(
-      `[responsive-showcase] ${project.id} ${viewport.name}: ${viewport.width}x${viewport.height} (${image.length} bytes)`,
-    );
-  } catch (error) {
-    console.warn(
-      `[responsive-showcase] ${project.id} ${viewport.name} capture failed; using production screenshot fallback: ${error.message}`,
-    );
-    const fallback = await fetchImage(project.fallback);
-    await writeFile(outputPath, fallback);
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt += 1) {
+    try {
+      const image = await fetchImage(endpoint.toString());
+      assertViewport(image, viewport);
+      await writeFile(outputPath, image);
+
+      console.log(
+        `[responsive-showcase] ${project.id} ${viewport.name}: ${viewport.width}x${viewport.height} (${image.length} bytes)`,
+      );
+      return;
+    } catch (error) {
+      lastError = error;
+      console.warn(
+        `[responsive-showcase] ${project.id} ${viewport.name} attempt ${attempt}/${ATTEMPTS} failed: ${error.message}`,
+      );
+
+      if (attempt < ATTEMPTS) {
+        await sleep(RETRY_DELAY_MS * attempt);
+      }
+    }
   }
+
+  throw new Error(
+    `Responsive screenshot capture failed for ${project.id} ${viewport.name}. Refusing to publish a desktop fallback. Last error: ${lastError?.message || 'unknown error'}`,
+  );
 }
 
 await mkdir(outputDir, { recursive: true });
 
 for (const project of projects) {
-  await Promise.all(viewports.map((viewport) => capture(project, viewport)));
+  for (const viewport of viewports) {
+    await capture(project, viewport);
+  }
 }
 
-console.log('[responsive-showcase] responsive screenshots ready');
+console.log('[responsive-showcase] verified tablet and mobile screenshots ready');
