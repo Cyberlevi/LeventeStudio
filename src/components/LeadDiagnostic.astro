@@ -3,7 +3,7 @@ import { studioOffers, referenceProjects } from '../data/studio-offers';
 interface Props { headingLevel?: 'h1' | 'h2'; }
 const { headingLevel = 'h2' } = Astro.props;
 const Heading = headingLevel === 'h1' ? 'h1' : 'h2';
-const fieldClass = 'w-full rounded-sm border border-white/20 bg-graphite-900 px-4 py-3.5 text-white outline-none focus:border-signal-400';
+const fieldClass = 'w-full border border-white/15 bg-graphite-900 px-4 py-3.5 text-white outline-none transition-colors focus:border-signal-400';
 ---
 <section id="diagnosztika" class="hightech-section scroll-mt-20 text-white">
   <div class="hightech-container grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
@@ -18,7 +18,10 @@ const fieldClass = 'w-full rounded-sm border border-white/20 bg-graphite-900 px-
       </ol>
       <p class="mt-8 text-sm text-ivory-400">Inkább közvetlenül írnál?<br /><a href="mailto:hello@leventestudio.app" class="mt-2 inline-block text-ivory-100 underline underline-offset-4">hello@leventestudio.app</a></p>
     </div>
-    <form id="system-diagnostic-form" name="system-diagnostic" method="POST" action="/koszonjuk/" data-netlify="true" netlify-honeypot="bot-field" class="relative overflow-hidden rounded-xl border border-white/15 p-5 sm:p-8">
+    <form id="system-diagnostic-form" name="system-diagnostic" method="POST" action="/koszonjuk/" data-netlify="true" netlify-honeypot="bot-field" class="relative overflow-hidden border border-white/15 p-5 sm:p-8">
+      <div class="mb-6 flex items-center justify-between border-b border-white/10 pb-4 text-[8px] uppercase tracking-[.18em] text-white/30" aria-hidden="true">
+        <span>LS / LEAD INTAKE</span><span class="text-signal-400">FORM / 01</span>
+      </div>
       <input type="hidden" name="form-name" value="system-diagnostic" />
       <input type="hidden" name="source_page" />
       <input type="hidden" name="entry_page" />
@@ -35,7 +38,7 @@ const fieldClass = 'w-full rounded-sm border border-white/20 bg-graphite-900 px-
         </select></div>
         <div class="sm:col-span-2"><label for="lead-note" class="mb-2 block text-sm text-ivory-300">Néhány szó az elképzelésedről</label><textarea id="lead-note" name="note" rows="3" maxlength="3000" placeholder="Mit szeretnél megmutatni vagy egyszerűbbé tenni?" class={fieldClass}></textarea></div>
       </div>
-      <details id="inquiry-preferences" class="mt-5 rounded-sm border border-white/15 p-4">
+      <details id="inquiry-preferences" class="mt-5 border border-white/15 p-4">
         <summary class="cursor-pointer text-sm text-ivory-300">Csomag és referencia <span class="text-ivory-400">(ha már választottál)</span></summary>
         <div class="mt-4 grid gap-5 sm:grid-cols-2">
           <div><label for="selected-package" class="mb-2 block text-sm text-ivory-300">Melyik csomag érdekel?</label><select id="selected-package" name="selected_package" class={fieldClass}><option value="">Még nem döntöttem</option>{studioOffers.map(offer => <option value={offer.id}>{offer.id} · {offer.price}</option>)}</select></div>
