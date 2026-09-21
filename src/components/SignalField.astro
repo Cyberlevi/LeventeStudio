@@ -48,7 +48,7 @@ const { class: className = '' } = Astro.props;
       float amplitude = 0.5;
       mat2 rotation = mat2(0.80, -0.60, 0.60, 0.80);
 
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 4; i++) {
         value += amplitude * noise(p);
         p = rotation * p * 2.03 + 17.1;
         amplitude *= 0.5;
@@ -208,7 +208,7 @@ const { class: className = '' } = Astro.props;
 
     const resize = () => {
       const rect = root.getBoundingClientRect();
-      const dprCap = coarsePointer.matches ? 1.15 : 1.45;
+      const dprCap = 1.25;
       const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       const width = Math.max(1, Math.round(rect.width * dpr));
       const height = Math.max(1, Math.round(rect.height * dpr));
@@ -237,7 +237,7 @@ const { class: className = '' } = Astro.props;
     const render = (now) => {
       if (!visible) return;
 
-      const minFrameMs = coarsePointer.matches ? 33 : 16;
+      const minFrameMs = 33;
       if (!reducedMotion.matches && now - lastFrame < minFrameMs) {
         raf = requestAnimationFrame(render);
         return;
@@ -304,12 +304,29 @@ const { class: className = '' } = Astro.props;
     window.addEventListener('pagehide', cleanup, { once: true });
   }
 
-  document.querySelectorAll('.signal-field').forEach((root) => {
-    if (root instanceof HTMLElement && !root.dataset.signalReady) {
+  const startSignalFields = () => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const mobileViewport = window.innerWidth < 768;
+
+    document.querySelectorAll('.signal-field').forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.signalReady) return;
       root.dataset.signalReady = 'true';
+
+      if (reducedMotion || coarsePointer || mobileViewport) {
+        root.dataset.signalFallback = 'true';
+        return;
+      }
+
       initSignalField(root);
-    }
-  });
+    });
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(startSignalFields, { timeout: 1200 });
+  } else {
+    window.setTimeout(startSignalFields, 700);
+  }
 </script>
 
 <style>
@@ -338,9 +355,36 @@ const { class: className = '' } = Astro.props;
   .signal-field__fallback {
     opacity: 0;
     background:
-      radial-gradient(ellipse at 82% 72%, rgba(216,255,120,.18), transparent 30%),
-      radial-gradient(ellipse at 70% 42%, rgba(102,135,46,.14), transparent 36%),
-      linear-gradient(115deg, #0b0d0c 0%, #0b0d0c 42%, #101510 100%);
+      radial-gradient(ellipse at 86% 74%, rgba(216,255,120,.22), transparent 24%),
+      radial-gradient(ellipse at 72% 48%, rgba(102,135,46,.16), transparent 34%),
+      linear-gradient(118deg, #0b0d0c 0%, #0b0d0c 44%, #101510 100%);
+  }
+
+  .signal-field__fallback::before,
+  .signal-field__fallback::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1px solid rgba(216,255,120,.10);
+    filter: blur(.1px);
+    transform: rotate(-18deg);
+  }
+
+  .signal-field__fallback::before {
+    width: 72%;
+    height: 30%;
+    right: -12%;
+    bottom: 8%;
+    box-shadow: 0 0 38px rgba(216,255,120,.05);
+  }
+
+  .signal-field__fallback::after {
+    width: 52%;
+    height: 18%;
+    right: 2%;
+    bottom: 21%;
+    opacity: .58;
   }
 
   .signal-field[data-signal-fallback='true'] .signal-field__canvas {
@@ -358,8 +402,12 @@ const { class: className = '' } = Astro.props;
   }
 
   @media (max-width: 767px) {
+    .signal-field__fallback {
+      opacity: 1;
+    }
+
     .signal-field__canvas {
-      opacity: 0.78;
+      display: none;
     }
 
     .signal-field__veil {
