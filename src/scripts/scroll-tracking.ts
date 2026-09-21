@@ -44,5 +44,6 @@ function throttledScroll() {
 
 if (typeof window !== 'undefined') {
   window.addEventListener('scroll', throttledScroll, { passive: true });
+  window.addEventListener('ls:consent-updated', () => requestAnimationFrame(handleScroll));
   requestAnimationFrame(handleScroll);
 }
