@@ -192,7 +192,7 @@ export default function Pricing2026() {
                 </div>
 
                 <span
-                  className="pointer-events-none absolute bottom-3 right-3 text-[8px] tracking-[.16em] text-white/[.12]"
+                  className="pointer-events-none absolute bottom-3 right-3 text-[8px] tracking-[.16em] text-white/60"
                   aria-hidden="true"
                 >
                   LS/{meta.step}
