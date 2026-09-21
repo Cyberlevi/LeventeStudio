@@ -135,14 +135,7 @@ export const onSuccess = async ({ constants, utils }) => {
     bestPractices: failingAudits(lhr, 'best-practices'),
   };
 
-  const deployUrl = process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || process.env.URL;
-  if (!deployUrl) {
-    utils.status.show({
-      title: 'Lighthouse export: deploy URL missing',
-      summary: 'No Netlify deploy URL environment variable was available.',
-    });
-    return;
-  }
+  const deployUrl = 'https://leventestudio.app';
 
   const body = new URLSearchParams({
     'form-name': 'lh-diagnostic-export',
