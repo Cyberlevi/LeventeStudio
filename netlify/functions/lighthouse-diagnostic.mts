@@ -150,20 +150,28 @@ export default async () => {
       );
     }
 
-    return Response.json(
-      {
-        ok: true,
-        fetchTime: lhr.fetchTime,
-        lighthouseVersion: lhr.lighthouseVersion,
-        scores: {
-          accessibility: lhr.categories?.accessibility?.score,
-          bestPractices: lhr.categories?.['best-practices']?.score,
-        },
-        accessibility: failingAudits(lhr, 'accessibility'),
-        bestPractices: failingAudits(lhr, 'best-practices'),
+    const payload = {
+      ok: true,
+      fetchTime: lhr.fetchTime,
+      lighthouseVersion: lhr.lighthouseVersion,
+      scores: {
+        accessibility: lhr.categories?.accessibility?.score,
+        bestPractices: lhr.categories?.['best-practices']?.score,
       },
+      accessibility: failingAudits(lhr, 'accessibility'),
+      bestPractices: failingAudits(lhr, 'best-practices'),
+    };
+
+    const escaped = JSON.stringify(payload, null, 2)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    return new Response(
+      `<!doctype html><html lang="hu"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Lighthouse diagnosztika</title></head><body><main><h1>Lighthouse diagnosztika</h1><pre>${escaped}</pre></main></body></html>`,
       {
         headers: {
+          'content-type': 'text/html; charset=utf-8',
           'cache-control': 'no-store',
           'x-content-type-options': 'nosniff',
         },
@@ -178,5 +186,5 @@ export default async () => {
 };
 
 export const config = {
-  path: '/_lh-diagnostic',
+  path: '/diagnosztika-lighthouse/',
 };
