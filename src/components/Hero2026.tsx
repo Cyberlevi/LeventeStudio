@@ -2,13 +2,12 @@ import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
 
 export default function Hero2026() {
   return (
-    <section className="relative overflow-hidden bg-graphite-950 px-5 pb-16 pt-32 text-ivory-100 sm:px-6 md:pb-20 md:pt-40 lg:px-8">
-      <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
+    <div className="relative z-10 px-5 pb-16 pt-32 text-ivory-100 sm:px-6 md:pb-20 md:pt-40 lg:px-8">
       <div className="relative mx-auto max-w-[86rem]">
         <div className="grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-center lg:gap-14">
           <div>
             <p className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[.18em] text-signal-400"><span className="signal-dot" />Weboldalak szolgáltató vállalkozásoknak</p>
-            <h1 className="max-w-[12ch] text-[clamp(2.6rem,5.2vw,4.8rem)] font-medium leading-[1.04] tracking-[-.045em]">Weboldal, amire <span className="font-serif font-light italic text-signal-300">büszkén</span> küldöd az ügyfeled.</h1>
+            <h1 className="max-w-[12ch] text-[clamp(2.75rem,5.6vw,5.25rem)] font-medium leading-[.98] tracking-[-.055em] text-balance">Weboldal, amire <span className="font-serif font-light italic text-signal-300 drop-shadow-[0_0_28px_rgba(216,255,120,.12)]">büszkén</span> küldöd az ügyfeled.</h1>
             <p className="mt-7 max-w-xl text-lg font-light leading-relaxed text-ivory-300">Megmutatjuk, miben vagy jó, rendbe tesszük az ajánlatodat, és egyszerűvé tesszük a kapcsolatfelvételt. A tervezéstől a működő oldalig.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a href="#diagnosztika" className="signal-button-primary" data-track-cta="Ajánlatot kérek" data-track-location="hero_primary">Ajánlatot kérek <ArrowUpRight size={18} aria-hidden="true" /></a>
@@ -26,11 +25,11 @@ export default function Hero2026() {
             >
               <img
                 src="https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp"
-                width="960"
-                height="720"
-                alt="KlímaTiszták prémium projektbemutatás desktop, tablet és mobil nézettel"
+                width="1348"
+                height="926"
+                alt="A KlímaTiszták éles weboldalának főoldala és kalkulátora"
                 fetchPriority="high"
-                className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transform-none motion-reduce:transition-none"
+                className="aspect-[1.456] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.012] motion-reduce:transform-none motion-reduce:transition-none"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" aria-hidden="true" />
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 sm:bottom-5 sm:left-5 sm:right-5">
@@ -51,6 +50,6 @@ export default function Hero2026() {
           <a href="#csomagok" className="text-sm text-ivory-300 transition hover:text-signal-300">Weboldalcsomagok 149 000 Ft-tól <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
