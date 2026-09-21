@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const sourceUrl = 'https://deploy-preview-60--leventestudio.netlify.app/lh-diagnostic.txt';
+const sourceUrl = 'https://deploy-preview-63--leventestudio.netlify.app/lh-diagnostic.txt';
 const outDir = path.resolve('netlify/functions');
 
 await mkdir(outDir, { recursive: true });
