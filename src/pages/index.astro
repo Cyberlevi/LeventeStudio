@@ -26,7 +26,7 @@ const structuredData = {
 <BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
   <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
   <main>
-    <section class="relative isolate overflow-hidden bg-graphite-950">
+    <section data-sticky-threshold class="relative isolate overflow-hidden bg-graphite-950">
       <SignalField />
       <Hero2026 />
       <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-b from-transparent to-graphite-950/95" aria-hidden="true"></div>
@@ -44,4 +44,7 @@ const structuredData = {
     <Contact2026 />
   </main>
   <Footer />
+  <script>
+    import '../scripts/mobile-sticky-visibility';
+  </script>
 </BaseLayout>
