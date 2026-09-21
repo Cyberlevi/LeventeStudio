@@ -94,7 +94,7 @@ const { class: className = '' } = Astro.props;
       float signal = field + inner * 0.42 + filament * 0.12;
 
       float rightBias = smoothstep(-0.35, 1.0, p.x);
-      float bottomBias = smoothstep(0.75, -0.85, p.y);
+      float bottomBias = 1.0 - smoothstep(-0.85, 0.75, p.y);
       float composition = mix(0.66, 1.0, rightBias * bottomBias);
       signal *= composition;
 
@@ -115,7 +115,7 @@ const { class: className = '' } = Astro.props;
       float grain = hash(gl_FragCoord.xy + fract(u_time) * 43.0) - 0.5;
       color += grain * 0.018;
 
-      float vignette = smoothstep(1.28, 0.28, length((uv - 0.5) * vec2(1.0, 0.82)));
+      float vignette = 1.0 - smoothstep(0.28, 1.28, length((uv - 0.5) * vec2(1.0, 0.82)));
       color *= mix(0.55, 1.0, vignette);
 
       float leftQuiet = smoothstep(-1.15, 0.10, p.x);
