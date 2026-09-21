@@ -158,34 +158,15 @@ async function capture(project, viewport) {
 
 await mkdir(outputDir, { recursive: true });
 
-const report = [];
-
 for (const project of projects) {
   for (const viewport of viewports) {
-    report.push(await capture(project, viewport));
+    const result = await capture(project, viewport);
+    if (!result?.ok) {
+      throw new Error(
+        `Responsive screenshot capture failed for ${project.id} ${viewport.name}. Refusing to publish a desktop fallback. ${result?.error || ''}`,
+      );
+    }
   }
 }
 
-await writeFile(
-  join(outputDir, 'capture-report.json'),
-  JSON.stringify(
-    {
-      reportVersion: 1,
-      generatedAt: new Date().toISOString(),
-      source: 'pageshot.site',
-      results: report,
-      failures: report.filter((item) => !item.ok),
-    },
-    null,
-    2,
-  ),
-);
-
-const failures = report.filter((item) => !item.ok);
-if (failures.length) {
-  console.warn(
-    `[responsive-showcase] diagnostic preview completed with ${failures.length} failed capture(s); desktop fallback remains disabled`,
-  );
-} else {
-  console.log('[responsive-showcase] verified tablet and mobile screenshots ready');
-}
+console.log('[responsive-showcase] verified tablet and mobile screenshots ready');
