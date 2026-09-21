@@ -1,59 +1,102 @@
-import { ArrowRight, ArrowUpRight, Check, Layers3 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Wrench } from 'lucide-react';
 import { studioOffers } from '../data/studio-offers';
 
 const offerMeta = {
-  PRESENCE: { step: '01', stage: 'Jelenlét', note: 'Legyen saját, vállalható online alapod.' },
-  START: { step: '02', stage: 'Struktúra', note: 'Mutasd meg több szolgáltatásodat átláthatóan.' },
-  GROW: { step: '03', stage: 'Ügyfélszerzés', note: 'Kösd össze az oldalakat, kampányokat és mérést.' },
-  SCALE: { step: '04', stage: 'Rendszer', note: 'Csökkentsd a kézi adminisztrációt és kösd össze a folyamatokat.' },
+  PRESENCE: {
+    step: '01',
+    stage: 'Jelenlét',
+    code: 'FOUNDATION',
+    note: 'Legyen saját, vállalható online alapod.',
+  },
+  START: {
+    step: '02',
+    stage: 'Struktúra',
+    code: 'STRUCTURE',
+    note: 'Mutasd meg több szolgáltatásodat átláthatóan.',
+  },
+  GROW: {
+    step: '03',
+    stage: 'Ügyfélszerzés',
+    code: 'ACQUISITION',
+    note: 'Kösd össze az oldalakat, kampányokat és mérést.',
+  },
+  SCALE: {
+    step: '04',
+    stage: 'Rendszer',
+    code: 'SYSTEM',
+    note: 'Csökkentsd a kézi adminisztrációt és kösd össze a folyamatokat.',
+  },
 } as const;
 
 export default function Pricing2026() {
   return (
-    <section id="csomagok" className="relative scroll-mt-20 overflow-hidden bg-ivory-100 px-5 py-20 text-graphite-950 sm:px-6 md:py-24 lg:px-8">
-      <div className="pointer-events-none absolute -left-28 top-24 h-72 w-72 rounded-full bg-signal-400/10 blur-3xl" aria-hidden="true" />
+    <section
+      id="csomagok"
+      className="relative isolate scroll-mt-20 overflow-hidden border-y border-white/10 bg-graphite-950 px-5 py-20 text-ivory-100 sm:px-6 md:py-28 lg:px-8"
+    >
+      <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-30" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute -right-40 top-1/3 h-[34rem] w-[34rem] rounded-full bg-signal-400/[.055] blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute left-0 right-0 top-[29rem] h-px bg-gradient-to-r from-transparent via-signal-400/25 to-transparent"
+        aria-hidden="true"
+      />
+
       <div className="relative mx-auto max-w-[86rem]">
-        <div className="mb-10 grid gap-6 lg:grid-cols-2 lg:items-end">
+        <div className="mb-12 grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:gap-16">
           <div>
-            <p className="mb-4 text-xs uppercase tracking-[.2em] text-graphite-500">Csomagok és árak</p>
-            <h2 className="font-serif text-5xl font-light leading-[1.02] tracking-editorial sm:text-6xl">
-              Ne csomagot válassz.<br />
-              <span className="text-graphite-500">Kiindulópontot.</span>
+            <div className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[.22em] text-white/45">
+              <span className="signal-dot" />
+              OFFER / SYSTEM MAP
+            </div>
+            <h2 className="max-w-[10ch] font-serif text-[clamp(3.3rem,7vw,7rem)] font-light leading-[.86] tracking-[-.055em] text-white">
+              Ne csomagot válassz.
+              <span className="mt-2 block italic text-signal-300">Kiindulópontot.</span>
             </h2>
           </div>
-          <p className="max-w-xl leading-relaxed text-graphite-600 lg:justify-self-end">
-            Az egyszerű bemutatkozástól az összekötött ügyfélkezelésig. A pontos tartalmat, funkciókat és végösszeget írásos ajánlatban rögzítjük.
-          </p>
+
+          <div className="lg:justify-self-end">
+            <p className="max-w-xl text-base font-light leading-relaxed text-white/60 sm:text-lg">
+              Az egyszerű bemutatkozástól az összekötött ügyfélkezelésig. A pontos tartalmat,
+              funkciókat és végösszeget írásos ajánlatban rögzítjük.
+            </p>
+            <div className="mt-6 grid grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-4 lg:max-w-xl">
+              {studioOffers.map((offer) => {
+                const meta = offerMeta[offer.id];
+                const active = offer.id === 'GROW';
+
+                return (
+                  <a
+                    key={offer.id}
+                    href={`#csomag-${offer.id.toLowerCase()}`}
+                    className={`group relative min-h-20 bg-graphite-950 px-3 py-3.5 transition-colors hover:bg-white/[.045] sm:px-4 ${
+                      active ? 'bg-white/[.035]' : ''
+                    }`}
+                  >
+                    {active && (
+                      <span className="absolute inset-x-0 top-0 h-px bg-signal-400" aria-hidden="true" />
+                    )}
+                    <span className={`block text-[9px] tracking-[.18em] ${active ? 'text-signal-400' : 'text-white/35'}`}>
+                      {meta.step}
+                    </span>
+                    <span className="mt-2 block text-xs text-white/75">{meta.stage}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
-        <div className="mb-8 overflow-hidden rounded-2xl border border-graphite-950/10 bg-white p-4 shadow-[0_12px_40px_rgba(18,20,17,.04)] sm:p-5">
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[.16em] text-graphite-500">
-            <Layers3 size={14} aria-hidden="true" />
-            Fejlődési út
-          </div>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            {studioOffers.map((offer, index) => {
-              const meta = offerMeta[offer.id];
-              return (
-                <div key={offer.id} className="relative flex min-h-20 items-center gap-3 rounded-xl border border-graphite-950/8 bg-ivory-100 px-4 py-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-graphite-950 text-[10px] tracking-[.14em] text-signal-400">
-                    {meta.step}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[9px] uppercase tracking-[.16em] text-graphite-500">{offer.id}</p>
-                    <p className="mt-1 text-sm font-medium text-graphite-900">{meta.stage}</p>
-                  </div>
-                  {index < studioOffers.length - 1 && (
-                    <ArrowRight size={14} className="absolute -right-2.5 top-1/2 z-10 hidden -translate-y-1/2 text-graphite-300 lg:block" aria-hidden="true" />
-                  )}
-                </div>
-              );
-            })}
-          </div>
+        <div className="mb-4 flex items-center gap-4 border-y border-white/10 py-3 text-[9px] uppercase tracking-[.2em] text-white/35">
+          <span>LS / OFFER ARCHITECTURE</span>
+          <span className="h-px flex-1 bg-gradient-to-r from-white/10 via-signal-400/30 to-white/10" />
+          <span className="hidden sm:inline">04 MODULES / SELECT START POINT</span>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {studioOffers.map((offer) => {
+        <div className="grid border-x border-white/10 md:grid-cols-2 xl:grid-cols-4">
+          {studioOffers.map((offer, index) => {
             const meta = offerMeta[offer.id];
             const featured = offer.id === 'GROW';
 
@@ -61,91 +104,151 @@ export default function Pricing2026() {
               <article
                 key={offer.id}
                 id={`csomag-${offer.id.toLowerCase()}`}
-                className={`group relative flex scroll-mt-24 flex-col overflow-hidden rounded-2xl border p-6 shadow-[0_16px_50px_rgba(18,20,17,.05)] transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none sm:p-7 ${
+                className={`group relative flex scroll-mt-24 flex-col border-b border-white/10 px-5 py-7 transition-colors duration-300 sm:px-7 sm:py-8 md:[&:nth-child(odd)]:border-r xl:border-r xl:last:border-r-0 ${
                   featured
-                    ? 'border-graphite-950 bg-graphite-950 text-ivory-100'
-                    : 'border-graphite-950/10 bg-white'
+                    ? 'bg-[linear-gradient(180deg,rgba(216,255,120,.075),rgba(216,255,120,.018)_30%,transparent_62%)]'
+                    : 'bg-graphite-950 hover:bg-white/[.025]'
                 }`}
               >
-                <div className={`absolute inset-x-0 top-0 h-1 ${featured ? 'bg-signal-400' : 'bg-graphite-950/10'}`} aria-hidden="true" />
+                {featured && (
+                  <>
+                    <div className="absolute inset-x-0 top-0 h-px bg-signal-400" aria-hidden="true" />
+                    <div className="absolute right-0 top-0 h-16 w-px bg-gradient-to-b from-signal-400/70 to-transparent xl:hidden" aria-hidden="true" />
+                  </>
+                )}
 
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-5">
                   <div>
-                    <p className={`text-[9px] uppercase tracking-[.18em] ${featured ? 'text-signal-400' : 'text-graphite-500'}`}>
+                    <div className={`text-[10px] tracking-[.2em] ${featured ? 'text-signal-400' : 'text-white/35'}`}>
                       {meta.step} / {offer.id}
-                    </p>
-                    <p className={`mt-2 text-xs ${featured ? 'text-ivory-400' : 'text-graphite-500'}`}>{meta.stage}</p>
+                    </div>
+                    <div className="mt-2 text-[9px] uppercase tracking-[.16em] text-white/30">{meta.code}</div>
                   </div>
-                  <span className={`rounded-full border px-2.5 py-1 text-[9px] uppercase tracking-[.14em] ${
-                    featured
-                      ? 'border-signal-400/30 bg-signal-400/10 text-signal-300'
-                      : 'border-graphite-950/10 bg-ivory-100 text-graphite-500'
-                  }`}>
-                    Kiindulópont
-                  </span>
+
+                  <div className="flex items-center gap-2 text-[8px] uppercase tracking-[.16em] text-white/30">
+                    <span className={`h-1.5 w-1.5 rounded-full ${featured ? 'bg-signal-400 shadow-[0_0_12px_rgba(216,255,120,.55)]' : 'bg-white/20'}`} />
+                    {featured ? 'ACTIVE' : 'READY'}
+                  </div>
                 </div>
 
-                <h3 className="mt-6 min-h-16 text-2xl font-medium leading-tight tracking-tight">{offer.title}</h3>
-                <p className={`mt-2 text-sm leading-relaxed ${featured ? 'text-ivory-400' : 'text-graphite-500'}`}>{meta.note}</p>
-
-                <div className={`mt-6 rounded-xl border p-4 ${
-                  featured ? 'border-white/10 bg-white/[.045]' : 'border-graphite-950/8 bg-ivory-100'
-                }`}>
-                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-500'}`}>Projektár</p>
-                  <p className={`mt-1.5 text-2xl font-semibold tracking-tight ${featured ? 'text-signal-300' : 'text-graphite-950'}`}>{offer.price}</p>
+                <div className="mt-8 min-h-[9.5rem]">
+                  <p className="text-[10px] uppercase tracking-[.16em] text-white/40">{meta.stage}</p>
+                  <h3 className="mt-3 max-w-[12ch] text-[clamp(1.65rem,2.3vw,2.35rem)] font-medium leading-[1.02] tracking-[-.035em] text-white">
+                    {offer.title}
+                  </h3>
+                  <p className="mt-4 max-w-[31rem] text-sm font-light leading-relaxed text-white/50">{meta.note}</p>
                 </div>
 
-                <p className={`mt-5 text-sm leading-relaxed ${featured ? 'text-ivory-300' : 'text-graphite-600'}`}>{offer.description}</p>
+                <div className="mt-6 border-y border-white/10 py-5">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <span className="text-[9px] uppercase tracking-[.18em] text-white/30">Projektár</span>
+                    <span className="text-[8px] uppercase tracking-[.14em] text-white/25">STARTING POINT</span>
+                  </div>
+                  <p className={`mt-2 text-2xl font-medium tracking-[-.03em] sm:text-[1.7rem] ${featured ? 'text-signal-300' : 'text-white'}`}>
+                    {offer.price}
+                  </p>
+                </div>
 
-                <ul className="my-7 space-y-3">
-                  {offer.features.map((feature) => (
-                    <li key={feature} className={`flex items-start gap-2.5 text-sm leading-relaxed ${featured ? 'text-ivory-300' : 'text-graphite-600'}`}>
-                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${featured ? 'bg-signal-400/12 text-signal-300' : 'bg-graphite-950/5 text-graphite-700'}`}>
-                        <Check size={12} strokeWidth={2} aria-hidden="true" />
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-6 text-sm font-light leading-relaxed text-white/58">{offer.description}</p>
 
-                <div className={`mt-auto border-t pt-5 ${featured ? 'border-white/15' : 'border-graphite-950/10'}`}>
-                  <p className={`text-[9px] uppercase tracking-[.16em] ${featured ? 'text-ivory-500' : 'text-graphite-500'}`}>Neked való, ha</p>
-                  <p className={`mt-2 text-sm leading-relaxed ${featured ? 'text-ivory-400' : 'text-graphite-500'}`}>{offer.suitableFor}</p>
+                <div className="mt-7">
+                  <p className="mb-4 text-[9px] uppercase tracking-[.18em] text-white/30">Rendszer elemei</p>
+                  <ul className="space-y-3">
+                    {offer.features.map((feature) => (
+                      <li key={feature} className="grid grid-cols-[1.15rem_1fr] gap-2.5 text-sm leading-relaxed text-white/58">
+                        <Check
+                          size={13}
+                          strokeWidth={1.7}
+                          className={`mt-1 ${featured ? 'text-signal-400' : 'text-white/35'}`}
+                          aria-hidden="true"
+                        />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-auto pt-8">
+                  <div className="border-t border-white/10 pt-5">
+                    <p className="text-[9px] uppercase tracking-[.18em] text-white/30">Neked való, ha</p>
+                    <p className="mt-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-white/48">
+                      {offer.suitableFor}
+                    </p>
+                  </div>
+
                   <a
                     href={`/kapcsolat/?csomag=${offer.id}#diagnosztika`}
                     data-track-cta={`Ajánlatot kérek - ${offer.id}`}
                     data-track-location="product_showcase"
-                    className={`mt-6 flex min-h-12 items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+                    className={`mt-6 flex min-h-14 items-center justify-between border px-4 text-sm font-medium transition-all ${
                       featured
-                        ? 'bg-signal-400 text-graphite-950 hover:bg-signal-300'
-                        : 'bg-graphite-950 text-white hover:bg-graphite-800'
+                        ? 'border-signal-400 bg-signal-400 text-graphite-950 hover:bg-signal-300'
+                        : 'border-white/15 text-white/78 hover:border-signal-400/50 hover:bg-white/[.035] hover:text-white'
                     }`}
                   >
-                    Erre kérek ajánlatot <ArrowUpRight size={16} aria-hidden="true" />
+                    <span>Erre kérek ajánlatot</span>
+                    <ArrowUpRight size={16} aria-hidden="true" />
                   </a>
                 </div>
+
+                <span
+                  className="pointer-events-none absolute bottom-3 right-3 text-[8px] tracking-[.16em] text-white/[.12]"
+                  aria-hidden="true"
+                >
+                  LS/{meta.step}
+                </span>
               </article>
             );
           })}
         </div>
 
-        <div className="mt-8 grid gap-6 border-t border-graphite-950/15 pt-6 text-sm leading-relaxed text-graphite-600 md:grid-cols-2">
-          <p><strong className="text-graphite-950">Előre tisztázzuk:</strong> az oldalak és funkciók számát, a szövegek és képek előkészítését, a módosítási köröket, a határidőt és az átadás utáni támogatás keretét.</p>
-          <p>A feltüntetett összegek irányadó projektárak. A hirdetési költés, a domain, a tárhely és a külső szoftverek díja csak külön feltüntetés esetén része az ajánlatnak.</p>
+        <div className="grid border-x border-b border-white/10 lg:grid-cols-[1fr_1fr]">
+          <div className="border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+            <div className="text-[9px] uppercase tracking-[.18em] text-white/30">SCOPE / ELŐRE TISZTÁZZUK</div>
+            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
+              Az oldalak és funkciók számát, a szövegek és képek előkészítését, a módosítási köröket,
+              a határidőt és az átadás utáni támogatás keretét.
+            </p>
+          </div>
+          <div className="p-5 sm:p-7">
+            <div className="text-[9px] uppercase tracking-[.18em] text-white/30">COST / KÜLSŐ TÉTELEK</div>
+            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
+              A feltüntetett összegek irányadó projektárak. A hirdetési költés, domain, tárhely és külső
+              szoftverek díja csak külön feltüntetés esetén része az ajánlatnak.
+            </p>
+          </div>
         </div>
 
-        <div id="gondozas" className="mt-12 grid gap-8 overflow-hidden rounded-2xl border border-graphite-950/15 bg-white p-7 shadow-[0_16px_50px_rgba(18,20,17,.04)] sm:p-9 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-          <div>
-            <p className="mb-3 text-xs uppercase tracking-[.18em] text-graphite-500">Átadás után is</p>
-            <h3 className="font-serif text-4xl font-light tracking-editorial">Legyen, aki gondozza az oldalad.</h3>
-            <p className="mt-4 text-sm leading-relaxed text-graphite-600">A saját készítésű weboldalakhoz folyamatos gondozás is kérhető. A feladatokat, a havi módosítási időt, a válaszidőt és a díjat külön ajánlatban rögzítjük.</p>
+        <div
+          id="gondozas"
+          className="relative mt-14 overflow-hidden border border-white/10 bg-white/[.022] p-6 sm:p-8 lg:grid lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:gap-16 lg:p-10"
+        >
+          <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-20" aria-hidden="true" />
+          <div className="relative">
+            <div className="mb-4 flex items-center gap-2 text-[9px] uppercase tracking-[.2em] text-signal-400">
+              <Wrench size={13} strokeWidth={1.5} aria-hidden="true" />
+              AFTERCARE / SYSTEM MAINTENANCE
+            </div>
+            <h3 className="max-w-[12ch] font-serif text-4xl font-light leading-[.95] tracking-[-.045em] text-white sm:text-5xl">
+              Legyen, aki gondozza az oldalad.
+            </h3>
+            <p className="mt-5 max-w-xl text-sm font-light leading-relaxed text-white/50">
+              A saját készítésű weboldalakhoz folyamatos gondozás is kérhető. A feladatokat, havi
+              módosítási időt, válaszidőt és díjat külön ajánlatban rögzítjük.
+            </p>
           </div>
-          <div>
-            <ul className="grid gap-3 text-sm text-graphite-700 sm:grid-cols-2">
-              {['Működés és űrlapok ellenőrzése', 'Szükséges technikai frissítések', 'Egyeztetett tartalmi módosítások', 'Rövid állapotjelentés'].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <Check size={16} className="shrink-0" aria-hidden="true" />
-                  {item}
+
+          <div className="relative mt-8 border-t border-white/10 pt-7 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <ul className="grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2">
+              {[
+                'Működés és űrlapok ellenőrzése',
+                'Szükséges technikai frissítések',
+                'Egyeztetett tartalmi módosítások',
+                'Rövid állapotjelentés',
+              ].map((item, index) => (
+                <li key={item} className="flex min-h-16 items-center gap-3 bg-graphite-950 px-4 py-3 text-sm text-white/58">
+                  <span className="text-[9px] tracking-[.15em] text-signal-400">{String(index + 1).padStart(2, '0')}</span>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -153,11 +256,18 @@ export default function Pricing2026() {
               href="/kapcsolat/?igeny=gondozas#diagnosztika"
               data-track-cta="Weboldalgondozás érdekel"
               data-track-location="maintenance"
-              className="mt-6 inline-flex items-center gap-2 border-b border-graphite-950 pb-1 text-sm font-medium"
+              className="mt-6 inline-flex items-center gap-3 border-b border-signal-400/50 pb-1.5 text-sm text-white/78 transition-colors hover:border-signal-400 hover:text-signal-300"
             >
-              A weboldalgondozás is érdekel <ArrowUpRight size={16} aria-hidden="true" />
+              A weboldalgondozás is érdekel <ArrowUpRight size={15} aria-hidden="true" />
             </a>
           </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-4 text-[8px] uppercase tracking-[.18em] text-white/25 sm:flex-row sm:items-center sm:justify-between">
+          <span>LS / OFFER SYSTEM / 2026</span>
+          <span className="flex items-center gap-3">
+            PRESENCE <ArrowRight size={10} /> START <ArrowRight size={10} /> GROW <ArrowRight size={10} /> SCALE
+          </span>
         </div>
       </div>
     </section>
