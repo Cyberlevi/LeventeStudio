@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 
-const sourceUrl = 'https://deploy-preview-63--leventestudio.netlify.app/reports/lighthouse.html';
+const sourceUrl = 'https://deploy-preview-65--leventestudio.netlify.app/reports/lighthouse.html';
 const outDir = path.resolve('netlify/functions');
 
 await mkdir(outDir, { recursive: true });
