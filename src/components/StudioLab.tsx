@@ -62,12 +62,14 @@ function ProjectScreen({
   decorative = false,
   className = '',
   compact = false,
+  loadRemote = true,
 }: {
   project: ReferenceProject;
   device?: ProjectDevice;
   decorative?: boolean;
   className?: string;
   compact?: boolean;
+  loadRemote?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   const source =
@@ -77,7 +79,9 @@ function ProjectScreen({
         ? project.mobileImage
         : project.image;
 
-  if (source && !failed) {
+  const canLoad = device === 'desktop' || loadRemote;
+
+  if (source && canLoad && !failed) {
     return (
       <img
         src={source}
@@ -96,6 +100,8 @@ function ProjectScreen({
     return <BundavarazsScreen compact={compact} />;
   }
 
+  const deferred = device !== 'desktop' && !loadRemote;
+
   return (
     <div
       className={`flex h-full w-full items-center justify-center bg-graphite-900 p-4 text-center text-white/55 ${className}`}
@@ -105,7 +111,7 @@ function ProjectScreen({
         <div className="text-[8px] uppercase tracking-[.18em] text-signal-400">LS / PREVIEW</div>
         <div className="mt-2 text-[10px] font-medium text-white/80">{project.name}</div>
         <div className="mt-1 text-[8px] uppercase tracking-[.12em]">
-          {device} nézet nem tölthető be
+          {deferred ? `${device} nézet · válaszd ki` : `${device} nézet nem tölthető be`}
         </div>
       </div>
     </div>
@@ -197,7 +203,14 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
       >
         <div className="rounded-[18px] border border-white/20 bg-[#20211f] p-[5px] shadow-[0_22px_55px_rgba(0,0,0,.45)] sm:rounded-[24px] sm:p-[7px]">
           <div className="overflow-hidden rounded-[13px] bg-white sm:rounded-[18px]" style={{ aspectRatio: "834 / 1194" }}>
-            <ProjectScreen project={project} device="tablet" decorative compact className="object-cover object-top" />
+            <ProjectScreen
+              project={project}
+              device="tablet"
+              decorative
+              compact
+              loadRemote={mode === 'tablet'}
+              className="object-cover object-top"
+            />
           </div>
         </div>
       </div>
@@ -214,7 +227,14 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         <div className="rounded-[18px] border border-white/20 bg-[#161715] p-[4px] shadow-[0_22px_55px_rgba(0,0,0,.52)] sm:rounded-[24px] sm:p-[5px]">
           <div className="relative aspect-[9/19.5] overflow-hidden rounded-[14px] bg-white sm:rounded-[19px]">
             <div className="absolute left-1/2 top-1.5 z-10 h-1.5 w-[34%] -translate-x-1/2 rounded-full bg-black/75" aria-hidden="true" />
-            <ProjectScreen project={project} device="mobile" decorative compact className="object-cover object-top" />
+            <ProjectScreen
+              project={project}
+              device="mobile"
+              decorative
+              compact
+              loadRemote={mode === 'mobile'}
+              className="object-cover object-top"
+            />
           </div>
         </div>
       </div>
