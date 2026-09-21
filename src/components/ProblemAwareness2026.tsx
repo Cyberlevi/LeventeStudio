@@ -59,7 +59,7 @@ export default function ProblemAwareness2026() {
               >
                 <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 sm:block sm:border-b-0 sm:border-r sm:px-5 sm:py-6">
                   <span className="text-[10px] tracking-[.2em] text-signal-400">{code}</span>
-                  <Icon size={18} strokeWidth={1.45} className="text-white/35 sm:mt-8" aria-hidden="true" />
+                  <Icon size={18} strokeWidth={1.45} className="text-white/55 sm:mt-8" aria-hidden="true" />
                 </div>
 
                 <div className="px-5 py-6 sm:px-7 sm:py-7">
@@ -69,7 +69,7 @@ export default function ProblemAwareness2026() {
                 </div>
 
                 <div className="flex items-end border-t border-white/10 px-5 py-4 sm:min-w-40 sm:border-l sm:border-t-0 sm:px-5 sm:py-6">
-                  <div className="text-[8px] uppercase tracking-[.16em] text-white/30">
+                  <div className="text-[8px] uppercase tracking-[.16em] text-white/60">
                     SIGNAL
                     <span className="mt-2 block text-[10px] normal-case tracking-normal text-white/55">{signal}</span>
                   </div>

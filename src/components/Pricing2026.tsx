@@ -47,7 +47,7 @@ export default function Pricing2026() {
       <div className="relative mx-auto max-w-[86rem]">
         <div className="mb-12 grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:gap-16">
           <div>
-            <div className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[.22em] text-white/45">
+            <div className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[.22em] text-white/60">
               <span className="signal-dot" />
               OFFER / SYSTEM MAP
             </div>
@@ -78,7 +78,7 @@ export default function Pricing2026() {
                     {active && (
                       <span className="absolute inset-x-0 top-0 h-px bg-signal-400" aria-hidden="true" />
                     )}
-                    <span className={`block text-[9px] tracking-[.18em] ${active ? 'text-signal-400' : 'text-white/35'}`}>
+                    <span className={`block text-[9px] tracking-[.18em] ${active ? 'text-signal-400' : 'text-white/60'}`}>
                       {meta.step}
                     </span>
                     <span className="mt-2 block text-xs text-white/75">{meta.stage}</span>
@@ -89,7 +89,7 @@ export default function Pricing2026() {
           </div>
         </div>
 
-        <div className="mb-4 flex items-center gap-4 border-y border-white/10 py-3 text-[9px] uppercase tracking-[.2em] text-white/35">
+        <div className="mb-4 flex items-center gap-4 border-y border-white/10 py-3 text-[9px] uppercase tracking-[.2em] text-white/60">
           <span>LS / OFFER ARCHITECTURE</span>
           <span className="h-px flex-1 bg-gradient-to-r from-white/10 via-signal-400/30 to-white/10" />
           <span className="hidden sm:inline">04 MODULES / SELECT START POINT</span>
@@ -119,20 +119,20 @@ export default function Pricing2026() {
 
                 <div className="flex items-start justify-between gap-5">
                   <div>
-                    <div className={`text-[10px] tracking-[.2em] ${featured ? 'text-signal-400' : 'text-white/35'}`}>
+                    <div className={`text-[10px] tracking-[.2em] ${featured ? 'text-signal-400' : 'text-white/60'}`}>
                       {meta.step} / {offer.id}
                     </div>
-                    <div className="mt-2 text-[9px] uppercase tracking-[.16em] text-white/30">{meta.code}</div>
+                    <div className="mt-2 text-[9px] uppercase tracking-[.16em] text-white/60">{meta.code}</div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-[8px] uppercase tracking-[.16em] text-white/30">
+                  <div className="flex items-center gap-2 text-[8px] uppercase tracking-[.16em] text-white/60">
                     <span className={`h-1.5 w-1.5 rounded-full ${featured ? 'bg-signal-400 shadow-[0_0_12px_rgba(216,255,120,.55)]' : 'bg-white/20'}`} />
                     {featured ? 'ACTIVE' : 'READY'}
                   </div>
                 </div>
 
                 <div className="mt-8 min-h-[9.5rem]">
-                  <p className="text-[10px] uppercase tracking-[.16em] text-white/40">{meta.stage}</p>
+                  <p className="text-[10px] uppercase tracking-[.16em] text-white/65">{meta.stage}</p>
                   <h3 className="mt-3 max-w-[12ch] text-[clamp(1.65rem,2.3vw,2.35rem)] font-medium leading-[1.02] tracking-[-.035em] text-white">
                     {offer.title}
                   </h3>
@@ -141,8 +141,8 @@ export default function Pricing2026() {
 
                 <div className="mt-6 border-y border-white/10 py-5">
                   <div className="flex items-baseline justify-between gap-4">
-                    <span className="text-[9px] uppercase tracking-[.18em] text-white/30">Projektár</span>
-                    <span className="text-[8px] uppercase tracking-[.14em] text-white/25">STARTING POINT</span>
+                    <span className="text-[9px] uppercase tracking-[.18em] text-white/60">Projektár</span>
+                    <span className="text-[8px] uppercase tracking-[.14em] text-white/60">STARTING POINT</span>
                   </div>
                   <p className={`mt-2 text-2xl font-medium tracking-[-.03em] sm:text-[1.7rem] ${featured ? 'text-signal-300' : 'text-white'}`}>
                     {offer.price}
@@ -152,14 +152,14 @@ export default function Pricing2026() {
                 <p className="mt-6 text-sm font-light leading-relaxed text-white/58">{offer.description}</p>
 
                 <div className="mt-7">
-                  <p className="mb-4 text-[9px] uppercase tracking-[.18em] text-white/30">Rendszer elemei</p>
+                  <p className="mb-4 text-[9px] uppercase tracking-[.18em] text-white/60">Rendszer elemei</p>
                   <ul className="space-y-3">
                     {offer.features.map((feature) => (
                       <li key={feature} className="grid grid-cols-[1.15rem_1fr] gap-2.5 text-sm leading-relaxed text-white/58">
                         <Check
                           size={13}
                           strokeWidth={1.7}
-                          className={`mt-1 ${featured ? 'text-signal-400' : 'text-white/35'}`}
+                          className={`mt-1 ${featured ? 'text-signal-400' : 'text-white/60'}`}
                           aria-hidden="true"
                         />
                         <span>{feature}</span>
@@ -170,8 +170,8 @@ export default function Pricing2026() {
 
                 <div className="mt-auto pt-8">
                   <div className="border-t border-white/10 pt-5">
-                    <p className="text-[9px] uppercase tracking-[.18em] text-white/30">Neked való, ha</p>
-                    <p className="mt-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-white/48">
+                    <p className="text-[9px] uppercase tracking-[.18em] text-white/60">Neked való, ha</p>
+                    <p className="mt-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-white/60">
                       {offer.suitableFor}
                     </p>
                   </div>
@@ -204,14 +204,14 @@ export default function Pricing2026() {
 
         <div className="grid border-x border-b border-white/10 lg:grid-cols-[1fr_1fr]">
           <div className="border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r">
-            <div className="text-[9px] uppercase tracking-[.18em] text-white/30">SCOPE / ELŐRE TISZTÁZZUK</div>
+            <div className="text-[9px] uppercase tracking-[.18em] text-white/60">SCOPE / ELŐRE TISZTÁZZUK</div>
             <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
               Az oldalak és funkciók számát, a szövegek és képek előkészítését, a módosítási köröket,
               a határidőt és az átadás utáni támogatás keretét.
             </p>
           </div>
           <div className="p-5 sm:p-7">
-            <div className="text-[9px] uppercase tracking-[.18em] text-white/30">COST / KÜLSŐ TÉTELEK</div>
+            <div className="text-[9px] uppercase tracking-[.18em] text-white/60">COST / KÜLSŐ TÉTELEK</div>
             <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/50">
               A feltüntetett összegek irányadó projektárak. A hirdetési költés, domain, tárhely és külső
               szoftverek díja csak külön feltüntetés esetén része az ajánlatnak.
@@ -263,7 +263,7 @@ export default function Pricing2026() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-4 text-[8px] uppercase tracking-[.18em] text-white/25 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-4 text-[8px] uppercase tracking-[.18em] text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <span>LS / OFFER SYSTEM / 2026</span>
           <span className="flex items-center gap-3">
             PRESENCE <ArrowRight size={10} /> START <ArrowRight size={10} /> GROW <ArrowRight size={10} /> SCALE

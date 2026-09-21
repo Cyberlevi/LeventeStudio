@@ -1,17 +1,23 @@
-const projects = {
-  klimatisztak: 'https://klimatisztak.hu/',
-  klima18ker: 'https://klima18ker.hu/',
-  furatmester: 'https://lyukfurasbudapest.hu/',
-  bundavarazs: 'https://bundavarazskutyakozmetika.hu/',
-} as const;
+function getProjectUrl(project: string): string | null {
+  switch (project) {
+    case 'klimatisztak':
+      return 'https://klimatisztak.hu/';
+    case 'klima18ker':
+      return 'https://klima18ker.hu/';
+    case 'furatmester':
+      return 'https://lyukfurasbudapest.hu/';
+    case 'bundavarazs':
+      return 'https://bundavarazskutyakozmetika.hu/';
+    default:
+      return null;
+  }
+}
 
-const devices = {
-  tablet: { width: 834, height: 1194 },
-  mobile: { width: 390, height: 844 },
-} as const;
-
-type ProjectId = keyof typeof projects;
-type DeviceId = keyof typeof devices;
+function getViewport(device: string): { width: number; height: number } | null {
+  if (device === 'tablet') return { width: 834, height: 1194 };
+  if (device === 'mobile') return { width: 390, height: 844 };
+  return null;
+}
 
 function jsonError(status: number, message: string) {
   return new Response(JSON.stringify({ error: message }), {
@@ -30,16 +36,17 @@ export default async (request: Request) => {
   }
 
   const url = new URL(request.url);
-  const project = url.searchParams.get('project') as ProjectId | null;
-  const device = url.searchParams.get('device') as DeviceId | null;
+  const project = url.searchParams.get('project') || '';
+  const device = url.searchParams.get('device') || '';
+  const projectUrl = getProjectUrl(project);
+  const viewport = getViewport(device);
 
-  if (!project || !(project in projects) || !device || !(device in devices)) {
+  if (!projectUrl || !viewport) {
     return jsonError(400, 'Unknown project or device');
   }
 
-  const viewport = devices[device];
   const upstream = new URL('https://pageshot.site/v1/screenshot');
-  upstream.searchParams.set('url', projects[project]);
+  upstream.searchParams.set('url', projectUrl);
   upstream.searchParams.set('width', String(viewport.width));
   upstream.searchParams.set('height', String(viewport.height));
   upstream.searchParams.set('format', 'webp');
@@ -78,4 +85,8 @@ export default async (request: Request) => {
   } catch {
     return jsonError(504, 'Project preview timed out');
   }
+};
+
+export const config = {
+  path: '/_project-preview',
 };
