@@ -1,5 +1,7 @@
-const responsiveScreenshot = (url: string, width: number, height: number) =>
-  `https://pageshot.site/v1/screenshot?url=${encodeURIComponent(url)}&width=${width}&height=${height}&format=webp&full_page=false&hide_banners=true&block_ads=true`;
+type PreviewDevice = 'tablet' | 'mobile';
+
+const responsiveScreenshot = (project: string, device: PreviewDevice) =>
+  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921`;
 
 export const studioOffers = [
   {
@@ -41,22 +43,22 @@ export const referenceProjects = [
   { id: 'klimatisztak', name: 'KlímaTiszták', category: 'Klímatisztítás · saját digitális projekt',
     description: 'Kalkulátorral támogatott szolgáltatási oldal, világos ajánlatkérési úttal és mobilra tervezett folyamattal.',
     detail: 'A projekt azt mutatja meg, hogyan lehet a szolgáltatásválasztást, az árazási logikát és a kapcsolatfelvételt egyetlen ügyfélútba rendezni.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp', tabletImage: responsiveScreenshot('https://klimatisztak.hu/', 834, 1194), mobileImage: responsiveScreenshot('https://klimatisztak.hu/', 390, 844), liveUrl: 'https://klimatisztak.hu/',
+    image: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp', tabletImage: responsiveScreenshot('klimatisztak', 'tablet'), mobileImage: responsiveScreenshot('klimatisztak', 'mobile'), liveUrl: 'https://klimatisztak.hu/',
     href: '/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/' },
   { id: 'klima18ker', name: 'Klíma18ker', category: 'Klímaszerelés · saját vállalkozás',
     description: 'Szolgáltatások, saját munkafotók és műszaki ajánlatkérés egy átlátható oldalon.',
     detail: 'Az érdeklődő megismerheti a munkát, majd elindíthatja a helyszínhez illő ajánlatkérést.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aa805a1031c990008cfc983/screenshot_2026-09-14-14-34-00-0000.webp', tabletImage: responsiveScreenshot('https://klima18ker.hu/', 834, 1194), mobileImage: responsiveScreenshot('https://klima18ker.hu/', 390, 844), liveUrl: 'https://klima18ker.hu/',
+    image: 'https://d33wubrfki0l68.cloudfront.net/6aa805a1031c990008cfc983/screenshot_2026-09-14-14-34-00-0000.webp', tabletImage: responsiveScreenshot('klima18ker', 'tablet'), mobileImage: responsiveScreenshot('klima18ker', 'mobile'), liveUrl: 'https://klima18ker.hu/',
     href: '/esettanulmanyok/klima18ker-weboldal-audit/' },
   { id: 'furatmester', name: 'FuratMester', category: 'Faláttörés · saját szolgáltatás',
     description: 'Konkrét munkatípusok, árakat segítő információk és közvetlen ajánlatkérés.',
     detail: 'A látogató megtalálja a szükséges furat típusát és a következő lépést az egyeztetéshez.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aaffa8ab15dfa0008c4789a/screenshot_2026-09-20-15-24-19-0000.webp', tabletImage: responsiveScreenshot('https://lyukfurasbudapest.hu/', 834, 1194), mobileImage: responsiveScreenshot('https://lyukfurasbudapest.hu/', 390, 844), liveUrl: 'https://lyukfurasbudapest.hu/',
+    image: 'https://d33wubrfki0l68.cloudfront.net/6aaffa8ab15dfa0008c4789a/screenshot_2026-09-20-15-24-19-0000.webp', tabletImage: responsiveScreenshot('furatmester', 'tablet'), mobileImage: responsiveScreenshot('furatmester', 'mobile'), liveUrl: 'https://lyukfurasbudapest.hu/',
     href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/' },
   { id: 'bundavarazs', name: 'Bundavarázs', category: 'Kutyakozmetika · családi vállalkozás',
     description: 'Egy személyes szolgáltatás online bemutatása, helyi ügyfelekre szabva.',
     detail: 'A projektbemutatásban a bizalomépítést és a kapcsolatfelvétel felépítését mutatjuk meg.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aafdea445a27fc81c03df56/screenshot_2026-09-20-13-25-31-0000.webp', tabletImage: responsiveScreenshot('https://bundavarazskutyakozmetika.hu/', 834, 1194), mobileImage: responsiveScreenshot('https://bundavarazskutyakozmetika.hu/', 390, 844), liveUrl: 'https://bundavarazskutyakozmetika.hu/',
+    image: 'https://d33wubrfki0l68.cloudfront.net/6aafdea445a27fc81c03df56/screenshot_2026-09-20-13-25-31-0000.webp', tabletImage: responsiveScreenshot('bundavarazs', 'tablet'), mobileImage: responsiveScreenshot('bundavarazs', 'mobile'), liveUrl: 'https://bundavarazskutyakozmetika.hu/',
     href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/' },
 ] as const;
 
