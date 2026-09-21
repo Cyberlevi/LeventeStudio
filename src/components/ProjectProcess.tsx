@@ -37,7 +37,7 @@ const steps = [
 
 export default function ProjectProcess() {
   return (
-    <section id="folyamat" className="relative scroll-mt-20 overflow-hidden bg-graphite-900 px-5 py-20 text-ivory-100 sm:px-6 md:py-24 lg:px-8">
+    <section id="folyamat" className="award-process relative scroll-mt-20 overflow-hidden bg-graphite-900 px-5 py-20 text-ivory-100 sm:px-6 md:py-24 lg:px-8">
       <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-15" aria-hidden="true" />
       <div className="relative mx-auto max-w-[86rem]">
         <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
@@ -54,12 +54,12 @@ export default function ProjectProcess() {
         </div>
 
         <ol className="relative mt-12 grid gap-4 lg:mt-14 lg:grid-cols-4 lg:gap-3">
-          <div className="pointer-events-none absolute left-[8%] right-[8%] top-8 hidden h-px bg-gradient-to-r from-transparent via-signal-400/45 to-transparent lg:block" aria-hidden="true" />
+          <div className="award-process-line pointer-events-none absolute left-[8%] right-[8%] top-8 hidden h-px bg-gradient-to-r from-transparent via-signal-400/45 to-transparent lg:block" aria-hidden="true" />
 
           {steps.map(({ number, label, icon: Icon, title, description, outcome }, index) => (
             <li
               key={number}
-              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[.04] p-5 shadow-[0_18px_50px_rgba(0,0,0,.13)] backdrop-blur-sm sm:p-6 ${
+              className={`award-process-step group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[.04] p-5 shadow-[0_18px_50px_rgba(0,0,0,.13)] backdrop-blur-sm sm:p-6 ${
                 index === 2 ? 'lg:-translate-y-3 lg:border-signal-400/30 lg:bg-signal-400/[.055]' : ''
               }`}
             >
