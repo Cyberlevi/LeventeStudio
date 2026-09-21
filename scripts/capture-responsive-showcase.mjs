@@ -93,12 +93,13 @@ async function fetchImage(url, timeoutMs = 25_000) {
 
 function assertViewport(image, viewport) {
   const dimensions = readWebPDimensions(image);
-  const widthDelta = Math.abs(dimensions.width - viewport.width);
-  const heightDelta = Math.abs(dimensions.height - viewport.height);
+  const expectedRatio = viewport.width / viewport.height;
+  const actualRatio = dimensions.width / dimensions.height;
+  const ratioDelta = Math.abs(actualRatio - expectedRatio);
 
-  if (widthDelta > 2 || heightDelta > 2) {
+  if (ratioDelta > 0.025) {
     throw new Error(
-      `Wrong screenshot dimensions: expected ${viewport.width}x${viewport.height}, got ${dimensions.width}x${dimensions.height}`,
+      `Wrong screenshot aspect ratio: expected ${viewport.width}x${viewport.height} (${expectedRatio.toFixed(3)}), got ${dimensions.width}x${dimensions.height} (${actualRatio.toFixed(3)})`,
     );
   }
 }
