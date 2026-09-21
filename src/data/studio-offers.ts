@@ -1,7 +1,7 @@
 type PreviewDevice = 'tablet' | 'mobile';
 
 const responsiveScreenshot = (project: string, device: PreviewDevice) =>
-  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921`;
+  `/_project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921-2`;
 
 export const studioOffers = [
   {
