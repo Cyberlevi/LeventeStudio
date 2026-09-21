@@ -61,21 +61,37 @@ function extractBalancedJson(source, start) {
 }
 
 function extractLighthouseJson(html) {
-  const markers = [
+  // Lighthouse standalone reports embed the LHR exactly like:
+  // window.__LIGHTHOUSE_JSON__ = {...};</script>
+  const startMarker = '__LIGHTHOUSE_JSON__ = ';
+  const markerIndex = html.indexOf(startMarker);
+
+  if (markerIndex >= 0) {
+    const jsonStart = markerIndex + startMarker.length;
+    const jsonEnd = html.indexOf(';</script>', jsonStart);
+
+    if (jsonEnd > jsonStart) {
+      const jsonText = html.slice(jsonStart, jsonEnd).trim();
+
+      try {
+        const parsed = JSON.parse(jsonText);
+        if (parsed?.audits && parsed?.categories) return parsed;
+      } catch {
+        // Fall through to balanced JSON fallback below.
+      }
+    }
+  }
+
+  const fallbackMarkers = [
     'window.__LIGHTHOUSE_JSON__',
     '__LIGHTHOUSE_JSON__',
-    '"lighthouseVersion"',
   ];
 
-  for (const marker of markers) {
-    const markerIndex = html.indexOf(marker);
-    if (markerIndex < 0) continue;
+  for (const marker of fallbackMarkers) {
+    const fallbackIndex = html.indexOf(marker);
+    if (fallbackIndex < 0) continue;
 
-    const searchStart = marker === '"lighthouseVersion"'
-      ? Math.max(0, html.lastIndexOf('{', markerIndex))
-      : markerIndex + marker.length;
-
-    const jsonText = extractBalancedJson(html, searchStart);
+    const jsonText = extractBalancedJson(html, fallbackIndex + marker.length);
     if (!jsonText) continue;
 
     try {
