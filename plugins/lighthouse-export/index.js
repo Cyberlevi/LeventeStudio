@@ -1,7 +1,6 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
-
-const FORM_URL = 'https://leventestudio.app/lh-diagnostic-form.html';
+import { getDeployStore } from '@netlify/blobs';
 
 function extractBalancedJson(source, start) {
   let depth = 0;
@@ -65,7 +64,7 @@ function extractLighthouseJson(html) {
       const parsed = JSON.parse(jsonText);
       if (parsed?.audits && parsed?.categories) return parsed;
     } catch {
-      // Try the next marker.
+      // Try next marker.
     }
   }
 
@@ -101,30 +100,16 @@ function failingAudits(lhr, categoryId) {
     }));
 }
 
-async function postDiagnostic(payload) {
-  const body = new URLSearchParams({
-    'form-name': 'lh-diagnostic-export',
-    source: 'netlify-lighthouse',
-    payload: JSON.stringify(payload),
-  });
-
-  const response = await fetch(FORM_URL, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-    body: body.toString(),
-    signal: AbortSignal.timeout(15_000),
-  });
-
-  return response.status;
+async function writeDiagnostic(payload) {
+  const store = getDeployStore('lighthouse-diagnostic');
+  await store.setJSON('result', payload);
 }
 
-async function findCandidateReports(root, maxDepth = 5) {
+async function findCandidateReports(root, maxDepth = 6) {
   const matches = [];
 
   async function walk(dir, depth) {
-    if (depth > maxDepth || matches.length >= 40) return;
+    if (depth > maxDepth || matches.length >= 60) return;
 
     let entries;
     try {
@@ -134,7 +119,7 @@ async function findCandidateReports(root, maxDepth = 5) {
     }
 
     for (const entry of entries) {
-      if (matches.length >= 40) break;
+      if (matches.length >= 60) break;
       if (entry.name === 'node_modules' || entry.name === '.git') continue;
 
       const full = path.join(dir, entry.name);
@@ -174,7 +159,7 @@ export const onEnd = async ({ constants, utils }) => {
 
   let reportPath = null;
   let html = null;
-  let preferredErrors = [];
+  const preferredErrors = [];
 
   for (const candidate of preferred) {
     try {
@@ -190,8 +175,8 @@ export const onEnd = async ({ constants, utils }) => {
   }
 
   if (!html) {
-    const candidates = await findCandidateReports(cwd, 5);
-    await postDiagnostic({
+    const candidates = await findCandidateReports(cwd, 6);
+    await writeDiagnostic({
       status: 'report-missing',
       cwd,
       publishDir: constants.PUBLISH_DIR,
@@ -200,15 +185,16 @@ export const onEnd = async ({ constants, utils }) => {
     });
 
     utils.status.show({
-      title: 'Lighthouse export: report missing',
-      summary: 'Diagnostic status submitted to lh-diagnostic-export.',
+      title: 'Lighthouse Blob export: report missing',
+      summary: 'Diagnostic saved to deploy Blob store.',
     });
     return;
   }
 
   const lhr = extractLighthouseJson(html);
+
   if (!lhr) {
-    await postDiagnostic({
+    await writeDiagnostic({
       status: 'parse-failed',
       reportPath,
       bytes: html.length,
@@ -220,8 +206,8 @@ export const onEnd = async ({ constants, utils }) => {
     });
 
     utils.status.show({
-      title: 'Lighthouse export: parse failed',
-      summary: 'Diagnostic status submitted to lh-diagnostic-export.',
+      title: 'Lighthouse Blob export: parse failed',
+      summary: 'Diagnostic saved to deploy Blob store.',
     });
     return;
   }
@@ -241,12 +227,10 @@ export const onEnd = async ({ constants, utils }) => {
     bestPractices: failingAudits(lhr, 'best-practices'),
   };
 
-  const status = await postDiagnostic(payload);
+  await writeDiagnostic(payload);
 
   utils.status.show({
-    title: status >= 200 && status < 300
-      ? 'Lighthouse diagnostic exported'
-      : 'Lighthouse diagnostic POST returned non-success',
-    summary: `HTTP ${status} · A11y ${Math.round((payload.scores.accessibility ?? 0) * 100)} · BP ${Math.round((payload.scores.bestPractices ?? 0) * 100)}`,
+    title: 'Lighthouse diagnostics saved to Blob',
+    summary: `A11y ${Math.round((payload.scores.accessibility ?? 0) * 100)} · BP ${Math.round((payload.scores.bestPractices ?? 0) * 100)}`,
   });
 };
