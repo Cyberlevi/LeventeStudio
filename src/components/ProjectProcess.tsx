@@ -79,7 +79,7 @@ export default function ProjectProcess() {
                 <p className="mt-2 text-sm text-ivory-200">{outcome}</p>
               </div>
 
-              <span className="pointer-events-none absolute bottom-3 right-3 text-[8px] tracking-[.16em] text-white/[.11]" aria-hidden="true">
+              <span className="pointer-events-none absolute bottom-3 right-3 text-[8px] tracking-[.16em] text-white/50" aria-hidden="true">
                 LS/P{number}
               </span>
             </li>
