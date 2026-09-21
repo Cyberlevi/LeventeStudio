@@ -232,6 +232,27 @@ for (const audit of failingAudits(lhr, 'accessibility')) {
       source: item?.source,
       failureReason: item?.failureReason,
     });
+
+    const fullSelector = item?.node?.selector || '';
+    const selectorTail = safeId(fullSelector.slice(-110), 72);
+    const label = safeId(item?.node?.nodeLabel || item?.node?.snippet || 'node', 52);
+    const contrast = safeId(
+      [item?.contrastRatio, item?.expectedContrastRatio, item?.node?.explanation]
+        .filter(Boolean)
+        .join('-'),
+      80,
+    );
+    await emit(
+      `lhreport-a11y-detail-i${i+1}-${selectorTail}-${label}-${contrast}`,
+      {
+        selector: fullSelector,
+        nodeLabel: item?.node?.nodeLabel,
+        snippet: item?.node?.snippet,
+        explanation: item?.node?.explanation,
+        contrastRatio: item?.contrastRatio,
+        expectedContrastRatio: item?.expectedContrastRatio,
+      },
+    );
   }
 }
 
@@ -266,17 +287,31 @@ for (const audit of failingAudits(lhr, 'best-practices')) {
       failureReason: item?.failureReason,
     });
 
-    if (item?.url || item?.failureReason || item?.source) {
+    if (
+      item?.description ||
+      item?.sourceLocation?.url ||
+      item?.url ||
+      item?.failureReason ||
+      item?.source
+    ) {
       const detail = safeId(
-        [item?.source, item?.failureReason, item?.url].filter(Boolean).join('-'),
-        120,
+        [
+          item?.source,
+          item?.description,
+          item?.failureReason,
+          item?.sourceLocation?.url,
+          item?.url,
+        ].filter(Boolean).join('-'),
+        140,
       );
       await emit(
         `lhreport-bp-detail-i${i+1}-${detail}`,
         {
           audit: audit?.id,
-          url: item?.url,
           source: item?.source,
+          description: item?.description,
+          sourceLocation: item?.sourceLocation,
+          url: item?.url,
           failureReason: item?.failureReason,
         },
       );
