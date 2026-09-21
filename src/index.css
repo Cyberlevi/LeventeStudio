@@ -778,3 +778,29 @@
     opacity: 1 !important;
   }
 }
+
+
+/* Mobile performance gate: keep award art direction, skip scroll-motion work. */
+.signal-manifesto,
+.award-system-map,
+.award-process {
+  content-visibility: auto;
+}
+
+.signal-manifesto { contain-intrinsic-size: 760px; }
+.award-system-map { contain-intrinsic-size: 980px; }
+.award-process { contain-intrinsic-size: 860px; }
+
+@media (max-width: 899px) {
+  .signal-manifesto-title .signal-word,
+  .signal-orbit-line,
+  .award-project-card,
+  .award-process-line,
+  .award-process-step,
+  .award-system-stage {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
