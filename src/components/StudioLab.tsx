@@ -139,7 +139,7 @@ function PageStage({ project }: { project: ReferenceProject }) {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-3 text-[9px] uppercase tracking-[.16em] text-white/45 sm:text-[10px]">
+        <div className="mt-4 flex items-center justify-between gap-3 text-[9px] uppercase tracking-[.16em] text-white/60 sm:text-[10px]">
           <span>Oldalnézet · ugyanaz a projektforrás</span>
           <span className="hidden sm:inline">Tiszta browser frame</span>
         </div>
