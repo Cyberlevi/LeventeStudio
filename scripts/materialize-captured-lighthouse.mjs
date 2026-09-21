@@ -149,6 +149,17 @@ if (!lhr) {
   const versionMarker = html.includes('"lighthouseVersion"');
   const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
   const title = safeId(titleMatch?.[1] || 'no-title', 44);
+
+  const exactMarker = 'window.__LIGHTHOUSE_JSON__';
+  const positions = [];
+  let searchFrom = 0;
+  while (positions.length < 8) {
+    const index = html.indexOf(exactMarker, searchFrom);
+    if (index < 0) break;
+    positions.push(index);
+    searchFrom = index + exactMarker.length;
+  }
+
   await emit(
     `lhreport-json-not-found-w${windowMarker ? 1 : 0}-g${genericMarker ? 1 : 0}-v${versionMarker ? 1 : 0}-${title}`,
     {
@@ -157,9 +168,19 @@ if (!lhr) {
       genericMarker,
       versionMarker,
       title: titleMatch?.[1],
-      preview: html.slice(0, 500),
+      positions,
     },
   );
+
+  for (let i = 0; i < positions.length; i += 1) {
+    const pos = positions[i];
+    const around = html.slice(Math.max(0, pos - 24), pos + exactMarker.length + 120);
+    await emit(
+      `lhreport-marker-${i + 1}-${safeId(around, 100)}`,
+      { pos, around },
+    );
+  }
+
   process.exit(0);
 }
 
