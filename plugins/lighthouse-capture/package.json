@@ -1,6 +1,0 @@
-{
-  "name": "netlify-plugin-lighthouse-capture-local",
-  "private": true,
-  "type": "module",
-  "main": "index.js"
-}
