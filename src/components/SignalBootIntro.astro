@@ -1,0 +1,75 @@
+---
+---
+
+<div id="ls-boot-intro" class="ls-boot-intro" aria-hidden="true">
+  <div class="ls-boot-intro__grid" aria-hidden="true"></div>
+  <div class="ls-boot-intro__shutter ls-boot-intro__shutter--top" aria-hidden="true"></div>
+  <div class="ls-boot-intro__shutter ls-boot-intro__shutter--bottom" aria-hidden="true"></div>
+
+  <div class="ls-boot-intro__content">
+    <div class="ls-boot-intro__meta">
+      <span>LS / SIGNAL BOOT</span>
+      <span class="ls-boot-intro__meta-line"></span>
+      <span>WEB · SYSTEM · AI</span>
+    </div>
+
+    <div class="ls-boot-intro__center">
+      <div class="ls-boot-intro__mark">
+        <span class="ls-boot-intro__mark-core"></span>
+        <span class="ls-boot-intro__mark-ring"></span>
+      </div>
+
+      <p class="ls-boot-intro__eyebrow">DIGITAL SYSTEM / BUDAPEST</p>
+      <p class="ls-boot-intro__title">
+        <span>LEVENTE</span>
+        <span class="ls-boot-intro__title-muted">STUDIO</span>
+      </p>
+
+      <div class="ls-boot-intro__track">
+        <span class="ls-boot-intro__progress"></span>
+      </div>
+
+      <div class="ls-boot-intro__status">
+        <span class="ls-boot-intro__status-dot"></span>
+        <span class="ls-boot-intro__status-copy">
+          <span class="ls-boot-intro__status-a">SIGNAL LINK</span>
+          <span class="ls-boot-intro__status-b">SYSTEM READY</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ls-boot-intro__foot">
+      <span>01 / ENTRY</span>
+      <span>2026</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(() => {
+  const root = document.documentElement;
+  const intro = document.getElementById('ls-boot-intro');
+  if (!intro || !root.classList.contains('ls-intro-pending')) {
+    if (intro) intro.hidden = true;
+    return;
+  }
+
+  const complete = () => {
+    try { sessionStorage.setItem('ls_intro_seen_v1', '1'); } catch (_) {}
+    root.classList.remove('ls-intro-pending', 'ls-intro-reveal');
+    root.classList.add('ls-intro-complete');
+    intro.hidden = true;
+  };
+
+  const revealTimer = window.setTimeout(() => {
+    root.classList.add('ls-intro-reveal');
+  }, 880);
+
+  const completeTimer = window.setTimeout(complete, 1480);
+
+  window.addEventListener('pagehide', () => {
+    window.clearTimeout(revealTimer);
+    window.clearTimeout(completeTimer);
+  }, { once: true });
+})();
+</script>
