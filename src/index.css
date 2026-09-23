@@ -784,9 +784,9 @@ html.ls-intro-reveal .ls-boot-intro__content {
 
 .ls-boot-intro__mark {
   position: relative;
-  width: 1.4rem;
-  height: 1.4rem;
-  margin: 0 auto 1.2rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 auto 1.4rem;
 }
 
 .ls-boot-intro__mark-core {
@@ -809,6 +809,26 @@ html.ls-intro-reveal .ls-boot-intro__content {
   animation: ls-boot-ring .8s .14s cubic-bezier(.2,.8,.2,1) both;
 }
 
+.ls-boot-intro__mark::before,
+.ls-boot-intro__mark::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  background: linear-gradient(90deg, transparent, rgba(216,255,120,.32), transparent);
+  transform: translate(-50%,-50%);
+}
+
+.ls-boot-intro__mark::before {
+  width: 5rem;
+  height: 1px;
+}
+
+.ls-boot-intro__mark::after {
+  width: 1px;
+  height: 5rem;
+  background: linear-gradient(180deg, transparent, rgba(216,255,120,.32), transparent);
+}
+
 .ls-boot-intro__eyebrow {
   margin: 0 0 .85rem;
   font-size: .52rem;
@@ -818,34 +838,27 @@ html.ls-intro-reveal .ls-boot-intro__content {
   animation: ls-boot-fade .38s .18s both;
 }
 
-.ls-boot-intro__title {
-  display: flex;
+.ls-boot-intro__signature {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap: .22em;
-  margin: 0;
-  overflow: hidden;
-  font-size: clamp(2.8rem, 9.5vw, 8.4rem);
+  gap: .72rem;
+  min-height: 1rem;
+  font-size: .62rem;
   font-weight: 500;
-  line-height: .83;
-  letter-spacing: -.065em;
-  color: var(--ls-ivory);
-  text-wrap: nowrap;
+  line-height: 1;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(244,240,232,.72);
+  animation: ls-boot-fade .28s .12s both;
 }
 
-.ls-boot-intro__title > span {
+.ls-boot-intro__signature i {
   display: block;
-  animation: ls-boot-word .48s .12s cubic-bezier(.18,.86,.28,1) both;
-}
-
-.ls-boot-intro__title > span:nth-child(2) {
-  animation-delay: .18s;
-}
-
-.ls-boot-intro__title-muted {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ls-signal);
+  width: 2.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(216,255,120,.08), rgba(216,255,120,.86), rgba(216,255,120,.08));
+  box-shadow: 0 0 12px rgba(216,255,120,.22);
 }
 
 .ls-boot-intro__track {
@@ -984,7 +997,7 @@ html.ls-intro-reveal .ls-boot-intro__content {
     animation-delay: 0s;
   }
 
-  .ls-boot-intro__title > span,
+  .ls-boot-intro__signature,
   .ls-boot-intro__mark-core,
   .ls-boot-intro__mark-ring,
   .ls-boot-intro__progress {
@@ -996,9 +1009,6 @@ html.ls-intro-reveal .ls-boot-intro__content {
     transition-duration: .34s;
   }
 
-  .ls-boot-intro__title {
-    font-size: clamp(2.35rem, 13vw, 4.25rem);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
