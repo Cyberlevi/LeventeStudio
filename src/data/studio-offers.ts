@@ -1,7 +1,7 @@
-type PreviewDevice = 'tablet' | 'mobile';
+type PreviewDevice = 'desktop' | 'tablet' | 'mobile';
 
-const responsiveScreenshot = (project: string, device: PreviewDevice) =>
-  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260921-5`;
+const projectScreenshot = (project: string, device: PreviewDevice) =>
+  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260923-6`;
 
 export const studioOffers = [
   {
@@ -43,22 +43,22 @@ export const referenceProjects = [
   { id: 'klimatisztak', name: 'KlímaTiszták', category: 'Klímatisztítás · saját digitális projekt',
     description: 'Kalkulátorral támogatott szolgáltatási oldal, világos ajánlatkérési úttal és mobilra tervezett folyamattal.',
     detail: 'A projekt azt mutatja meg, hogyan lehet a szolgáltatásválasztást, az árazási logikát és a kapcsolatfelvételt egyetlen ügyfélútba rendezni.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp', tabletImage: responsiveScreenshot('klimatisztak', 'tablet'), mobileImage: responsiveScreenshot('klimatisztak', 'mobile'), liveUrl: 'https://klimatisztak.hu/',
+    image: projectScreenshot('klimatisztak', 'desktop'), tabletImage: projectScreenshot('klimatisztak', 'tablet'), mobileImage: projectScreenshot('klimatisztak', 'mobile'), liveUrl: 'https://klimatisztak.hu/',
     href: '/esettanulmanyok/klimatisztak/' },
   { id: 'klima18ker', name: 'Klíma18ker', category: 'Klímaszerelés · saját vállalkozás',
     description: 'Szolgáltatások, saját munkafotók és műszaki ajánlatkérés egy átlátható oldalon.',
     detail: 'Az érdeklődő megismerheti a munkát, majd elindíthatja a helyszínhez illő ajánlatkérést.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aa805a1031c990008cfc983/screenshot_2026-09-14-14-34-00-0000.webp', tabletImage: responsiveScreenshot('klima18ker', 'tablet'), mobileImage: responsiveScreenshot('klima18ker', 'mobile'), liveUrl: 'https://klima18ker.hu/',
+    image: projectScreenshot('klima18ker', 'desktop'), tabletImage: projectScreenshot('klima18ker', 'tablet'), mobileImage: projectScreenshot('klima18ker', 'mobile'), liveUrl: 'https://klima18ker.hu/',
     href: '/esettanulmanyok/klima18ker-weboldal-audit/' },
   { id: 'furatmester', name: 'FuratMester', category: 'Faláttörés · saját szolgáltatás',
     description: 'Konkrét munkatípusok, árakat segítő információk és közvetlen ajánlatkérés.',
     detail: 'A látogató megtalálja a szükséges furat típusát és a következő lépést az egyeztetéshez.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aaffa8ab15dfa0008c4789a/screenshot_2026-09-20-15-24-19-0000.webp', tabletImage: responsiveScreenshot('furatmester', 'tablet'), mobileImage: responsiveScreenshot('furatmester', 'mobile'), liveUrl: 'https://lyukfurasbudapest.hu/',
+    image: projectScreenshot('furatmester', 'desktop'), tabletImage: projectScreenshot('furatmester', 'tablet'), mobileImage: projectScreenshot('furatmester', 'mobile'), liveUrl: 'https://lyukfurasbudapest.hu/',
     href: '/esettanulmanyok/furatmester-digitalis-ugyfelszerzes/' },
   { id: 'bundavarazs', name: 'Bundavarázs', category: 'Kutyakozmetika · családi vállalkozás',
     description: 'Egy személyes szolgáltatás online bemutatása, helyi ügyfelekre szabva.',
     detail: 'A projektbemutatásban a bizalomépítést és a kapcsolatfelvétel felépítését mutatjuk meg.',
-    image: 'https://d33wubrfki0l68.cloudfront.net/6aafdea445a27fc81c03df56/screenshot_2026-09-20-13-25-31-0000.webp', tabletImage: responsiveScreenshot('bundavarazs', 'tablet'), mobileImage: responsiveScreenshot('bundavarazs', 'mobile'), liveUrl: 'https://bundavarazskutyakozmetika.hu/',
+    image: projectScreenshot('bundavarazs', 'desktop'), tabletImage: projectScreenshot('bundavarazs', 'tablet'), mobileImage: projectScreenshot('bundavarazs', 'mobile'), liveUrl: 'https://bundavarazskutyakozmetika.hu/',
     href: '/esettanulmanyok/bundavarazs-helyi-ugyfelszerzes/' },
 ] as const;
 
