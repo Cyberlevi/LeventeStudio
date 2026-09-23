@@ -904,15 +904,6 @@ html.ls-intro-reveal .ls-boot-intro__content {
   animation: ls-boot-status-in .2s .49s both;
 }
 
-html.ls-intro-pending:not(.ls-intro-reveal) .award-hero {
-  transform: translateY(8px) scale(.992);
-}
-
-html.ls-intro-pending.ls-intro-reveal .award-hero {
-  transform: none;
-  transition: transform .62s cubic-bezier(.2,.8,.2,1);
-}
-
 @keyframes ls-boot-fade {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: none; }
@@ -984,6 +975,29 @@ html.ls-intro-pending.ls-intro-reveal .award-hero {
 
   .ls-boot-intro__track {
     width: min(82vw, 21rem);
+  }
+
+  .ls-boot-intro__meta,
+  .ls-boot-intro__foot,
+  .ls-boot-intro__eyebrow {
+    animation-duration: .16s;
+    animation-delay: 0s;
+  }
+
+  .ls-boot-intro__title > span,
+  .ls-boot-intro__mark-core,
+  .ls-boot-intro__mark-ring,
+  .ls-boot-intro__progress {
+    animation-duration: .24s;
+    animation-delay: 0s;
+  }
+
+  .ls-boot-intro__shutter {
+    transition-duration: .34s;
+  }
+
+  .ls-boot-intro__title {
+    font-size: clamp(2.35rem, 13vw, 4.25rem);
   }
 }
 
