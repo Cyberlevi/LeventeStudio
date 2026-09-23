@@ -61,11 +61,15 @@
     intro.hidden = true;
   };
 
+  const compact = window.matchMedia('(max-width: 767px)').matches;
+  const revealDelay = compact ? 170 : 620;
+  const completeDelay = compact ? 540 : 1080;
+
   const revealTimer = window.setTimeout(() => {
     root.classList.add('ls-intro-reveal');
-  }, 620);
+  }, revealDelay);
 
-  const completeTimer = window.setTimeout(complete, 1480);
+  const completeTimer = window.setTimeout(complete, completeDelay);
 
   window.addEventListener('pagehide', () => {
     window.clearTimeout(revealTimer);
