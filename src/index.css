@@ -198,14 +198,18 @@
 
   .tech-card-dark {
     @apply border border-white/10 text-white transition-all duration-300;
-    background: rgba(255,255,255,.035);
-    backdrop-filter: blur(12px);
+    background:
+      radial-gradient(circle at 84% 12%, rgba(216,255,120,.035), transparent 28%),
+      linear-gradient(180deg, rgba(21,24,22,.985), rgba(11,13,12,.99));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.012), 0 16px 48px rgba(0,0,0,.16);
   }
 
   .tech-card-dark:hover {
     transform: translateY(-3px);
     border-color: rgba(216,255,120,.28);
-    background: rgba(255,255,255,.055);
+    background:
+      radial-gradient(circle at 84% 12%, rgba(216,255,120,.055), transparent 30%),
+      linear-gradient(180deg, rgba(24,28,25,.99), rgba(12,15,13,.995));
   }
 
   .signal-tag-light {
