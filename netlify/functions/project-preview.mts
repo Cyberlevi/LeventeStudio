@@ -72,7 +72,7 @@ export default async (request: Request) => {
         'user-agent': 'LeventeStudio/1.0 project-preview-proxy',
         accept: 'image/webp,image/*;q=0.8',
       },
-      signal: AbortSignal.timeout(20_000),
+      signal: AbortSignal.timeout(6_000),
     });
 
     if (!response.ok || !response.body) {
