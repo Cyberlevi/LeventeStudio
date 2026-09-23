@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SignalBootIntro from '../components/SignalBootIntro.astro';
 import HeaderAstro from '../components/HeaderAstro.astro';
 import Hero2026 from '../components/Hero2026';
 import SignalField from '../components/SignalField.astro';
@@ -24,6 +25,7 @@ const structuredData = {
 };
 ---
 <BaseLayout title="Weboldalkészítés szolgáltatóknak | Levente Studio" description="Profi weboldal, bemutatható munkák és egyszerű ajánlatkérés. Saját projekteken szerzett tapasztalattal, közvetlen együttműködésben. Csomagok 149 000 Ft-tól." canonical="/" structuredData={structuredData}>
+  <SignalBootIntro />
   <HeaderAstro /><MobileStickyBar2026 ctaHref="#diagnosztika" />
   <main>
     <section data-sticky-threshold class="relative isolate overflow-hidden bg-graphite-950">
