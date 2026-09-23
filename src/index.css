@@ -642,12 +642,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  body:has(.mobile-sticky-cta) .site-footer {
-    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
