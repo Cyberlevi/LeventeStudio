@@ -34,3 +34,5 @@ A 2026-os átépítés draft PR-ban marad, amíg a production build és a fő ko
 - GitHub Actions quality gate: jelenleg repository runner/policy szinten, még a checkout előtt áll meg, ezért ez nem forráskód-build eredmény.
 - Netlify: a production a `main` branchet használja; Deploy Previews és branch deployok engedélyezve vannak a 2026-os branch vizuális és build QA-jához.
 - Éles merge csak sikeres preview/build és mobil + desktop ellenőrzés után.
+
+<!-- lighthouse control preview: 2026-09-23 -->
