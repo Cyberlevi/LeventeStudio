@@ -68,8 +68,8 @@
 
   const compact = window.matchMedia('(max-width: 767px)').matches;
   const onlineDelay = compact ? 980 : 1420;
-  const revealDelay = compact ? 1420 : 1940;
-  const completeDelay = compact ? 1900 : 2520;
+  const revealDelay = compact ? 1240 : 1940;
+  const completeDelay = compact ? 1640 : 2520;
 
   const finish = () => {
     root.classList.remove('ls-intro-pending', 'ls-intro-online', 'ls-intro-reveal');
