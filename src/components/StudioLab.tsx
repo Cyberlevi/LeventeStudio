@@ -221,8 +221,8 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         <div
           className={`absolute z-30 transition-all duration-500 motion-reduce:transform-none motion-reduce:transition-none ${
             mode === 'tablet'
-              ? 'bottom-5 left-1/2 w-[38%] min-w-[150px] max-w-[260px] -translate-x-1/2 sm:bottom-7 lg:bottom-8'
-              : 'bottom-5 left-[5%] w-[27%] min-w-[112px] max-w-[220px] -rotate-[2deg] sm:bottom-7 sm:left-[7%] lg:bottom-8 lg:left-[8%]'
+              ? 'bottom-5 left-1/2 w-[46%] min-w-[138px] max-w-[260px] -translate-x-1/2 sm:bottom-7 sm:w-[40%] lg:bottom-8'
+              : 'bottom-4 left-[3%] w-[29%] min-w-[96px] max-w-[220px] -rotate-[2deg] sm:bottom-7 sm:left-[6%] sm:w-[27%] lg:bottom-8 lg:left-[8%]'
           }`}
         >
           <div className="rounded-[18px] border border-white/20 bg-[#20211f] p-[5px] shadow-[0_22px_55px_rgba(0,0,0,.45)] sm:rounded-[24px] sm:p-[7px]">
@@ -232,7 +232,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
                 device="tablet"
                 decorative
                 compact
-                loadRemote={mode !== 'all'}
+                loadRemote
                 className="object-cover object-top"
               />
             </div>
@@ -244,8 +244,8 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         <div
           className={`absolute z-30 transition-all duration-500 motion-reduce:transform-none motion-reduce:transition-none ${
             mode === 'mobile'
-              ? 'bottom-4 left-1/2 w-[24%] min-w-[92px] max-w-[150px] -translate-x-1/2 sm:bottom-6 lg:bottom-7'
-              : 'bottom-3 right-[5%] w-[17%] min-w-[70px] max-w-[126px] rotate-[3deg] sm:bottom-5 sm:right-[7%] lg:bottom-7 lg:right-[8%]'
+              ? 'bottom-4 left-1/2 w-[28%] min-w-[88px] max-w-[150px] -translate-x-1/2 sm:bottom-6 sm:w-[24%] lg:bottom-7'
+              : 'bottom-3 right-[3%] w-[19%] min-w-[64px] max-w-[126px] rotate-[3deg] sm:bottom-5 sm:right-[6%] sm:w-[17%] lg:bottom-7 lg:right-[8%]'
           }`}
         >
           <div className="rounded-[18px] border border-white/20 bg-[#161715] p-[4px] shadow-[0_22px_55px_rgba(0,0,0,.52)] sm:rounded-[24px] sm:p-[5px]">
@@ -256,7 +256,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
                 device="mobile"
                 decorative
                 compact
-                loadRemote={mode !== 'all'}
+                loadRemote
                 className="object-cover object-top"
               />
             </div>

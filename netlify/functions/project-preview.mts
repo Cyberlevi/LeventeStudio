@@ -14,9 +14,21 @@ function getProjectUrl(project: string): string | null {
 }
 
 function getViewport(device: string): { width: number; height: number } | null {
+  if (device === 'desktop') return { width: 1440, height: 930 };
   if (device === 'tablet') return { width: 834, height: 1194 };
   if (device === 'mobile') return { width: 390, height: 844 };
   return null;
+}
+
+function fallbackPreview(project: string) {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      location: `/projects/showcase-${project}.webp`,
+      'cache-control': 'no-store',
+      'x-project-preview-fallback': project,
+    },
+  });
 }
 
 function jsonError(status: number, message: string) {
@@ -64,26 +76,26 @@ export default async (request: Request) => {
     });
 
     if (!response.ok || !response.body) {
-      return jsonError(502, 'Project preview is temporarily unavailable');
+      return fallbackPreview(project);
     }
 
     const contentType = response.headers.get('content-type') || '';
     if (!contentType.startsWith('image/')) {
-      return jsonError(502, 'Unexpected project preview response');
+      return fallbackPreview(project);
     }
 
     return new Response(response.body, {
       status: 200,
       headers: {
         'content-type': contentType,
-        'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
-        'netlify-cdn-cache-control': 'public, durable, s-maxage=2592000, stale-while-revalidate=604800',
+        'cache-control': 'public, max-age=3600, stale-while-revalidate=86400',
+        'netlify-cdn-cache-control': 'public, durable, s-maxage=86400, stale-while-revalidate=604800',
         'x-content-type-options': 'nosniff',
         'x-project-preview': `${project}/${device}`,
       },
     });
   } catch {
-    return jsonError(504, 'Project preview timed out');
+    return fallbackPreview(project);
   }
 };
 
