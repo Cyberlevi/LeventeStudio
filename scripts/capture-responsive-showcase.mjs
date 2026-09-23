@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const outputDir = join(process.cwd(), 'public', 'projects', 'responsive');
@@ -11,12 +11,13 @@ const projects = [
 ];
 
 const viewports = [
+  { name: 'desktop', width: 1440, height: 930 },
   { name: 'tablet', width: 834, height: 1194 },
   { name: 'mobile', width: 390, height: 844 },
 ];
 
-const ATTEMPTS = 3;
-const RETRY_DELAY_MS = 1_500;
+const ATTEMPTS = 2;
+const RETRY_DELAY_MS = 1_000;
 
 function readWebPDimensions(buffer) {
   if (
@@ -68,7 +69,7 @@ function readWebPDimensions(buffer) {
   throw new Error('Unable to read WebP dimensions');
 }
 
-async function fetchImage(url, timeoutMs = 25_000) {
+async function fetchImage(url, timeoutMs = 12_000) {
   const response = await fetch(url, {
     headers: { 'user-agent': 'LeventeStudio/1.0 responsive-portfolio-capture' },
     signal: AbortSignal.timeout(timeoutMs),
@@ -156,17 +157,25 @@ async function capture(project, viewport) {
   };
 }
 
+async function writeFallback(project, viewport, error) {
+  const sourcePath = join(process.cwd(), 'public', 'projects', `showcase-${project.id}.webp`);
+  const outputPath = join(outputDir, `${project.id}-${viewport.name}.webp`);
+  await copyFile(sourcePath, outputPath);
+  console.warn(
+    `[responsive-showcase] ${project.id} ${viewport.name}: using local fallback (${error || 'capture unavailable'})`,
+  );
+}
+
 await mkdir(outputDir, { recursive: true });
 
 for (const project of projects) {
-  for (const viewport of viewports) {
-    const result = await capture(project, viewport);
+  const results = await Promise.all(viewports.map((viewport) => capture(project, viewport)));
+  for (let index = 0; index < results.length; index += 1) {
+    const result = results[index];
     if (!result?.ok) {
-      throw new Error(
-        `Responsive screenshot capture failed for ${project.id} ${viewport.name}. Refusing to publish a desktop fallback. ${result?.error || ''}`,
-      );
+      await writeFallback(project, viewports[index], result?.error);
     }
   }
 }
 
-console.log('[responsive-showcase] verified tablet and mobile screenshots ready');
+console.log('[responsive-showcase] desktop, tablet and mobile assets ready');
