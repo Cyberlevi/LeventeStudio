@@ -31,7 +31,7 @@ export default function Hero2026() {
               <strong>01</strong>
             </div>
             <a
-              href="/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/"
+              href="/esettanulmanyok/klimatisztak/"
               className="award-hero__case-card group relative block overflow-hidden border border-white/15 bg-graphite-900 shadow-2xl shadow-black/40"
               aria-label="KlímaTiszták projektbemutatás"
             >
