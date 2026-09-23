@@ -1,7 +1,7 @@
 type PreviewDevice = 'desktop' | 'tablet' | 'mobile';
 
 const projectScreenshot = (project: string, device: PreviewDevice) =>
-  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260923-6`;
+  `/.netlify/functions/project-preview?project=${encodeURIComponent(project)}&device=${device}&v=20260923-7`;
 
 export const studioOffers = [
   {
