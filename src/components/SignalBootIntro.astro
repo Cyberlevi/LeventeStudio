@@ -1,7 +1,7 @@
 ---
 ---
 
-<div id="ls-boot-intro" class="ls-boot-intro" aria-hidden="true">
+<div id="ls-boot-intro" class="ls-boot-intro" aria-hidden="true" hidden>
   <div class="ls-boot-intro__grid" aria-hidden="true"></div>
   <div class="ls-boot-intro__shutter ls-boot-intro__shutter--top" aria-hidden="true"></div>
   <div class="ls-boot-intro__shutter ls-boot-intro__shutter--bottom" aria-hidden="true"></div>
@@ -51,9 +51,10 @@
   const root = document.documentElement;
   const intro = document.getElementById('ls-boot-intro');
   if (!intro || !root.classList.contains('ls-intro-pending')) {
-    if (intro) intro.hidden = true;
     return;
   }
+
+  intro.hidden = false;
 
   const complete = () => {
     try { sessionStorage.setItem('ls_intro_seen_v1', '1'); } catch (_) {}
