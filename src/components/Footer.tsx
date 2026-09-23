@@ -43,7 +43,7 @@ export default function Footer() {
 
         <div className="pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/50">
           <span>© {new Date().getFullYear()} Levente Studio</span>
-          <span className="inline-flex items-center gap-2 text-signal-400"><span className="signal-dot" />Levente Studio</span>
+          <span className="inline-flex items-center gap-2 text-signal-400"><span className="signal-dot" />SIGNAL / LIVE</span>
         </div>
       </div>
     </footer>

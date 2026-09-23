@@ -13,7 +13,7 @@ export default function AboutExpertDark() {
         <div className="subpage-container relative z-10 grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:gap-16">
           <div>
             <div className="signal-kicker mb-6"><span className="signal-dot" />Rólam · Levente Studio</div>
-            <h1 className="subpage-title">Nem kívülről nézem a rendszereket.<span className="block text-signal-400">Benne dolgozom.</span></h1>
+            <h1 className="subpage-title">Nem kívülről nézem a rendszereket.{' '}<span className="block text-signal-400">Benne dolgozom.</span></h1>
             <p className="subpage-lead">Saját szolgáltatói vállalkozásokon építem, mérem és finomítom ugyanazokat a webes, SEO-, Ads- és automatizálási folyamatokat, amelyeket ügyfélprojektekben is használok.</p>
           </div>
           <div
@@ -77,7 +77,7 @@ export default function AboutExpertDark() {
       <section className="hightech-section relative overflow-hidden bg-graphite-950">
         <div className="absolute inset-0 subpage-signal-grid opacity-25" />
         <div className="hightech-container relative grid gap-8 lg:grid-cols-[1fr_.85fr] lg:items-end lg:gap-16">
-          <h2 className="font-serif text-4xl font-light leading-[.92] tracking-editorial sm:text-5xl md:text-7xl">Kevesebb technológiai zaj.<span className="block text-signal-400">Több visszacsatolás.</span></h2>
+          <h2 className="font-serif text-4xl font-light leading-[.92] tracking-editorial sm:text-5xl md:text-7xl">Kevesebb technológiai zaj.{' '}<span className="block text-signal-400">Több visszacsatolás.</span></h2>
           <p className="text-lg font-light leading-relaxed text-white/55">A cél nem több rendszer. A cél az, hogy pontosabban lásd, honnan jön az üzlet, és kevesebb manuális súrlódással működjön a folyamat.</p>
         </div>
       </section>

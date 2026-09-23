@@ -52,7 +52,7 @@ export default function Pricing2026() {
               OFFER / SYSTEM MAP
             </div>
             <h2 className="max-w-[10ch] font-serif text-[clamp(3.3rem,7vw,7rem)] font-light leading-[.86] tracking-[-.055em] text-white">
-              Ne csomagot válassz.
+              Ne csomagot válassz.{' '}
               <span className="mt-2 block italic text-signal-300">Kiindulópontot.</span>
             </h2>
           </div>

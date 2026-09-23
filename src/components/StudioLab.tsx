@@ -102,6 +102,33 @@ function ProjectScreen({
 
   const deferred = device !== 'desktop' && !loadRemote;
 
+  if (deferred) {
+    return (
+      <div
+        className={`relative flex h-full w-full flex-col overflow-hidden bg-graphite-900 p-[9%] text-white/70 ${className}`}
+        aria-hidden={decorative ? 'true' : undefined}
+      >
+        <div className="pointer-events-none absolute inset-0 studio-grid-dark opacity-30" aria-hidden="true" />
+        <div className="relative z-10 flex items-center justify-between gap-2 border-b border-white/10 pb-[7%]">
+          <span className="text-[6px] uppercase tracking-[.18em] text-signal-400 sm:text-[7px]">LS / RESPONSIVE</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-signal-400" />
+        </div>
+        <div className="relative z-10 mt-[12%]">
+          <div className="h-1.5 w-[42%] bg-white/70" />
+          <div className="mt-[6%] h-1 w-[78%] bg-white/15" />
+          <div className="mt-[3%] h-1 w-[62%] bg-white/10" />
+          <div className="mt-[10%] h-[18%] min-h-5 w-full border border-white/10 bg-white/[.035]" />
+          <div className="mt-[9%] inline-flex border border-signal-400/40 px-[8%] py-[4%] text-[6px] uppercase tracking-[.12em] text-signal-300 sm:text-[7px]">
+            {device}
+          </div>
+        </div>
+        <div className="relative z-10 mt-auto pt-[10%] text-[6px] uppercase tracking-[.12em] text-white/35 sm:text-[7px]">
+          {project.name} · válaszd ki a nézetet
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`flex h-full w-full items-center justify-center bg-graphite-900 p-4 text-center text-white/55 ${className}`}
@@ -110,9 +137,7 @@ function ProjectScreen({
       <div>
         <div className="text-[8px] uppercase tracking-[.18em] text-signal-400">LS / PREVIEW</div>
         <div className="mt-2 text-[10px] font-medium text-white/80">{project.name}</div>
-        <div className="mt-1 text-[8px] uppercase tracking-[.12em]">
-          {deferred ? `${device} nézet · válaszd ki` : `${device} nézet nem tölthető be`}
-        </div>
+        <div className="mt-1 text-[8px] uppercase tracking-[.12em]">{device} nézet átmenetileg nem tölthető be</div>
       </div>
     </div>
   );
@@ -192,8 +217,14 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         </div>
       </div>
 
-      {mode === 'tablet' && (
-        <div className="absolute bottom-5 left-1/2 z-30 w-[38%] min-w-[150px] max-w-[260px] -translate-x-1/2 transition-all duration-500 sm:bottom-7 lg:bottom-8">
+      {tabletFocus && (
+        <div
+          className={`absolute z-30 transition-all duration-500 motion-reduce:transform-none motion-reduce:transition-none ${
+            mode === 'tablet'
+              ? 'bottom-5 left-1/2 w-[38%] min-w-[150px] max-w-[260px] -translate-x-1/2 sm:bottom-7 lg:bottom-8'
+              : 'bottom-5 left-[5%] w-[27%] min-w-[112px] max-w-[220px] -rotate-[2deg] sm:bottom-7 sm:left-[7%] lg:bottom-8 lg:left-[8%]'
+          }`}
+        >
           <div className="rounded-[18px] border border-white/20 bg-[#20211f] p-[5px] shadow-[0_22px_55px_rgba(0,0,0,.45)] sm:rounded-[24px] sm:p-[7px]">
             <div className="overflow-hidden rounded-[13px] bg-graphite-950 sm:rounded-[18px]" style={{ aspectRatio: "834 / 1194" }}>
               <ProjectScreen
@@ -201,7 +232,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
                 device="tablet"
                 decorative
                 compact
-                loadRemote
+                loadRemote={mode !== 'all'}
                 className="object-cover object-top"
               />
             </div>
@@ -209,8 +240,14 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         </div>
       )}
 
-      {mode === 'mobile' && (
-        <div className="absolute bottom-4 left-1/2 z-30 w-[24%] min-w-[92px] max-w-[150px] -translate-x-1/2 transition-all duration-500 sm:bottom-6 lg:bottom-7">
+      {mobileFocus && (
+        <div
+          className={`absolute z-30 transition-all duration-500 motion-reduce:transform-none motion-reduce:transition-none ${
+            mode === 'mobile'
+              ? 'bottom-4 left-1/2 w-[24%] min-w-[92px] max-w-[150px] -translate-x-1/2 sm:bottom-6 lg:bottom-7'
+              : 'bottom-3 right-[5%] w-[17%] min-w-[70px] max-w-[126px] rotate-[3deg] sm:bottom-5 sm:right-[7%] lg:bottom-7 lg:right-[8%]'
+          }`}
+        >
           <div className="rounded-[18px] border border-white/20 bg-[#161715] p-[4px] shadow-[0_22px_55px_rgba(0,0,0,.52)] sm:rounded-[24px] sm:p-[5px]">
             <div className="relative aspect-[9/19.5] overflow-hidden rounded-[14px] bg-graphite-950 sm:rounded-[19px]">
               <div className="absolute left-1/2 top-1.5 z-10 h-1.5 w-[34%] -translate-x-1/2 rounded-full bg-black/75" aria-hidden="true" />
@@ -219,7 +256,7 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
                 device="mobile"
                 decorative
                 compact
-                loadRemote
+                loadRemote={mode !== 'all'}
                 className="object-cover object-top"
               />
             </div>
@@ -227,22 +264,8 @@ function PresentationStage({ project, mode }: { project: ReferenceProject; mode:
         </div>
       )}
 
-      {mode === 'all' && (
-        <div className="absolute bottom-5 right-5 z-30 hidden gap-2 sm:flex">
-          <div className="border border-white/10 bg-black/35 px-3 py-2 text-[8px] uppercase tracking-[.16em] text-white/55 backdrop-blur">
-            Tablet · külön nézet
-          </div>
-          <div className="border border-white/10 bg-black/35 px-3 py-2 text-[8px] uppercase tracking-[.16em] text-white/55 backdrop-blur">
-            Mobil · külön nézet
-          </div>
-        </div>
-      )}
-
       <div className="absolute bottom-3 left-1/2 z-0 h-16 w-[72%] -translate-x-1/2 rounded-[50%] bg-black/40 blur-2xl" aria-hidden="true" />
 
-      <div className="absolute bottom-4 left-4 z-40 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-[8px] uppercase tracking-[.16em] text-white/60 backdrop-blur sm:bottom-6 sm:left-6 sm:text-[9px]">
-        Projekt preview · válts desktop / tablet / mobil nézetre
-      </div>
     </div>
   );
 }
@@ -383,7 +406,7 @@ export default function StudioLab() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white/50 hover:text-graphite-950"
+                            className="text-white/50 hover:text-signal-300"
                           >
                             Élő weboldal <span className="sr-only">(új lapon)</span> ↗
                           </a>
