@@ -69,7 +69,7 @@ if (form instanceof HTMLFormElement) {
         if (typeof value !== 'string') return;
         body.append(key, key === 'website' ? normalizeWebsite(value) : value);
       });
-      const endpoint = 'https://leventestudio.netlify.app/.netlify/functions/lead-intake';
+      const endpoint = 'https://leventestudio.netlify.app/api/lead-intake';
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
