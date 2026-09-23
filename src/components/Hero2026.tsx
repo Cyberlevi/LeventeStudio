@@ -40,7 +40,7 @@ export default function Hero2026() {
                 <span>RESPONSIVE / SYSTEM</span>
               </div>
               <img
-                src="/.netlify/functions/project-preview?project=klimatisztak&device=desktop&v=20260923-7"
+                src="/projects/responsive/klimatisztak-desktop.webp?v=20260923-8"
                 width="512"
                 height="384"
                 sizes="(min-width: 1024px) 52vw, 100vw"
