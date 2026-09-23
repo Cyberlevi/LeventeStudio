@@ -69,7 +69,7 @@ const structuredData = {
       </div>
     </header>
 
-    <article class="bg-ivory-100 text-graphite-950">
+    <article class="bg-graphite-900 text-ivory-100">
       <div class="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div class="grid lg:grid-cols-[minmax(0,1fr)_240px] gap-12 lg:gap-16 items-start">
           <div class="min-w-0 max-w-[46rem]">
@@ -79,13 +79,13 @@ const structuredData = {
           </div>
 
           <aside class="hidden lg:block sticky top-28" aria-label="Cikk tartalomjegyzéke">
-            <div class="border-l border-graphite-950/10 pl-5">
-              <div class="mb-4 text-[10px] uppercase tracking-[0.18em] text-graphite-500">Tartalom</div>
-              <nav id="article-toc" class="space-y-3 text-sm leading-snug text-graphite-600">
-                <span class="text-graphite-400">Fejezetek betöltése…</span>
+            <div class="border-l border-white/10 pl-5">
+              <div class="mb-4 text-[10px] uppercase tracking-[0.18em] text-white/55">Tartalom</div>
+              <nav id="article-toc" class="space-y-3 text-sm leading-snug text-white/60">
+                <span class="text-white/45">Fejezetek betöltése…</span>
               </nav>
-              <div class="mt-7 border-t border-graphite-950/10 pt-5 text-xs leading-relaxed text-graphite-500">
-                <div class="font-medium text-graphite-700">{readingTime}</div>
+              <div class="mt-7 border-t border-white/10 pt-5 text-xs leading-relaxed text-white/50">
+                <div class="font-medium text-white/75">{readingTime}</div>
                 <div class="mt-1">Frissítve: {formattedDate}</div>
               </div>
             </div>
@@ -117,7 +117,7 @@ const structuredData = {
 
       const headings = Array.from(content.querySelectorAll('h2'));
       if (!headings.length) {
-        toc.innerHTML = '<span class="text-graphite-400">Rövid útmutató</span>';
+        toc.innerHTML = '<span class="text-white/45">Rövid útmutató</span>';
         return;
       }
 
@@ -135,7 +135,7 @@ const structuredData = {
         const link = document.createElement('a');
         link.href = `#${heading.id}`;
         link.textContent = label;
-        link.className = 'block border-l border-transparent pl-3 -ml-[21px] hover:border-graphite-950 hover:text-graphite-950 transition-colors';
+        link.className = 'block border-l border-transparent pl-3 -ml-[21px] hover:border-signal-400 hover:text-white transition-colors';
         toc.appendChild(link);
       });
     })();

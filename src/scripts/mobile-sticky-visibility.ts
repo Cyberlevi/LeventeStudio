@@ -44,11 +44,10 @@ if (sticky && sticky.dataset.visibilityReady !== 'true') {
       return;
     }
 
-    const heroBottom = hero
-      ? hero.getBoundingClientRect().bottom
-      : Math.max(360, window.innerHeight * 0.72);
+    const pastHero = hero
+      ? hero.getBoundingClientRect().bottom < Math.min(140, window.innerHeight * 0.18)
+      : window.scrollY > Math.max(360, window.innerHeight * 0.72);
 
-    const pastHero = heroBottom < Math.min(140, window.innerHeight * 0.18);
     setVisible(pastHero && !isBlockingZoneVisible());
   };
 

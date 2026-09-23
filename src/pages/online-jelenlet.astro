@@ -68,20 +68,20 @@ const blocks = [
       </div>
     </section>
 
-    <section class="hightech-section bg-ivory-100 text-graphite-950">
-      <div class="hightech-container grid lg:grid-cols-2 gap-12 items-start">
+    <section class="hightech-section bg-graphite-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 subpage-signal-grid opacity-25 pointer-events-none" aria-hidden="true"></div><div class="hightech-container relative grid lg:grid-cols-2 gap-12 items-start">
         <div>
           <Gauge className="w-6 h-6 mb-5" />
-          <div class="text-[10px] uppercase tracking-[.2em] text-graphite-500 mb-3">LS/01 · PRESENCE</div>
-          <h2 class="font-serif text-4xl sm:text-5xl font-light leading-[.96]">Profi online jelenlét <span class="text-graphite-500">{offer.price}.</span></h2>
-          <p class="mt-6 text-graphite-600 leading-relaxed">Belépő termék, nem kompromisszumos sablon. Akkor jó választás, ha még nincs szükség teljes ügyfélszerző rendszerre, de az online megjelenésednek már üzletileg vállalhatónak kell lennie.</p>
-          <p class="mt-4 text-sm text-graphite-500">Ha több aloldal, komolyabb ajánlatkérési út és részletes konverziómérés kell, a START csomag a következő szint.</p>
+          <div class="text-[10px] uppercase tracking-[.2em] text-signal-400 mb-3">LS/01 · PRESENCE</div>
+          <h2 class="font-serif text-4xl sm:text-5xl font-light leading-[.96]">Profi online jelenlét <span class="text-signal-400">{offer.price}.</span></h2>
+          <p class="mt-6 text-white/65 leading-relaxed">Belépő termék, nem kompromisszumos sablon. Akkor jó választás, ha még nincs szükség teljes ügyfélszerző rendszerre, de az online megjelenésednek már üzletileg vállalhatónak kell lennie.</p>
+          <p class="mt-4 text-sm text-white/50">Ha több aloldal, komolyabb ajánlatkérési út és részletes konverziómérés kell, a START csomag a következő szint.</p>
         </div>
 
-        <div class="border border-graphite-950/10 bg-white p-7 md:p-8">
+        <div class="border border-white/10 bg-white/[.025] p-7 md:p-8">
           {offer.features.map((item) => (
-            <div class="flex gap-3 border-b border-graphite-950/10 py-3 text-graphite-600">
-              <Check className="w-4 h-4 text-graphite-950 shrink-0 mt-0.5" />
+            <div class="flex gap-3 border-b border-white/10 py-3 text-white/65">
+              <Check className="w-4 h-4 text-signal-400 shrink-0 mt-0.5" />
               <span>{item}</span>
             </div>
           ))}
