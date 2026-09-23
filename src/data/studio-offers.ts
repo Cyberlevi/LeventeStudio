@@ -44,7 +44,7 @@ export const referenceProjects = [
     description: 'Kalkulátorral támogatott szolgáltatási oldal, világos ajánlatkérési úttal és mobilra tervezett folyamattal.',
     detail: 'A projekt azt mutatja meg, hogyan lehet a szolgáltatásválasztást, az árazási logikát és a kapcsolatfelvételt egyetlen ügyfélútba rendezni.',
     image: 'https://d33wubrfki0l68.cloudfront.net/6aa7727ca06f6a4ae42ef0e7/screenshot_2026-09-14-04-05-37-0000.webp', tabletImage: responsiveScreenshot('klimatisztak', 'tablet'), mobileImage: responsiveScreenshot('klimatisztak', 'mobile'), liveUrl: 'https://klimatisztak.hu/',
-    href: '/esettanulmanyok/klimatisztak-kalkulator-ugyfelut/' },
+    href: '/esettanulmanyok/klimatisztak/' },
   { id: 'klima18ker', name: 'Klíma18ker', category: 'Klímaszerelés · saját vállalkozás',
     description: 'Szolgáltatások, saját munkafotók és műszaki ajánlatkérés egy átlátható oldalon.',
     detail: 'Az érdeklődő megismerheti a munkát, majd elindíthatja a helyszínhez illő ajánlatkérést.',
