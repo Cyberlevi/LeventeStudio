@@ -19,6 +19,50 @@ const allowedOrigins = new Set([
   'https://leventestudio.netlify.app',
 ]);
 
+const allowedFields = new Map<string, number>([
+  ['form-name', 80],
+  ['source_page', 500],
+  ['entry_page', 500],
+  ['recommended_system', 80],
+  ['utm_source', 200],
+  ['utm_medium', 200],
+  ['utm_campaign', 300],
+  ['utm_term', 300],
+  ['utm_content', 300],
+  ['gclid', 300],
+  ['bot-field', 32],
+  ['name', 120],
+  ['email', 254],
+  ['business_type', 200],
+  ['website', 500],
+  ['primary_goal', 80],
+  ['note', 3000],
+  ['selected_package', 80],
+  ['reference_project', 120],
+  ['privacy_acknowledged', 16],
+]);
+
+function normalizeWebsite(value: string): string {
+  const raw = safe(value, 500);
+  if (!raw) return '';
+  try {
+    const url = new URL(raw);
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString().slice(0, 500) : '';
+  } catch {
+    return '';
+  }
+}
+
+function sanitizeLead(input: URLSearchParams): URLSearchParams {
+  const clean = new URLSearchParams();
+  for (const [field, maxLength] of allowedFields) {
+    let value = safe(input.get(field), maxLength);
+    if (field === 'website') value = normalizeWebsite(value);
+    clean.set(field, value);
+  }
+  return clean;
+}
+
 function isAllowedOrigin(origin: string): boolean {
   if (allowedOrigins.has(origin)) return true;
   if (/^https:\/\/deploy-preview-\d+--leventestudio\.netlify\.app$/.test(origin)) return true;
@@ -89,7 +133,8 @@ export default async (req: Request) => {
     return json(origin, { ok: false, error: 'invalid_body' }, 400);
   }
 
-  const data = new URLSearchParams(bodyText);
+  const rawData = new URLSearchParams(bodyText);
+  const data = sanitizeLead(rawData);
   if (safe(data.get('form-name'), 80) !== 'system-diagnostic') {
     return json(origin, { ok: false, error: 'invalid_form' }, 400);
   }
@@ -118,4 +163,15 @@ export default async (req: Request) => {
     console.error('Netlify Forms upstream request failed.', error);
     return json(origin, { ok: false, error: 'forms_upstream_unreachable' }, 502);
   }
+};
+
+
+export const config = {
+  path: '/api/lead-intake',
+  rateLimit: {
+    action: 'rate_limit',
+    windowLimit: 5,
+    windowSize: 60,
+    aggregateBy: ['ip', 'domain'],
+  },
 };
