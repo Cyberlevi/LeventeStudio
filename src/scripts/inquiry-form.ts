@@ -69,8 +69,16 @@ if (form instanceof HTMLFormElement) {
         if (typeof value !== 'string') return;
         body.append(key, key === 'website' ? normalizeWebsite(value) : value);
       });
-      const response = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString(), signal: controller.signal });
+      const endpoint = 'https://leventestudio.netlify.app/.netlify/functions/lead-intake';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+        signal: controller.signal,
+      });
       if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
+      const receipt = await response.json().catch(() => null);
+      if (!receipt?.accepted) throw new Error('Submission was not accepted by the lead backend.');
 
       // Save only non-personal context, and only after the form endpoint acknowledges the POST.
       try {
