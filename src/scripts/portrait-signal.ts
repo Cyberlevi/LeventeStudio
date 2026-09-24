@@ -129,8 +129,7 @@ const fragmentSource = `
 
     // Subtle technical grid in the black field, deliberately quieter than the portrait.
     vec2 grid = abs(fract(v_uv * u_resolution / 32.0) - 0.5);
-    float gridLine = 1.0 - smoothstep(0.46, 0.50, max(grid.x, grid.y));
-    gridLine *= 0.028;
+    float gridLine = smoothstep(0.475, 0.50, max(grid.x, grid.y)) * 0.028;
 
     vec3 color = graphite + vec3(gridLine);
     color = mix(color, dotColor, visibleDot);
