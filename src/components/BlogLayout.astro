@@ -32,7 +32,16 @@ const structuredData = {
 };
 ---
 
-<BaseLayout title={title} description={description} canonical={Astro.url.pathname} ogType="article" structuredData={structuredData}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={Astro.url.pathname}
+  ogType="article"
+  articlePublishedTime={publishDate}
+  articleModifiedTime={publishDate}
+  articleAuthor="Tarnóczi Levente"
+  structuredData={structuredData}
+>
   <MobileStickyBar />
   <HeaderAstro />
 
