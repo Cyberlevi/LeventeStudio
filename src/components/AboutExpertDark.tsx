@@ -42,14 +42,14 @@ export default function AboutExpertDark() {
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute right-3 top-3 z-10 border border-white/10 bg-graphite-950/65 px-2.5 py-1.5 text-[8px] uppercase tracking-[.18em] text-white/45 backdrop-blur-sm"
+                className="pointer-events-none absolute right-2.5 top-2.5 z-10 border border-white/10 bg-graphite-950/62 px-2 py-1 text-[7px] uppercase tracking-[.16em] text-white/40 backdrop-blur-sm"
                 aria-hidden="true"
               >
                 LS / IDENTITY 01
               </div>
             </div>
             <div className="absolute inset-x-2 bottom-2 z-20 bg-gradient-to-t from-graphite-950 via-graphite-950/80 to-transparent p-5">
-              <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-[.18em] text-signal-400"><span className="signal-dot" />Közvetlen kapcsolat</div>
+              <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-[.16em] text-signal-400/75"><span className="signal-dot opacity-70" />Közvetlen kapcsolat</div>
               <div className="text-xl">Tarnóczi Levente</div><div className="text-sm text-white/60">weboldalkészítő · Levente Studio</div>
             </div>
           </div>
