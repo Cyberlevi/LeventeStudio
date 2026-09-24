@@ -80,6 +80,10 @@ const fragmentSource = `
     vec2 faceCoord = (uv - vec2(0.50, 0.67)) * vec2(1.05, 1.22);
     float faceZone = 1.0 - smoothstep(0.19, 0.46, length(faceCoord));
 
+    // Broad centered subject mask: keeps head/shoulders strong, quiets the flat room/background.
+    vec2 subjectCoord = (uv - vec2(0.50, 0.49)) * vec2(0.92, 0.72);
+    float subjectZone = 1.0 - smoothstep(0.34, 0.73, length(subjectCoord));
+
     // ---------------- PRIMARY DOT FIELD ----------------
     vec2 primaryId = floor(px / primaryCell);
     vec2 primaryCenterPx = (primaryId + 0.5) * primaryCell;
@@ -177,6 +181,12 @@ const fragmentSource = `
     // Suppress the darkest background while preserving silhouette edges.
     float portraitPresence =
       max(smoothstep(0.055, 0.235, tone), contour * 0.94);
+
+    float structuredArea = smoothstep(0.10, 0.52, contour + midTone * 0.20);
+    float backgroundAttenuation =
+      mix(0.30, 1.0, max(subjectZone, structuredArea * 0.72));
+
+    portraitPresence *= backgroundAttenuation;
     portraitPresence *= mix(0.24, 1.0, texel.a);
     portraitPresence *= frameFade;
 
@@ -217,16 +227,22 @@ const fragmentSource = `
 
     float visiblePrimary = primaryDot * portraitPresence * reveal;
     float visibleContour = contourDot * portraitPresence * reveal;
-    float visibleDetail  = detailDot * portraitPresence * reveal;
+    float visibleDetail  = detailDot * portraitPresence * reveal * 0.80;
 
     // Very quiet technical grid.
     vec2 grid = abs(fract(v_uv * u_resolution / 32.0) - 0.5);
     float gridLine = smoothstep(0.478, 0.50, max(grid.x, grid.y)) * 0.020;
 
     vec3 color = deepGraphite + vec3(gridLine);
+
+    // Negative halo behind the head: depth without glow or extra GPU passes.
+    vec2 haloCoord = (uv - vec2(0.50, 0.66)) * vec2(1.05, 1.18);
+    float halo = 1.0 - smoothstep(0.12, 0.46, length(haloCoord));
+    color *= 1.0 - halo * 0.20;
+
     color = mix(color, primaryColor, visiblePrimary);
     color = mix(color, contourColor, visibleContour * 0.88);
-    color = mix(color, detailColor, visibleDetail * 0.74);
+    color = mix(color, detailColor, visibleDetail * 0.60);
 
     // Contour lift and acquisition signal.
     color += ivory * visibleContour * 0.042;
