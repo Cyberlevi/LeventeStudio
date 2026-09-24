@@ -299,7 +299,7 @@ function initPortraitSignal(root: HTMLElement) {
   const interactive = !reducedMotion && !compactViewport;
 
   const gl = canvas.getContext('webgl', {
-    alpha: false,
+    alpha: true,
     antialias: false,
     powerPreference: compactViewport ? 'low-power' : 'default',
     premultipliedAlpha: false,
@@ -368,6 +368,8 @@ function initPortraitSignal(root: HTMLElement) {
   let previousPointerX = 0;
   let previousPointerY = 0;
   let previousPointerTime = 0;
+  let lastPointerMotionTime = 0;
+  let pointerPhysicsStrength = 0;
 
   let lastRender = 0;
   let lastPhysics = 0;
@@ -504,7 +506,7 @@ function initPortraitSignal(root: HTMLElement) {
       let ax = (p.homeX - p.x) * spring;
       let ay = (p.homeY - p.y) * spring;
 
-      if (interactive && pointerActive) {
+      if (interactive && pointerActive && pointerPhysicsStrength > 0.001) {
         const dx = p.x - pointerX;
         const dy = p.y - pointerY;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -515,13 +517,15 @@ function initPortraitSignal(root: HTMLElement) {
           const nx = dx / distance;
           const ny = dy / distance;
 
-          ax += nx * repelForce * force;
-          ay += ny * repelForce * force;
+          const activeForce = force * pointerPhysicsStrength;
 
-          // Cursor momentum is inherited by nearby particles, producing the
-          // "thrown apart then spring back" behavior from the reference.
-          ax += pointerVX * velocityCarry * force;
-          ay += pointerVY * velocityCarry * force;
+          ax += nx * repelForce * activeForce;
+          ay += ny * repelForce * activeForce;
+
+          // Cursor momentum is inherited only while the pointer is actually moving.
+          // Once the cursor rests, this fades out and the spring returns the portrait home.
+          ax += pointerVX * velocityCarry * activeForce;
+          ay += pointerVY * velocityCarry * activeForce;
         }
       }
 
@@ -566,7 +570,25 @@ function initPortraitSignal(root: HTMLElement) {
     lastPhysics = now;
     lastRender = now;
 
-    if (pointerActive || physicsSettling) {
+    if (pointerActive) {
+      const idleFor = Math.max(0, now - lastPointerMotionTime);
+      const movingStrength =
+        idleFor <= 90
+          ? 1
+          : Math.exp(-(idleFor - 90) / 165);
+
+      pointerPhysicsStrength +=
+        (movingStrength - pointerPhysicsStrength) * 0.24;
+
+      if (pointerPhysicsStrength < 0.004) {
+        pointerPhysicsStrength = 0;
+      }
+    } else {
+      pointerPhysicsStrength *= 0.72;
+      if (pointerPhysicsStrength < 0.004) pointerPhysicsStrength = 0;
+    }
+
+    if (pointerPhysicsStrength > 0 || physicsSettling) {
       physicsStep(dt);
       uploadPositions();
     }
@@ -574,13 +596,15 @@ function initPortraitSignal(root: HTMLElement) {
     pointerVX *= 0.76;
     pointerVY *= 0.76;
 
-    gl.clearColor(0.023, 0.027, 0.025, 1);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.useProgram(program);
     gl.uniform2f(resolutionLocation, cssWidth, cssHeight);
     gl.uniform2f(pointerLocation, pointerX, pointerY);
-    gl.uniform1f(pointerActiveLocation, pointerActive ? 1 : 0);
+    const visualPointerStrength =
+      pointerActive ? Math.max(0.045, pointerPhysicsStrength) : 0;
+    gl.uniform1f(pointerActiveLocation, visualPointerStrength);
     gl.uniform1f(timeLocation, now / 1000);
     gl.uniform1f(dprLocation, dpr);
 
@@ -630,6 +654,7 @@ function initPortraitSignal(root: HTMLElement) {
     previousPointerX = x;
     previousPointerY = y;
     previousPointerTime = now;
+    lastPointerMotionTime = now;
 
     pointerX = x;
     pointerY = y;
@@ -638,12 +663,17 @@ function initPortraitSignal(root: HTMLElement) {
     requestRender();
   };
 
-  const onPointerEnter = (event: PointerEvent) => updatePointer(event, true);
+  const onPointerEnter = (event: PointerEvent) => {
+    lastPointerMotionTime = performance.now();
+    pointerPhysicsStrength = 0.35;
+    updatePointer(event, true);
+  };
   const onPointerMove = (event: PointerEvent) => updatePointer(event, false);
 
   const onPointerLeave = (event: PointerEvent) => {
     if (!interactive || event.pointerType === 'touch') return;
     pointerActive = false;
+    pointerPhysicsStrength = 0;
     pointerVX = 0;
     pointerVY = 0;
     physicsSettling = true;
@@ -694,6 +724,7 @@ function initPortraitSignal(root: HTMLElement) {
     previousPointerX = x;
     previousPointerY = y;
     previousPointerTime = now;
+    lastPointerMotionTime = now;
     pointerX = x;
     pointerY = y;
     pointerActive = true;
@@ -704,6 +735,7 @@ function initPortraitSignal(root: HTMLElement) {
   const onMouseLeaveFallback = () => {
     if (!interactive || typeof PointerEvent !== 'undefined') return;
     pointerActive = false;
+    pointerPhysicsStrength = 0;
     pointerVX = 0;
     pointerVY = 0;
     physicsSettling = true;
