@@ -26,23 +26,27 @@ export default function AboutExpertDark() {
             <span className="pointer-events-none absolute bottom-3 left-3 z-10 h-3 w-3 border-b border-l border-signal-400/20" aria-hidden="true" />
             <span className="pointer-events-none absolute bottom-3 right-3 z-10 h-3 w-3 border-b border-r border-signal-400/20" aria-hidden="true" />
             <div className="relative aspect-[4/5] overflow-hidden bg-graphite-950">
+              <div
+                className="portrait-ambient-field pointer-events-none absolute inset-0 z-[1]"
+                aria-hidden="true"
+              />
               <img
                 data-portrait-image
                 src="/levente_studio_portrait_final.webp"
                 width={800}
                 height={533}
-                className="h-full w-full object-cover grayscale transition-[filter,transform,opacity] duration-700 ease-out group-hover:scale-[1.008] group-hover:grayscale-[.9]"
+                className="relative z-0 h-full w-full object-cover grayscale transition-[filter,transform,opacity] duration-700 ease-out group-hover:scale-[1.008] group-hover:grayscale-[.9]"
                 alt="Tarnóczi Levente – weboldalkészítő"
                 decoding="async"
                 fetchPriority="high"
               />
               <canvas
                 data-portrait-canvas
-                className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500"
+                className="pointer-events-none absolute inset-0 z-[2] h-full w-full opacity-0 transition-opacity duration-500"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-signal-400/70 to-transparent opacity-70"
+                className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-px bg-gradient-to-r from-transparent via-signal-400/70 to-transparent opacity-70"
                 aria-hidden="true"
               />
               <div
