@@ -93,7 +93,9 @@ const fragmentSource = `
       hash(primaryId + vec2(0.31, 1.73)),
       hash(primaryId + vec2(4.91, 2.17))
     ) - 0.5;
-    primaryCenterPx += jitter * primaryCell * 0.045;
+
+    float settle = 1.0 - smoothstep(0.18, 0.92, u_progress);
+    primaryCenterPx += jitter * primaryCell * (0.045 + settle * 0.26);
 
     vec2 primaryUv = primaryCenterPx / u_resolution;
     vec2 primaryImageUv = coverUv(primaryUv);
@@ -221,7 +223,13 @@ const fragmentSource = `
       smoothstep(0.34, 0.86, contour) *
       0.58;
 
-    float nodeMix = clamp(max(signalNode, pointerNode), 0.0, 0.88);
+    float acquireFlash =
+      step(0.995, hash(primaryId + vec2(71.0, 13.0))) *
+      smoothstep(0.18, 0.52, u_progress) *
+      (1.0 - smoothstep(0.70, 0.96, u_progress)) *
+      smoothstep(0.18, 0.78, contour + tone * 0.15);
+
+    float nodeMix = clamp(max(max(signalNode, pointerNode), acquireFlash), 0.0, 0.88);
     primaryColor = mix(primaryColor, signal, nodeMix);
     contourColor = mix(contourColor, signal, nodeMix * 0.82);
 
@@ -285,7 +293,7 @@ function initPortraitSignal(root: HTMLElement) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
   const compactViewport = window.matchMedia('(max-width: 767px)').matches;
-  const animateReveal = !reducedMotion && !compactViewport;
+  const animateReveal = !reducedMotion;
   const interactive = !reducedMotion && !coarsePointer && !compactViewport;
 
   const gl = canvas.getContext('webgl', {
@@ -364,7 +372,7 @@ function initPortraitSignal(root: HTMLElement) {
   let lastFrame = 0;
   let textureReady = false;
   let firstFrameRendered = false;
-  const revealDuration = 1780;
+  const revealDuration = compactViewport ? 1280 : 1780;
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
