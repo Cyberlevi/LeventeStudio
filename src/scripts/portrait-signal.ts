@@ -295,9 +295,8 @@ function initPortraitSignal(root: HTMLElement) {
   if (!canvas || !image || root.dataset.portraitSignalReady === 'true') return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
   const compactViewport = window.matchMedia('(max-width: 767px)').matches;
-  const interactive = !reducedMotion && !coarsePointer && !compactViewport;
+  const interactive = !reducedMotion && !compactViewport;
 
   const gl = canvas.getContext('webgl', {
     alpha: false,
@@ -608,7 +607,7 @@ function initPortraitSignal(root: HTMLElement) {
   };
 
   const updatePointer = (event: PointerEvent, entering = false) => {
-    if (!interactive) return;
+    if (!interactive || event.pointerType === 'touch') return;
 
     const rect = root.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -642,8 +641,8 @@ function initPortraitSignal(root: HTMLElement) {
   const onPointerEnter = (event: PointerEvent) => updatePointer(event, true);
   const onPointerMove = (event: PointerEvent) => updatePointer(event, false);
 
-  const onPointerLeave = () => {
-    if (!interactive) return;
+  const onPointerLeave = (event: PointerEvent) => {
+    if (!interactive || event.pointerType === 'touch') return;
     pointerActive = false;
     pointerVX = 0;
     pointerVY = 0;
@@ -675,10 +674,48 @@ function initPortraitSignal(root: HTMLElement) {
   });
 
   // Listen on the FRAME, not the canvas: the canvas is deliberately pointer-events:none.
+  const onMouseMoveFallback = (event: MouseEvent) => {
+    if (!interactive || typeof PointerEvent !== 'undefined') return;
+
+    const rect = root.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const now = performance.now();
+
+    if (previousPointerTime > 0) {
+      const frameScale = Math.max(
+        0.45,
+        Math.min(3.5, (now - previousPointerTime) / 16.67),
+      );
+      pointerVX = (x - previousPointerX) / frameScale;
+      pointerVY = (y - previousPointerY) / frameScale;
+    }
+
+    previousPointerX = x;
+    previousPointerY = y;
+    previousPointerTime = now;
+    pointerX = x;
+    pointerY = y;
+    pointerActive = true;
+    physicsSettling = true;
+    requestRender();
+  };
+
+  const onMouseLeaveFallback = () => {
+    if (!interactive || typeof PointerEvent !== 'undefined') return;
+    pointerActive = false;
+    pointerVX = 0;
+    pointerVY = 0;
+    physicsSettling = true;
+    requestRender();
+  };
+
   if (interactive) {
     root.addEventListener('pointerenter', onPointerEnter, { passive: true });
     root.addEventListener('pointermove', onPointerMove, { passive: true });
     root.addEventListener('pointerleave', onPointerLeave);
+    root.addEventListener('mousemove', onMouseMoveFallback, { passive: true });
+    root.addEventListener('mouseleave', onMouseLeaveFallback);
   }
 
   observer.observe(root);
@@ -713,6 +750,8 @@ function initPortraitSignal(root: HTMLElement) {
         root.removeEventListener('pointerenter', onPointerEnter);
         root.removeEventListener('pointermove', onPointerMove);
         root.removeEventListener('pointerleave', onPointerLeave);
+        root.removeEventListener('mousemove', onMouseMoveFallback);
+        root.removeEventListener('mouseleave', onMouseLeaveFallback);
       }
     },
     { once: true },
