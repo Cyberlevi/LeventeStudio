@@ -21,37 +21,14 @@ const fragmentSource = `
   uniform float u_time;
   uniform float u_energy;
 
+  float luminance(vec3 color) {
+    return dot(color, vec3(0.299, 0.587, 0.114));
+  }
+
   float hash(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
     p += dot(p, p + 45.32);
     return fract(p.x * p.y);
-  }
-
-  float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-
-    float a = hash(i);
-    float b = hash(i + vec2(1.0, 0.0));
-    float c = hash(i + vec2(0.0, 1.0));
-    float d = hash(i + vec2(1.0, 1.0));
-
-    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
-  }
-
-  float fbm(vec2 p) {
-    float value = 0.0;
-    float amplitude = 0.5;
-    mat2 rotation = mat2(0.82, -0.57, 0.57, 0.82);
-
-    for (int i = 0; i < 4; i++) {
-      value += amplitude * noise(p);
-      p = rotation * p * 2.03 + 11.7;
-      amplitude *= 0.5;
-    }
-
-    return value;
   }
 
   vec2 coverUv(vec2 uv) {
@@ -67,49 +44,100 @@ const fragmentSource = `
     return uv;
   }
 
+  float sampledLuma(vec2 screenUv) {
+    vec2 imageUv = coverUv(screenUv);
+    vec3 sampleColor = texture2D(u_texture, imageUv).rgb;
+    return luminance(sampleColor);
+  }
+
   void main() {
     vec2 uv = v_uv;
-    vec2 imageUv = coverUv(uv);
+    vec2 px = uv * u_resolution;
 
-    float t = u_time * 0.18;
-    float field = fbm(uv * vec2(4.2, 5.4) + vec2(t * 0.18, -t * 0.12));
-    float detail = noise(uv * 18.0 + vec2(-t * 0.3, t * 0.22));
+    // Desktop pointer interaction only nudges the local dot field by a few pixels.
+    vec2 pointerPx = u_pointer * u_resolution;
+    vec2 delta = px - pointerPx;
+    float pointerDistancePx = length(delta);
+    float pointerInfluence = exp(-(pointerDistancePx * pointerDistancePx) / (2.0 * 88.0 * 88.0)) * u_energy;
+    vec2 pointerDirection = delta / max(pointerDistancePx, 1.0);
+    px += pointerDirection * pointerInfluence * 3.2;
 
-    vec2 pointer = u_pointer;
-    float pointerDistance = distance(uv, pointer);
-    float pointerInfluence = exp(-pointerDistance * 7.5) * u_energy;
-
-    float revealDistortion = (1.0 - u_progress) * 0.055;
-    float pointerDistortion = pointerInfluence * 0.020;
-    float distortion = revealDistortion + pointerDistortion;
-
-    vec2 flow = vec2(
-      field - 0.5 + sin((uv.y + field) * 17.0 + t) * 0.12,
-      detail - 0.5 + cos((uv.x - field) * 15.0 - t) * 0.10
-    );
-
-    imageUv += flow * distortion;
+    // Resolution-aware halftone grid. The output stays crisp without creating DOM particles.
+    float resolutionFactor = clamp((u_resolution.x - 360.0) / 760.0, 0.0, 1.0);
+    float cellSize = mix(7.6, 5.6, resolutionFactor);
+    vec2 cellId = floor(px / cellSize);
+    vec2 cellCenterPx = (cellId + 0.5) * cellSize;
+    vec2 sampleUv = cellCenterPx / u_resolution;
+    vec2 imageUv = coverUv(sampleUv);
 
     vec4 texel = texture2D(u_texture, imageUv);
-    float gray = dot(texel.rgb, vec3(0.299, 0.587, 0.114));
-    vec3 color = mix(vec3(gray), texel.rgb, 0.07);
+    float luma = luminance(texel.rgb);
 
-    float revealNoise = fbm(uv * vec2(3.4, 4.6) + vec2(0.0, t * 0.08));
-    float reveal = smoothstep(revealNoise - 0.11, revealNoise + 0.09, u_progress * 1.08);
+    // Local edge estimate: face, hair, beard and shoulder contours become more legible.
+    vec2 texelStep = vec2(cellSize / u_resolution.x, cellSize / u_resolution.y) * 0.72;
+    float gx = sampledLuma(sampleUv + vec2(texelStep.x, 0.0)) -
+               sampledLuma(sampleUv - vec2(texelStep.x, 0.0));
+    float gy = sampledLuma(sampleUv + vec2(0.0, texelStep.y)) -
+               sampledLuma(sampleUv - vec2(0.0, texelStep.y));
+    float edge = clamp(length(vec2(gx, gy)) * 3.35, 0.0, 1.0);
 
-    float edge = 1.0 - smoothstep(0.0, 0.055, abs((u_progress * 1.08) - revealNoise));
-    edge *= 1.0 - smoothstep(0.88, 1.0, u_progress);
+    // Preserve mid-tones: this is what keeps the face recognizable instead of posterized.
+    float tone = pow(clamp(luma, 0.0, 1.0), 0.78);
+    float radius = cellSize * (0.085 + tone * 0.36 + edge * 0.075);
+    radius = min(radius, cellSize * 0.48);
 
+    vec2 localPx = mod(px, cellSize) - 0.5 * cellSize;
+    float dotDistance = length(localPx);
+    float aa = max(0.75, cellSize * 0.11);
+    float dotAlpha = 1.0 - smoothstep(radius - aa, radius + aa, dotDistance);
+
+    // Fade the hard image rectangle so the portrait dissolves into the technical frame.
+    float edgeFadeX = smoothstep(0.015, 0.12, sampleUv.x) *
+                      smoothstep(0.015, 0.12, 1.0 - sampleUv.x);
+    float edgeFadeY = smoothstep(0.01, 0.10, sampleUv.y) *
+                      smoothstep(0.01, 0.10, 1.0 - sampleUv.y);
+    float frameFade = edgeFadeX * edgeFadeY;
+
+    // Transparent source portraits benefit from alpha; opaque ones still use tone + contour.
+    float portraitPresence = max(smoothstep(0.035, 0.22, tone), edge * 0.92);
+    portraitPresence *= mix(0.28, 1.0, texel.a);
+    portraitPresence *= frameFade;
+
+    // Top-to-bottom SIGNAL acquisition reveal.
+    float scanY = 1.15 - u_progress * 1.30;
+    float reveal = smoothstep(scanY - 0.08, scanY + 0.025, sampleUv.y);
+    float scanLine = exp(-abs(sampleUv.y - scanY) * 78.0) *
+                     smoothstep(0.02, 0.30, u_progress) *
+                     (1.0 - smoothstep(0.88, 1.0, u_progress));
+
+    vec3 graphite = vec3(0.043, 0.051, 0.047);
+    vec3 ivory = vec3(0.957, 0.941, 0.902);
+    vec3 dimIvory = vec3(0.54, 0.56, 0.54);
     vec3 signal = vec3(0.847, 1.0, 0.47);
-    color += signal * edge * 0.34;
 
-    float scan = 0.5 + 0.5 * sin(gl_FragCoord.y * 0.55 + u_time * 6.0);
-    color += signal * scan * pointerInfluence * 0.018;
+    vec3 dotColor = mix(dimIvory, ivory, clamp(tone * 1.16 + edge * 0.42, 0.0, 1.0));
 
-    float pointerGlow = exp(-pointerDistance * 10.0) * pointerInfluence;
-    color += signal * pointerGlow * 0.025;
+    // A small, deterministic fraction of contour/tone nodes carry the LS signal color.
+    float nodeSeed = hash(cellId * 0.731 + vec2(17.0, 41.0));
+    float signalNode = step(0.968, nodeSeed) *
+                       smoothstep(0.14, 0.74, edge + tone * 0.30);
+    signalNode = max(signalNode, pointerInfluence * smoothstep(0.18, 0.72, edge));
 
-    gl_FragColor = vec4(color, texel.a * reveal);
+    dotColor = mix(dotColor, signal, clamp(signalNode * 0.92, 0.0, 0.92));
+
+    float visibleDot = dotAlpha * portraitPresence * reveal;
+
+    // Subtle technical grid in the black field, deliberately quieter than the portrait.
+    vec2 grid = abs(fract(v_uv * u_resolution / 32.0) - 0.5);
+    float gridLine = 1.0 - smoothstep(0.46, 0.50, max(grid.x, grid.y));
+    gridLine *= 0.028;
+
+    vec3 color = graphite + vec3(gridLine);
+    color = mix(color, dotColor, visibleDot);
+    color += signal * scanLine * 0.19;
+    color += signal * pointerInfluence * dotAlpha * edge * 0.10;
+
+    gl_FragColor = vec4(color, 1.0);
   }
 `;
 
@@ -121,6 +149,7 @@ function compileShader(gl: WebGLRenderingContext, type: number, source: string) 
   gl.compileShader(shader);
 
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.warn('Portrait signal shader compilation failed.', gl.getShaderInfoLog(shader));
     gl.deleteShader(shader);
     return null;
   }
@@ -137,14 +166,14 @@ function initPortraitSignal(root: HTMLElement) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
   const compactViewport = window.matchMedia('(max-width: 767px)').matches;
-
-  if (reducedMotion || coarsePointer || compactViewport) return;
+  const animateReveal = !reducedMotion && !compactViewport;
+  const interactive = !reducedMotion && !coarsePointer && !compactViewport;
 
   const gl = canvas.getContext('webgl', {
-    alpha: true,
+    alpha: false,
     antialias: false,
-    powerPreference: 'low-power',
-    premultipliedAlpha: true,
+    powerPreference: compactViewport ? 'low-power' : 'default',
+    premultipliedAlpha: false,
     preserveDrawingBuffer: false,
   });
 
@@ -162,6 +191,7 @@ function initPortraitSignal(root: HTMLElement) {
   gl.linkProgram(program);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.warn('Portrait signal program link failed.', gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return;
   }
@@ -202,23 +232,25 @@ function initPortraitSignal(root: HTMLElement) {
     energy: gl.getUniformLocation(program, 'u_energy'),
   };
 
-  let pointerX = 0.72;
-  let pointerY = 0.42;
+  let pointerX = 0.70;
+  let pointerY = 0.44;
   let targetX = pointerX;
   let targetY = pointerY;
   let energy = 0;
   let targetEnergy = 0;
-  let progress = 0;
+  let progress = animateReveal ? 0 : 1;
   let raf = 0;
   let visible = false;
-  let revealStartedAt = 0;
+  let revealStartedAt = animateReveal ? 0 : -1;
   let lastFrame = 0;
   let textureReady = false;
-  const revealDuration = 1080;
+  let firstFrameRendered = false;
+  const revealDuration = 1550;
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.3);
+    const maxDpr = compactViewport ? 1.05 : 1.45;
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
     const width = Math.max(1, Math.round(rect.width * dpr));
     const height = Math.max(1, Math.round(rect.height * dpr));
 
@@ -230,11 +262,13 @@ function initPortraitSignal(root: HTMLElement) {
   };
 
   const needsAnimation = () =>
-    progress < 0.999 ||
-    Math.abs(targetX - pointerX) > 0.001 ||
-    Math.abs(targetY - pointerY) > 0.001 ||
-    Math.abs(targetEnergy - energy) > 0.008 ||
-    energy > 0.008;
+    (animateReveal && progress < 0.999) ||
+    (interactive && (
+      Math.abs(targetX - pointerX) > 0.001 ||
+      Math.abs(targetY - pointerY) > 0.001 ||
+      Math.abs(targetEnergy - energy) > 0.008 ||
+      energy > 0.008
+    ));
 
   const draw = (now: number) => {
     raf = 0;
@@ -249,18 +283,21 @@ function initPortraitSignal(root: HTMLElement) {
     lastFrame = now;
     resize();
 
-    if (revealStartedAt > 0 && progress < 1) {
+    if (animateReveal && revealStartedAt > 0 && progress < 1) {
       const elapsed = Math.min(1, (now - revealStartedAt) / revealDuration);
       progress = 1 - Math.pow(1 - elapsed, 3);
     }
 
-    pointerX += (targetX - pointerX) * 0.09;
-    pointerY += (targetY - pointerY) * 0.09;
-    energy += (targetEnergy - energy) * 0.085;
+    if (interactive) {
+      pointerX += (targetX - pointerX) * 0.10;
+      pointerY += (targetY - pointerY) * 0.10;
+      energy += (targetEnergy - energy) * 0.09;
+      if (targetEnergy === 0 && energy < 0.01) energy = 0;
+    } else {
+      energy = 0;
+    }
 
-    if (targetEnergy === 0 && energy < 0.01) energy = 0;
-
-    gl.clearColor(0, 0, 0, 0);
+    gl.clearColor(0.043, 0.051, 0.047, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.uniform1i(locations.texture, 0);
     gl.uniform2f(locations.resolution, canvas.width, canvas.height);
@@ -270,6 +307,13 @@ function initPortraitSignal(root: HTMLElement) {
     gl.uniform1f(locations.time, now / 1000);
     gl.uniform1f(locations.energy, energy);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    if (!firstFrameRendered) {
+      firstFrameRendered = true;
+      root.dataset.portraitSignalReady = 'true';
+      canvas.style.opacity = '1';
+      image.style.opacity = '0';
+    }
 
     if (needsAnimation()) {
       raf = requestAnimationFrame(draw);
@@ -289,12 +333,11 @@ function initPortraitSignal(root: HTMLElement) {
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
     textureReady = true;
-    root.dataset.portraitSignalReady = 'true';
-    canvas.style.opacity = '1';
     requestDraw();
   };
 
   const onPointerMove = (event: PointerEvent) => {
+    if (!interactive) return;
     const rect = root.getBoundingClientRect();
     targetX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
     targetY = Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height));
@@ -303,8 +346,9 @@ function initPortraitSignal(root: HTMLElement) {
   };
 
   const onPointerLeave = () => {
-    targetX = 0.72;
-    targetY = 0.42;
+    if (!interactive) return;
+    targetX = 0.70;
+    targetY = 0.44;
     targetEnergy = 0;
     requestDraw();
   };
@@ -314,7 +358,9 @@ function initPortraitSignal(root: HTMLElement) {
       visible = entry.isIntersecting;
 
       if (visible) {
-        if (!revealStartedAt) revealStartedAt = performance.now();
+        if (animateReveal && revealStartedAt === 0) {
+          revealStartedAt = performance.now();
+        }
         requestDraw();
       } else if (raf) {
         cancelAnimationFrame(raf);
@@ -329,8 +375,11 @@ function initPortraitSignal(root: HTMLElement) {
     requestDraw();
   });
 
-  root.addEventListener('pointermove', onPointerMove, { passive: true });
-  root.addEventListener('pointerleave', onPointerLeave);
+  if (interactive) {
+    root.addEventListener('pointermove', onPointerMove, { passive: true });
+    root.addEventListener('pointerleave', onPointerLeave);
+  }
+
   observer.observe(root);
   resizeObserver.observe(root);
 
@@ -343,8 +392,10 @@ function initPortraitSignal(root: HTMLElement) {
       if (raf) cancelAnimationFrame(raf);
       observer.disconnect();
       resizeObserver.disconnect();
-      root.removeEventListener('pointermove', onPointerMove);
-      root.removeEventListener('pointerleave', onPointerLeave);
+      if (interactive) {
+        root.removeEventListener('pointermove', onPointerMove);
+        root.removeEventListener('pointerleave', onPointerLeave);
+      }
     },
     { once: true },
   );
