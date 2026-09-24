@@ -64,7 +64,7 @@ const fragmentSource = `
 
     // Resolution-aware halftone grid. The output stays crisp without creating DOM particles.
     float resolutionFactor = clamp((u_resolution.x - 360.0) / 760.0, 0.0, 1.0);
-    float cellSize = mix(7.6, 5.6, resolutionFactor);
+    float cellSize = mix(6.25, 4.95, resolutionFactor);
     vec2 cellId = floor(px / cellSize);
     vec2 cellCenterPx = (cellId + 0.5) * cellSize;
     vec2 sampleUv = cellCenterPx / u_resolution;
@@ -82,9 +82,20 @@ const fragmentSource = `
     float edge = clamp(length(vec2(gx, gy)) * 3.35, 0.0, 1.0);
 
     // Preserve mid-tones: this is what keeps the face recognizable instead of posterized.
-    float tone = pow(clamp(luma, 0.0, 1.0), 0.78);
-    float radius = cellSize * (0.085 + tone * 0.36 + edge * 0.075);
-    radius = min(radius, cellSize * 0.48);
+    float tone = pow(clamp(luma, 0.0, 1.0), 0.92);
+    tone = smoothstep(0.03, 0.94, tone);
+
+    float broadStep = cellSize * 1.55;
+    vec2 broadUv = vec2(broadStep / u_resolution.x, broadStep / u_resolution.y);
+    float broadGx = sampledLuma(sampleUv + vec2(broadUv.x, 0.0)) -
+                    sampledLuma(sampleUv - vec2(broadUv.x, 0.0));
+    float broadGy = sampledLuma(sampleUv + vec2(0.0, broadUv.y)) -
+                    sampledLuma(sampleUv - vec2(0.0, broadUv.y));
+    float silhouetteEdge = clamp(length(vec2(broadGx, broadGy)) * 2.15, 0.0, 1.0);
+
+    float contour = max(edge * 0.72, silhouetteEdge);
+    float radius = cellSize * (0.070 + tone * 0.315 + contour * 0.082);
+    radius = min(radius, cellSize * 0.455);
 
     vec2 localPx = mod(px, cellSize) - 0.5 * cellSize;
     float dotDistance = length(localPx);
@@ -111,17 +122,17 @@ const fragmentSource = `
                      (1.0 - smoothstep(0.88, 1.0, u_progress));
 
     vec3 graphite = vec3(0.043, 0.051, 0.047);
-    vec3 ivory = vec3(0.957, 0.941, 0.902);
-    vec3 dimIvory = vec3(0.54, 0.56, 0.54);
+    vec3 ivory = vec3(0.885, 0.875, 0.845);
+    vec3 dimIvory = vec3(0.39, 0.415, 0.405);
     vec3 signal = vec3(0.847, 1.0, 0.47);
 
-    vec3 dotColor = mix(dimIvory, ivory, clamp(tone * 1.16 + edge * 0.42, 0.0, 1.0));
+    vec3 dotColor = mix(dimIvory, ivory, clamp(tone * 0.98 + contour * 0.34, 0.0, 1.0));
 
     // A small, deterministic fraction of contour/tone nodes carry the LS signal color.
     float nodeSeed = hash(cellId * 0.731 + vec2(17.0, 41.0));
-    float signalNode = step(0.968, nodeSeed) *
-                       smoothstep(0.14, 0.74, edge + tone * 0.30);
-    signalNode = max(signalNode, pointerInfluence * smoothstep(0.18, 0.72, edge));
+    float signalNode = step(0.986, nodeSeed) *
+                       smoothstep(0.22, 0.80, contour + tone * 0.20);
+    signalNode = max(signalNode, pointerInfluence * smoothstep(0.28, 0.82, contour) * 0.72);
 
     dotColor = mix(dotColor, signal, clamp(signalNode * 0.92, 0.0, 0.92));
 
@@ -134,7 +145,8 @@ const fragmentSource = `
     vec3 color = graphite + vec3(gridLine);
     color = mix(color, dotColor, visibleDot);
     color += signal * scanLine * 0.19;
-    color += signal * pointerInfluence * dotAlpha * edge * 0.10;
+    color += ivory * visibleDot * contour * 0.055;
+    color += signal * pointerInfluence * dotAlpha * contour * 0.075;
 
     gl_FragColor = vec4(color, 1.0);
   }
