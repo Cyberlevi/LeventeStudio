@@ -1307,3 +1307,77 @@ html.ls-intro-online .ls-boot-intro__status-stage--online {
     display: none !important;
   }
 }
+
+
+/* Portrait ambient field: a slow, soft shadow drifts behind the particle portrait.
+   It is independent from the particle physics so a resting cursor can let the face re-form. */
+.portrait-ambient-field {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 68% 28%, rgba(216,255,120,.025), transparent 30%),
+    #060806;
+}
+
+.portrait-ambient-field::before {
+  content: '';
+  position: absolute;
+  width: 88%;
+  height: 62%;
+  left: 2%;
+  top: 13%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,.68) 0%,
+    rgba(0,0,0,.40) 34%,
+    rgba(0,0,0,.16) 54%,
+    rgba(0,0,0,0) 76%
+  );
+  filter: blur(18px);
+  opacity: .82;
+  transform: translate3d(-7%, -3%, 0) scale(1.04);
+  will-change: transform;
+  animation: portrait-ambient-shadow-drift 15s ease-in-out infinite alternate;
+}
+
+.portrait-ambient-field::after {
+  content: '';
+  position: absolute;
+  width: 62%;
+  height: 42%;
+  right: -8%;
+  bottom: 10%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(216,255,120,.035) 0%,
+    rgba(216,255,120,.012) 42%,
+    transparent 72%
+  );
+  filter: blur(24px);
+  opacity: .55;
+  transform: translate3d(0,0,0);
+  will-change: transform;
+  animation: portrait-ambient-signal-drift 19s ease-in-out infinite alternate;
+}
+
+@keyframes portrait-ambient-shadow-drift {
+  0%   { transform: translate3d(-8%, -5%, 0) scale(1.05); }
+  36%  { transform: translate3d(7%, 1%, 0) scale(.97); }
+  68%  { transform: translate3d(3%, 9%, 0) scale(1.08); }
+  100% { transform: translate3d(-4%, 5%, 0) scale(1.01); }
+}
+
+@keyframes portrait-ambient-signal-drift {
+  0%   { transform: translate3d(3%, -5%, 0) scale(.96); }
+  50%  { transform: translate3d(-8%, 7%, 0) scale(1.08); }
+  100% { transform: translate3d(5%, 2%, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-ambient-field::before,
+  .portrait-ambient-field::after {
+    animation: none;
+    will-change: auto;
+  }
+}
