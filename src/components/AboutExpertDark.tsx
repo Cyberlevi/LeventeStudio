@@ -45,7 +45,7 @@ export default function AboutExpertDark() {
                 className="pointer-events-none absolute right-3 top-3 z-10 border border-white/10 bg-graphite-950/65 px-2.5 py-1.5 text-[8px] uppercase tracking-[.18em] text-white/45 backdrop-blur-sm"
                 aria-hidden="true"
               >
-                LS / HUMAN SIGNAL
+                LS / IDENTITY 01
               </div>
             </div>
             <div className="absolute inset-x-2 bottom-2 z-20 bg-gradient-to-t from-graphite-950 via-graphite-950/80 to-transparent p-5">
