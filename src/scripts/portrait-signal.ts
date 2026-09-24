@@ -13,17 +13,13 @@ const fragmentSource = `
 
   varying vec2 v_uv;
 
-  uniform sampler2D u_texture;
+  uniform sampler2D u_toneMap;
   uniform vec2 u_resolution;
-  uniform vec2 u_imageResolution;
+  uniform vec2 u_gridSize;
   uniform vec2 u_pointer;
   uniform float u_progress;
   uniform float u_time;
   uniform float u_energy;
-
-  float luminance(vec3 color) {
-    return dot(color, vec3(0.299, 0.587, 0.114));
-  }
 
   float hash(vec2 p) {
     p = fract(p * vec2(234.34, 851.73));
@@ -31,242 +27,88 @@ const fragmentSource = `
     return fract(p.x * p.y);
   }
 
-  vec2 coverUv(vec2 uv) {
-    float screenAspect = u_resolution.x / u_resolution.y;
-    float imageAspect = u_imageResolution.x / u_imageResolution.y;
-
-    if (screenAspect > imageAspect) {
-      uv.y = (uv.y - 0.5) * (imageAspect / screenAspect) + 0.5;
-    } else {
-      uv.x = (uv.x - 0.5) * (screenAspect / imageAspect) + 0.5;
-    }
-
-    return uv;
-  }
-
-  float sampledLuma(vec2 screenUv) {
-    vec2 imageUv = coverUv(screenUv);
-    return luminance(texture2D(u_texture, imageUv).rgb);
-  }
-
-  float dotMask(vec2 px, float cellSize, float radius) {
-    vec2 localPx = mod(px, cellSize) - 0.5 * cellSize;
-    float d = length(localPx);
-    float aa = max(0.48, cellSize * 0.095);
-    return 1.0 - smoothstep(radius - aa, radius + aa, d);
-  }
-
   void main() {
-    vec2 uv = v_uv;
-    vec2 px = uv * u_resolution;
+    vec2 px = v_uv * u_resolution;
+    vec2 pitch = u_resolution / u_gridSize;
 
-    // Pointer influence is intentionally tiny: depth cue, not distortion.
-    vec2 pointerPx = u_pointer * u_resolution;
-    vec2 delta = px - pointerPx;
-    float pointerDistancePx = length(delta);
-    float pointerInfluence =
-      exp(-(pointerDistancePx * pointerDistancePx) / (2.0 * 92.0 * 92.0)) * u_energy;
-    vec2 pointerDirection = delta / max(pointerDistancePx, 1.0);
-    px += pointerDirection * pointerInfluence * 2.35;
+    vec2 cellId = floor(px / pitch);
+    vec2 center = (cellId + 0.5) * pitch;
+    vec2 gridUv = (cellId + 0.5) / u_gridSize;
 
-    float resolutionFactor = clamp((u_resolution.x - 360.0) / 820.0, 0.0, 1.0);
+    float tone = texture2D(u_toneMap, gridUv).r;
+    float coverage = texture2D(u_toneMap, gridUv).a;
 
-    // Three independent fields: body/tone, contour and facial micro-detail.
-    float primaryCell = mix(6.15, 4.95, resolutionFactor);
-    float contourCell = mix(5.25, 4.25, resolutionFactor);
-    float detailCell  = mix(4.25, 3.45, resolutionFactor);
+    // Hon-Tran-style midtone lift: keep the dot image bold after box averaging.
+    float lit = pow(clamp(tone, 0.0, 1.0), 0.60);
+    lit *= coverage;
 
-    // Broad face priority mask. It only increases micro-detail; it never hides the portrait.
-    vec2 faceCoord = (uv - vec2(0.50, 0.67)) * vec2(1.05, 1.22);
-    float faceZone = 1.0 - smoothstep(0.19, 0.46, length(faceCoord));
-
-    // Broad centered subject mask: keeps head/shoulders strong, quiets the flat room/background.
-    vec2 subjectCoord = (uv - vec2(0.50, 0.49)) * vec2(0.92, 0.72);
-    float subjectZone = 1.0 - smoothstep(0.34, 0.73, length(subjectCoord));
-
-    // ---------------- PRIMARY DOT FIELD ----------------
-    vec2 primaryId = floor(px / primaryCell);
-    vec2 primaryCenterPx = (primaryId + 0.5) * primaryCell;
-
-    // Tiny deterministic jitter breaks the mechanical print-grid feel without creating noise.
-    vec2 jitter = vec2(
-      hash(primaryId + vec2(0.31, 1.73)),
-      hash(primaryId + vec2(4.91, 2.17))
-    ) - 0.5;
-
+    // A small acquisition looseness that disappears completely at the final state.
     float settle = 1.0 - smoothstep(0.18, 0.92, u_progress);
-    primaryCenterPx += jitter * primaryCell * (0.045 + settle * 0.26);
+    vec2 settleOffset = vec2(
+      hash(cellId + vec2(4.3, 9.1)),
+      hash(cellId + vec2(8.7, 2.6))
+    ) - 0.5;
+    center += settleOffset * pitch * settle * 0.42;
 
-    vec2 primaryUv = primaryCenterPx / u_resolution;
-    vec2 primaryImageUv = coverUv(primaryUv);
-    vec4 texel = texture2D(u_texture, primaryImageUv);
-    float luma = luminance(texel.rgb);
+    // Desktop hover: move only the local dot centers, never warp the photograph.
+    vec2 pointerPx = u_pointer * u_resolution;
+    vec2 delta = center - pointerPx;
+    float pointerDistance = length(delta);
+    float pointerInfluence =
+      exp(-(pointerDistance * pointerDistance) / (2.0 * 118.0 * 118.0)) * u_energy;
+    vec2 pointerDirection = delta / max(pointerDistance, 1.0);
+    center += pointerDirection * pointerInfluence * 5.0;
 
-    vec2 localStep = vec2(primaryCell / u_resolution.x, primaryCell / u_resolution.y) * 0.74;
-    float gx = sampledLuma(primaryUv + vec2(localStep.x, 0.0)) -
-               sampledLuma(primaryUv - vec2(localStep.x, 0.0));
-    float gy = sampledLuma(primaryUv + vec2(0.0, localStep.y)) -
-               sampledLuma(primaryUv - vec2(0.0, localStep.y));
-    float edgeFine = clamp(length(vec2(gx, gy)) * 3.15, 0.0, 1.0);
+    vec2 local = (px - center) / max(pitch.x, 1.0);
+    float distanceToDot = length(local);
 
-    vec2 broadStep = vec2(primaryCell * 1.65 / u_resolution.x, primaryCell * 1.65 / u_resolution.y);
-    float bgx = sampledLuma(primaryUv + vec2(broadStep.x, 0.0)) -
-                sampledLuma(primaryUv - vec2(broadStep.x, 0.0));
-    float bgy = sampledLuma(primaryUv + vec2(0.0, broadStep.y)) -
-                sampledLuma(primaryUv - vec2(0.0, broadStep.y));
-    float edgeBroad = clamp(length(vec2(bgx, bgy)) * 2.05, 0.0, 1.0);
+    // Clean LED/halftone geometry: size + opacity both come from the sampled tone.
+    float radius = mix(0.055, 0.46, lit);
+    float aa = max(0.012, 1.0 / max(pitch.x, 1.0));
+    float circle = 1.0 - smoothstep(radius - aa, radius + aa, distanceToDot);
 
-    float contour = max(edgeFine * 0.70, edgeBroad);
+    float dotAlpha = mix(0.04, 0.98, lit) * step(0.012, lit);
+    dotAlpha *= circle;
 
-    // Mid-tone curve: avoids white forehead / black facial voids.
-    float tone = pow(clamp(luma, 0.0, 1.0), 0.96);
-    tone = smoothstep(0.035, 0.955, tone);
-    float midTone = 1.0 - abs(tone * 2.0 - 1.0);
-
-    float primaryRadius =
-      primaryCell * (0.060 + tone * 0.286 + contour * 0.070 + midTone * 0.018);
-    primaryRadius = min(primaryRadius, primaryCell * 0.438);
-
-    float primaryDot = dotMask(px, primaryCell, primaryRadius);
-
-    // ---------------- CONTOUR FIELD ----------------
-    vec2 contourId = floor(px / contourCell);
-    vec2 contourCenterPx = (contourId + 0.5) * contourCell;
-    vec2 contourUv = contourCenterPx / u_resolution;
-
-    vec2 contourStep = vec2(contourCell / u_resolution.x, contourCell / u_resolution.y) * 0.92;
-    float cgx = sampledLuma(contourUv + vec2(contourStep.x, 0.0)) -
-                sampledLuma(contourUv - vec2(contourStep.x, 0.0));
-    float cgy = sampledLuma(contourUv + vec2(0.0, contourStep.y)) -
-                sampledLuma(contourUv - vec2(0.0, contourStep.y));
-    float contourEdge = clamp(length(vec2(cgx, cgy)) * 3.85, 0.0, 1.0);
-
-    float contourRadius = contourCell * (0.054 + contourEdge * 0.205);
-    contourRadius = min(contourRadius, contourCell * 0.31);
-    float contourDot =
-      dotMask(px, contourCell, contourRadius) *
-      smoothstep(0.18, 0.72, contourEdge);
-
-    // ---------------- MICRO DETAIL FIELD ----------------
-    vec2 detailId = floor(px / detailCell);
-    vec2 detailCenterPx = (detailId + 0.5) * detailCell;
-    vec2 detailUv = detailCenterPx / u_resolution;
-    float detailLuma = sampledLuma(detailUv);
-
-    vec2 detailStep = vec2(detailCell / u_resolution.x, detailCell / u_resolution.y) * 0.88;
-    float dgx = sampledLuma(detailUv + vec2(detailStep.x, 0.0)) -
-                sampledLuma(detailUv - vec2(detailStep.x, 0.0));
-    float dgy = sampledLuma(detailUv + vec2(0.0, detailStep.y)) -
-                sampledLuma(detailUv - vec2(0.0, detailStep.y));
-    float detailEdge = clamp(length(vec2(dgx, dgy)) * 4.25, 0.0, 1.0);
-
-    float detailMid = 1.0 - abs(detailLuma * 2.0 - 1.0);
-    float detailPresence =
-      faceZone *
-      smoothstep(0.20, 0.77, detailEdge * 0.78 + detailMid * 0.38);
-
-    float detailRadius =
-      detailCell * (0.045 + detailLuma * 0.115 + detailEdge * 0.080);
-    detailRadius = min(detailRadius, detailCell * 0.285);
-
-    float detailDot = dotMask(px, detailCell, detailRadius) * detailPresence;
-
-    // ---------------- MASK / FRAME DISSOLVE ----------------
-    float edgeFadeX =
-      smoothstep(0.015, 0.11, primaryUv.x) *
-      smoothstep(0.015, 0.11, 1.0 - primaryUv.x);
-    float edgeFadeY =
-      smoothstep(0.01, 0.095, primaryUv.y) *
-      smoothstep(0.01, 0.095, 1.0 - primaryUv.y);
-    float frameFade = edgeFadeX * edgeFadeY;
-
-    // Suppress the darkest background while preserving silhouette edges.
-    float portraitPresence =
-      max(smoothstep(0.055, 0.235, tone), contour * 0.94);
-
-    float structuredArea = smoothstep(0.10, 0.52, contour + midTone * 0.20);
-    float backgroundAttenuation =
-      mix(0.30, 1.0, max(subjectZone, structuredArea * 0.72));
-
-    portraitPresence *= backgroundAttenuation;
-    portraitPresence *= mix(0.24, 1.0, texel.a);
-    portraitPresence *= frameFade;
-
-    // ---------------- ACQUISITION REVEAL ----------------
-    float scanY = 1.15 - u_progress * 1.30;
-    float reveal = smoothstep(scanY - 0.080, scanY + 0.024, primaryUv.y);
+    // Top-to-bottom acquisition.
+    float scanY = 1.13 - u_progress * 1.28;
+    float reveal = smoothstep(scanY - 0.07, scanY + 0.025, v_uv.y);
     float scanLine =
-      exp(-abs(primaryUv.y - scanY) * 84.0) *
+      exp(-abs(v_uv.y - scanY) * 86.0) *
       smoothstep(0.02, 0.30, u_progress) *
       (1.0 - smoothstep(0.89, 1.0, u_progress));
 
-    // ---------------- COLOR SYSTEM ----------------
-    vec3 deepGraphite = vec3(0.027, 0.032, 0.030);
-    vec3 ivory = vec3(0.875, 0.865, 0.835);
-    vec3 midIvory = vec3(0.565, 0.585, 0.570);
-    vec3 dimIvory = vec3(0.355, 0.380, 0.368);
+    dotAlpha *= reveal;
+
+    vec3 background = vec3(0.023, 0.027, 0.025);
+    vec3 ivory = vec3(0.91, 0.90, 0.87);
     vec3 signal = vec3(0.847, 1.0, 0.47);
 
-    vec3 primaryColor =
-      mix(dimIvory, ivory, clamp(tone * 0.94 + contour * 0.31 + midTone * 0.07, 0.0, 1.0));
-    vec3 contourColor = mix(midIvory, ivory, contourEdge * 0.88);
-    vec3 detailColor = mix(midIvory, ivory, clamp(detailEdge * 0.72 + detailMid * 0.28, 0.0, 1.0));
-
-    // Signal nodes are rare and contour-aware, not random decoration.
-    float nodeSeed = hash(primaryId * 0.731 + vec2(17.0, 41.0));
+    // Extremely sparse LS accent. The reference look remains monochrome first.
+    float signalSeed = hash(cellId * 0.73 + vec2(17.0, 41.0));
     float signalNode =
-      step(0.9915, nodeSeed) *
-      smoothstep(0.28, 0.82, contour + tone * 0.12);
+      step(0.9965, signalSeed) *
+      smoothstep(0.42, 0.86, lit);
 
-    float pointerNode =
+    float hoverNode =
       pointerInfluence *
-      smoothstep(0.34, 0.86, contour) *
-      0.58;
+      smoothstep(0.54, 0.92, lit) *
+      0.34;
 
-    float acquireFlash =
-      step(0.995, hash(primaryId + vec2(71.0, 13.0))) *
-      smoothstep(0.18, 0.52, u_progress) *
-      (1.0 - smoothstep(0.70, 0.96, u_progress)) *
-      smoothstep(0.18, 0.78, contour + tone * 0.15);
+    float accent = clamp(max(signalNode, hoverNode), 0.0, 0.78);
+    vec3 dotColor = mix(ivory, signal, accent);
 
-    float nodeMix = clamp(max(max(signalNode, pointerNode), acquireFlash), 0.0, 0.88);
-    primaryColor = mix(primaryColor, signal, nodeMix);
-    contourColor = mix(contourColor, signal, nodeMix * 0.82);
-
-    float visiblePrimary = primaryDot * portraitPresence * reveal;
-    float visibleContour = contourDot * portraitPresence * reveal;
-    float visibleDetail  = detailDot * portraitPresence * reveal * 0.80;
-
-    // Very quiet technical grid.
+    // Minimal dark field; no competing photo/background detail.
     vec2 grid = abs(fract(v_uv * u_resolution / 32.0) - 0.5);
-    float gridLine = smoothstep(0.478, 0.50, max(grid.x, grid.y)) * 0.020;
+    float gridLine = smoothstep(0.487, 0.50, max(grid.x, grid.y)) * 0.010;
 
-    vec3 color = deepGraphite + vec3(gridLine);
-
-    // Negative halo behind the head: depth without glow or extra GPU passes.
-    vec2 haloCoord = (uv - vec2(0.50, 0.66)) * vec2(1.05, 1.18);
-    float halo = 1.0 - smoothstep(0.12, 0.46, length(haloCoord));
-    color *= 1.0 - halo * 0.20;
-
-    color = mix(color, primaryColor, visiblePrimary);
-    color = mix(color, contourColor, visibleContour * 0.88);
-    color = mix(color, detailColor, visibleDetail * 0.60);
-
-    // Contour lift and acquisition signal.
-    color += ivory * visibleContour * 0.042;
-    color += signal * scanLine * 0.165;
-    color += signal * pointerInfluence * visibleContour * 0.055;
-
-    // Tiny final-state identity pulse only while we are actively rendering.
-    float identityPulse =
-      (0.5 + 0.5 * sin(u_time * 5.0)) *
-      smoothstep(0.78, 1.0, u_progress) *
-      (1.0 - smoothstep(0.995, 1.0, u_progress));
-    color += signal * identityPulse * signalNode * 0.05;
+    vec3 color = background + vec3(gridLine);
+    color = mix(color, dotColor, dotAlpha);
+    color += signal * scanLine * 0.15;
 
     gl_FragColor = vec4(color, 1.0);
   }
-`
+`;
 
 function compileShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -282,6 +124,136 @@ function compileShader(gl: WebGLRenderingContext, type: number, source: string) 
   }
 
   return shader;
+}
+
+function drawImageCover(
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  width: number,
+  height: number,
+) {
+  const imageAspect = image.naturalWidth / image.naturalHeight;
+  const targetAspect = width / height;
+
+  let sourceWidth = image.naturalWidth;
+  let sourceHeight = image.naturalHeight;
+  let sourceX = 0;
+  let sourceY = 0;
+
+  if (imageAspect > targetAspect) {
+    sourceWidth = image.naturalHeight * targetAspect;
+    sourceX = (image.naturalWidth - sourceWidth) * 0.5;
+  } else {
+    sourceHeight = image.naturalWidth / targetAspect;
+    sourceY = (image.naturalHeight - sourceHeight) * 0.5;
+  }
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    0,
+    0,
+    width,
+    height,
+  );
+}
+
+function buildToneMap(
+  image: HTMLImageElement,
+  targetWidth: number,
+  targetHeight: number,
+  compact: boolean,
+) {
+  const workingWidth = Math.max(220, Math.min(720, Math.round(targetWidth)));
+  const workingHeight = Math.max(280, Math.round(workingWidth * (targetHeight / targetWidth)));
+
+  const working = document.createElement('canvas');
+  working.width = workingWidth;
+  working.height = workingHeight;
+
+  const ctx = working.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return null;
+
+  ctx.clearRect(0, 0, workingWidth, workingHeight);
+  drawImageCover(ctx, image, workingWidth, workingHeight);
+
+  const imageData = ctx.getImageData(0, 0, workingWidth, workingHeight);
+  const data = imageData.data;
+
+  // Portrait prior: head + shoulders. This replaces the room/background with alpha,
+  // while the actual photographic tone still controls every dot inside the subject.
+  for (let y = 0; y < workingHeight; y += 1) {
+    const ny = y / Math.max(1, workingHeight - 1);
+
+    for (let x = 0; x < workingWidth; x += 1) {
+      const nx = x / Math.max(1, workingWidth - 1);
+      const index = (y * workingWidth + x) * 4;
+
+      const r = data[index] / 255;
+      const g = data[index + 1] / 255;
+      const b = data[index + 2] / 255;
+      const sourceAlpha = data[index + 3] / 255;
+
+      const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+      const headX = (nx - 0.50) / 0.30;
+      const headY = (ny - 0.38) / 0.34;
+      const headDistance = Math.sqrt(headX * headX + headY * headY);
+      const headPrior = Math.max(0, Math.min(1, (1.14 - headDistance) / 0.34));
+
+      const shoulderX = (nx - 0.50) / 0.54;
+      const shoulderY = (ny - 0.86) / 0.34;
+      const shoulderDistance = Math.sqrt(shoulderX * shoulderX + shoulderY * shoulderY);
+      const shoulderPrior = Math.max(0, Math.min(1, (1.12 - shoulderDistance) / 0.34));
+
+      const portraitPrior = Math.max(headPrior, shoulderPrior);
+
+      // Near-white room/background is discarded outside the portrait envelope.
+      const whiteBackground = lum > 0.84 && portraitPrior < 0.74;
+      const outsidePortrait = portraitPrior < 0.06;
+
+      if (whiteBackground || outsidePortrait || sourceAlpha < 0.04) {
+        data[index] = 255;
+        data[index + 1] = 255;
+        data[index + 2] = 255;
+        data[index + 3] = 0;
+        continue;
+      }
+
+      // Tone lives in alpha-style coverage. Dark photographic structure becomes strong dots.
+      const inverted = Math.max(0, Math.min(1, (0.93 - lum) / 0.84));
+      const portraitCoverage = Math.pow(portraitPrior, 0.72);
+      const tone = Math.max(0, Math.min(1, inverted * portraitCoverage));
+
+      data[index] = Math.round(tone * 255);
+      data[index + 1] = Math.round(tone * 255);
+      data[index + 2] = Math.round(tone * 255);
+      data[index + 3] = Math.round(Math.max(tone, portraitCoverage * 0.06) * 255);
+    }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+
+  const pitch = compact ? 6.8 : 7.4;
+  const cols = Math.max(42, Math.round(targetWidth / pitch));
+  const rows = Math.max(52, Math.round(targetHeight / pitch));
+
+  const small = document.createElement('canvas');
+  small.width = cols;
+  small.height = rows;
+
+  const smallCtx = small.getContext('2d');
+  if (!smallCtx) return null;
+
+  smallCtx.clearRect(0, 0, cols, rows);
+  smallCtx.imageSmoothingEnabled = true;
+  smallCtx.imageSmoothingQuality = 'high';
+  smallCtx.drawImage(working, 0, 0, cols, rows);
+
+  return { canvas: small, cols, rows };
 }
 
 function initPortraitSignal(root: HTMLElement) {
@@ -343,16 +315,15 @@ function initPortraitSignal(root: HTMLElement) {
   if (!texture) return;
 
   gl.bindTexture(gl.TEXTURE_2D, texture);
-  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
   const locations = {
-    texture: gl.getUniformLocation(program, 'u_texture'),
+    toneMap: gl.getUniformLocation(program, 'u_toneMap'),
     resolution: gl.getUniformLocation(program, 'u_resolution'),
-    imageResolution: gl.getUniformLocation(program, 'u_imageResolution'),
+    gridSize: gl.getUniformLocation(program, 'u_gridSize'),
     pointer: gl.getUniformLocation(program, 'u_pointer'),
     progress: gl.getUniformLocation(program, 'u_progress'),
     time: gl.getUniformLocation(program, 'u_time'),
@@ -372,20 +343,61 @@ function initPortraitSignal(root: HTMLElement) {
   let lastFrame = 0;
   let textureReady = false;
   let firstFrameRendered = false;
+  let gridCols = 64;
+  let gridRows = 80;
+  let lastCssWidth = 0;
+  let lastCssHeight = 0;
   const revealDuration = compactViewport ? 1280 : 1780;
+
+  const uploadToneMap = () => {
+    if (!image.complete || !image.naturalWidth || !image.naturalHeight) return false;
+
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return false;
+
+    const toneMap = buildToneMap(image, rect.width, rect.height, compactViewport);
+    if (!toneMap) return false;
+
+    gridCols = toneMap.cols;
+    gridRows = toneMap.rows;
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      toneMap.canvas,
+    );
+
+    textureReady = true;
+    lastCssWidth = rect.width;
+    lastCssHeight = rect.height;
+    return true;
+  };
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
-    const maxDpr = compactViewport ? 1.0 : 1.30;
+    const maxDpr = compactViewport ? 1.0 : 1.25;
     const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
     const width = Math.max(1, Math.round(rect.width * dpr));
     const height = Math.max(1, Math.round(rect.height * dpr));
 
-    if (canvas.width === width && canvas.height === height) return;
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+      gl.viewport(0, 0, width, height);
+    }
 
-    canvas.width = width;
-    canvas.height = height;
-    gl.viewport(0, 0, width, height);
+    if (
+      textureReady &&
+      (Math.abs(rect.width - lastCssWidth) > 8 || Math.abs(rect.height - lastCssHeight) > 8)
+    ) {
+      uploadToneMap();
+    }
   };
 
   const needsAnimation = () =>
@@ -418,17 +430,17 @@ function initPortraitSignal(root: HTMLElement) {
     if (interactive) {
       pointerX += (targetX - pointerX) * 0.10;
       pointerY += (targetY - pointerY) * 0.10;
-      energy += (targetEnergy - energy) * 0.09;
+      energy += (targetEnergy - energy) * 0.085;
       if (targetEnergy === 0 && energy < 0.01) energy = 0;
     } else {
       energy = 0;
     }
 
-    gl.clearColor(0.043, 0.051, 0.047, 1);
+    gl.clearColor(0.023, 0.027, 0.025, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform1i(locations.texture, 0);
+    gl.uniform1i(locations.toneMap, 0);
     gl.uniform2f(locations.resolution, canvas.width, canvas.height);
-    gl.uniform2f(locations.imageResolution, image.naturalWidth, image.naturalHeight);
+    gl.uniform2f(locations.gridSize, gridCols, gridRows);
     gl.uniform2f(locations.pointer, pointerX, pointerY);
     gl.uniform1f(locations.progress, progress);
     gl.uniform1f(locations.time, now / 1000);
@@ -453,18 +465,13 @@ function initPortraitSignal(root: HTMLElement) {
     }
   };
 
-  const uploadTexture = () => {
-    if (!image.complete || !image.naturalWidth || !image.naturalHeight) return;
-
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-    textureReady = true;
-    requestDraw();
+  const ensureTexture = () => {
+    if (uploadToneMap()) requestDraw();
   };
 
   const onPointerMove = (event: PointerEvent) => {
     if (!interactive) return;
+
     const rect = root.getBoundingClientRect();
     targetX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
     targetY = Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height));
@@ -485,9 +492,12 @@ function initPortraitSignal(root: HTMLElement) {
       visible = entry.isIntersecting;
 
       if (visible) {
+        if (!textureReady) ensureTexture();
+
         if (animateReveal && revealStartedAt === 0) {
           revealStartedAt = performance.now();
         }
+
         requestDraw();
       } else if (raf) {
         cancelAnimationFrame(raf);
@@ -499,6 +509,7 @@ function initPortraitSignal(root: HTMLElement) {
 
   const resizeObserver = new ResizeObserver(() => {
     resize();
+    if (textureReady) uploadToneMap();
     requestDraw();
   });
 
@@ -510,8 +521,8 @@ function initPortraitSignal(root: HTMLElement) {
   observer.observe(root);
   resizeObserver.observe(root);
 
-  if (image.complete) uploadTexture();
-  else image.addEventListener('load', uploadTexture, { once: true });
+  if (image.complete) ensureTexture();
+  else image.addEventListener('load', ensureTexture, { once: true });
 
   window.addEventListener(
     'pagehide',
@@ -519,6 +530,7 @@ function initPortraitSignal(root: HTMLElement) {
       if (raf) cancelAnimationFrame(raf);
       observer.disconnect();
       resizeObserver.disconnect();
+
       if (interactive) {
         root.removeEventListener('pointermove', onPointerMove);
         root.removeEventListener('pointerleave', onPointerLeave);
