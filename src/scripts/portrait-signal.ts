@@ -26,7 +26,7 @@ const fragmentSource = `
   }
 
   float hash(vec2 p) {
-    p = fract(p * vec2(123.34, 456.21));
+    p = fract(p * vec2(234.34, 851.73));
     p += dot(p, p + 45.32);
     return fract(p.x * p.y);
   }
@@ -46,111 +46,203 @@ const fragmentSource = `
 
   float sampledLuma(vec2 screenUv) {
     vec2 imageUv = coverUv(screenUv);
-    vec3 sampleColor = texture2D(u_texture, imageUv).rgb;
-    return luminance(sampleColor);
+    return luminance(texture2D(u_texture, imageUv).rgb);
+  }
+
+  float dotMask(vec2 px, float cellSize, float radius) {
+    vec2 localPx = mod(px, cellSize) - 0.5 * cellSize;
+    float d = length(localPx);
+    float aa = max(0.48, cellSize * 0.095);
+    return 1.0 - smoothstep(radius - aa, radius + aa, d);
   }
 
   void main() {
     vec2 uv = v_uv;
     vec2 px = uv * u_resolution;
 
-    // Desktop pointer interaction only nudges the local dot field by a few pixels.
+    // Pointer influence is intentionally tiny: depth cue, not distortion.
     vec2 pointerPx = u_pointer * u_resolution;
     vec2 delta = px - pointerPx;
     float pointerDistancePx = length(delta);
-    float pointerInfluence = exp(-(pointerDistancePx * pointerDistancePx) / (2.0 * 88.0 * 88.0)) * u_energy;
+    float pointerInfluence =
+      exp(-(pointerDistancePx * pointerDistancePx) / (2.0 * 92.0 * 92.0)) * u_energy;
     vec2 pointerDirection = delta / max(pointerDistancePx, 1.0);
-    px += pointerDirection * pointerInfluence * 3.2;
+    px += pointerDirection * pointerInfluence * 2.35;
 
-    // Resolution-aware halftone grid. The output stays crisp without creating DOM particles.
-    float resolutionFactor = clamp((u_resolution.x - 360.0) / 760.0, 0.0, 1.0);
-    float cellSize = mix(6.25, 4.95, resolutionFactor);
-    vec2 cellId = floor(px / cellSize);
-    vec2 cellCenterPx = (cellId + 0.5) * cellSize;
-    vec2 sampleUv = cellCenterPx / u_resolution;
-    vec2 imageUv = coverUv(sampleUv);
+    float resolutionFactor = clamp((u_resolution.x - 360.0) / 820.0, 0.0, 1.0);
 
-    vec4 texel = texture2D(u_texture, imageUv);
+    // Three independent fields: body/tone, contour and facial micro-detail.
+    float primaryCell = mix(6.15, 4.95, resolutionFactor);
+    float contourCell = mix(5.25, 4.25, resolutionFactor);
+    float detailCell  = mix(4.25, 3.45, resolutionFactor);
+
+    // Broad face priority mask. It only increases micro-detail; it never hides the portrait.
+    vec2 faceCoord = (uv - vec2(0.50, 0.67)) * vec2(1.05, 1.22);
+    float faceZone = 1.0 - smoothstep(0.19, 0.46, length(faceCoord));
+
+    // ---------------- PRIMARY DOT FIELD ----------------
+    vec2 primaryId = floor(px / primaryCell);
+    vec2 primaryCenterPx = (primaryId + 0.5) * primaryCell;
+
+    // Tiny deterministic jitter breaks the mechanical print-grid feel without creating noise.
+    vec2 jitter = vec2(
+      hash(primaryId + vec2(0.31, 1.73)),
+      hash(primaryId + vec2(4.91, 2.17))
+    ) - 0.5;
+    primaryCenterPx += jitter * primaryCell * 0.045;
+
+    vec2 primaryUv = primaryCenterPx / u_resolution;
+    vec2 primaryImageUv = coverUv(primaryUv);
+    vec4 texel = texture2D(u_texture, primaryImageUv);
     float luma = luminance(texel.rgb);
 
-    // Local edge estimate: face, hair, beard and shoulder contours become more legible.
-    vec2 texelStep = vec2(cellSize / u_resolution.x, cellSize / u_resolution.y) * 0.72;
-    float gx = sampledLuma(sampleUv + vec2(texelStep.x, 0.0)) -
-               sampledLuma(sampleUv - vec2(texelStep.x, 0.0));
-    float gy = sampledLuma(sampleUv + vec2(0.0, texelStep.y)) -
-               sampledLuma(sampleUv - vec2(0.0, texelStep.y));
-    float edge = clamp(length(vec2(gx, gy)) * 3.35, 0.0, 1.0);
+    vec2 localStep = vec2(primaryCell / u_resolution.x, primaryCell / u_resolution.y) * 0.74;
+    float gx = sampledLuma(primaryUv + vec2(localStep.x, 0.0)) -
+               sampledLuma(primaryUv - vec2(localStep.x, 0.0));
+    float gy = sampledLuma(primaryUv + vec2(0.0, localStep.y)) -
+               sampledLuma(primaryUv - vec2(0.0, localStep.y));
+    float edgeFine = clamp(length(vec2(gx, gy)) * 3.15, 0.0, 1.0);
 
-    // Preserve mid-tones: this is what keeps the face recognizable instead of posterized.
-    float tone = pow(clamp(luma, 0.0, 1.0), 0.92);
-    tone = smoothstep(0.03, 0.94, tone);
+    vec2 broadStep = vec2(primaryCell * 1.65 / u_resolution.x, primaryCell * 1.65 / u_resolution.y);
+    float bgx = sampledLuma(primaryUv + vec2(broadStep.x, 0.0)) -
+                sampledLuma(primaryUv - vec2(broadStep.x, 0.0));
+    float bgy = sampledLuma(primaryUv + vec2(0.0, broadStep.y)) -
+                sampledLuma(primaryUv - vec2(0.0, broadStep.y));
+    float edgeBroad = clamp(length(vec2(bgx, bgy)) * 2.05, 0.0, 1.0);
 
-    float broadStep = cellSize * 1.55;
-    vec2 broadUv = vec2(broadStep / u_resolution.x, broadStep / u_resolution.y);
-    float broadGx = sampledLuma(sampleUv + vec2(broadUv.x, 0.0)) -
-                    sampledLuma(sampleUv - vec2(broadUv.x, 0.0));
-    float broadGy = sampledLuma(sampleUv + vec2(0.0, broadUv.y)) -
-                    sampledLuma(sampleUv - vec2(0.0, broadUv.y));
-    float silhouetteEdge = clamp(length(vec2(broadGx, broadGy)) * 2.15, 0.0, 1.0);
+    float contour = max(edgeFine * 0.70, edgeBroad);
 
-    float contour = max(edge * 0.72, silhouetteEdge);
-    float radius = cellSize * (0.070 + tone * 0.315 + contour * 0.082);
-    radius = min(radius, cellSize * 0.455);
+    // Mid-tone curve: avoids white forehead / black facial voids.
+    float tone = pow(clamp(luma, 0.0, 1.0), 0.96);
+    tone = smoothstep(0.035, 0.955, tone);
+    float midTone = 1.0 - abs(tone * 2.0 - 1.0);
 
-    vec2 localPx = mod(px, cellSize) - 0.5 * cellSize;
-    float dotDistance = length(localPx);
-    float aa = max(0.75, cellSize * 0.11);
-    float dotAlpha = 1.0 - smoothstep(radius - aa, radius + aa, dotDistance);
+    float primaryRadius =
+      primaryCell * (0.060 + tone * 0.286 + contour * 0.070 + midTone * 0.018);
+    primaryRadius = min(primaryRadius, primaryCell * 0.438);
 
-    // Fade the hard image rectangle so the portrait dissolves into the technical frame.
-    float edgeFadeX = smoothstep(0.015, 0.12, sampleUv.x) *
-                      smoothstep(0.015, 0.12, 1.0 - sampleUv.x);
-    float edgeFadeY = smoothstep(0.01, 0.10, sampleUv.y) *
-                      smoothstep(0.01, 0.10, 1.0 - sampleUv.y);
+    float primaryDot = dotMask(px, primaryCell, primaryRadius);
+
+    // ---------------- CONTOUR FIELD ----------------
+    vec2 contourId = floor(px / contourCell);
+    vec2 contourCenterPx = (contourId + 0.5) * contourCell;
+    vec2 contourUv = contourCenterPx / u_resolution;
+
+    vec2 contourStep = vec2(contourCell / u_resolution.x, contourCell / u_resolution.y) * 0.92;
+    float cgx = sampledLuma(contourUv + vec2(contourStep.x, 0.0)) -
+                sampledLuma(contourUv - vec2(contourStep.x, 0.0));
+    float cgy = sampledLuma(contourUv + vec2(0.0, contourStep.y)) -
+                sampledLuma(contourUv - vec2(0.0, contourStep.y));
+    float contourEdge = clamp(length(vec2(cgx, cgy)) * 3.85, 0.0, 1.0);
+
+    float contourRadius = contourCell * (0.054 + contourEdge * 0.205);
+    contourRadius = min(contourRadius, contourCell * 0.31);
+    float contourDot =
+      dotMask(px, contourCell, contourRadius) *
+      smoothstep(0.18, 0.72, contourEdge);
+
+    // ---------------- MICRO DETAIL FIELD ----------------
+    vec2 detailId = floor(px / detailCell);
+    vec2 detailCenterPx = (detailId + 0.5) * detailCell;
+    vec2 detailUv = detailCenterPx / u_resolution;
+    float detailLuma = sampledLuma(detailUv);
+
+    vec2 detailStep = vec2(detailCell / u_resolution.x, detailCell / u_resolution.y) * 0.88;
+    float dgx = sampledLuma(detailUv + vec2(detailStep.x, 0.0)) -
+                sampledLuma(detailUv - vec2(detailStep.x, 0.0));
+    float dgy = sampledLuma(detailUv + vec2(0.0, detailStep.y)) -
+                sampledLuma(detailUv - vec2(0.0, detailStep.y));
+    float detailEdge = clamp(length(vec2(dgx, dgy)) * 4.25, 0.0, 1.0);
+
+    float detailMid = 1.0 - abs(detailLuma * 2.0 - 1.0);
+    float detailPresence =
+      faceZone *
+      smoothstep(0.20, 0.77, detailEdge * 0.78 + detailMid * 0.38);
+
+    float detailRadius =
+      detailCell * (0.045 + detailLuma * 0.115 + detailEdge * 0.080);
+    detailRadius = min(detailRadius, detailCell * 0.285);
+
+    float detailDot = dotMask(px, detailCell, detailRadius) * detailPresence;
+
+    // ---------------- MASK / FRAME DISSOLVE ----------------
+    float edgeFadeX =
+      smoothstep(0.015, 0.11, primaryUv.x) *
+      smoothstep(0.015, 0.11, 1.0 - primaryUv.x);
+    float edgeFadeY =
+      smoothstep(0.01, 0.095, primaryUv.y) *
+      smoothstep(0.01, 0.095, 1.0 - primaryUv.y);
     float frameFade = edgeFadeX * edgeFadeY;
 
-    // Transparent source portraits benefit from alpha; opaque ones still use tone + contour.
-    float portraitPresence = max(smoothstep(0.035, 0.22, tone), edge * 0.92);
-    portraitPresence *= mix(0.28, 1.0, texel.a);
+    // Suppress the darkest background while preserving silhouette edges.
+    float portraitPresence =
+      max(smoothstep(0.055, 0.235, tone), contour * 0.94);
+    portraitPresence *= mix(0.24, 1.0, texel.a);
     portraitPresence *= frameFade;
 
-    // Top-to-bottom SIGNAL acquisition reveal.
+    // ---------------- ACQUISITION REVEAL ----------------
     float scanY = 1.15 - u_progress * 1.30;
-    float reveal = smoothstep(scanY - 0.08, scanY + 0.025, sampleUv.y);
-    float scanLine = exp(-abs(sampleUv.y - scanY) * 78.0) *
-                     smoothstep(0.02, 0.30, u_progress) *
-                     (1.0 - smoothstep(0.88, 1.0, u_progress));
+    float reveal = smoothstep(scanY - 0.080, scanY + 0.024, primaryUv.y);
+    float scanLine =
+      exp(-abs(primaryUv.y - scanY) * 84.0) *
+      smoothstep(0.02, 0.30, u_progress) *
+      (1.0 - smoothstep(0.89, 1.0, u_progress));
 
-    vec3 graphite = vec3(0.043, 0.051, 0.047);
-    vec3 ivory = vec3(0.885, 0.875, 0.845);
-    vec3 dimIvory = vec3(0.39, 0.415, 0.405);
+    // ---------------- COLOR SYSTEM ----------------
+    vec3 deepGraphite = vec3(0.027, 0.032, 0.030);
+    vec3 ivory = vec3(0.875, 0.865, 0.835);
+    vec3 midIvory = vec3(0.565, 0.585, 0.570);
+    vec3 dimIvory = vec3(0.355, 0.380, 0.368);
     vec3 signal = vec3(0.847, 1.0, 0.47);
 
-    vec3 dotColor = mix(dimIvory, ivory, clamp(tone * 0.98 + contour * 0.34, 0.0, 1.0));
+    vec3 primaryColor =
+      mix(dimIvory, ivory, clamp(tone * 0.94 + contour * 0.31 + midTone * 0.07, 0.0, 1.0));
+    vec3 contourColor = mix(midIvory, ivory, contourEdge * 0.88);
+    vec3 detailColor = mix(midIvory, ivory, clamp(detailEdge * 0.72 + detailMid * 0.28, 0.0, 1.0));
 
-    // A small, deterministic fraction of contour/tone nodes carry the LS signal color.
-    float nodeSeed = hash(cellId * 0.731 + vec2(17.0, 41.0));
-    float signalNode = step(0.986, nodeSeed) *
-                       smoothstep(0.22, 0.80, contour + tone * 0.20);
-    signalNode = max(signalNode, pointerInfluence * smoothstep(0.28, 0.82, contour) * 0.72);
+    // Signal nodes are rare and contour-aware, not random decoration.
+    float nodeSeed = hash(primaryId * 0.731 + vec2(17.0, 41.0));
+    float signalNode =
+      step(0.9915, nodeSeed) *
+      smoothstep(0.28, 0.82, contour + tone * 0.12);
 
-    dotColor = mix(dotColor, signal, clamp(signalNode * 0.92, 0.0, 0.92));
+    float pointerNode =
+      pointerInfluence *
+      smoothstep(0.34, 0.86, contour) *
+      0.58;
 
-    float visibleDot = dotAlpha * portraitPresence * reveal;
+    float nodeMix = clamp(max(signalNode, pointerNode), 0.0, 0.88);
+    primaryColor = mix(primaryColor, signal, nodeMix);
+    contourColor = mix(contourColor, signal, nodeMix * 0.82);
 
-    // Subtle technical grid in the black field, deliberately quieter than the portrait.
+    float visiblePrimary = primaryDot * portraitPresence * reveal;
+    float visibleContour = contourDot * portraitPresence * reveal;
+    float visibleDetail  = detailDot * portraitPresence * reveal;
+
+    // Very quiet technical grid.
     vec2 grid = abs(fract(v_uv * u_resolution / 32.0) - 0.5);
-    float gridLine = smoothstep(0.475, 0.50, max(grid.x, grid.y)) * 0.028;
+    float gridLine = smoothstep(0.478, 0.50, max(grid.x, grid.y)) * 0.020;
 
-    vec3 color = graphite + vec3(gridLine);
-    color = mix(color, dotColor, visibleDot);
-    color += signal * scanLine * 0.19;
-    color += ivory * visibleDot * contour * 0.055;
-    color += signal * pointerInfluence * dotAlpha * contour * 0.075;
+    vec3 color = deepGraphite + vec3(gridLine);
+    color = mix(color, primaryColor, visiblePrimary);
+    color = mix(color, contourColor, visibleContour * 0.88);
+    color = mix(color, detailColor, visibleDetail * 0.74);
+
+    // Contour lift and acquisition signal.
+    color += ivory * visibleContour * 0.042;
+    color += signal * scanLine * 0.165;
+    color += signal * pointerInfluence * visibleContour * 0.055;
+
+    // Tiny final-state identity pulse only while we are actively rendering.
+    float identityPulse =
+      (0.5 + 0.5 * sin(u_time * 5.0)) *
+      smoothstep(0.78, 1.0, u_progress) *
+      (1.0 - smoothstep(0.995, 1.0, u_progress));
+    color += signal * identityPulse * signalNode * 0.05;
 
     gl_FragColor = vec4(color, 1.0);
   }
-`;
+`
 
 function compileShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -256,11 +348,11 @@ function initPortraitSignal(root: HTMLElement) {
   let lastFrame = 0;
   let textureReady = false;
   let firstFrameRendered = false;
-  const revealDuration = 1550;
+  const revealDuration = 1780;
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
-    const maxDpr = compactViewport ? 1.05 : 1.45;
+    const maxDpr = compactViewport ? 1.0 : 1.30;
     const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
     const width = Math.max(1, Math.round(rect.width * dpr));
     const height = Math.max(1, Math.round(rect.height * dpr));
